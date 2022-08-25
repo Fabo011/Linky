@@ -22,8 +22,11 @@
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
+    "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/throttler": "^3.0.0",
+    "crypto": "^1.0.1",
     "dotenv": "^16.0.1",
     "express-rate-limit": "^6.5.1",
     "pg": "^8.8.0",
