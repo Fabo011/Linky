@@ -11,7 +11,7 @@
           <router-link to="/"><a class="nav-link active" aria-current="page">Home</a></router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/about"><a class="nav-link" href="#">SignIn</a></router-link>
+          <router-link to="/signin"><a class="nav-link" href="#">SignIn</a></router-link>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>

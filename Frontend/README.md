@@ -1,35 +1,29 @@
-## Description
+# frontend
 
-Linky link management system frontend.
-
-## Installation
-
-```bash
-$ npm install
+## Project setup
+```
+npm install
 ```
 
-## Running the app
-
-```bash
-# development & production
-$ npm start
-
-# build app
-$ npm build
+### Compiles and hot-reloads for development
+```
+npm run serve
 ```
 
-## Test
-
-```bash
-# unit tests
-$ npm test
-
+### Compiles and minifies for production
+```
+npm run build
 ```
 
-## Support
+### Run your unit tests
+```
+npm run test:unit
+```
 
+### Lints and fixes files
+```
+npm run lint
+```
 
-## Stay in touch
-
-
-## License
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
