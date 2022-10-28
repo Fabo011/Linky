@@ -1,0 +1,7 @@
+POST http://localhost:3000/auth/v1/signin
+content-type: application/json
+
+{
+    "username": "Fabian",
+    "password": "123456789"
+}
