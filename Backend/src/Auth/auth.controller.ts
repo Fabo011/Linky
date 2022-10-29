@@ -1,8 +1,8 @@
-import { Body, Controller, Injectable, Post, Req, Res, ValidationPipe } from '@nestjs/common'
+import { Body, Controller, Injectable, Post, Redirect, Req, Res, ValidationPipe } from '@nestjs/common'
 import { AuthCredentials } from './auth.credentials'
 import { AuthService } from './auth.service'
 import { User } from './user.entity'
-import {  Response } from 'express'
+import { Request, Response } from 'express'
 
 @Injectable()
 @Controller('auth')
@@ -17,7 +17,7 @@ export class AuthController {
 
         const token = await this.authService.getAuthToken(username);
         
-        res.cookie('access_token', token, { httpOnly: true }).send({ success: true });
+        res.send(token);
     }
     
     @Post('/v1/signin')
@@ -31,7 +31,19 @@ export class AuthController {
         
         const token = await this.authService.getAuthToken(username);
         
-        res.cookie('access_token', token, { httpOnly: true }).send({ success: true });
+        res.send(token);
+    }
+
+    @Post('/v1/check')
+    async checkToken(@Req() req: Request, @Res() res: Response) {
+        const token = req.body.token;
+        
+        try {
+           await this.authService.checkToken(token); 
+        } catch (error) {
+           console.log(error);
+           return res.status(401).send('Invalid token');
+        }
     }
 
 }

@@ -1,0 +1,6 @@
+POST http://localhost:3000/auth/v1/check
+content-type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IndiaGJmcmVhZmNkIiwiaWF0IjoxNjY3MDMzMDU5LCJleHAiOjE2NjcxMTk0NTl9._x2TX63J2E24-OeI83m8DvSyeEyaseKt4ftRHRsk"
+}

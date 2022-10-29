@@ -8,17 +8,11 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <router-link to="/"><a class="nav-link active" aria-current="page">Home</a></router-link>
-        </li>
-        <li class="nav-item">
           <router-link to="/signin"><a class="nav-link" href="#">SignIn</a></router-link>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <form class="d-flex col-md-10">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="s">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>
@@ -39,6 +33,9 @@ export default defineComponent({
 <style scoped>
    #logo{
     width: 50px;
+   }
+   #s{
+    width: 80%;
    }
 </style>
 
