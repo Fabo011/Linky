@@ -1,11 +1,9 @@
 <template>
-   <div>
-      <h1>Authenticated: {{authStatus}}</h1>
-   
-</div>
+   <h1>authStatus: {{store.authStatus}}</h1>
 </template>
 
 <script lang="ts">
+import { store } from '../store/store';
 import { defineComponent } from 'vue';
 
  export default defineComponent({
@@ -13,13 +11,16 @@ import { defineComponent } from 'vue';
 
    data(){
    return{
-     authStatus: ''
-   }
-},
+     store
+    }
+   },
 
+  beforeRouteEnter() {
+    if(store.authStatus !== 'loggedIn') {
+        window.location.href = '/signin'
+    }
+  }
 
-
-  
 }); 
 
 </script>
