@@ -43,10 +43,11 @@ export class AuthController {
 
     @Post('/v1/check')
     async checkToken(@Req() req: Request, @Res() res: Response) {
-        const token = req.body.token;
+        const data: any = req.body
         
         try {
-           await this.authService.checkToken(token); 
+           await this.authService.checkToken(data.token); 
+           return 'success'
         } catch (error) {
            console.log(error);
            return res.status(401).send('Invalid token');

@@ -72,7 +72,7 @@ async signup() {
    const password = this.password;
    
 try {
-  await this.axios.post('http://localhost:3000/auth/v1/signin', {
+  await this.axios.post('http://192.168.1.104:3000/auth/v1/signin', {
      username, password
    }).then((res)=> {
      const token = res.data;

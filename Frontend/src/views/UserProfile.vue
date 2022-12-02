@@ -1,5 +1,5 @@
 <template>
-   <h1>authStatus: {{store.authStatus}}</h1>
+   <pre>authStatus: {{store.authStatus}}</pre>
 </template>
 
 <script lang="ts">
@@ -8,7 +8,6 @@ import { defineComponent } from 'vue';
 
  export default defineComponent({
  
-
    data(){
    return{
      store
