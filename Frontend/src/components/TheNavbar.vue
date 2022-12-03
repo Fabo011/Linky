@@ -26,7 +26,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { store } from '../store/store';
-import CreateAndSaveNewLinkVue from './CreateAndSaveNewLink.vue';
+import CreateAndSaveNewLinkVue from './UserProfile/CreateAndSaveNewLink.vue';
 
 export default defineComponent({
   name: "TheNavbar.vue",

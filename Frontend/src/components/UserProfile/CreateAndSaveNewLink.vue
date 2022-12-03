@@ -1,6 +1,6 @@
 <template>
 <section>
-   <img src="../assets/plus.png" id="plus" data-bs-toggle="modal" data-bs-target="#exampleModal" />
+   <img src="../../assets/plus.png" id="plus" data-bs-toggle="modal" data-bs-target="#exampleModal" />
 
  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { store } from '../store/store'
+import { store } from '../../store/store'
 
 export default defineComponent({
 name: "CreateAndSaveNewLink.vue",
@@ -46,11 +46,10 @@ name: "CreateAndSaveNewLink.vue",
       const linkname = this.linkname
       const link = this.link
       const token = store.token
-      const url = 'addNewLink'
    
 try {
   await this.axios.post('http://192.168.1.104:3000/profile/v1/addNewLink', {
-     username, linkname, link, token, url
+     username, linkname, link, token
    }).then((res) => {
       console.log('Link added successfully');
    })
