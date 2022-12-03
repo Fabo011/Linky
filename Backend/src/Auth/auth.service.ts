@@ -38,4 +38,9 @@ async checkPassword(password: string, passwordFromDatabase: string) {
     if(!isMatch) throw new Error('Wrong password!');
 }
 
+
+async checkToken(token: string) {
+    const valid = this.jwtService.verify(token);
+}
+
 }

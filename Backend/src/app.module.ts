@@ -4,7 +4,9 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ProfileModule } from './profile/profile.module';
 import 'dotenv/config';
+import { ProfileController } from './profile/profile.controller';
 
 @Module({
   imports: [
@@ -17,9 +19,9 @@ import 'dotenv/config';
     'password': process.env.DB_PASSWORD,
     'entities': ['dist/**/*.entity{.ts,.js}'],
     "synchronize": true,
-  }), AuthModule          
+  }), AuthModule, ProfileModule          
   ],
-  controllers: [AuthController, AppController],
+  controllers: [AuthController, AppController, ProfileController],
   providers: [AppService],
 })
 export class AppModule {}
