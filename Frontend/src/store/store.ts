@@ -1,4 +1,10 @@
 import { reactive } from 'vue'
+import VuexPersist from 'vuex-persist'
+
+const vuexLocalStorage = new VuexPersist({
+    
+    storage: window.localStorage
+})
 
 
 export const store = reactive({
@@ -17,5 +23,6 @@ export const store = reactive({
     },
     setPassword(password: string) {
         this.password = password
-    } 
+    },
+    plugins: [vuexLocalStorage.plugin]
 });
