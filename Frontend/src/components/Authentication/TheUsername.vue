@@ -1,9 +1,8 @@
 <template>
     <div class="forms-inputs mb-3"> <span>Username</span> <br> 
           <input autocomplete="off" type="text" minlength="4" maxlength="12" 
-          v-model="username" @change="validate" @click.prevent="resetInput" />
-          <p class="text-danger" v-if="usernameError">Invalid username! Username may have between 4 and 12 characters and
-                 don´t use special characters. <br> Correct example: John122
+          v-model="username" @input="validate" @click.prevent="resetInput" />
+          <p class="text-danger">{{usernameError}}
           </p>
     </div>
 </template>
@@ -17,7 +16,7 @@ export default defineComponent({
   data(){
     return{
         username: '',
-        usernameError: false,
+        usernameError: '',
     }
   },
   
@@ -25,14 +24,18 @@ export default defineComponent({
  
 validate(){
  const regEx = new RegExp(/^[a-zA-Z0-9]+$/);
- if(!regEx.test(this.username) || this.username.length <=3) {
-     this.usernameError = true
+ if(!regEx.test(this.username)) {
+     this.usernameError = 'Don`t use special characters. Correct example: John122'
+ }else if(this.username.length <=3){
+  this.usernameError = 'Username may have between 4 and 12 characters'
+ }else{
+  this.usernameError = ''
  }
  store.setUsername(this.username)
 },
 
 resetInput(){
-   this.usernameError = false
+   this.usernameError = ''
 },
 
   }

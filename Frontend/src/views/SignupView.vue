@@ -8,7 +8,7 @@
                 <form class="form-data">
                     <TheUsername></TheUsername>
                     <ThePassword></ThePassword>
-                    <TheAuthButton></TheAuthButton>
+                    <TheRegisterButton></TheRegisterButton>
                 </form>
                 <router-link to="/signin"><a class="nav-link" href="#">Already have an account? Login here</a></router-link>
             </div>
@@ -21,10 +21,10 @@
 import { defineComponent } from 'vue'
 import TheUsername from '@/components/Authentication/TheUsername.vue';
 import ThePassword from '@/components/Authentication/ThePassword.vue';
-import TheAuthButton from '@/components/Authentication/TheAuthButton.vue';
+import TheRegisterButton from '@/components/Authentication/TheRegisterButton.vue';
 
 export default defineComponent({
     name: "SignupView.vue",
-    components: { TheUsername, ThePassword, TheAuthButton }
+    components: { TheUsername, ThePassword, TheRegisterButton }
 });
 </script>

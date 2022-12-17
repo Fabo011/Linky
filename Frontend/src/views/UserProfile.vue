@@ -13,6 +13,7 @@ import { defineComponent } from 'vue';
         };
     },
     beforeRouteEnter() {
+        store.authStatusRefresh()
         if (store.authStatus !== "loggedIn") {
             window.location.href = "/signin";
         }

@@ -37,12 +37,16 @@ export default defineComponent({
 
 data() {
   return{
-     store
+     store,
+     refresh: ''
   }
 },
   
 methods: {
   home(){
+    store.setUsername(this.refresh)
+    store.setToken(this.refresh)
+    store.action(this.refresh)
     this.$router.push(`/`);
   }
 
@@ -54,6 +58,7 @@ methods: {
    #logo{
     width: 50px;
     height: 60px;
+    cursor: pointer;
    }
 </style>
 

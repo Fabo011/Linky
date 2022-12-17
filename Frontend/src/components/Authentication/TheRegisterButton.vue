@@ -1,7 +1,6 @@
 <template>
-    <!-- warning: component currently not in use -->
     <div class="mb-3"><button type="button" class="btn btn-success w-100" @click.prevent="push">{{buttonText}}</button></div>
-                 <p class="text-danger" v-if="error">{{errorText}}</p>
+                 <p class="text-danger">{{errorText}}</p>
 </template>
 
 <script lang="ts">
@@ -17,34 +16,23 @@ export default defineComponent({
         return {
             username: "",
             password: "",
-            buttonText: "",
+            buttonText: "Register",
             authStatus: "loggedIn",
             url: "",
             reset: "",
             store,
-            error: false,
             errorText: ""
         };
     },
-    beforeMount(){
-       const currentRoute = this.$route.name 
-       if(currentRoute === 'signin'){
-          this.url = globalVaribales[0]
-          this.errorText = 'Wrong username or password'
-          this.buttonText = 'Login'
-       }else if(currentRoute === 'signup'){
-          this.url = globalVaribales[1]
-          this.errorText = 'Invalid username or password!'
-          this.buttonText = 'Register'
-       }
-    },
+    
     methods: {
         async push() {
             const username = store.username
             const password = store.password
+            const url = globalVaribales[1]
 
             try {
-                await this.axios.post(`${this.url}`, {
+                await this.axios.post(`${url}`, {
                     username,
                     password
                 }).then((res) => {
@@ -56,12 +44,12 @@ export default defineComponent({
                         this.$router.push(`/profile/${username}`)
                     }
                     else {
-                        this.error = true
+                        this.errorText = 'Duplicate username, please take other username.'
                     }
                 });
             }
             catch (error) {
-                this.error = true
+                this.errorText = 'Duplicate username, please take other username.'
             }
         },
     },
