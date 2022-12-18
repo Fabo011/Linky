@@ -11,6 +11,7 @@
                  <TheLoginButton></TheLoginButton>
              </form>
              <router-link to="/signup"><a class="nav-link" href="#">Don´t have an account? Register here</a></router-link>
+             <ThePasswordResetForm></ThePasswordResetForm>
          </div>
      </div>
  </div>
@@ -22,9 +23,10 @@ import { defineComponent } from 'vue'
 import TheUsername from '@/components/Authentication/TheUsername.vue'
 import ThePassword from '@/components/Authentication/ThePassword.vue'
 import TheLoginButton from '@/components/Authentication/TheLoginButton.vue'
+import ThePasswordResetForm from '@/components/PasswordReset/ThePasswordResetForm.vue';
 
 export default defineComponent({
     name: "SigninView.vue",
-    components: { TheUsername, ThePassword, TheLoginButton }
+    components: { TheUsername, ThePassword, TheLoginButton, ThePasswordResetForm }
 });
 </script>

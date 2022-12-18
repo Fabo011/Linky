@@ -12,7 +12,7 @@
     </nav>
     <nav v-else-if="store.authStatus == 'loggedIn'" class="navbar">
       <form class="mx-2 my-auto d-inline w-80">
-        <input class="form-control" type="search" placeholder="Search" />
+        <input class="form-control inp-search" type="search" placeholder="Search"/>
         <create-and-save-new-link-vue class="position-absolute top-0 end-0"></create-and-save-new-link-vue>
       </form>
     </nav>
@@ -59,6 +59,9 @@ methods: {
     width: 50px;
     height: 60px;
     cursor: pointer;
+   }
+   .inp-search{
+    width: 100%;
    }
 </style>
 
