@@ -10,10 +10,10 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <form class="modal-body">
-             <label for="link-name"><b>username</b></label><br>
-             <input type="text" v-model="username" placeholder="John122" minlength="3" maxlength="50"/><br>
-             <label for="link" id="space-top"><b>Password-Reset-Token</b></label><br>
-             <input type="text" class="w-100" v-model="phrase" placeholder="Add token which you generated in your profile settings." minlength="3" maxlength="500"/><br>
+             <TheUsername></TheUsername>
+             <label>Password-Reset-Token</label><br>
+             <input type="password" class="w-100" v-model="phrase" placeholder="Add token which you generated in your profile settings." minlength="3" maxlength="500"/><br><br>
+             <ThePassword></ThePassword>
           </form>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" @click.prevent="passwordResetBtn" data-bs-dismiss="modal">Add</button>
@@ -26,26 +26,26 @@
     
 <script lang="ts">
     import { defineComponent } from 'vue'
-    import { store } from '../../store/store'
+import TheUsername from '../Authentication/TheUsername.vue';
+import ThePassword from '../Authentication/ThePassword.vue';
+    //import { store } from '../../store/store'
     
     export default defineComponent({
     name: "ThePasswordResetForm.vue",
-    
-     data(){
-     return{
-       username: '',
-       phrase: ''
-      }
-     },
-    
-     methods: {
-        passwordResetBtn(){
-            console.log('Password-Reset');  
+    components: { TheUsername, ThePassword },
+
+    data() {
+        return {
+            username: "",
+            phrase: ""
+        };
+    },
+    methods: {
+        passwordResetBtn() {
+            console.log("Password-Reset");
         }
-     },
-    
-    
-    }); 
+    },
+}); 
     
 </script>
 <style scoped>

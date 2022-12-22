@@ -12,8 +12,9 @@
       <form class="modal-body">
          <label for="link-name"><b>Link name or description</b></label><br>
          <input type="text" v-model="linkname" placeholder="linky" minlength="3" maxlength="50"/><br>
-         <label for="link" id="space-top"><b>Link</b></label><br>
-         <input type="text" class="w-100" v-model="link" placeholder="www.linky.io" minlength="3" maxlength="500"/><br>
+         <label for="link" id="space-top"><b>Category</b></label><br>
+         <input type="text" class="w-100" v-model="category" placeholder="private" minlength="3" maxlength="500"/><br>
+         <TheLink></TheLink>
       </form>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" @click.prevent="addNewLinkBtn" data-bs-dismiss="modal">Add</button>
@@ -27,42 +28,42 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { store } from '../../store/store'
+import TheLink from '../lib/TheLink.vue';
 
 export default defineComponent({
-name: "CreateAndSaveNewLink.vue",
-
- data(){
- return{
-   linkname: '',
-   link: ''
-  }
- },
-
- methods: {
-  async addNewLinkBtn(){
-      console.log(this.linkname)
-      console.log(this.link)
-      const username = 'Fabo'
-      const linkname = this.linkname
-      const link = this.link
-      const token = store.token
-   
-try {
-  await this.axios.post('http://192.168.1.104:3000/profile/v1/addNewLink', {
-     username, linkname, link, token
-   }).then((res) => {
-      console.log('Link added successfully');
-   })
-} catch (error) {
-   console.log(error);
-}
-      
-   },
-
-
- },
-
-
+    name: "CreateAndSaveNewLink.vue",
+    components: { TheLink },
+    
+    data() {
+        return {
+            linkname: "",
+            link: "",
+            category: ""
+        };
+    },
+    methods: {
+        async addNewLinkBtn() {
+            console.log(this.linkname);
+            console.log(this.link);
+            const username = "Fabo";
+            const linkname = this.linkname;
+            const link = this.link;
+            const token = store.token;
+            try {
+                await this.axios.post("http://192.168.1.104:3000/profile/v1/addNewLink", {
+                    username,
+                    linkname,
+                    link,
+                    token
+                }).then((res) => {
+                    console.log("Link added successfully");
+                });
+            }
+            catch (error) {
+                console.log(error);
+            }
+        },
+    },
 }); 
 
 </script>

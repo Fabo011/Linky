@@ -17,7 +17,13 @@ export class ProfileController {
             // ToDo:
             // 1) check if the link is a valid url
             // 2) check if username exists
-            // 3) save data in database
+            // 3) check if user is premium or classic
+                // if premium > continue with step 5
+                    // else check step 4
+            // 4) check with user link counter 
+                    // if user > 50 links - error not store link
+            // 5) Check link against maleware...        
+            // 6) save data in database
            console.log(username);
            
         } catch (error) {

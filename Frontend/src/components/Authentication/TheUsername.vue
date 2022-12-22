@@ -2,8 +2,7 @@
     <div class="forms-inputs mb-3"> <span>Username</span> <br> 
           <input autocomplete="off" type="text" minlength="4" maxlength="12" 
           v-model="username" @input="validate" @click.prevent="resetInput" />
-          <p class="text-danger">{{usernameError}}
-          </p>
+          <p class="text-danger">{{usernameError}}</p>
     </div>
 </template>
 
