@@ -1,5 +1,5 @@
 <template>
-    <div class="forms-inputs mb-4"> <span>Password</span> <br> 
+    <div class="forms-inputs mb-4"> <span><b>Password</b></span> <mark id="mark-counter">{{ password.length }}/25</mark> <br> 
         <input autocomplete="off" type="password" v-model="password" minlength="8" maxlength="25" 
         @input="validatePass" @click.prevent="resetInput" />
         <p class="text-danger">{{passwordError}}</p>

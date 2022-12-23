@@ -45,15 +45,17 @@ export default defineComponent({
         async addNewLinkBtn() {
             console.log(this.linkname);
             console.log(this.link);
-            const username = "Fabo";
-            const linkname = this.linkname;
-            const link = this.link;
-            const token = store.token;
+            const username = store.username
+            const linkname = this.linkname
+            const link = store.link
+            const category = this.category
+            const token = store.token
             try {
-                await this.axios.post("http://192.168.1.104:3000/profile/v1/addNewLink", {
+                await this.axios.post("http://localhost:3000/profile/v1/addNewLink", {
                     username,
                     linkname,
                     link,
+                    category,
                     token
                 }).then((res) => {
                     console.log("Link added successfully");

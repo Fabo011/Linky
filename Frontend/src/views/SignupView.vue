@@ -2,9 +2,9 @@
      <section class="container mt-5">
     <div class="row d-flex justify-content-center">
         <div class="col-md-6">
-            <div class="card px-5 py-5" id="form1">
-              <h4>Register</h4>
-
+            <div class="card px-4 py-5 shadow p-3 mb-5 bg-body rounded border-0" id="form1">
+              <h3><b>Register 💗</b></h3>
+              <hr />
                 <form class="form-data">
                     <TheUsername></TheUsername>
                     <ThePassword></ThePassword>

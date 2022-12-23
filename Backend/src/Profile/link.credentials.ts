@@ -17,9 +17,15 @@ linkname: string
 
 @ApiProperty()
 @IsString()
-@MinLength(3, { message: 'Link must have atleast 4 characters!' })
-@MaxLength(500, { message: 'link is too long, make sure that you have not more then 20 characters!' })
+@MinLength(5, { message: 'Link must have atleast 5 characters!' })
+@MaxLength(800, { message: 'link is too long, make sure that you have not more then 20 characters!' })
 link: string
+
+@ApiProperty()
+@IsString()
+@MinLength(3, { message: 'Category must have atleast 3 characters!' })
+@MaxLength(15, { message: 'Category naming is too long, make sure that you have not more then 15 characters!' })
+category: string
 
 @ApiProperty()
 @IsString()

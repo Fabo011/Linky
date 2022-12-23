@@ -1,12 +1,12 @@
 <template>
- <nav class="navbar navbar-expand-md bg-light">
+ <nav class="navbar navbar-expand-md bg-dark">
    <div class="d-flex order-lg-2">
      <img class="navbar-brand ms-2" src="../assets/linky-logo-128px.png" id="logo" href="/" @click.prevent="home" />
 
     <nav v-if="store.authStatus !== 'loggedIn'" class="navbar" >
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <router-link to="/signin"><a class="nav-link" href="#">SignIn</a></router-link>
+          <router-link to="/signin"><a class="nav-link text-white" href="#">SignIn</a></router-link>
         </li>
       </ul>
     </nav>

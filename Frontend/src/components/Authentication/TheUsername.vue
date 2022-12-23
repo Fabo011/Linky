@@ -1,5 +1,5 @@
 <template>
-    <div class="forms-inputs mb-3"> <span>Username</span> <br> 
+    <div class="forms-inputs mb-3"> <span><b>Username</b></span> <mark id="mark-counter">{{ username.length }}/12</mark> <br> 
           <input autocomplete="off" type="text" minlength="4" maxlength="12" 
           v-model="username" @input="validate" @click.prevent="resetInput" />
           <p class="text-danger">{{usernameError}}</p>
@@ -41,3 +41,9 @@ resetInput(){
 
 });
 </script>
+<style>
+#mark-counter{
+  background-color: #ffff;
+  font-size: 10px;
+}
+</style>
