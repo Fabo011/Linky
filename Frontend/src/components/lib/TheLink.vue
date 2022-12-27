@@ -1,5 +1,5 @@
 <template>
-  <div class="forms-inputs mb-3"> <span>Link</span> <br> 
+  <div class="forms-inputs mb-3" id="space-top"> <span><b>Link</b></span><mark id="mark-counter">{{ link.length }}/800</mark> <br> 
      <input type="text" class="w-100" placeholder="https://www.linky.io" minlength="5" maxlength="800"
        v-model="link" @input="validate" /><br>
        <p class="text-danger">{{linkError}}</p>
@@ -37,5 +37,9 @@ name: "TheLink.vue",
 <style scoped>
 #space-top{
    margin-top: 4px;
+}
+#mark-counter{
+  background-color: #ffff;
+  font-size: 10px;
 }
 </style>
