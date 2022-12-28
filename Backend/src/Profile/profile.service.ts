@@ -1,13 +1,15 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/Auth/user.entity';
-import { Repository } from 'typeorm';
-import { Link } from './link.entity';
+import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { User } from 'src/Auth/user.entity'
+import { Repository } from 'typeorm'
+import { Link } from './link.entity'
+import nvt from 'node-virustotal'
+import axios from 'axios'
 
 @Injectable()
 export class ProfileService {
     constructor( @InjectRepository(User) private userRepository: Repository<User>,
-    @InjectRepository(Link) private linkRepository: Repository<Link>
+    @InjectRepository(Link) private linkRepository: Repository<Link>,
     ){}
 
 async linkFormChecker(link: string) {
@@ -23,6 +25,23 @@ async saveLink(link: Link): Promise<Link> {
     const regEx = new RegExp(/^[a-zA-Z0-9]+$/);
     if(!regEx.test(link.username)) throw new Error('Username has not the correct format');
     return this.linkRepository.save(link);
+}
+
+async urlScanning(url: string) {
+    try {
+        const response = await axios.post(`https://www.virustotal.com/api/v3/urls`, {
+            headers: {
+                'x-apikey': process.env.VIRUS_TOTAL,
+            },
+            data: {
+                'url': url
+            }
+        });
+        console.log(response.data);
+        return response.data;
+      } catch (error) {
+        console.error(error);
+      }
 }
 
 };

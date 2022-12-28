@@ -17,6 +17,10 @@ username: string
 linkname: string
 
 @ApiProperty()
+@Column({name: 'linkdescription', nullable: false})
+linkdescription: string
+
+@ApiProperty()
 @Column({name: 'link', nullable: false})
 link: string
 

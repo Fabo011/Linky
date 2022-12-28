@@ -10,7 +10,7 @@ import { Link } from './link.entity';
 @Module({
   imports: [
             AuthModule, TypeOrmModule.forFeature([User]), 
-            TypeOrmModule.forFeature([Link])
+            TypeOrmModule.forFeature([Link]),
            ],
   controllers: [ProfileController],
   providers: [ProfileService],

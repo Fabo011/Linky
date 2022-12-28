@@ -11,9 +11,15 @@ username: string
 
 @ApiProperty()
 @IsString()
-@MinLength(3, { message: 'Linkname must have atleast 4 characters!' })
-@MaxLength(50, { message: 'Linkname is too long, make sure that you have not more then 12 characters!' })
+@MinLength(3, { message: 'Linkname must have atleast 3 characters!' })
+@MaxLength(20, { message: 'Linkname is too long, make sure that you have not more then 20 characters!' })
 linkname: string
+
+@ApiProperty()
+@IsString()
+@MinLength(3, { message: 'Linkdescription must have atleast 3 characters!' })
+@MaxLength(60, { message: 'Linkdescription is too long, make sure that you have not more then 60 characters!' })
+linkdescription: string
 
 @ApiProperty()
 @IsString()

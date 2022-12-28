@@ -17,10 +17,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form class="modal-body">
-         <label for="link-name"><b>Link-Name/Description</b></label><br>
-         <input type="text" v-model="linkname" placeholder="linky" minlength="3" maxlength="50"/><br>
+         <label for="link-name"><b>Link-Name</b></label><br>
+         <input type="text" v-model="linkname" placeholder="linky" minlength="3" maxlength="30"/><br>
+         <label for="link-description" id="space-top"><b>Link-Description</b></label><br>
+         <input type="text" class="w-100" v-model="linkdescription" placeholder="The best link manager in the world" minlength="3" maxlength="60"/><br>
          <label for="link" id="space-top"><b>Category</b></label><br>
-         <input type="text" class="w-100" v-model="category" placeholder="private" minlength="3" maxlength="500"/><br>
+         <input type="text" class="w-100" v-model="category" placeholder="private" minlength="3" maxlength="15"/><br>
          <TheLink></TheLink>
       </form>
       <div class="modal-footer">
@@ -44,6 +46,7 @@ export default defineComponent({
     data() {
         return {
             linkname: "",
+            linkdescription: "",
             link: "",
             category: ""
         };
@@ -54,6 +57,7 @@ export default defineComponent({
             console.log(this.link);
             const username = store.username
             const linkname = this.linkname
+            const linkdescription = this.linkdescription
             const link = store.link
             const category = this.category
             const token = store.token
@@ -61,6 +65,7 @@ export default defineComponent({
                 await this.axios.post("http://localhost:3000/profile/v1/addNewLink", {
                     username,
                     linkname,
+                    linkdescription,
                     link,
                     category,
                     token

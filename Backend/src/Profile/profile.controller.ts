@@ -25,12 +25,15 @@ export class ProfileController {
                     // else check step 4
             // 4) check with user link counter 
                     // if user > 50 links - error not store link
-            // 5) Check link against maleware...        
+                    
+            // 5) Check link against maleware...  
+            // url scanning not working yet
+            await this.profileService.urlScanning(link.link)      
             await this.profileService.saveLink(link)
            
         } catch (error) {
             console.log(error);
-            res.status(401).send('ToDo: Define errors')
+            res.status(401).send('Link was maleformed or invalid!')
         }
        
     };

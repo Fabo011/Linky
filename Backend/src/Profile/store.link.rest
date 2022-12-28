@@ -1,0 +1,11 @@
+POST http://localhost:3000/profile/v1/addNewLink
+content-type: application/json
+
+{
+   "username": "Fabo",
+   "linkname": "lernx",
+   "linkdescription": "Lernx is the best learningplattform",
+   "link": "https://www.lernplattformx.at",
+   "category": "private",
+   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkZhYm8iLCJpYXQiOjE2NzIyMzA2MDQsImV4cCI6MTY3MjMxNzAwNH0.bgZJsxiuH9pRTNzY0U6A6SJmeG758rja66MNfNtllkc"
+}
