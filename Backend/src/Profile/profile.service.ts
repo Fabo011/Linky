@@ -3,13 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { User } from 'src/Auth/user.entity'
 import { Repository } from 'typeorm'
 import { Link } from './link.entity'
-import nvt from 'node-virustotal'
 import axios from 'axios'
+import { HttpService } from '@nestjs/axios'
 
 @Injectable()
 export class ProfileService {
     constructor( @InjectRepository(User) private userRepository: Repository<User>,
     @InjectRepository(Link) private linkRepository: Repository<Link>,
+    private readonly httpService: HttpService
     ){}
 
 async linkFormChecker(link: string) {
@@ -28,7 +29,7 @@ async saveLink(link: Link): Promise<Link> {
 }
 
 async urlScanning(url: string) {
-    try {
+    /*try {
         const response = await axios.post(`https://www.virustotal.com/api/v3/urls`, {
             headers: {
                 'x-apikey': process.env.VIRUS_TOTAL,
@@ -41,7 +42,29 @@ async urlScanning(url: string) {
         return response.data;
       } catch (error) {
         console.error(error);
+      }*/
+      
+
+      try {
+        //https://www.virustotal.com/vtapi/v2/url/report
+         const domain = url
+         this.httpService.get(`https://www.virustotal.com/vtapi/v2/url/report`, {
+            params: {
+              apikey: process.env.VIRUS_TOTAL,
+              data: url
+            },
+          },
+        ).subscribe(res => {
+            console.log(res)
+        })
+        
+      } catch (error) {
+        console.error(error);
       }
+}
+
+async retriveAllLinks(username: string): Promise<Link> {
+    return this.linkRepository.findOneByOrFail({username})
 }
 
 };

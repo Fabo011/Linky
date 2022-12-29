@@ -6,11 +6,13 @@ import { ProfileService } from './profile.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/Auth/user.entity';
 import { Link } from './link.entity';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
             AuthModule, TypeOrmModule.forFeature([User]), 
             TypeOrmModule.forFeature([Link]),
+            HttpModule
            ],
   controllers: [ProfileController],
   providers: [ProfileService],

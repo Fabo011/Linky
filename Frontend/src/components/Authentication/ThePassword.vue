@@ -1,6 +1,6 @@
 <template>
     <div class="forms-inputs mb-4"> <span><b>Password</b></span> <mark id="mark-counter">{{ password.length }}/25</mark> <br> 
-        <input autocomplete="off" type="password" v-model="password" minlength="8" maxlength="25" 
+        <input autocomplete="off" type="password" v-model="password" minlength="8" maxlength="25" class="w-100"
         @input="validatePass" @click.prevent="resetInput" />
         <p class="text-danger">{{passwordError}}</p>
     </div>
@@ -36,6 +36,15 @@ resetInput(){
 
   }
 
-})
-
+});
 </script>
+<style>
+#mark-counter{
+  background-color: #ffff;
+  font-size: 10px;
+}
+input:focus {
+  outline: none;
+  box-shadow: none;
+}
+</style>

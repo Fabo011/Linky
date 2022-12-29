@@ -5,7 +5,7 @@ content-type: application/json
    "username": "Fabo",
    "linkname": "lernx",
    "linkdescription": "Lernx is the best learningplattform",
-   "link": "https://www.lernplattformx.at",
+   "link": "https://www.iammaleware.com",
    "category": "private",
-   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkZhYm8iLCJpYXQiOjE2NzIyMzA2MDQsImV4cCI6MTY3MjMxNzAwNH0.bgZJsxiuH9pRTNzY0U6A6SJmeG758rja66MNfNtllkc"
+   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkZhYm8iLCJpYXQiOjE2NzIzMTc1MDUsImV4cCI6MTY3MjQwMzkwNX0.y7itHh9LhkGeAEL3CwgT1GDEumvSJ5EjGGeEPFlLJKU"
 }
