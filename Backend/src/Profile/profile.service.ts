@@ -63,8 +63,8 @@ async urlScanning(url: string) {
       }
 }
 
-async retriveAllLinks(username: string): Promise<Link> {
-    return this.linkRepository.findOneByOrFail({username})
+async retriveAllLinks(username: string) {
+    return this.linkRepository.find({where: {username}})
 }
 
 };

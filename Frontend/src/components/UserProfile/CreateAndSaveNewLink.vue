@@ -70,11 +70,11 @@ export default defineComponent({
                     category,
                     token
                 }).then((res) => {
-                    console.log("Link added successfully");
+                    location.reload()
                 });
             }
             catch (error) {
-                console.log(error);
+                console.log(error)
             }
         },
     },

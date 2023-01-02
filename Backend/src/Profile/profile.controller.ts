@@ -43,7 +43,6 @@ export class ProfileController {
     @HttpCode(200)
     @Get('/v1/retriveAllLinks/:username')
     async retrieveAllLinks(@Param('username') username: string) {
-        console.log(username); 
         return this.profileService.retriveAllLinks(username)
     }
 

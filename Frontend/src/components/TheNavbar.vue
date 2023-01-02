@@ -1,5 +1,5 @@
 <template>
- <nav class="navbar navbar-expand-md bg-dark">
+ <nav class="navbar sticky-top navbar-expand-md bg-dark">
    <div class="d-flex order-lg-2">
      <img class="navbar-brand ms-2" src="../assets/linky-logo-128px.png" id="logo" href="/" @click.prevent="home" />
 
@@ -55,6 +55,9 @@ methods: {
 </script>
 
 <style scoped>
+   .navbar.sticky-top {
+    z-index: 5020
+   }
    #logo{
     width: 50px;
     height: 60px;
