@@ -7,6 +7,7 @@ export const store = reactive({
     username: '',
     password: '',
     link: '',
+    searchValue: '',
 
     action(authStatus: string) {
         this.authStatus = authStatus,
@@ -33,5 +34,8 @@ export const store = reactive({
     },
     setLink(link: string){
        this.link = link
+    },
+    setSearchValue(searchValue: string) {
+       this.searchValue = searchValue
     }
 });

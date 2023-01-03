@@ -12,7 +12,7 @@
     </nav>
     <nav v-else-if="store.authStatus == 'loggedIn'" class="navbar">
       <form class="mx-2 my-auto d-inline w-80">
-        <input class="form-control inp-search" type="search" placeholder="Search"/>
+        <SearchBar />
         <create-and-save-new-link-vue class="position-absolute top-0 end-0"></create-and-save-new-link-vue>
       </form>
     </nav>
@@ -27,18 +27,21 @@
 import { defineComponent } from 'vue';
 import { store } from '../store/store';
 import CreateAndSaveNewLinkVue from './UserProfile/CreateAndSaveNewLink.vue';
+import SearchBar from './SearchBar.vue'
 
 export default defineComponent({
   name: "TheNavbar.vue",
 
   components: {
-       CreateAndSaveNewLinkVue
+       CreateAndSaveNewLinkVue,
+       SearchBar
   },
 
 data() {
   return{
      store,
-     refresh: ''
+     refresh: '',
+     searchValue: ''
   }
 },
   
@@ -48,7 +51,7 @@ methods: {
     store.setToken(this.refresh)
     store.action(this.refresh)
     this.$router.push(`/`);
-  }
+   },
 
   }
 });

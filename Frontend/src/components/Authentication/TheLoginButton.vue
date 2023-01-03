@@ -32,7 +32,7 @@ export default defineComponent({
             const url = globalVaribales[0]
 
             try {
-                await this.axios.post(`${url}`, {
+                await this.axios.post(`${url}auth/v1/signin`, {
                     username,
                     password
                 }).then((res) => {

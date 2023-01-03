@@ -29,10 +29,10 @@ export default defineComponent({
         async push() {
             const username = store.username
             const password = store.password
-            const url = globalVaribales[1]
+            const url = globalVaribales[0]
 
             try {
-                await this.axios.post(`${url}`, {
+                await this.axios.post(`${url}auth/v1/signup`, {
                     username,
                     password
                 }).then((res) => {

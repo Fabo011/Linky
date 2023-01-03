@@ -18,7 +18,7 @@
       </div>
       <form class="modal-body">
          <label for="link-name"><b>Link-Name</b></label><br>
-         <input type="text" v-model="linkname" placeholder="linky" minlength="3" maxlength="30"/><br>
+         <input type="text" v-model="linkname" placeholder="linky" minlength="3" maxlength="20"/><br>
          <label for="link-description" id="space-top"><b>Link-Description</b></label><br>
          <input type="text" class="w-100" v-model="linkdescription" placeholder="The best link manager in the world" minlength="3" maxlength="60"/><br>
          <label for="link" id="space-top"><b>Category</b></label><br>
@@ -37,7 +37,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { store } from '../../store/store'
-import TheLink from '../lib/TheLink.vue';
+import TheLink from '../lib/TheLink.vue'
+import globalVaribales from '../../globalVariables'
 
 export default defineComponent({
     name: "CreateAndSaveNewLink.vue",
@@ -53,23 +54,22 @@ export default defineComponent({
     },
     methods: {
         async addNewLinkBtn() {
-            console.log(this.linkname);
-            console.log(this.link);
             const username = store.username
             const linkname = this.linkname
             const linkdescription = this.linkdescription
             const link = store.link
             const category = this.category
             const token = store.token
+            const url = globalVaribales[0]
             try {
-                await this.axios.post("http://localhost:3000/profile/v1/addNewLink", {
+                await this.axios.post(`${url}profile/v1/addNewLink`, {
                     username,
                     linkname,
                     linkdescription,
                     link,
                     category,
                     token
-                }).then((res) => {
+                }).then(() => {
                     location.reload()
                 });
             }
