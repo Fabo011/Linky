@@ -39,11 +39,26 @@ export class ProfileController {
        
     };
 
+
     @ApiTags('profile-controller')
     @HttpCode(200)
     @Get('/v1/retriveAllLinks/:username')
     async retrieveAllLinks(@Param('username') username: string) {
         return this.profileService.retriveAllLinks(username)
-    }
+    };
+
+
+    @ApiTags('profile-controller')
+    @HttpCode(200)
+    @Post('/v1/deleteLink/')
+    async deleteLink(@Body('username') username: string, @Body('link') link: string, @Res() res: Response) {
+        try {
+            await this.profileService.deleteLink(username, link)
+            res.status(200).send('Link successfully deleted') 
+        } catch (error) {
+            console.error(error)
+            res.status(401).send('Invalid action')
+        }
+    };
 
 };

@@ -67,4 +67,8 @@ async retriveAllLinks(username: string) {
     return this.linkRepository.find({where: {username}})
 }
 
+async deleteLink(username: string, link: string) {
+    return this.linkRepository.delete({ username, link })
+}
+
 };
