@@ -2,13 +2,23 @@ import { reactive } from 'vue'
 
 export const store = reactive({
 
+    //auth
     authStatus: '',
     token: '',
     username: '',
     password: '',
-    link: '',
-    searchValue: '',
 
+    //searchbar
+    searchValue: '',
+    
+    //createAndSaveNewLink
+    linkname: '',
+    linkdescription: '',
+    category: '',
+    link: '',
+
+
+    //auth
     action(authStatus: string) {
         this.authStatus = authStatus,
         localStorage.setItem('authStatus', this.authStatus)
@@ -32,10 +42,23 @@ export const store = reactive({
         if(token) this.token = token
         if(user) this.username = user 
     },
-    setLink(link: string){
-       this.link = link
-    },
+
+    //searchbar
     setSearchValue(searchValue: string) {
        this.searchValue = searchValue
+    },
+
+    //createAndSaveNewLink
+    setLink(link: string){
+        this.link = link
+     },
+    setLinkname(linkname: string) {
+        this.linkname = linkname
+    },
+    setLinkdescription(linkdescription: string) {
+        this.linkdescription = linkdescription
+    },
+    setCategory(category: string) {
+        this.category = category
     }
 });

@@ -17,12 +17,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form class="modal-body">
-         <label for="link-name"><b>Link-Name</b></label><br>
-         <input type="text" v-model="linkname" placeholder="linky" minlength="3" maxlength="20"/><br>
-         <label for="link-description" id="space-top"><b>Link-Description</b></label><br>
-         <input type="text" class="w-100" v-model="linkdescription" placeholder="The best link manager in the world" minlength="3" maxlength="60"/><br>
-         <label for="link" id="space-top"><b>Category</b></label><br>
-         <input type="text" class="w-100" v-model="category" placeholder="private" minlength="3" maxlength="15"/><br>
+         <LinkName></LinkName>
+         <LinkDescription></LinkDescription>
+         <TheCategory></TheCategory>
          <TheLink></TheLink>
       </form>
       <div class="modal-footer">
@@ -38,27 +35,27 @@
 import { defineComponent } from 'vue'
 import { store } from '../../store/store'
 import TheLink from '../lib/TheLink.vue'
+import LinkName from './CreateLinksChilds/LinkName.vue'
+import LinkDescription from './CreateLinksChilds/LinkDescription.vue'
+import TheCategory from './CreateLinksChilds/TheCategory.vue'
 import globalVaribales from '../../globalVariables'
 
 export default defineComponent({
     name: "CreateAndSaveNewLink.vue",
-    components: { TheLink },
+    components: { TheLink, LinkName, LinkDescription, TheCategory },
     
     data() {
         return {
-            linkname: "",
-            linkdescription: "",
-            link: "",
-            category: ""
-        };
+
+        }
     },
     methods: {
         async addNewLinkBtn() {
             const username = store.username
-            const linkname = this.linkname
-            const linkdescription = this.linkdescription
+            const linkname = store.linkname
+            const linkdescription = store.linkdescription
             const link = store.link
-            const category = this.category
+            const category = store.category
             const token = store.token
             const url = globalVaribales[0]
             try {
