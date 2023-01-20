@@ -1,7 +1,7 @@
 <template>
     <label for="link-description"><b>Link-Description</b> 
            <mark id="mark-counter">{{ linkdescription.length }}/60</mark></label><br>
-    <input type="text" v-model="linkdescription" placeholder="The best link manager in the world" minlength="3" maxlength="60"
+    <input type="text" v-model="linkdescription" placeholder="Use link description or tags" minlength="3" maxlength="60"
            class="w-100" @input="validate" @click.prevent="resetInput" />
     <p class="text-danger">{{linkdescriptionError}}</p>
  </template>

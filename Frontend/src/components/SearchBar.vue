@@ -1,6 +1,6 @@
 <template>
       <input type="search" v-model="searchValue" @input="pushSearchValue" 
-      class="form-control inp-search" placeholder="Search"
+      class="form-control inp-search w-100" placeholder="Search"
       />
 </template>
   

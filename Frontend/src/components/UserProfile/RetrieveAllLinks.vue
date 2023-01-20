@@ -10,6 +10,13 @@
      <h6 class="card-title">{{ item.link }}</h6>
      <p class="card-text">{{ item.linkdescription }}</p>
      <a :href="item.link" target="_blank" class="btn btn-primary btn-sm">Open link</a>
+
+     <button class="btn" @click.prevent="shareLink(item)">
+       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share-fill" viewBox="0 0 16 16">
+        <path d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z"/>
+      </svg>
+     </button>
+     
      <button class="btn btn-danger btn-sm btn-space" @click.prevent="deleteLink(item)">Delete</button>
    </div>
   </div>
@@ -22,7 +29,7 @@
 import { store } from '../../store/store'
 import { defineComponent } from 'vue'
 import globalVaribales from '../../globalVariables'
-
+import Clipboard from 'clipboard'
 
  export default defineComponent ({
    name: 'RetrieveAllLinks',
@@ -60,8 +67,24 @@ import globalVaribales from '../../globalVariables'
             this.items = data
        },
 
+        shareLink(item) {
+          const link = item.link
+          new Clipboard('.btn', {
+              text: () => {
+              return link
+               }
+            })
+              this.$swal({
+              icon: 'success',
+              text: 'You copied the link to your clipboard.',
+              timer: 1500,
+              showConfirmButton: false
+            })
+       },
+
        async deleteLink(item) {
         this.$swal({
+          icon: 'warning',
           title: "Warning",
           html: `Do you really want to delete the <b>${item.linkname}</b> link?`,
           showCancelButton: true,
