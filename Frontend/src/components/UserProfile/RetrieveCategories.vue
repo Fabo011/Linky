@@ -34,14 +34,19 @@ export default defineComponent({
     async retrieveAllCategories() {
             const url = globalVaribales[0]
             const username = store.username
-            const res = await fetch(`${url}profile/v1/retriveAllLinks/${username}`)
-            const data = await res.json()
-
-            let uniqueCategories = new Set()
-            data.forEach(item => {
-             uniqueCategories.add(item.category)
-            })
-           this.items = Array.from(uniqueCategories)
+            const token = store.token
+            try {
+             await this.axios.post(`${url}profile/v1/retrieveAllLinks`, 
+                { token, username }).then((res) => { 
+                  let uniqueCategories = new Set()
+                  res.data.forEach(item => {
+                  uniqueCategories.add(item.category)
+                })
+                  this.items = Array.from(uniqueCategories)
+               })
+           } catch (error) {
+              console.error(error)
+           }
     },
     
     setCategory(item) {

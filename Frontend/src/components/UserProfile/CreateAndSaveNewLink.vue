@@ -39,6 +39,7 @@ import LinkName from './CreateLinksChilds/LinkName.vue'
 import LinkDescription from './CreateLinksChilds/LinkDescription.vue'
 import TheCategory from './CreateLinksChilds/TheCategory.vue'
 import globalVaribales from '../../globalVariables'
+import swal from 'sweetalert2'
 
 export default defineComponent({
     name: "CreateAndSaveNewLink.vue",
@@ -67,8 +68,15 @@ export default defineComponent({
                     category,
                     token
                 }).then(() => {
-                    location.reload()
-                });
+                   swal.fire({
+                    icon: 'success',
+                    text: `You´ve successfully saved the link ${linkname}.`,
+                    timer: 1500,
+                    showConfirmButton: false
+                   }).then(() => {
+                     this.$router.go(0)
+                   })
+                })
             }
             catch (error) {
                 console.log(error)
@@ -82,6 +90,7 @@ export default defineComponent({
 <style scoped>
 #plus{
    cursor: pointer;
+   margin-left: 9%;
 }
 #space-top{
    margin-top: 6px;

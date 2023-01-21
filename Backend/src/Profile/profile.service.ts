@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { User } from 'src/Auth/user.entity'
 import { Repository } from 'typeorm'
 import { Link } from './link.entity'
-import axios from 'axios'
 import { HttpService } from '@nestjs/axios'
 
 @Injectable()
@@ -26,41 +25,6 @@ async saveLink(link: Link): Promise<Link> {
     const regEx = new RegExp(/^[a-zA-Z0-9]+$/);
     if(!regEx.test(link.username)) throw new Error('Username has not the correct format');
     return this.linkRepository.save(link);
-}
-
-async urlScanning(url: string) {
-    /*try {
-        const response = await axios.post(`https://www.virustotal.com/api/v3/urls`, {
-            headers: {
-                'x-apikey': process.env.VIRUS_TOTAL,
-            },
-            data: {
-                'url': url
-            }
-        });
-        console.log(response.data);
-        return response.data;
-      } catch (error) {
-        console.error(error);
-      }*/
-      
-
-      try {
-        //https://www.virustotal.com/vtapi/v2/url/report
-         const domain = url
-         this.httpService.get(`https://www.virustotal.com/vtapi/v2/url/report`, {
-            params: {
-              apikey: process.env.VIRUS_TOTAL,
-              data: url
-            },
-          },
-        ).subscribe(res => {
-            console.log(res)
-        })
-        
-      } catch (error) {
-        console.error(error);
-      }
 }
 
 async retriveAllLinks(username: string) {

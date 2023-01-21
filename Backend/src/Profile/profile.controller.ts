@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Injectable, Param, Post, Res, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, HttpCode, Injectable, Post, Res, ValidationPipe } from '@nestjs/common';
 import { LinkCredentials } from './link.credentials';
 import { ProfileService } from './profile.service';
 import { Request, Response } from 'express'
@@ -18,32 +18,20 @@ export class ProfileController {
 
         try {
             await this.profileService.linkFormChecker(link.link)
-            await this.profileService.findUser(username)
-            // ToDo:
-            // 3) check if user is premium or classic
-                // if premium > continue with step 5
-                    // else check step 4
-            // 4) check with user link counter 
-                    // if user > 50 links - error not store link
-                    
-            // 5) Check link against maleware...  
-            // url scanning not working yet
-            //const virusTotal = await this.profileService.urlScanning(link.link)      
+            await this.profileService.findUser(username)     
             await this.profileService.saveLink(link)
-            res.status(200).send('Successfully stored link')
-           
+            res.status(200).send('Successfully stored link') 
         } catch (error) {
             console.log(error);
             res.status(401).send('Link was maleformed or invalid!')
-        }
-       
+        } 
     };
 
 
     @ApiTags('profile-controller')
     @HttpCode(200)
-    @Get('/v1/retriveAllLinks/:username')
-    async retrieveAllLinks(@Param('username') username: string) {
+    @Post('/v1/retrieveAllLinks')
+    async retrieveAllLinks(@Body('username') username: string) {
         return this.profileService.retriveAllLinks(username)
     };
 

@@ -59,12 +59,16 @@ import Clipboard from 'clipboard'
     },
 
     methods: {  
-      async retrieveAllLinks() {
+       async retrieveAllLinks() {
             const url = globalVaribales[0]
             const username = store.username
-            const res = await fetch(`${url}profile/v1/retriveAllLinks/${username}`)
-            const data = await res.json()
-            this.items = data
+            const token = store.token
+           try {
+             await this.axios.post(`${url}profile/v1/retrieveAllLinks`, 
+                { token, username }).then((res) => { this.items = res.data })
+           } catch (error) {
+              console.error(error)
+           }   
        },
 
         shareLink(item) {
@@ -79,7 +83,7 @@ import Clipboard from 'clipboard'
               text: 'You copied the link to your clipboard.',
               timer: 1500,
               showConfirmButton: false
-            })
+              })
        },
 
        async deleteLink(item) {

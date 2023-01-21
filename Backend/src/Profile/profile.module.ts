@@ -23,7 +23,9 @@ export class ProfileModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(checkAuthTokenMiddleware)
-      .forRoutes('profile/v1/addNewLink', 'profile/v1/deleteLink');
+      .forRoutes('profile/v1/addNewLink', 
+                 'profile/v1/deleteLink',
+                 'profile/v1/retrieveAllLinks');
   }
 
 };
