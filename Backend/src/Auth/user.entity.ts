@@ -16,5 +16,9 @@ username: string
 @Column({name: 'password', nullable: false})
 password: string
 
+@ApiProperty()
+@PrimaryGeneratedColumn("uuid", {name: "passwordResetToken"})
+passwordResetToken: string;
+
 }
 

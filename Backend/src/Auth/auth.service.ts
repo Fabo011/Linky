@@ -20,7 +20,7 @@ async create(user: User): Promise<User> {
     const hashedPassword = await bcrypt.hash(user.password, Salt);
     user.password = hashedPassword;
 
-    return this.userRepository.save(user);
+    return this.userRepository.save(user)
 }
 
 async getAuthToken(username: string) {
