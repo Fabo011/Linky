@@ -62,8 +62,8 @@ export default defineComponent({
 </script>
 <style scoped>
 .scrollableCategories {
-   max-height: 30px;
-   display: flex;
+   height: 20px;
+   display: wrap;
    flex-wrap: nowrap;
    overflow-x: scroll;
    margin: 10px;

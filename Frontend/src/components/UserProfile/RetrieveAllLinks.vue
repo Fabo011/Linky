@@ -123,7 +123,7 @@ import Clipboard from 'clipboard'
     }//methods
 }); 
 </script>
-<style>
+<style scoped>
 #theCard{
     margin: 10px;
 }
