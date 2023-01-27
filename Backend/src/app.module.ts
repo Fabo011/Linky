@@ -13,7 +13,7 @@ import { ProfileController } from './profile/profile.controller';
   AuthModule, 
   TypeOrmModule.forRoot({
     'type': 'postgres',
-    'host': 'localhost',
+    'host': '192.168.1.161',
     'port': 5432,
     'username': process.env.DB_USERNAME,
     'password': process.env.DB_PASSWORD,
