@@ -1,13 +1,13 @@
 <template>
- <span class="scrollableCategories">
-   <span class="text-secondary child" 
-          @click.prevent="resetCategories">Categories:</span>
+ <div class="scrollableCategories">
+   <div class="text-secondary mr-2 child" 
+          @click.prevent="resetCategories">Categories:</div>
       <mark v-for="item in items" :key="item.category"
         @click.prevent="setCategory(item)"
-        class="bg-white text-decoration-underline child">
+        class="bg-white text-decoration-underline mr-2 child">
         {{ item }}
       </mark> 
- </span>
+   </div>
 </template>
 <script>
 import { defineComponent } from 'vue'
@@ -62,13 +62,16 @@ export default defineComponent({
 </script>
 <style scoped>
 .scrollableCategories {
-   height: 20px;
-   display: wrap;
+   max-width: 100%;
+   height: 100%;
+   display: flex;
    flex-wrap: nowrap;
    overflow-x: scroll;
+   overflow-y: hidden;
    margin: 10px;
 }
 .child {
    cursor: pointer;
+   white-space: nowrap;
 }
 </style>

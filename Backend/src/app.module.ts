@@ -13,12 +13,14 @@ import { ProfileController } from './Profile/profile.controller';
   AuthModule, 
   TypeOrmModule.forRoot({
     'type': 'postgres',
-    'host': 'localhost',
-    'port': 5432,
+    'host': process.env.DB_HOST,
+    'database': process.env.DB_NAME,
+    'port': 26257,
     'username': process.env.DB_USERNAME,
     'password': process.env.DB_PASSWORD,
     'entities': ['dist/**/*.entity{.ts,.js}'],
     "synchronize": true,
+    "ssl": true
   }), AuthModule, ProfileModule          
   ],
   controllers: [AuthController, AppController, ProfileController],
