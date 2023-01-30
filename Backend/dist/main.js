@@ -5,7 +5,7 @@ const app_module_1 = require("./app.module");
 const cookieParser = require("cookie-parser");
 const swagger_1 = require("@nestjs/swagger");
 const auth_module_1 = require("./Auth/auth.module");
-const profile_module_1 = require("./profile/profile.module");
+const profile_module_1 = require("./Profile/profile.module");
 const basicAuth = require("express-basic-auth");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);

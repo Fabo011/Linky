@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AuthModule } from './Auth/auth.module';
-import { ProfileModule } from './profile/profile.module';
+import { ProfileModule } from './Profile/profile.module';
 import * as basicAuth from 'express-basic-auth';
 
 async function bootstrap() {

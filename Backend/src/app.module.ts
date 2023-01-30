@@ -4,16 +4,16 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ProfileModule } from './profile/profile.module';
+import { ProfileModule } from './Profile/profile.module';
 import 'dotenv/config';
-import { ProfileController } from './profile/profile.controller';
+import { ProfileController } from './Profile/profile.controller';
 
 @Module({
   imports: [
   AuthModule, 
   TypeOrmModule.forRoot({
     'type': 'postgres',
-    'host': '192.168.1.161',
+    'host': 'localhost',
     'port': 5432,
     'username': process.env.DB_USERNAME,
     'password': process.env.DB_PASSWORD,

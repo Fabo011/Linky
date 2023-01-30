@@ -13,9 +13,9 @@ const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const typeorm_1 = require("@nestjs/typeorm");
-const profile_module_1 = require("./profile/profile.module");
+const profile_module_1 = require("./Profile/profile.module");
 require("dotenv/config");
-const profile_controller_1 = require("./profile/profile.controller");
+const profile_controller_1 = require("./Profile/profile.controller");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
