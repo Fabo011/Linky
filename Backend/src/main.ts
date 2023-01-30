@@ -5,12 +5,12 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AuthModule } from './Auth/auth.module';
 import { ProfileModule } from './Profile/profile.module';
 import * as basicAuth from 'express-basic-auth';
+import cors from 'cors'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
   app.use(cookieParser());
-
+  app.use(cors())
   app.use(['/swagger', '/docs-json'], basicAuth({
     challenge: true,
     users: {
