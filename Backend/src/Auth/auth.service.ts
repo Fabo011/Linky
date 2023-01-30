@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
-import { FindOneOptions, Repository } from "typeorm"
+import { Repository } from "typeorm"
 import { User } from "./user.entity"
 import * as bcrypt from 'bcrypt'
 import { JwtService } from '@nestjs/jwt';
@@ -20,7 +20,7 @@ async create(user: User): Promise<User> {
     const hashedPassword = await bcrypt.hash(user.password, Salt);
     user.password = hashedPassword;
 
-    return this.userRepository.save(user);
+    return this.userRepository.save(user)
 }
 
 async getAuthToken(username: string) {
@@ -38,4 +38,9 @@ async checkPassword(password: string, passwordFromDatabase: string) {
     if(!isMatch) throw new Error('Wrong password!');
 }
 
+
+async checkToken(token: string) {
+    const valid = this.jwtService.verify(token);
 }
+
+};

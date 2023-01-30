@@ -1,17 +1,15 @@
 <template>
-  <article>
-     <TheNavbar></TheNavbar>
-  </article>
+  <TheNavbar></TheNavbar>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
- import TheNavbar from "./components/TheNavbar.vue";
+import TheNavbar from './components/TheNavbar.vue'
 
  export default defineComponent({
   name: 'App',
   components: {
-   TheNavbar
+    TheNavbar
   },
 }); 
 
