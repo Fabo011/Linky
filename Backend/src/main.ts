@@ -8,9 +8,8 @@ import * as basicAuth from 'express-basic-auth';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
   app.use(cookieParser());
-
+  app.enableCors()
   app.use(['/swagger', '/docs-json'], basicAuth({
     challenge: true,
     users: {

@@ -1,7 +1,8 @@
 const globalVaribales: string[]=
 [
     // baseBackendUrl
-    "http://192.168.1.163:3000/",
+    "http://localhost:3000/"
+    //"http://192.168.1.163:3000/",
     
 ]
 
