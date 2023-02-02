@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
 import { Repository } from "typeorm"
 import { User } from "./user.entity"
-import * as bcrypt from 'bcrypt'
+import * as crypto from 'crypto'
 import { JwtService } from '@nestjs/jwt';
 import 'dotenv/config';
 
@@ -16,8 +16,7 @@ async create(user: User): Promise<User> {
     const regEx = new RegExp(/^[a-zA-Z0-9]+$/);
     if(!regEx.test(user.username)) throw new Error('Username has not the correct format');
 
-    const Salt = 10;
-    const hashedPassword = await bcrypt.hash(user.password, Salt);
+    const hashedPassword = crypto.createHash("whirlpool").update(user.password, "binary").digest("hex")
     user.password = hashedPassword;
 
     return this.userRepository.save(user)
@@ -34,8 +33,8 @@ async findUser(username: string): Promise<User> {
 }
 
 async checkPassword(password: string, passwordFromDatabase: string) {
-    const isMatch = await bcrypt.compare(password, passwordFromDatabase);
-    if(!isMatch) throw new Error('Wrong password!');
+    const hash = crypto.createHash("whirlpool").update(password, "binary").digest("hex")
+    if(hash !== passwordFromDatabase) throw new Error('Wrong password!')
 }
 
 
