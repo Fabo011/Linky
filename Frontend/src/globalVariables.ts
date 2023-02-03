@@ -1,8 +1,8 @@
 const globalVaribales: string[]=
 [
     // baseBackendUrl
-    "http://localhost:3000/"
-    //"http://192.168.1.163:3000/",
+    "https://linky-backend.onrender.com/"
+    //"http://localhost:3000/",
     
 ]
 
