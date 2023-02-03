@@ -2,9 +2,7 @@
   <article>
      <section class="position-absolute top-50 start-50 translate-middle w-75 p-3"> 
       <h1>Linky 💗</h1>
-      <p>You will no longer forget or click on dangerous links with Linky. Store your links <b>secure</b> and <b>anonymous</b> in the Cloud.</p>
-      <!--grab favicon icons, see below and make domain dynamicly-->
-      <img height="16" width="16" src='http://www.google.com/s2/favicons?domain=www.threesixty-webdevelopers.com' />
+      <p>You will no longer forget any links with Linky. Store your links <b>securely</b> and <b>anonymously</b> in the Cloud.</p>
     </section> 
   </article>
 </template>
