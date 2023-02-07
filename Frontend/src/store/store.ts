@@ -17,6 +17,9 @@ export const store = reactive({
     category: '',
     link: '',
 
+    // link data
+    items: [],
+
 
     //auth
     action(authStatus: string) {
@@ -60,5 +63,5 @@ export const store = reactive({
     },
     setCategory(category: string) {
         this.category = category
-    }
+    },
 });

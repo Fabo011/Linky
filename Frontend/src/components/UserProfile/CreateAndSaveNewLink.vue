@@ -31,7 +31,7 @@
 </section>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from 'vue'
 import { store } from '../../store/store'
 import TheLink from '../lib/TheLink.vue'
@@ -44,6 +44,7 @@ import swal from 'sweetalert2'
 export default defineComponent({
     name: "CreateAndSaveNewLink.vue",
     components: { TheLink, LinkName, LinkDescription, TheCategory },
+    
     
     data() {
         return {
@@ -74,7 +75,12 @@ export default defineComponent({
                     timer: 1500,
                     showConfirmButton: false
                    }).then(() => {
-                     this.$router.go(0)
+                     store.items.push({
+                      linkname: linkname, 
+                      linkdescription: linkdescription, 
+                      link: link, 
+                      category: category, 
+                      token: token})
                    })
                 })
             }

@@ -38,7 +38,6 @@ import Clipboard from 'clipboard'
         return {
             store,
             baseUrl: 'http://www.google.com/s2/favicons?domain=',
-            items: [],
             toast: true
         };
     },
@@ -49,7 +48,7 @@ import Clipboard from 'clipboard'
 
     computed: {
       filteredLinks: function(){
-       return this.items.filter((item)=>{
+       return this.store.items.filter((item)=>{
            return item.linkname.match(store.searchValue) 
                   || item.linkdescription.match(store.searchValue)
                   || item.category.match(store.searchValue)
@@ -63,9 +62,10 @@ import Clipboard from 'clipboard'
             const url = globalVaribales[0]
             const username = store.username
             const token = store.token
+      
            try {
              await this.axios.post(`${url}profile/v1/retrieveAllLinks`, 
-                { token, username }).then((res) => { this.items = res.data })
+                { token, username }).then((res) => { this.store.items = res.data })
            } catch (error) {
               console.error(error)
            }   
