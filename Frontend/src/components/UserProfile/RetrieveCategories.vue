@@ -2,7 +2,7 @@
  <div class="scrollableCategories">
    <div class="text-secondary mr-2 child" 
           @click.prevent="resetCategories">Categories:</div>
-      <mark v-for="item in items" :key="item.category"
+      <mark v-for="item in store.categories" :key="item.category"
         @click.prevent="setCategory(item)"
         class="bg-white text-decoration-underline mr-2 child">
         {{ item }}
@@ -11,7 +11,6 @@
 </template>
 <script>
 import { defineComponent } from 'vue'
-import globalVaribales from '@/globalVariables'
 import { store } from '../../store/store'
 
 
@@ -21,33 +20,15 @@ export default defineComponent({
   data() {
     return {
        store,
-       items: [],
        resetValue: ''
     }
   },
 
  beforeMount() {
-    this.retrieveAllCategories()
+    store.retieveAllLinks()
  },
 
   methods: {
-    async retrieveAllCategories() {
-            const url = globalVaribales[0]
-            const username = store.username
-            const token = store.token
-            try {
-             await this.axios.post(`${url}profile/v1/retrieveAllLinks`, 
-                { token, username }).then((res) => { 
-                  let uniqueCategories = new Set()
-                  res.data.forEach(item => {
-                  uniqueCategories.add(item.category)
-                })
-                  this.items = Array.from(uniqueCategories)
-               })
-           } catch (error) {
-              console.error(error)
-           }
-    },
     
     setCategory(item) {
         store.setSearchValue(item)

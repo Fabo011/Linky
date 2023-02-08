@@ -75,12 +75,7 @@ export default defineComponent({
                     timer: 1500,
                     showConfirmButton: false
                    }).then(() => {
-                     store.items.push({
-                      linkname: linkname, 
-                      linkdescription: linkdescription, 
-                      link: link, 
-                      category: category, 
-                      token: token})
+                    store.retieveAllLinks()
                    })
                 })
             }

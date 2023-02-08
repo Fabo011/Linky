@@ -17,8 +17,15 @@ let AppController = class AppController {
         this.appService = appService;
     }
     getHello() {
+        console.log('Call received');
         return this.appService.getHello();
     }
+    ;
+    async retrieveAllLinks(res) {
+        console.log('heath');
+        return res.status(200).send('Health OK');
+    }
+    ;
 };
 __decorate([
     (0, common_1.Get)(),
@@ -26,9 +33,17 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", String)
 ], AppController.prototype, "getHello", null);
+__decorate([
+    (0, common_1.HttpCode)(200),
+    (0, common_1.Get)('/healthcheck'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "retrieveAllLinks", null);
 AppController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [app_service_1.AppService])
 ], AppController);
 exports.AppController = AppController;
+;
 //# sourceMappingURL=app.controller.js.map

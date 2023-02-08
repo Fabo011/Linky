@@ -1,4 +1,5 @@
 import { reactive } from 'vue'
+import globalVaribales from '@/globalVariables'
 
 export const store = reactive({
 
@@ -20,6 +21,8 @@ export const store = reactive({
     // link data
     items: [],
 
+    // categories
+    categories: [],
 
     //auth
     action(authStatus: string) {
@@ -64,4 +67,40 @@ export const store = reactive({
     setCategory(category: string) {
         this.category = category
     },
+
+    //retrieveAllLinks and Categories
+    async retieveAllLinks() {
+        const url = globalVaribales[0]
+        const username = this.username
+        const token = this.token
+
+            const requiredData = { username, token }
+            const options = {
+                method:'POST',
+                headers:{'Content-Type': 'application/json'},
+                body: JSON.stringify(requiredData)
+               }
+      
+           try {
+            const res = await fetch(`${url}profile/v1/retrieveAllLinks`, options)
+            const data = await res.json()
+            this.items = data
+
+            this.categories = data
+             // eslint-disable-next-line prefer-const
+             let uniqueCategories = new Set()
+             this.categories.forEach(item => {
+             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+             // @ts-ignore: Unreachable code error  
+             uniqueCategories.add(item.category)
+           })
+             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+             // @ts-ignore: Unreachable code error
+             this.categories = Array.from(uniqueCategories)
+             
+           } catch (error) {
+              console.error(error)
+           }   
+    }
+      
 });

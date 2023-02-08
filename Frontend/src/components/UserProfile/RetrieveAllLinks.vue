@@ -43,7 +43,7 @@ import Clipboard from 'clipboard'
     },
 
     created() {
-     this.retrieveAllLinks()
+      store.retieveAllLinks()
     },
 
     computed: {
@@ -58,18 +58,6 @@ import Clipboard from 'clipboard'
     },
 
     methods: {  
-       async retrieveAllLinks() {
-            const url = globalVaribales[0]
-            const username = store.username
-            const token = store.token
-      
-           try {
-             await this.axios.post(`${url}profile/v1/retrieveAllLinks`, 
-                { token, username }).then((res) => { this.store.items = res.data })
-           } catch (error) {
-              console.error(error)
-           }   
-       },
 
         shareLink(item) {
           const link = item.link
@@ -106,7 +94,7 @@ import Clipboard from 'clipboard'
                 await this.axios.post(`${url}profile/v1/deleteLink`, {
                     username, link, token
                 }).then(() => {
-                    this.retrieveAllLinks()
+                    store.retieveAllLinks()
                 })
             }
             catch (error) {
