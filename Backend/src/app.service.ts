@@ -3,6 +3,6 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class AppService {
   getHello(): string {
-    return 'Hello to Linky Backend!';
+    return 'Hello from Linky Backend! Visit linky-cloud.com'
   }
-}
+};

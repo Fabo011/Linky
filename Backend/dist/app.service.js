@@ -10,11 +10,12 @@ exports.AppService = void 0;
 const common_1 = require("@nestjs/common");
 let AppService = class AppService {
     getHello() {
-        return 'Hello to Linky Backend!';
+        return 'Hello from Linky Backend! Visit linky-cloud.com';
     }
 };
 AppService = __decorate([
     (0, common_1.Injectable)()
 ], AppService);
 exports.AppService = AppService;
+;
 //# sourceMappingURL=app.service.js.map
