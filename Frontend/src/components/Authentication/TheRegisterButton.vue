@@ -1,5 +1,11 @@
 <template>
-    <div class="mb-3"><button type="button" class="btn btn-success w-100" @click.prevent="push">{{buttonText}}</button></div>
+    <div class="mb-3">
+        <button v-if="nBtn" type="button" class="btn btn-success w-100" @click.prevent="push">{{buttonText}}</button>
+        <button v-if="loading" class="btn btn-success w-100" type="button" disabled>
+            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+               Loading ...
+        </button>
+    </div>
                  <p class="text-danger">{{errorText}}</p>
 </template>
 
@@ -21,12 +27,18 @@ export default defineComponent({
             url: "",
             reset: "",
             store,
-            errorText: ""
+            errorText: "",
+            nBtn: true,
+
+            // loading
+            loading: false
         };
     },
     
     methods: {
         async push() {
+            this.nBtn = false
+            this.loading = true
             const username = store.username
             const password = store.password
             const url = globalVaribales[0]

@@ -23,7 +23,11 @@
          <TheLink></TheLink>
       </form>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" @click.prevent="addNewLinkBtn" data-bs-dismiss="modal">Add</button>
+        <button v-if="nBtn" type="button" class="btn btn-primary" @click.prevent="addNewLinkBtn" data-bs-dismiss="modal">Add</button>
+        <button v-if="loading" class="btn btn-primary" type="button" disabled>
+            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+               Loading ...
+        </button>
       </div>
     </div>
   </div>
@@ -48,11 +52,14 @@ export default defineComponent({
     
     data() {
         return {
-
+          nBtn: true,
+          loading: false
         }
     },
     methods: {
         async addNewLinkBtn() {
+            this.nBtn = false
+            this.loading = true
             const username = store.username
             const linkname = store.linkname
             const linkdescription = store.linkdescription
@@ -76,6 +83,8 @@ export default defineComponent({
                     showConfirmButton: false
                    }).then(() => {
                     store.retieveAllLinks()
+                    this.nBtn = true
+                    this.loading = false
                    })
                 })
             }

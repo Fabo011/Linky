@@ -51,6 +51,18 @@ let ProfileController = class ProfileController {
         }
     }
     ;
+    async retrievePasswordResetToken(username) {
+        try {
+            const user = await this.profileService.findUser(username);
+            const passwordResetToken = user.passwordResetToken;
+            return { passwordResetToken };
+        }
+        catch (error) {
+            console.error(error);
+            return 'Invalid action';
+        }
+    }
+    ;
 };
 __decorate([
     (0, swagger_1.ApiTags)('profile-controller'),
@@ -75,7 +87,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiTags)('profile-controller'),
     (0, common_1.HttpCode)(200),
-    (0, common_1.Post)('/v1/deleteLink/'),
+    (0, common_1.Post)('/v1/deleteLink'),
     __param(0, (0, common_1.Body)('username')),
     __param(1, (0, common_1.Body)('link')),
     __param(2, (0, common_1.Res)()),
@@ -83,6 +95,15 @@ __decorate([
     __metadata("design:paramtypes", [String, String, Object]),
     __metadata("design:returntype", Promise)
 ], ProfileController.prototype, "deleteLink", null);
+__decorate([
+    (0, swagger_1.ApiTags)('profile-controller'),
+    (0, common_1.HttpCode)(200),
+    (0, common_1.Post)('/v1/retrievePasswordResetToken'),
+    __param(0, (0, common_1.Body)('username')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ProfileController.prototype, "retrievePasswordResetToken", null);
 ProfileController = __decorate([
     (0, common_1.Injectable)(),
     (0, common_1.Controller)('profile'),

@@ -25,7 +25,6 @@ let AppController = class AppController {
     }
     ;
     async retrieveAllLinks(res) {
-        console.log('heath');
         res.send('Health OK');
     }
     ;

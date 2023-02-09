@@ -20,7 +20,7 @@ let ProfileModule = class ProfileModule {
     configure(consumer) {
         consumer
             .apply(checkAuthToken_middleware_1.checkAuthTokenMiddleware)
-            .forRoutes('profile/v1/addNewLink', 'profile/v1/deleteLink', 'profile/v1/retrieveAllLinks');
+            .forRoutes('profile/v1/addNewLink', 'profile/v1/deleteLink', 'profile/v1/retrieveAllLinks', 'profile/v1/retrievePasswordResetToken');
     }
 };
 ProfileModule = __decorate([

@@ -14,7 +14,6 @@ export class AppController {
   @HttpCode(200)
   @Get('/healthcheck')
     async retrieveAllLinks(@Res() res: Response) {
-        console.log('heath')
         res.send('Health OK')
     };
 };

@@ -19,4 +19,4 @@ setInterval(() => {
       }
     })
   }
-}, 2 * 60 * 1000);  // 2 minutes checking
+}, 1 * 60 * 1000);  // 1 minutes checking

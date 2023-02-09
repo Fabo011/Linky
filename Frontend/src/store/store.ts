@@ -24,6 +24,9 @@ export const store = reactive({
     // categories
     categories: [],
 
+    //passwordResetToken
+    passwordResetToken: '',
+
     //auth
     action(authStatus: string) {
         this.authStatus = authStatus,
@@ -101,6 +104,27 @@ export const store = reactive({
            } catch (error) {
               console.error(error)
            }   
-    }
+    },
+
+    async retrievePasswordResetTokenFunction() {
+        const url = globalVaribales[0]
+        const username = this.username
+        const token = this.token
+
+        const requiredData = { username, token }
+            const options = {
+                method:'POST',
+                headers:{'Content-Type': 'application/json'},
+                body: JSON.stringify(requiredData)
+               }
+      
+           try {
+            const res = await fetch(`${url}profile/v1/retrievePasswordResetToken`, options)
+            const data = await res.json()
+            this.passwordResetToken = data.passwordResetToken  
+           } catch (error) {
+              console.error(error)
+           }   
+         },
       
 });
