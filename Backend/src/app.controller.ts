@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
+import { Controller, Get, HttpCode, Res } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Response } from 'express'
 @Controller()
@@ -13,9 +13,8 @@ export class AppController {
 
   @HttpCode(200)
   @Get('/healthcheck')
-    async retrieveAllLinks(res: Response) {
+    async retrieveAllLinks(@Res() res: Response) {
         console.log('heath')
-        return res.status(200).send('Health OK')
+        res.send('Health OK')
     };
-
 };
