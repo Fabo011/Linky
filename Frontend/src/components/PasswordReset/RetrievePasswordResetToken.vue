@@ -33,7 +33,7 @@ export default defineComponent({
              // @ts-ignore: Unreachable code error 
               this.$swal({
               icon: 'success',
-              text: 'You copied the link to your clipboard.',
+              text: 'You´ve copied the token to your clipboard.',
               timer: 1500,
               showConfirmButton: false
               })
