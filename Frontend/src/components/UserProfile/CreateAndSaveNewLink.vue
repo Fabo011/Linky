@@ -17,10 +17,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form class="modal-body">
-         <LinkName></LinkName>
-         <LinkDescription></LinkDescription>
-         <TheCategory></TheCategory>
-         <TheLink></TheLink>
+         <LinkName :key="key"></LinkName>
+         <LinkDescription :key="key"></LinkDescription>
+         <TheCategory :key="key"></TheCategory>
+         <TheLink :key="key"></TheLink>
       </form>
       <div class="modal-footer">
         <button v-if="nBtn" type="button" class="btn btn-primary" @click.prevent="addNewLinkBtn" data-bs-dismiss="modal">Add</button>
@@ -53,7 +53,8 @@ export default defineComponent({
     data() {
         return {
           nBtn: true,
-          loading: false
+          loading: false,
+          key: 1
         }
     },
     methods: {
@@ -85,6 +86,7 @@ export default defineComponent({
                     store.retieveAllLinks()
                     this.nBtn = true
                     this.loading = false
+                    this.key = this.key + 1
                    })
                 })
             }

@@ -22,7 +22,7 @@ Ai functionalities will be available from version 2.0.0.
 
 # Architecture
 
-The architecture of linky-cloud, as shared on GitHub, is the intellectual property of Waismayer Fabian - threesixty-webdevelopers e.U. Unauthorized copying, distribution, modification, or any other use of this information is strictly prohibited. The contents of this repository are provided for informational purposes only and are not intended for commercial use. Any use of this information without the express written consent of Waismayer Fabian - threesixty-webdevelopers e.U is strictly forbidden.
+The architecture of linky-cloud, as shared on GitHub, is the intellectual property of Waismayer Fabian (Github: Fabo011). Unauthorized copying, distribution, modification, or any other use of this information is strictly prohibited. The contents of this repository are provided for informational purposes only and are not intended for commercial use. Any use of this information without the express written consent of Waismayer Fabian (Github: Fabo011) is strictly forbidden.
 
 <p align="center">
   <a href="https://linky-cloud.com/" target="blank"><img src="./Frontend/public/linky-cloud-architecture.png" width="90%" alt="Linky Logo" /></a>
@@ -35,4 +35,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 # Questions
 
-Feel free to reach out to me with any questions or feedback: [linky-cloud@proton.me](mailto:linky-cloud@proton.me)
+Feel free to reach out to me with any questions or feedback: https://matrix.to/#/#linky-cloud:matrix.org or [linky-cloud@proton.me](mailto:linky-cloud@proton.me).
+The matrix chat room is open for everyone. Let´s chat to each other.
