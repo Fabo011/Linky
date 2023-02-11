@@ -4,5 +4,5 @@ export declare class AppController {
     private readonly appService;
     constructor(appService: AppService);
     getHello(): string;
-    retrieveAllLinks(res: Response): Promise<Response<any, Record<string, any>>>;
+    retrieveAllLinks(res: Response): Promise<void>;
 }

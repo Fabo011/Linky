@@ -38,7 +38,7 @@ export class ProfileController {
 
     @ApiTags('profile-controller')
     @HttpCode(200)
-    @Post('/v1/deleteLink/')
+    @Post('/v1/deleteLink')
     async deleteLink(@Body('username') username: string, @Body('link') link: string, @Res() res: Response) {
         try {
             await this.profileService.deleteLink(username, link)
@@ -46,6 +46,20 @@ export class ProfileController {
         } catch (error) {
             console.error(error)
             res.status(401).send('Invalid action')
+        }
+    };
+
+    @ApiTags('profile-controller')
+    @HttpCode(200)
+    @Post('/v1/retrievePasswordResetToken')
+    async retrievePasswordResetToken(@Body('username') username: string) {
+        try {
+            const user = await this.profileService.findUser(username)
+            const passwordResetToken = user.passwordResetToken        
+            return { passwordResetToken }
+        } catch (error) {
+            console.error(error)
+            return 'Invalid action'
         }
     };
 

@@ -8,4 +8,7 @@ export declare class ProfileController {
     addNewLink(linkCredentials: LinkCredentials, link: Link, res: Response): Promise<void>;
     retrieveAllLinks(username: string): Promise<Link[]>;
     deleteLink(username: string, link: string, res: Response): Promise<void>;
+    retrievePasswordResetToken(username: string): Promise<"Invalid action" | {
+        passwordResetToken: string;
+    }>;
 }
