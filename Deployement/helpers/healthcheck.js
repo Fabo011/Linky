@@ -1,9 +1,8 @@
 // This is a helper script to prevent render scaling down the dyno between 6am and 8pm.
 // start command: node healthcheck.js
-const http = require('http')
+/*const http = require('http')
 
 const url = 'http://localhost:3000/healthcheck'
-//https://linky-backend.onrender.com
 
 setInterval(() => {
   const currentTime = new Date().getTime();
@@ -19,4 +18,18 @@ setInterval(() => {
       }
     })
   }
-}, 1 * 60 * 1000);  // 1 minutes checking
+}, 1 * 60 * 1000);  // 1 minutes checking*/
+
+// Todo set that in a interval
+const options = {
+    method:'GET',
+    headers:{'Content-Type': 'application/json'}
+   }
+
+fetch("https://linky-backend.onrender.com/", options).then((res)=> {
+    if(res.status == 200 || res.status == 201) {
+        console.log('ok');
+    }else{
+        console.log(res.error);
+    }
+})
