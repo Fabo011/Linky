@@ -10,10 +10,4 @@ export class AppController {
     console.log('Call received')
     return this.appService.getHello()
   };
-
-  @HttpCode(200)
-  @Get('/healthcheck')
-    async retrieveAllLinks(@Res() res: Response) {
-        res.send('Health OK')
-    };
 };
