@@ -35,5 +35,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 # Questions
 
-Feel free to reach out to me with any questions or feedback: https://matrix.to/#/#linky-cloud:matrix.org or [linky-cloud@proton.me](mailto:linky-cloud@proton.me).
+Feel free to reach out to me with any questions or feedback: <a href="https://matrix.to/#/#linky-cloud:matrix.org" target="blank">https://matrix.to/#/#linky-cloud:matrix.org</a> or [linky-cloud@proton.me](mailto:linky-cloud@proton.me).
 The matrix chat room is open for everyone. Let´s chat to each other.
