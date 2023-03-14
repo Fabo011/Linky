@@ -1,7 +1,7 @@
-POST http://localhost:3000/auth/v1/signin
+POST https://threesixty-webdevelopers.com/auth/v1/signin
 content-type: application/json
 
 {
-    "username": "Fabian",
-    "password": "123456789"
+    "username": "Fabo",
+    "password": "12345678"
 }
