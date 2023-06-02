@@ -20,7 +20,7 @@ import { ProfileController } from './Profile/profile.controller';
     'password': process.env.DB_PASSWORD,
     'entities': ['dist/**/*.entity{.ts,.js}'],
     "synchronize": true,
-    "ssl": true
+    "ssl": false
   }), AuthModule, ProfileModule          
   ],
   controllers: [AuthController, AppController, ProfileController],
