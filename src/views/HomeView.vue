@@ -4,16 +4,17 @@
       <h1>Linky 💗</h1>
       <p>You will no longer forget any links with Linky. Store your links <b>securely</b> and <b>anonymously</b> in the Cloud.</p>
     </section> 
+    <TheFooter />
   </article>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import TheFooter from '../components/lib/TheFooter.vue'
 
 export default defineComponent({
   name: 'HomeView',
-  components: {
-  }
+  components: { TheFooter }
 });
 </script>
 

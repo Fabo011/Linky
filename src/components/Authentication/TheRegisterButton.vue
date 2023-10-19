@@ -1,12 +1,12 @@
 <template>
     <div class="mb-3">
-      <button v-if="nBtn" type="button" class="btn btn-success w-100" @click.prevent="push">{{buttonText}}</button>
+        <button v-if="nBtn" type="button" class="btn btn-success w-100" @click.prevent="push">{{ buttonText }}</button>
         <button v-if="loading" class="btn btn-success w-100" type="button" disabled>
             <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-               Loading ...
+            Loading ...
         </button>
     </div>
-                 <p class="text-danger">{{errorText}}</p>
+    <p class="text-danger">{{ errorText }}</p>
 </template>
 
 <script lang="ts">
@@ -22,7 +22,7 @@ export default defineComponent({
         return {
             username: "",
             password: "",
-            buttonText: "Login",
+            buttonText: "Register",
             authStatus: "loggedIn",
             url: "",
             reset: "",
@@ -34,25 +34,24 @@ export default defineComponent({
             loading: false
         };
     },
-    
+
     methods: {
         async push() {
             this.nBtn = false
             this.loading = true
             const username = store.username
-            const email = username+'@linky.com'
             const password = store.password
+            const email = username + '@linky.com'
 
             try {
-                const { error } = await supabase.auth.signInWithPassword({ email, password })
-                  if (!error) {
+                const { error } = await supabase.auth.signUp({ email, password })
+                if (!error) {
                     store.action(this.authStatus)
                     store.setPassword(this.reset)
                     this.$router.push(`/profile/${username}`)
-                  } else {
-                    this.errorText = 'Wrong username or password.'
-                  }
-                
+                } else {
+                    this.errorText = 'This username already exist.'
+                }
             }
             catch (error) {
                 this.errorText = 'Internal Error.'
