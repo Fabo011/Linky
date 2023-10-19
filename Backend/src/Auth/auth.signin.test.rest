@@ -1,7 +1,0 @@
-POST https://threesixty-webdevelopers.com/auth/v1/signin
-content-type: application/json
-
-{
-    "username": "Fabo",
-    "password": "12345678"
-}
