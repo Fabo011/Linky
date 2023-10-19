@@ -12,7 +12,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { store } from '../../store/store'
-import globalVaribales from '../../globalVariables'
+import { supabase } from '../lib/supabaseClient'
 
 
 export default defineComponent({
@@ -40,25 +40,31 @@ export default defineComponent({
             this.nBtn = false
             this.loading = true
             const username = store.username
+             const email = username+'@linky.com'
             const password = store.password
-            const url = globalVaribales[0]
 
             try {
-                await this.axios.post(`${url}auth/v1/signin`, {
-                    username,
-                    password
-                }).then((res) => {
-                    if (res.status === 200 || res.status === 201) {
-                        const token = res.data
+                const { data } = await supabase.auth.getUser()
+                if (!data.user) {
+                    const { error } = await supabase.auth.signUp({ email, password })
+
+                    if (!error) {
                         store.action(this.authStatus)
-                        store.setToken(token)
                         store.setPassword(this.reset)
                         this.$router.push(`/profile/${username}`)
+                    } else {
+                        this.errorText = 'Duplicate username, please take other username.'
                     }
-                    else {
+                } else {
+                    const { error } = await supabase.auth.signInWithPassword({ email, password })
+                    if (!error) {
+                        store.action(this.authStatus)
+                        store.setPassword(this.reset)
+                        this.$router.push(`/profile/${username}`)
+                    } else {
                         this.errorText = 'Wrong username or password.'
                     }
-                });
+                }
             }
             catch (error) {
                 this.errorText = 'Wrong username or password.'

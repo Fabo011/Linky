@@ -28,8 +28,8 @@
 <script>
 import { store } from '../../store/store'
 import { defineComponent } from 'vue'
-import globalVaribales from '../../globalVariables'
 import Clipboard from 'clipboard'
+import { supabase } from '../lib/supabaseClient'
 
  export default defineComponent ({
    name: 'RetrieveAllLinks',
@@ -88,14 +88,10 @@ import Clipboard from 'clipboard'
          if(result.value == true){
           const username = item.username
           const link = item.link
-          const token = store.token
-          const url = globalVaribales[0]
          try {
-                await this.axios.post(`${url}profile/v1/deleteLink`, {
-                    username, link, token
-                }).then(() => {
-                    store.retieveAllLinks()
-                })
+            await supabase.from('link').delete().eq(`username`, username).eq(`link`, link).then(() => {
+              store.retieveAllLinks()
+            })
             }
             catch (error) {
                 console.log(error)

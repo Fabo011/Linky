@@ -17,7 +17,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <form class="modal-body">
-            <RetrievePasswordResetToken />
+           
           </form>
         </div>
       </div>
@@ -27,11 +27,10 @@
     
     <script lang="ts">
     import { defineComponent } from 'vue'
-    import RetrievePasswordResetToken from '../PasswordReset/RetrievePasswordResetToken.vue'
     
     export default defineComponent({
         name: "CreateAndSaveNewLink.vue",
-        components: { RetrievePasswordResetToken },
+        components: {  },
     }); 
     </script>
     

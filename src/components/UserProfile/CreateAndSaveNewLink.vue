@@ -42,8 +42,8 @@ import TheLink from '../lib/TheLink.vue'
 import LinkName from './CreateLinksChilds/LinkName.vue'
 import LinkDescription from './CreateLinksChilds/LinkDescription.vue'
 import TheCategory from './CreateLinksChilds/TheCategory.vue'
-import globalVaribales from '../../globalVariables'
 import swal from 'sweetalert2'
+import { supabase } from '../lib/supabaseClient'
 
 export default defineComponent({
     name: "CreateAndSaveNewLink.vue",
@@ -66,16 +66,14 @@ export default defineComponent({
             const linkdescription = store.linkdescription
             const link = store.link
             const category = store.category
-            const token = store.token
-            const url = globalVaribales[0]
+
             try {
-                await this.axios.post(`${url}profile/v1/addNewLink`, {
-                    username,
-                    linkname,
-                    linkdescription,
-                    link,
-                    category,
-                    token
+              await supabase.from('link').insert({
+                username: username,
+                linkname: linkname,
+                linkdescription: linkdescription,
+                link: link,
+                category: category
                 }).then(() => {
                    swal.fire({
                     icon: 'success',

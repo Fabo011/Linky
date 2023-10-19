@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
-import globalVaribales from '@/globalVariables'
+import { supabase } from '../components/lib/supabaseClient'
 
 export const store = reactive({
 
@@ -48,7 +48,6 @@ export const store = reactive({
         const token = localStorage.getItem('token')
         const user = localStorage.getItem('user')
         if(authStatus) this.authStatus = authStatus
-        if(token) this.token = token
         if(user) this.username = user 
     },
 
@@ -73,23 +72,15 @@ export const store = reactive({
 
     //retrieveAllLinks and Categories
     async retieveAllLinks() {
-        const url = globalVaribales[0]
         const username = this.username
-        const token = this.token
-
-            const requiredData = { username, token }
-            const options = {
-                method:'POST',
-                headers:{'Content-Type': 'application/json'},
-                body: JSON.stringify(requiredData)
-               }
       
            try {
-            const res = await fetch(`${url}profile/v1/retrieveAllLinks`, options)
-            const data = await res.json()
-            this.items = data
+            const { data, error } = await supabase.from('link').select('*').eq(`username`, username)
+            if (error) throw new Error('Error retrieving data.')
+        
+            this.items = data as any   
 
-            this.categories = data
+            this.categories = data as any
              // eslint-disable-next-line prefer-const
              let uniqueCategories = new Set()
              this.categories.forEach(item => {
@@ -104,27 +95,5 @@ export const store = reactive({
            } catch (error) {
               console.error(error)
            }   
-    },
-
-    async retrievePasswordResetTokenFunction() {
-        const url = globalVaribales[0]
-        const username = this.username
-        const token = this.token
-
-        const requiredData = { username, token }
-            const options = {
-                method:'POST',
-                headers:{'Content-Type': 'application/json'},
-                body: JSON.stringify(requiredData)
-               }
-      
-           try {
-            const res = await fetch(`${url}profile/v1/retrievePasswordResetToken`, options)
-            const data = await res.json()
-            this.passwordResetToken = data.passwordResetToken  
-           } catch (error) {
-              console.error(error)
-           }   
-         },
-      
+    },      
 });
