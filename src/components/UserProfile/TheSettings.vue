@@ -57,7 +57,7 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'CreateAndSaveNewLink.vue',
+  name: 'TheSettings.vue',
   components: {},
 });
 </script>

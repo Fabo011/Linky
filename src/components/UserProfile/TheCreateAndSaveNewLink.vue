@@ -78,9 +78,9 @@
 import { defineComponent } from 'vue';
 import { store } from '../../store/store';
 import TheLink from '../lib/TheLink.vue';
-import LinkName from './CreateLinksChilds/LinkName.vue';
-import LinkDescription from './CreateLinksChilds/LinkDescription.vue';
-import TheCategory from './CreateLinksChilds/TheCategory.vue';
+import LinkName from './createlinkschilds/TheLinkName.vue';
+import LinkDescription from './createlinkschilds/TheLinkDescription.vue';
+import TheCategory from './createlinkschilds/TheCategory.vue';
 import swal from 'sweetalert2';
 import { supabase } from '../lib/supabaseClient';
 

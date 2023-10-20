@@ -7,8 +7,8 @@
 <script>
 import { defineComponent } from 'vue';
 import { store } from '../store/store';
-import RetrieveAllLinks from '../components/UserProfile/RetrieveAllLinks.vue';
-import RetrieveCategories from '@/components/UserProfile/RetrieveCategories.vue';
+import RetrieveAllLinks from '@/components/userprofile/TheRetrieveAllLinks.vue';
+import RetrieveCategories from '@/components/userprofile/TheRetrieveCategories.vue';
 import TheFooter from '@/components/lib/TheFooter.vue';
 
 export default defineComponent({

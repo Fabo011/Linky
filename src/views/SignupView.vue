@@ -36,9 +36,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import TheUsername from '@/components/Authentication/TheUsername.vue';
-import ThePassword from '@/components/Authentication/ThePassword.vue';
-import TheRegisterButton from '@/components/Authentication/TheRegisterButton.vue';
+import TheUsername from '@/components/authentication/TheUsername.vue';
+import ThePassword from '@/components/authentication/ThePassword.vue';
+import TheRegisterButton from '@/components/authentication/TheRegisterButton.vue';
 
 export default defineComponent({
   name: 'SignupView.vue',

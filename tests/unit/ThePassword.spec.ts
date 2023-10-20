@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { shallowMount } from '@vue/test-utils';
-import ThePassword from '../../src/components/Authentication/ThePassword.vue';
+import ThePassword from '../../src/components/authentication/ThePassword.vue';
 
 describe('ThePassword component test', () => {
   

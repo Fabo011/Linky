@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import TheLoginButton from '../../src/components/Authentication/TheLoginButton.vue'
+import TheLoginButton from '../../src/components/authentication/TheLoginButton.vue'
 
 
 jest.mock('axios')

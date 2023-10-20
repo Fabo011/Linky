@@ -16,7 +16,7 @@ import { defineComponent } from 'vue';
 import { store } from '../../store/store';
 
 export default defineComponent({
-  name: 'RetrieveCategories',
+  name: 'TheRetrieveCategories',
 
   data() {
     return {

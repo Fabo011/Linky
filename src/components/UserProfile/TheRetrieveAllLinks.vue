@@ -40,7 +40,7 @@ import Clipboard from 'clipboard';
 import { supabase } from '../lib/supabaseClient';
 
 export default defineComponent({
-  name: 'RetrieveAllLinks',
+  name: 'TheRetrieveAllLinks',
 
   data() {
     return {

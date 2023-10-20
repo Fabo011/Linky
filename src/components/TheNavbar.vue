@@ -36,9 +36,9 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { store } from '../store/store';
-import CreateAndSaveNewLinkVue from './UserProfile/CreateAndSaveNewLink.vue';
-import SearchBar from './SearchBar.vue';
-import TheSettings from './UserProfile/TheSettings.vue';
+import CreateAndSaveNewLinkVue from './userprofile/TheCreateAndSaveNewLink.vue';
+import SearchBar from './TheSearchBar.vue';
+import TheSettings from './userprofile/TheSettings.vue';
 
 export default defineComponent({
   name: 'TheNavbar.vue',

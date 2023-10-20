@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { shallowMount } from '@vue/test-utils';
-import TheUsername from '../../src/components/Authentication/TheUsername.vue';
+import TheUsername from '../../src/components/authentication/TheUsername.vue';
 
 describe('TheUsername component test', () => {
 

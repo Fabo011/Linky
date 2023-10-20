@@ -37,9 +37,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import TheUsername from '@/components/Authentication/TheUsername.vue';
-import ThePassword from '@/components/Authentication/ThePassword.vue';
-import TheLoginButton from '@/components/Authentication/TheLoginButton.vue';
+import TheUsername from '@/components/authentication/TheUsername.vue';
+import ThePassword from '@/components/authentication/ThePassword.vue';
+import TheLoginButton from '@/components/authentication/TheLoginButton.vue';
 import TheFooter from '@/components/lib/TheFooter.vue';
 
 export default defineComponent({
