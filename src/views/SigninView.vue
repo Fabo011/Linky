@@ -47,3 +47,9 @@ export default defineComponent({
   components: { TheUsername, ThePassword, TheLoginButton, TheFooter },
 });
 </script>
+
+<style scoped>
+.nav-link {
+  color: var(--primary-blue-color);
+}
+</style>

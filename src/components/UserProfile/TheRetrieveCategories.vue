@@ -1,16 +1,16 @@
 <template>
   <div class="scrollableCategories">
-    <div class="text-secondary mr-2 child" @click.prevent="resetCategories">Categories:</div>
-    <mark
-      v-for="item in store.categories"
-      :key="item.category"
-      @click.prevent="setCategory(item)"
-      class="bg-white text-decoration-underline mr-2 child"
-    >
+    <div class="text-secondary child" @click.prevent="resetCategories">
+      <span class="cat">Categories</span>
+    </div>
+    <mark v-for="item in store.categories" :key="item.category" @click.prevent="setCategory(item)"
+      class="bg-white text-decoration-none child children"
+      >
       {{ item }}
     </mark>
   </div>
 </template>
+
 <script>
 import { defineComponent } from 'vue';
 import { store } from '../../store/store';
@@ -46,12 +46,21 @@ export default defineComponent({
   height: 100%;
   display: flex;
   flex-wrap: nowrap;
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: hidden;
   margin: 10px;
+  opacity: 0.5;
 }
 .child {
   cursor: pointer;
   white-space: nowrap;
+  border-radius: 5%;
+}
+
+.children {
+  opacity: 0.8;
+}
+.cat {
+  color: var(--primary-background-color);
 }
 </style>

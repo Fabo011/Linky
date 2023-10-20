@@ -1,0 +1,19 @@
+body {
+    background-image: url('../assets/bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+@media (max-width: 768px) {
+    body {
+        background-size: cover;
+    }
+}
+
+:root {
+    --primary-blue-color: #5F7FFF;
+    --primary-background-color: #333;
+    --primary-white-color: #fff;
+}

@@ -1,6 +1,6 @@
 <template>
   <div class="mb-3">
-    <button v-if="nBtn" type="button" class="btn btn-success w-100" @click.prevent="push">
+    <button v-if="nBtn" type="button" class="btn w-100" @click.prevent="push">
       {{ buttonText }}
     </button>
     <button v-if="loading" class="btn btn-success w-100" type="button" disabled>
@@ -60,3 +60,10 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.btn {
+  background-color: var(--primary-background-color);
+  color: var(--primary-white-color);
+}
+</style>

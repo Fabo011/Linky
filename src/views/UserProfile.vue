@@ -1,6 +1,8 @@
 <template>
-  <RetrieveCategories />
-  <RetrieveAllLinks />
+  <div class="linkchain">
+    <RetrieveCategories />
+    <RetrieveAllLinks />
+  </div>
   <TheFooter />
 </template>
 
@@ -32,3 +34,25 @@ export default defineComponent({
   },
 });
 </script>
+<style scoped>
+.linkchain {
+  margin-bottom: 25%;
+}
+
+@media (max-width: 767px) {
+  .linkchain {
+    width: 95%;
+    margin: 0 auto;
+    margin-bottom: 25%;
+  }
+}
+
+@media (min-width: 768px) {
+  .linkchain {
+    width: 75%;
+    margin: 0 auto;
+    margin-bottom: 20%;
+  }
+}
+
+</style>

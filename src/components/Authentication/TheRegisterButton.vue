@@ -60,3 +60,10 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.btn {
+  background-color: var(--primary-background-color);
+  color: var(--primary-white-color);
+}
+</style>

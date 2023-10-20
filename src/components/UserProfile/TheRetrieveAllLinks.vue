@@ -3,7 +3,7 @@
     <div class="card" id="theCard">
       <h5 class="card-header">
         <img height="18" width="18" :src="baseUrl + item.link" :alt="item.linkname" />
-        {{ item.linkname }} <mark class="category text-primary">{{ item.category }}</mark>
+        {{ item.linkname }} <mark class="category text-primary"><span id="cat">{{ item.category }}</span></mark>
       </h5>
       <div class="card-body">
         <h6 class="card-title">{{ item.link }}</h6>
@@ -121,12 +121,19 @@ export default defineComponent({
 #theCard {
   margin: 10px;
 }
+.card-header {
+  background-color: var(--primary-background-color);
+  color: var(--primary-white-color);
+}
 .category {
   float: right;
-  background-color: #f8f9fa;
+  background-color: var(--primary-background-color);
   font-size: 12px;
 }
 .btn-space {
   margin-left: 5px;
+}
+#cat {
+  color: var(--primary-blue-color);
 }
 </style>

@@ -53,7 +53,7 @@
             <TheCategory :key="key"></TheCategory>
             <TheLink :key="key"></TheLink>
           </form>
-          <div class="modal-footer">
+          <div class="modal-footer d-flex justify-content-start">
             <button
               v-if="nBtn"
               type="button"

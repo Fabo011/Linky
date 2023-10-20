@@ -20,10 +20,3 @@ export default defineComponent({
   components: { TheFooter },
 });
 </script>
-
-<style>
-.bg {
-  background-image: url('../assets/bg.jpg');
-  background-size: cover;
-}
-</style>
