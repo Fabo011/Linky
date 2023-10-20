@@ -27,3 +27,9 @@ npm run test:unit
 ```
 npm run lint
 ```
+
+### Format Code
+
+```
+npm run format
+```

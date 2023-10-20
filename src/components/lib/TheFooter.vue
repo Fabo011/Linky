@@ -1,24 +1,24 @@
 <template>
-    <footer class="footer">
-        <div class="container text-center">
-            <p class="mb-0">My App Version {{ version }}</p>
-            <div class="mt-1">
-                <a href="/impressum" class="text-white me-3">Impresum</a>
-                <a href="/privacy" class="text-white">Privacy</a>
-            </div>
-        </div>
-    </footer>
+  <footer class="footer">
+    <div class="container text-center">
+      <p class="mb-0">App Version {{ version }}</p>
+      <div class="mt-1">
+        <a href="/impressum" class="text-white me-3">Impresum</a>
+        <a href="/privacy" class="text-white">Privacy</a>
+      </div>
+    </div>
+  </footer>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-    data() {
-        return {
-            version: process.env.VUE_APP_VERSION,
-        };
-    },
+  data() {
+    return {
+      version: process.env.VUE_APP_VERSION,
+    };
+  },
 });
 </script>
 
@@ -47,7 +47,8 @@ export default defineComponent({
 
 /* Media query for small screens (optional) */
 @media (max-width: 768px) {
-    .footer {
-        text-align: center;
-    }
-}</style>
+  .footer {
+    text-align: center;
+  }
+}
+</style>
