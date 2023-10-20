@@ -49,8 +49,24 @@
             ></button>
           </div>
           <form class="modal-body">
-            <p>Comming soon.</p>
+            <TheChatName :key="key" />
+            <TheChatDescription :key="key" />
           </form>
+          <div class="modal-footer d-flex justify-content-start">
+              <button
+                v-if="nBtn"
+                type="button"
+                class="btn btn-primary"
+                @click.prevent="addNewChatBtn"
+                data-bs-dismiss="modal"
+              >
+                Add
+              </button>
+              <button v-if="loading" class="btn btn-primary" type="button" disabled>
+                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                Loading ...
+              </button>
+            </div>
         </div>
       </div>
     </div>
@@ -59,10 +75,81 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import TheChatName from './TheChatName.vue';
+import TheChatDescription from './TheChatDescription.vue';
+import { store } from '../../../store/store';
+import { supabase } from '../../lib/supabaseClient';
+import swal from 'sweetalert2';
+import { chatLinkLength, chatLinkCharacters, linkyChatUrl } from '../../../globalVariables';
 
 export default defineComponent({
   name: 'TheSettings.vue',
-  components: {},
+  components: { TheChatName, TheChatDescription },
+
+  data() {
+    return {
+      nBtn: true,
+      loading: false,
+      key: 1,
+      link: ''
+    };
+  },
+
+  methods: {
+    generateRandomString() {
+      const length = chatLinkLength;
+      const characters = chatLinkCharacters;
+      let result = '';
+
+      for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters.charAt(randomIndex);
+      }
+
+      this.link = result;
+    },
+
+    async addNewChatBtn() {
+      this.generateRandomString();
+      this.nBtn = false;
+      this.loading = true;
+      const username = store.username;
+      const linkname = store.linkname;
+      const linkdescription = store.linkdescription;
+      const link = linkyChatUrl+this.link;
+      const category = 'chat';
+
+      try {
+        await supabase
+          .from('link')
+          .insert({
+            username: username,
+            linkname: linkname,
+            linkdescription: linkdescription,
+            link: link,
+            category: category,
+          })
+          .then(() => {
+            swal
+              .fire({
+                icon: 'success',
+                text: `You´ve successfully saved the link ${linkname}.`,
+                timer: 1500,
+                showConfirmButton: false,
+              })
+              .then(() => {
+                store.retieveAllLinks();
+                this.nBtn = true;
+                this.loading = false;
+                this.key = this.key + 1;
+              });
+          });
+      } catch (error) {
+        this.loading = false;
+        console.log(error);
+      }
+    },
+  },
 });
 </script>
 

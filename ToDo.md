@@ -9,3 +9,5 @@
 - GitHub actions pipeline
 
 - Add rollbar error report
+
+- https://supabase.com/docs/guides/realtime
