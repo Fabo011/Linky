@@ -3,12 +3,15 @@
     <div class="card" id="theCard">
       <h5 class="card-header">
         <img height="18" width="18" :src="baseUrl + item.link" :alt="item.linkname" />
-        {{ item.linkname }} <mark class="category text-primary"><span id="cat">{{ item.category }}</span></mark>
+        {{ item.linkname }}
+        <mark class="category text-primary"
+          ><span id="cat">{{ item.category }}</span></mark
+        >
       </h5>
       <div class="card-body">
         <h6 class="card-title">{{ item.link }}</h6>
         <p class="card-text">{{ item.linkdescription }}</p>
-        <a :href="item.link" target="_blank" class="btn btn-primary btn-sm">Open link</a>
+        <a :href="item.link" target="_blank" class="btn btn-sm openlink">Open link</a>
 
         <button class="btn" @click.prevent="shareLink(item)">
           <svg
@@ -135,5 +138,11 @@ export default defineComponent({
 }
 #cat {
   color: var(--primary-blue-color);
+}
+.openlink {
+  background-color: var(--primary-blue-color);
+}
+.btn {
+  color: var(--primary-background-color);
 }
 </style>

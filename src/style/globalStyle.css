@@ -17,3 +17,16 @@ body {
     --primary-background-color: #333;
     --primary-white-color: #fff;
 }
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-blue-color);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f0f0f0;
+}

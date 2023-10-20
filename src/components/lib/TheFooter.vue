@@ -3,7 +3,9 @@
     <div class="container text-center">
       <p class="mb-0">App Version {{ version }}</p>
       <div class="mt-1">
-        <a href="/impressum" class="text-white mx-auto">Impresum & Privacy</a>
+        <router-link to="/privacy">
+          <a href="#" class="text-white mx-auto">Imprint & Privacy</a>
+        </router-link>
       </div>
     </div>
   </footer>

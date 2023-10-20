@@ -54,5 +54,4 @@ export default defineComponent({
     margin-bottom: 20%;
   }
 }
-
 </style>

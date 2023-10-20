@@ -49,11 +49,17 @@ export default defineComponent({
         if (!error) {
           store.action(this.authStatus);
           store.setPassword(this.reset);
+          this.nBtn = true;
+          this.loading = false;
           this.$router.push(`/profile/${username}`);
         } else {
+          this.nBtn = true;
+          this.loading = false;
           this.errorText = 'Wrong username or password.';
         }
       } catch (error) {
+        this.nBtn = true;
+        this.loading = false;
         this.errorText = 'Internal Error.';
       }
     },

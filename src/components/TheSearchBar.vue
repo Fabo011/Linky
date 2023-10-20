@@ -23,7 +23,8 @@ export default defineComponent({
 
   methods: {
     pushSearchValue() {
-      store.setSearchValue(this.searchValue);
+      const lowercaseSearchValue = this.searchValue.toLowerCase();
+      store.setSearchValue(lowercaseSearchValue);
     },
   },
 });

@@ -3,9 +3,12 @@
     <div class="text-secondary child" @click.prevent="resetCategories">
       <span class="cat">Categories</span>
     </div>
-    <mark v-for="item in store.categories" :key="item.category" @click.prevent="setCategory(item)"
+    <mark
+      v-for="item in store.categories"
+      :key="item.category"
+      @click.prevent="setCategory(item)"
       class="bg-white text-decoration-none child children"
-      >
+    >
       {{ item }}
     </mark>
   </div>

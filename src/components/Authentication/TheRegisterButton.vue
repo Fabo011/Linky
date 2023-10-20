@@ -49,12 +49,18 @@ export default defineComponent({
         if (!error) {
           store.action(this.authStatus);
           store.setPassword(this.reset);
+          this.nBtn = true;
+          this.loading = false;
           this.$router.push(`/profile/${username}`);
         } else {
           this.errorText = 'This username already exist.';
+          this.nBtn = true;
+          this.loading = false;
         }
       } catch (error) {
         this.errorText = 'Internal Error.';
+        this.nBtn = true;
+        this.loading = false;
       }
     },
   },

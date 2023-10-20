@@ -2,17 +2,17 @@
   <section>
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      fill="gray"
+      width="22"
+      height="22"
+      fill="#5F7FFF"
+      class="bi bi-chat-square-fill"
+      viewBox="0 0 16 16"
       data-bs-toggle="modal"
       data-bs-target="#settingsModal"
-      class="bi bi-gear-fill"
       id="plus"
-      viewBox="0 0 16 16"
     >
       <path
-        d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"
+        d="M14 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-5l-4 3v-3H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12zm0 2H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h5.293l1.353 1.015a1 1 0 0 0 1.225-1.53L8 11l5-3H14a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"
       />
     </svg>
 
@@ -30,15 +30,17 @@
               xmlns="http://www.w3.org/2000/svg"
               width="22"
               height="22"
-              fill="currentColor"
-              class="bi bi-gear-fill"
+              fill="#5F7FFF"
+              class="bi bi-chat-square-fill"
               viewBox="0 0 16 16"
+              data-bs-toggle="modal"
+              data-bs-target="#settingsModal"
             >
               <path
-                d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"
+                d="M14 0a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-5l-4 3v-3H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12zm0 2H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h5.293l1.353 1.015a1 1 0 0 0 1.225-1.53L8 11l5-3H14a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"
               />
             </svg>
-            <h5 class="modal-title space" id="linkyModalLabel"><b>Settings</b></h5>
+            <h5 class="modal-title space" id="linkyModalLabel"><b>Create New Chat</b></h5>
             <button
               type="button"
               class="btn-close"
@@ -46,7 +48,9 @@
               aria-label="Close"
             ></button>
           </div>
-          <form class="modal-body"></form>
+          <form class="modal-body">
+            <p>Comming soon.</p>
+          </form>
         </div>
       </div>
     </div>
@@ -65,6 +69,8 @@ export default defineComponent({
 <style scoped>
 #plus {
   cursor: pointer;
+  background-color: var(--primary-background-color);
+  border-radius: 5%;
 }
 #space-top {
   margin-top: 6px;
