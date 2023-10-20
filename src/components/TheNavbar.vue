@@ -31,7 +31,7 @@
           <create-and-save-new-link-vue
             class="position-absolute top-0 end-0"
           ></create-and-save-new-link-vue>
-          <TheSettings class="position-absolute top-0 end-0 my" />
+          <CreateChatRoom class="position-absolute top-0 end-0 my" />
         </form>
       </nav>
     </div>
@@ -45,7 +45,7 @@ import { defineComponent } from 'vue';
 import { store } from '../store/store';
 import CreateAndSaveNewLinkVue from './userprofile/TheCreateAndSaveNewLink.vue';
 import SearchBar from './TheSearchBar.vue';
-import TheSettings from './userprofile/TheSettings.vue';
+import CreateChatRoom from './userprofile/chat/TheCreateChatRoom.vue';
 
 export default defineComponent({
   name: 'TheNavbar.vue',
@@ -53,7 +53,7 @@ export default defineComponent({
   components: {
     CreateAndSaveNewLinkVue,
     SearchBar,
-    TheSettings,
+    CreateChatRoom,
   },
 
   data() {
