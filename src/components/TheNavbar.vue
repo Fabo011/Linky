@@ -26,12 +26,9 @@
         </ul>
       </nav>
       <nav v-else-if="store.authStatus == 'loggedIn'" class="navbar">
-        <form class="mx-2 my-auto d-inline w-80 my">
+        <form class="d-flex align-items-center">
           <SearchBar />
-          <create-and-save-new-link-vue
-            class="position-absolute top-0 end-0"
-          ></create-and-save-new-link-vue>
-          <CreateChatRoom class="position-absolute top-0 end-0 my" />
+          <TheServiceSelector />
         </form>
       </nav>
     </div>
@@ -46,6 +43,7 @@ import { store } from '../store/store';
 import CreateAndSaveNewLinkVue from './userprofile/TheCreateAndSaveNewLink.vue';
 import SearchBar from './TheSearchBar.vue';
 import CreateChatRoom from './userprofile/chat/TheCreateChatRoom.vue';
+import TheServiceSelector from './userprofile/TheServiceSelector.vue';
 
 export default defineComponent({
   name: 'TheNavbar.vue',
@@ -54,6 +52,7 @@ export default defineComponent({
     CreateAndSaveNewLinkVue,
     SearchBar,
     CreateChatRoom,
+    TheServiceSelector,
   },
 
   data() {
