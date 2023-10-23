@@ -10,7 +10,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { store } from '../store/store';
+import { store } from '../../store/store';
 
 export default defineComponent({
   name: 'SearchBar',

@@ -3,7 +3,7 @@
     <div class="d-flex order-lg-2">
       <img
         class="navbar-brand ms-2"
-        src="../assets/linky-logo-128px.png"
+        src="../../assets/linky-logo-128px.png"
         id="logo"
         href="/"
         @click.prevent="home"
@@ -39,11 +39,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { store } from '../store/store';
-import CreateAndSaveNewLinkVue from './userprofile/TheCreateAndSaveNewLink.vue';
+import { store } from '../../store/store';
+import CreateAndSaveNewLinkVue from '../userprofile/link/TheCreateAndSaveNewLink.vue';
 import SearchBar from './TheSearchBar.vue';
-import CreateChatRoom from './userprofile/chat/TheCreateChatRoom.vue';
-import TheServiceSelector from './userprofile/TheServiceSelector.vue';
+import CreateChatRoom from '../userprofile/chat/TheCreateChatRoom.vue';
+import TheServiceSelector from '../userprofile/TheServiceSelector.vue';
 
 export default defineComponent({
   name: 'TheNavbar.vue',

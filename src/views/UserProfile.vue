@@ -6,11 +6,11 @@
   <TheFooter />
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue';
 import { store } from '../store/store';
-import RetrieveAllLinks from '@/components/userprofile/TheRetrieveAllLinks.vue';
-import RetrieveCategories from '@/components/userprofile/TheRetrieveCategories.vue';
+import RetrieveAllLinks from '@/components/userprofile/link/TheRetrieveAllLinks.vue';
+import RetrieveCategories from '@/components/userprofile/link/TheRetrieveCategories.vue';
 import TheFooter from '@/components/lib/TheFooter.vue';
 
 export default defineComponent({

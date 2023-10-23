@@ -3,10 +3,7 @@
     <button v-if="nBtn" type="button" class="btn btn-success w-100" @click.prevent="push">
       {{ buttonText }}
     </button>
-    <button v-if="loading" class="btn btn-success w-100" type="button" disabled>
-      <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-      Loading ...
-    </button>
+    <LoadingButton v-if="loading" />
   </div>
   <p class="text-danger">{{ errorText }}</p>
 </template>
@@ -15,9 +12,11 @@
 import { defineComponent } from 'vue';
 import { store } from '../../store/store';
 import { supabase } from '../lib/supabaseClient';
+import LoadingButton from '../buttons/TheLoadingButton.vue';
 
 export default defineComponent({
-  name: 'TheAuthButton.vue',
+  name: 'TheRegisterButton.vue',
+  components: { LoadingButton },
 
   data() {
     return {

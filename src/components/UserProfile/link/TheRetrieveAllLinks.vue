@@ -37,10 +37,10 @@
 </template>
 
 <script>
-import { store } from '../../store/store';
+import { store } from '../../../store/store';
 import { defineComponent } from 'vue';
 import Clipboard from 'clipboard';
-import { supabase } from '../lib/supabaseClient';
+import { supabase } from '../../lib/supabaseClient';
 
 export default defineComponent({
   name: 'TheRetrieveAllLinks',

@@ -14,9 +14,10 @@
     <p class="text-danger">{{ linkError }}</p>
   </div>
 </template>
+
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { store } from '../../store/store';
+import { store } from '../../../store/store';
 
 export default defineComponent({
   name: 'TheLink.vue',

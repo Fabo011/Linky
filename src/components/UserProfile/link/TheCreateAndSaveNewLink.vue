@@ -1,10 +1,12 @@
 <template>
   <section>
-    <ChatIcon data-bs-target="#creatChatLinkModal" data-bs-toggle="modal" class="text" />
-    <i class="text" data-bs-target="#creatChatLinkModal" data-bs-toggle="modal"> Create New Chat</i>
+    <LinkIcon data-bs-target="#creatChatLinkModal" data-bs-toggle="modal" class="text" />
+    <i class="text" data-bs-target="#createAndSaveNewLink" data-bs-toggle="modal"
+      >Create New Link</i
+    >
     <div
       class="modal fade"
-      id="creatChatLinkModal"
+      id="createAndSaveNewLink"
       tabindex="-1"
       aria-labelledby="linkyModalLabel"
       aria-hidden="true"
@@ -12,16 +14,18 @@
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content shadow p-2 mb-4 bg-body rounded border-0">
           <div class="modal-header">
-            <ChatIcon />
-            <h5 class="modal-title space" id="linkyModalLabel"><b>Create New Chat</b></h5>
+            <LinkIcon />
+            <h5 class="modal-title" id="linkyModalLabel"><b>Add New Link</b></h5>
             <CloseModalButton />
           </div>
           <form class="modal-body">
-            <TheChatName :key="key" />
-            <TheChatDescription :key="key" />
+            <LinkName :key="key"></LinkName>
+            <LinkDescription :key="key"></LinkDescription>
+            <TheCategory :key="key"></TheCategory>
+            <TheLink :key="key"></TheLink>
           </form>
           <div class="modal-footer d-flex justify-content-start">
-            <AddBtn v-if="nBtn" @click.prevent="addNewChatBtn"> Add </AddBtn>
+            <AddBtn v-if="nBtn" @click.prevent="addNewLinkBtn"> Add </AddBtn>
             <LoadingButton v-if="loading" />
           </div>
         </div>
@@ -32,26 +36,29 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import TheChatName from './TheChatName.vue';
-import TheChatDescription from './TheChatDescription.vue';
 import { store } from '../../../store/store';
-import { supabase } from '../../lib/supabaseClient';
+import TheLink from './TheLink.vue';
+import LinkName from './TheLinkName.vue';
+import LinkDescription from './TheLinkDescription.vue';
+import TheCategory from './TheCategory.vue';
 import swal from 'sweetalert2';
-import { chatLinkLength, chatLinkCharacters, linkyChatUrl } from '../../../globalVariables';
-import ChatIcon from '../../../assets/svg/TheChatIcon.vue';
+import { supabase } from '../../lib/supabaseClient';
+import LinkIcon from '../../../assets/svg/TheLinkIcon.vue';
 import AddBtn from '../../buttons/TheAddBtn.vue';
-import LoadingButton from '../../buttons/TheLoadingButton.vue';
 import CloseModalButton from '../../buttons/TheCloseModalBtn.vue';
+import LoadingButton from '../../buttons/TheLoadingButton.vue';
 
 export default defineComponent({
-  name: 'TheSettings.vue',
+  name: 'CreateAndSaveNewLink.vue',
   components: {
-    TheChatName,
-    TheChatDescription,
-    ChatIcon,
+    TheLink,
+    LinkName,
+    LinkDescription,
+    TheCategory,
+    LinkIcon,
     AddBtn,
-    LoadingButton,
     CloseModalButton,
+    LoadingButton,
   },
 
   data() {
@@ -59,33 +66,17 @@ export default defineComponent({
       nBtn: true,
       loading: false,
       key: 1,
-      link: '',
     };
   },
-
   methods: {
-    generateRandomString() {
-      const length = chatLinkLength;
-      const characters = chatLinkCharacters;
-      let result = '';
-
-      for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * characters.length);
-        result += characters.charAt(randomIndex);
-      }
-
-      this.link = result;
-    },
-
-    async addNewChatBtn() {
-      this.generateRandomString();
+    async addNewLinkBtn() {
       this.nBtn = false;
       this.loading = true;
       const username = store.username;
       const linkname = store.linkname;
       const linkdescription = store.linkdescription;
-      const link = linkyChatUrl + this.link;
-      const category = 'chat';
+      const link = store.link;
+      const category = store.category;
 
       try {
         await supabase
@@ -124,8 +115,7 @@ export default defineComponent({
 <style scoped>
 #plus {
   cursor: pointer;
-  background-color: var(--primary-background-color);
-  border-radius: 5%;
+  margin-left: 9%;
 }
 #space-top {
   margin-top: 6px;
@@ -135,10 +125,9 @@ export default defineComponent({
   font-size: 10px;
   margin-top: 10px;
 }
-.space {
-  margin-left: 3px;
+.btn {
+  background-color: var(--primary-blue-color);
 }
-
 .text {
   cursor: pointer;
 }
