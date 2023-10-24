@@ -13,11 +13,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { appVersion } from '@/globalVariables';
 
 export default defineComponent({
   data() {
     return {
-      version: process.env.VUE_APP_VERSION,
+      version: appVersion,
     };
   },
 });

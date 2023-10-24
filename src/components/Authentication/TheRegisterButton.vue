@@ -1,8 +1,6 @@
 <template>
   <div class="mb-3">
-    <button v-if="nBtn" type="button" class="btn btn-success w-100" @click.prevent="push">
-      {{ buttonText }}
-    </button>
+    <AuthBtn v-if="nBtn" @click.prevent="push" />
     <LoadingButton v-if="loading" />
   </div>
   <p class="text-danger">{{ errorText }}</p>
@@ -13,10 +11,11 @@ import { defineComponent } from 'vue';
 import { store } from '../../store/store';
 import { supabase } from '../lib/supabaseClient';
 import LoadingButton from '../buttons/TheLoadingButton.vue';
+import AuthBtn from '../buttons/TheAuthButton.vue';
 
 export default defineComponent({
   name: 'TheRegisterButton.vue',
-  components: { LoadingButton },
+  components: { LoadingButton, AuthBtn },
 
   data() {
     return {
@@ -65,10 +64,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped>
-.btn {
-  background-color: var(--primary-background-color);
-  color: var(--primary-white-color);
-}
-</style>

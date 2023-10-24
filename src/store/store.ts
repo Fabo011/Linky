@@ -31,14 +31,14 @@ export const store = reactive({
     action(authStatus: string) {
         this.authStatus = authStatus,
         localStorage.setItem('authStatus', this.authStatus)
-        localStorage.setItem('user', this.username)
     },
     setToken(data: string) {
         this.token = data
         localStorage.setItem('token', this.token)
     },
     setUsername(username: string) {
-        this.username = username
+        this.username = username,
+        localStorage.setItem('user', this.username)    
     },
     setPassword(password: string) {
         this.password = password
