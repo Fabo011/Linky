@@ -1,6 +1,6 @@
 ## Bugs
 
-- dropdown auto close when new service was clicked
+- Chat textarea should be cleared after click send.
 
 ## Security
 
