@@ -1,4 +1,5 @@
 <template>
+  <PageNav />
   <section class="container mt-5">
     <div class="row d-flex justify-content-center">
       <div class="col-md-6">
@@ -41,10 +42,11 @@ import TheUsername from '@/components/authentication/TheUsername.vue';
 import ThePassword from '@/components/authentication/ThePassword.vue';
 import TheLoginButton from '@/components/authentication/TheLoginButton.vue';
 import TheFooter from '@/components/lib/TheFooter.vue';
+import PageNav from '@/components/navbars/ThePageNav.vue';
 
 export default defineComponent({
   name: 'SigninView.vue',
-  components: { TheUsername, ThePassword, TheLoginButton, TheFooter },
+  components: { TheUsername, ThePassword, TheLoginButton, PageNav, TheFooter },
 });
 </script>
 

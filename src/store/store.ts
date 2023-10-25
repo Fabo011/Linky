@@ -24,8 +24,11 @@ export const store = reactive({
     // categories
     categories: [],
 
-    //passwordResetToken
+    // passwordResetToken
     passwordResetToken: '',
+
+    // chat
+    text: '',
 
     //auth
     action(authStatus: string) {
@@ -54,6 +57,11 @@ export const store = reactive({
     //searchbar
     setSearchValue(searchValue: string) {
        this.searchValue = searchValue
+    },
+
+    // chat
+    setChatTextValue(text: string) {
+       this.text = text
     },
 
     //createAndSaveNewLink

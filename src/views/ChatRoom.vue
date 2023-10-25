@@ -1,4 +1,5 @@
 <template>
+  <ChatNav />
   <div>
     <h1>Chat</h1>
       <div>
@@ -6,8 +7,6 @@
         <div v-for="message in messages" :key="message.id">
           <p>{{ message.username }}: {{ message.message }}</p>
         </div>
-        <input v-model="newMessage" placeholder="Type your message" />
-        <button @click.prevent="sendMessage">Send</button>
       </div>
     </div>
 </template>
@@ -17,10 +16,11 @@ import { defineComponent } from 'vue';
 import TheFooter from '../components/lib/TheFooter.vue';
 import { supabase } from '@/components/lib/supabaseClient';
 import { store } from '@/store/store';
+import ChatNav from '@/components/navbars/TheChatNav.vue';
 
 export default defineComponent({
   name: 'ChatRoom.vue',
-  components: { TheFooter },
+  components: { TheFooter, ChatNav },
 
   beforeMount() {
     this.loadChatRoom();
@@ -39,7 +39,7 @@ export default defineComponent({
     return {
       store,
       user: store.username,
-      newMessage: '',
+      newMessage: store.text,
       messages: [] as any,
       chatRoom: '' as string
     };
@@ -56,10 +56,15 @@ export default defineComponent({
     },
 
     async sendMessage() {
-      await supabase.from('chat').insert({ username: this.user, message: this.newMessage, chatRoom: this.chatRoom });
-      this.newMessage = '';
-      this.fetchMessages();
-      this.realtimeListener();
+      const { error } = await supabase.from('chat').insert({ username: this.user, message: this.newMessage, chatRoom: this.chatRoom });
+      if (!error) {
+        this.newMessage = '';
+        this.fetchMessages();
+        this.realtimeListener();
+      } else {
+        console.log(error);
+        // Add rollbar
+      }
     },
 
     realtimeListener() {
@@ -84,3 +89,44 @@ export default defineComponent({
   }
 });
 </script>
+
+<style scoped>
+.container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  
+  padding: 10px;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.textarea-container {
+  width: 100%;
+}
+
+button {
+  background-color: #007BFF;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  width: 10%;
+  margin-right: 3px;
+}
+
+textarea {
+  padding: 2px;
+  margin: 0;
+  flex: 1;
+  white-space: pre-wrap;
+  height: 80%;
+}
+</style>

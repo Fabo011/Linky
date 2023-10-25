@@ -1,4 +1,5 @@
 <template>
+  <PageNav />
   <section class="container mt-5">
     <div class="row d-flex justify-content-center">
       <div class="col-md-6">
@@ -39,9 +40,10 @@ import { defineComponent } from 'vue';
 import TheUsername from '@/components/authentication/TheUsername.vue';
 import ThePassword from '@/components/authentication/ThePassword.vue';
 import TheRegisterButton from '@/components/authentication/TheRegisterButton.vue';
+import PageNav from '@/components/navbars/ThePageNav.vue';
 
 export default defineComponent({
   name: 'SignupView.vue',
-  components: { TheUsername, ThePassword, TheRegisterButton },
+  components: { TheUsername, ThePassword, TheRegisterButton, PageNav },
 });
 </script>

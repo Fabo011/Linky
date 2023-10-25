@@ -1,4 +1,5 @@
 <template>
+  <ProfileNav />
   <div class="linkchain">
     <RetrieveCategories />
     <RetrieveAllLinks />
@@ -12,12 +13,14 @@ import { store } from '../store/store';
 import RetrieveAllLinks from '@/components/userprofile/link/TheRetrieveAllLinks.vue';
 import RetrieveCategories from '@/components/userprofile/link/TheRetrieveCategories.vue';
 import TheFooter from '@/components/lib/TheFooter.vue';
+import ProfileNav from '@/components/navbars/TheProfileNav.vue';
 
 export default defineComponent({
   components: {
     RetrieveAllLinks,
     RetrieveCategories,
     TheFooter,
+    ProfileNav
   },
 
   data() {

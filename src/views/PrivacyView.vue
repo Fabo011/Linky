@@ -1,4 +1,5 @@
 <template>
+  <PageNav />
   <div class="imprint-privacy">
     <h1 class="header">{{ projectName }} - Imprint and Privacy Statement</h1>
 
@@ -80,11 +81,12 @@
 
 <script lang="ts">
 import TheFooter from '@/components/lib/TheFooter.vue';
+import PageNav from '@/components/navbars/ThePageNav.vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'ThePrivacyView.vue',
-  components: { TheFooter },
+  components: {PageNav, TheFooter },
 
   data() {
     return {
