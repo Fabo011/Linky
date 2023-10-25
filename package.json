@@ -17,6 +17,7 @@
     "bootstrap-vue": "^2.22.0",
     "clipboard": "^2.0.11",
     "core-js": "^3.8.3",
+    "mitt": "^3.0.1",
     "vue": "^3.3.4",
     "vue-axios": "^3.5.1",
     "vue-router": "^4.0.3",

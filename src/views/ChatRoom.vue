@@ -1,11 +1,12 @@
 <template>
   <ChatNav />
-  <div>
-    <h1>Chat</h1>
-      <div>
-        <h2>Welcome, {{ user }}!</h2>
+  <div class="chat-container">
+      <div class="chat-messages">
         <div v-for="message in messages" :key="message.id">
-          <p>{{ message.username }}: {{ message.message }}</p>
+          <div class="message-block">
+             <span class="message-username">{{ message.username }}</span><br>
+             <span class="message-text">{{ message.message }}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -17,6 +18,7 @@ import TheFooter from '../components/lib/TheFooter.vue';
 import { supabase } from '@/components/lib/supabaseClient';
 import { store } from '@/store/store';
 import ChatNav from '@/components/navbars/TheChatNav.vue';
+import eventBus from '@/components/lib/event-bus';
 
 export default defineComponent({
   name: 'ChatRoom.vue',
@@ -26,6 +28,10 @@ export default defineComponent({
     this.loadChatRoom();
     this.fetchMessages();
     this.loadUsername();
+  },
+
+  created() {
+    this.sendMessageEventBus();
   },
 
   beforeRouteEnter() {
@@ -39,7 +45,7 @@ export default defineComponent({
     return {
       store,
       user: store.username,
-      newMessage: store.text,
+      newMessage: '',
       messages: [] as any,
       chatRoom: '' as string
     };
@@ -56,9 +62,10 @@ export default defineComponent({
     },
 
     async sendMessage() {
-      const { error } = await supabase.from('chat').insert({ username: this.user, message: this.newMessage, chatRoom: this.chatRoom });
+      const message = store.text;
+      const { error } = await supabase.from('chat').insert({ username: this.user, message: message, chatRoom: this.chatRoom });
       if (!error) {
-        this.newMessage = '';
+        store.setChatTextValue(this.newMessage);
         this.fetchMessages();
         this.realtimeListener();
       } else {
@@ -68,6 +75,7 @@ export default defineComponent({
     },
 
     realtimeListener() {
+      console.log('realtime reached');
       supabase
         .channel('chat')
         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chat' }, (payload) => {
@@ -85,48 +93,51 @@ export default defineComponent({
     loadUsername() {
       const username = store.username;
       this.user = username;
+    },
+
+    sendMessageEventBus() {
+      eventBus.on('sendMessage', () => {
+        this.sendMessage();
+      });
     }
   }
 });
 </script>
 
 <style scoped>
-.container {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  
+.chat-container {
+  margin: 0 auto;
+  padding: 5px;
+  font-family: Arial, sans-serif;
+  max-width: 95%;
+
+  @media screen and (min-width: 768px) {
+    max-width: 50%;
+  }
+}
+
+.chat-messages {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.message-block {
+  margin: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
   padding: 10px;
+  opacity: 0.9;
 }
 
-.input-container {
-  display: flex;
-  align-items: center;
-  margin-right: 10px;
+.message-username {
+  font-weight: bold;
+  color: #007BFF;
 }
 
-.textarea-container {
-  width: 100%;
-}
-
-button {
-  background-color: #007BFF;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  margin-left: 10px;
-  width: 10%;
-  margin-right: 3px;
-}
-
-textarea {
-  padding: 2px;
-  margin: 0;
-  flex: 1;
-  white-space: pre-wrap;
-  height: 80%;
+.message-text {
+  font-size: 16px;
+  color: #333;
+  word-wrap: break-word;
 }
 </style>
