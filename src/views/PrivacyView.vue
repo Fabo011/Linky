@@ -86,7 +86,7 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'ThePrivacyView.vue',
-  components: {PageNav, TheFooter },
+  components: { PageNav, TheFooter },
 
   data() {
     return {

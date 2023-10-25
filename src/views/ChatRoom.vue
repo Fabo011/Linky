@@ -1,15 +1,28 @@
 <template>
   <ChatNav />
   <div class="chat-container">
-      <div class="chat-messages">
-        <div v-for="message in messages" :key="message.id">
-          <div class="message-block">
-             <span class="message-username">{{ message.username }}</span><br>
-             <span class="message-text">{{ message.message }}</span>
-          </div>
+    <div class="chat-messages" id="container">
+      <div v-for="message in messages" :key="message.id">
+        <div v-if="user === message.username" class="message-block">
+          <span class="user-avatar">
+            {{ message.username.slice(0, 2) }}
+          </span>
+          <span class="message-username">{{ message.username }}</span
+          ><br />
+          <span class="message-text">{{ message.message }}</span>
+        </div>
+        <div v-if="user !== message.username" class="message-block">
+          <span class="friend-avatar">
+            {{ message.username.slice(0, 2) }}
+          </span>
+          <span class="message-friend">{{ message.username }}</span
+          ><br />
+          <span class="message-text">{{ message.message }}</span>
         </div>
       </div>
     </div>
+  </div>
+  <TheFooter />
 </template>
 
 <script lang="ts">
@@ -32,6 +45,8 @@ export default defineComponent({
 
   created() {
     this.sendMessageEventBus();
+    this.realtimeListener();
+    this.scrollToBottom();
   },
 
   beforeRouteEnter() {
@@ -41,18 +56,23 @@ export default defineComponent({
     }
   },
 
+  updated() {
+    // whenever data changes and the component re-renders, this is called.
+    this.$nextTick(() => this.scrollToBottom());
+  },
+
   data() {
     return {
       store,
       user: store.username,
       newMessage: '',
-      messages: [] as any,
-      chatRoom: '' as string
+      messages: [] as any[],
+      chatRoom: '' as string,
     };
   },
 
   methods: {
-    async fetchMessages () {
+    async fetchMessages() {
       const { data, error } = await supabase.from('chat').select('*').eq(`chatRoom`, this.chatRoom);
       if (data) this.messages = data;
       if (error) {
@@ -63,11 +83,12 @@ export default defineComponent({
 
     async sendMessage() {
       const message = store.text;
-      const { error } = await supabase.from('chat').insert({ username: this.user, message: message, chatRoom: this.chatRoom });
+      const { error } = await supabase
+        .from('chat')
+        .insert({ username: this.user, message: message, chatRoom: this.chatRoom });
       if (!error) {
         store.setChatTextValue(this.newMessage);
-        this.fetchMessages();
-        this.realtimeListener();
+        this.scrollToBottom();
       } else {
         console.log(error);
         // Add rollbar
@@ -75,19 +96,18 @@ export default defineComponent({
     },
 
     realtimeListener() {
-      console.log('realtime reached');
       supabase
         .channel('chat')
         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chat' }, (payload) => {
           this.messages.push(payload.new);
         })
-        .subscribe()
+        .subscribe();
     },
 
     loadChatRoom() {
       const route = this.$route.params.link as string;
-      const chatRR = route.slice(0, 60)
-      this.chatRoom = chatRR;  
+      const chatRR = route.slice(0, 60);
+      this.chatRoom = chatRR;
     },
 
     loadUsername() {
@@ -99,8 +119,12 @@ export default defineComponent({
       eventBus.on('sendMessage', () => {
         this.sendMessage();
       });
-    }
-  }
+    },
+
+    scrollToBottom() {
+      window.scrollTo(0, document.body.scrollHeight);
+    },
+  },
 });
 </script>
 
@@ -109,9 +133,17 @@ export default defineComponent({
   margin: 0 auto;
   padding: 5px;
   font-family: Arial, sans-serif;
+  position: relative;
+  max-height: 100%;
   max-width: 95%;
+  margin-top: 20%;
+  margin-bottom: 30%;
+}
 
-  @media screen and (min-width: 768px) {
+@media screen and (min-width: 768px) {
+  .chat-container {
+    margin-top: 5%;
+    margin-bottom: 15%;
     max-width: 50%;
   }
 }
@@ -132,12 +164,45 @@ export default defineComponent({
 
 .message-username {
   font-weight: bold;
-  color: #007BFF;
+  color: var(--primary-pink);
 }
 
 .message-text {
   font-size: 16px;
-  color: #333;
+  color: var(--primary-background-color);
   word-wrap: break-word;
+}
+
+.message-friend {
+  font-weight: bold;
+  color: var(--primary-blue-color);
+}
+
+.user-avatar {
+  width: 30px;
+  height: 30px;
+  background-color: var(--primary-pink);
+  color: var(--primary-white-color);
+  border-radius: 50%;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 14px;
+  margin-right: 5px;
+}
+
+.friend-avatar {
+  width: 30px;
+  height: 30px;
+  background-color: var(--primary-blue-color);
+  color: var(--primary-white-color);
+  border-radius: 50%;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 14px;
+  margin-right: 5px;
 }
 </style>

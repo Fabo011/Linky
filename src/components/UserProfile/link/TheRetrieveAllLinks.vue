@@ -13,7 +13,7 @@
         <p class="card-text">{{ item.linkdescription }}</p>
         <a :href="item.link" target="_blank" class="btn btn-sm openlink">Open link</a>
 
-        <button class="btn" @click.prevent="shareLink(item)">
+        <button class="btn share" @click.prevent="shareLink(item)">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -121,8 +121,8 @@ export default defineComponent({
 });
 </script>
 <style scoped>
-#theCard {
-  margin: 10px;
+.card {
+  opacity: 0.9;
 }
 .card-header {
   background-color: var(--primary-background-color);
@@ -137,12 +137,16 @@ export default defineComponent({
   margin-left: 5px;
 }
 #cat {
-  color: var(--primary-blue-color);
+  color: var(--primary-pink);
 }
 .openlink {
   background-color: var(--primary-blue-color);
 }
 .btn {
+  color: var(--primary-background-color);
+  color: var(--primary-white-color);
+}
+.share {
   color: var(--primary-background-color);
 }
 </style>

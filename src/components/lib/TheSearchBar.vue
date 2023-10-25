@@ -3,7 +3,7 @@
     type="search"
     v-model="searchValue"
     @input="pushSearchValue"
-    class="form-control inp-search w-100"
+    class="form-control w-100 mt-1"
     placeholder="Search"
   />
 </template>

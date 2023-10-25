@@ -2,7 +2,7 @@
   <div class="btn-group dropstart">
     <button
       type="button"
-      class="btn btn-primary dropdown-toggle"
+      class="btn btn-primary dropdown-toggle mt-1"
       data-bs-toggle="dropdown"
       data-bs-auto-close="outside"
     >
@@ -55,6 +55,6 @@ export default defineComponent({
 .btn {
   margin-left: 3px;
   margin-right: 3px;
-  background-color: var(--primary-pink);
+  background-color: var(--primary-blue-color);
 }
 </style>

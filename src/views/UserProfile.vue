@@ -20,7 +20,7 @@ export default defineComponent({
     RetrieveAllLinks,
     RetrieveCategories,
     TheFooter,
-    ProfileNav
+    ProfileNav,
   },
 
   data() {
