@@ -123,6 +123,7 @@ export default defineComponent({
 <style scoped>
 .card {
   opacity: 0.9;
+  margin-top: 10px;
 }
 .card-header {
   background-color: var(--primary-background-color);

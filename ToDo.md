@@ -1,6 +1,7 @@
 ## Bugs
 
 - Chat textarea should be cleared after click send.
+- Chat messages must be deleteable.
 
 ## Security
 
@@ -13,3 +14,5 @@
 - Add rollbar error report
 
 - https://supabase.com/docs/guides/realtime
+
+- https://supabase.com/docs/guides/storage
