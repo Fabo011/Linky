@@ -1,7 +1,6 @@
 ## Bugs
 
-- Chat textarea should be cleared after click send.
-- Chat messages must be deleteable.
+- All links, chatlinks.. must be editable.
 
 ## Security
 

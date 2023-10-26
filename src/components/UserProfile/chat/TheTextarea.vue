@@ -11,9 +11,14 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { store } from '@/store/store';
+import eventBus from '@/components/lib/event-bus';
 
 export default defineComponent({
   name: 'TheTextarea.vue',
+
+  created() {
+    this.receiveMessageEventBus();
+  },
 
   data() {
     return {
@@ -24,6 +29,12 @@ export default defineComponent({
   methods: {
     pushText() {
       store.setChatTextValue(this.text);
+    },
+
+    receiveMessageEventBus() {
+      eventBus.on('clearChatTextarea', () => {
+        this.text = '';
+      });
     },
   },
 });

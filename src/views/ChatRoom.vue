@@ -1,24 +1,27 @@
 <template>
   <ChatNav />
+  <audio ref="newMessageSound" controls>
+    <source type="audio/mpeg" src="../assets/mp3/newMessageSound.mp3" />
+    Your browser does not support the audio element.
+  </audio>
   <div class="chat-container">
-    <div class="chat-messages" id="container">
-      <div v-for="message in messages" :key="message.id">
-        <div v-if="user === message.username" class="message-block">
-          <span class="user-avatar">
-            {{ message.username.slice(0, 2) }}
-          </span>
-          <span class="message-username">{{ message.username }}</span
-          ><br />
-          <span class="message-text">{{ message.message }}</span>
-        </div>
-        <div v-if="user !== message.username" class="message-block">
-          <span class="friend-avatar">
-            {{ message.username.slice(0, 2) }}
-          </span>
-          <span class="message-friend">{{ message.username }}</span
-          ><br />
-          <span class="message-text">{{ message.message }}</span>
-        </div>
+    <div v-for="message in messages" :key="message.id">
+      <div v-if="user === message.username" class="message-block">
+        <span class="user-avatar">
+          {{ message.username.slice(0, 2) }}
+        </span>
+        <span class="message-username">{{ message.username }}</span>
+        <ChatDeleteBtn @click.prevent="deleteMessage(message.id)" />
+        <br />
+        <span class="message-text">{{ message.message }}</span>
+      </div>
+      <div v-if="user !== message.username" class="friend-message-block">
+        <span class="friend-avatar">
+          {{ message.username.slice(0, 2) }}
+        </span>
+        <span class="message-friend">{{ message.username }}</span>
+        <br />
+        <span class="message-text">{{ message.message }}</span>
       </div>
     </div>
   </div>
@@ -32,10 +35,11 @@ import { supabase } from '@/components/lib/supabaseClient';
 import { store } from '@/store/store';
 import ChatNav from '@/components/navbars/TheChatNav.vue';
 import eventBus from '@/components/lib/event-bus';
+import ChatDeleteBtn from '@/components/userprofile/chat/TheChatDeleteBtn.vue';
 
 export default defineComponent({
   name: 'ChatRoom.vue',
-  components: { TheFooter, ChatNav },
+  components: { TheFooter, ChatNav, ChatDeleteBtn },
 
   beforeMount() {
     this.loadChatRoom();
@@ -44,7 +48,7 @@ export default defineComponent({
   },
 
   created() {
-    this.sendMessageEventBus();
+    this.receiveMessageEventBus();
     this.realtimeListener();
     this.scrollToBottom();
   },
@@ -57,7 +61,6 @@ export default defineComponent({
   },
 
   updated() {
-    // whenever data changes and the component re-renders, this is called.
     this.$nextTick(() => this.scrollToBottom());
   },
 
@@ -76,7 +79,7 @@ export default defineComponent({
       const { data, error } = await supabase.from('chat').select('*').eq(`chatRoom`, this.chatRoom);
       if (data) this.messages = data;
       if (error) {
-        console.log(error);
+        throw new Error('fetch chat message failed.');
         // Add rollbar
       }
     },
@@ -88,9 +91,10 @@ export default defineComponent({
         .insert({ username: this.user, message: message, chatRoom: this.chatRoom });
       if (!error) {
         store.setChatTextValue(this.newMessage);
+        eventBus.emit('clearChatTextarea');
         this.scrollToBottom();
       } else {
-        console.log(error);
+        throw new Error('send chat failed.');
         // Add rollbar
       }
     },
@@ -100,8 +104,18 @@ export default defineComponent({
         .channel('chat')
         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chat' }, (payload) => {
           this.messages.push(payload.new);
+          this.newMessageSound();
         })
         .subscribe();
+    },
+
+    async deleteMessage(messageId: any) {
+      this.messages.pop();
+      const { error } = await supabase.from('chat').delete().eq(`id`, messageId);
+      if (error) {
+        // Add rollbar
+        throw new Error('chat message deletion failed.');
+      }
     },
 
     loadChatRoom() {
@@ -115,7 +129,7 @@ export default defineComponent({
       this.user = username;
     },
 
-    sendMessageEventBus() {
+    receiveMessageEventBus() {
       eventBus.on('sendMessage', () => {
         this.sendMessage();
       });
@@ -123,6 +137,10 @@ export default defineComponent({
 
     scrollToBottom() {
       window.scrollTo(0, document.body.scrollHeight);
+    },
+
+    newMessageSound() {
+      (this.$refs.newMessageSound as HTMLAudioElement).play();
     },
   },
 });
@@ -132,8 +150,8 @@ export default defineComponent({
 .chat-container {
   margin: 0 auto;
   padding: 5px;
-  font-family: Arial, sans-serif;
   position: relative;
+  font-family: Arial, sans-serif;
   max-height: 100%;
   max-width: 95%;
   margin-top: 20%;
@@ -148,11 +166,6 @@ export default defineComponent({
   }
 }
 
-.chat-messages {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
 .message-block {
   margin: 10px;
   background-color: #fff;
@@ -160,6 +173,17 @@ export default defineComponent({
   border-radius: 5px;
   padding: 10px;
   opacity: 0.9;
+  width: 75%;
+}
+
+.friend-message-block {
+  margin: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  opacity: 0.9;
+  margin-left: 25%;
 }
 
 .message-username {

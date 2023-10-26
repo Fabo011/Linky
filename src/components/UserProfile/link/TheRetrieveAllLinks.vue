@@ -14,22 +14,11 @@
         <a :href="item.link" target="_blank" class="btn btn-sm openlink">Open link</a>
 
         <button class="btn share" @click.prevent="shareLink(item)">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-share-fill"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z"
-            />
-          </svg>
+          <TheClipboardIcon />
         </button>
 
         <button class="btn btn-danger btn-sm btn-space" @click.prevent="deleteLink(item)">
-          Delete
+          <TheTrashIcon />
         </button>
       </div>
     </div>
@@ -41,9 +30,12 @@ import { store } from '../../../store/store';
 import { defineComponent } from 'vue';
 import Clipboard from 'clipboard';
 import { supabase } from '../../lib/supabaseClient';
+import TheTrashIcon from '@/assets/svg/TheTrashIcon.vue';
+import TheClipboardIcon from '@/assets/svg/TheClipboardIcon.vue';
 
 export default defineComponent({
   name: 'TheRetrieveAllLinks',
+  components: { TheTrashIcon, TheClipboardIcon },
 
   data() {
     return {
@@ -126,16 +118,18 @@ export default defineComponent({
   margin-top: 10px;
 }
 .card-header {
-  background-color: var(--primary-background-color);
-  color: var(--primary-white-color);
+  background-color: var(--primary-white-darker-background);
+  color: var(--primary-background-color);
 }
 .category {
   float: right;
-  background-color: var(--primary-background-color);
+  background-color: var(--primary-white-darker-background);
   font-size: 12px;
 }
 .btn-space {
   margin-left: 5px;
+  background-color: var(--chat-delete-btn);
+  border: none;
 }
 #cat {
   color: var(--primary-pink);

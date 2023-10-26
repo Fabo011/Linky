@@ -17,6 +17,8 @@ body {
     --primary-background-color: #333;
     --primary-white-color: #fff;
     --primary-pink: #FF66A4;
+    --chat-delete-btn: #B30000;
+    --primary-white-darker-background: #f5f5f5
 }
 
 ::-webkit-scrollbar {

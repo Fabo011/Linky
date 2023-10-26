@@ -52,7 +52,7 @@ export default defineComponent({
 
 @media (min-width: 768px) {
   .linkchain {
-    width: 75%;
+    width: 65%;
     margin: 0 auto;
     margin-bottom: 20%;
   }
