@@ -11,7 +11,7 @@ export const generateKeyPair = () => {
   const privateKey = convertStringToHex(privateKeyStr);
   const publicKey = convertStringToHex(publicKeyStr);
 
-  store.setKeyPair(privateKey, publicKey);
+  store.setKeyPair(privateKey, publicKey); // #TODO: Save keys in indextedDb with idb
   return publicKey;
 };
 

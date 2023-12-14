@@ -13,6 +13,8 @@ import { supabase } from '../lib/supabaseClient';
 import LoadingButton from '../buttons/TheLoadingButton.vue';
 import AuthBtn from '../buttons/TheAuthButton.vue';
 import { generateKeyPair } from '../crypto/crypto';
+import { signeduptoast } from '@/components/toasts/toasts';
+import { saveNewUser } from '@/components/authentication/saveNewUser';
 
 export default defineComponent({
   name: 'TheRegisterButton.vue',
@@ -20,8 +22,6 @@ export default defineComponent({
 
   data() {
     return {
-      username: '',
-      password: '',
       buttonText: 'Register',
       authStatus: 'loggedIn',
       url: '',
@@ -29,8 +29,6 @@ export default defineComponent({
       store,
       errorText: '',
       nBtn: true,
-
-      // loading
       loading: false,
     };
   },
@@ -40,41 +38,35 @@ export default defineComponent({
       this.nBtn = false;
       this.loading = true;
       await new Promise(resolve => setTimeout(resolve, 1000));
-
       const email = store.email;
-      //const password = store.password;
       
       try {
-        generateKeyPair();
+        const publicKey = generateKeyPair();
 
+        const url = 'http://localhost:8080/keys';
         const options = {
           shouldCreateUser: true,
-          emailRedirectTo: 'http://localhost:8080/keys',
-        }
+          emailRedirectTo: url,
+        };
 
-        const { data, error } = await supabase.auth.signInWithOtp({ email, options });
+        const { error } = await supabase.auth.signInWithOtp({ email, options });
         if (!error) {
-          // Show user what he has to do
-          console.log('Check you emails.');
-          console.log('data: ' + data);
-          
+          await saveNewUser(email, publicKey);
           store.action(this.authStatus);
-          //store.setPassword(this.reset);
           this.nBtn = true;
           this.loading = false;
-          //this.$router.push(`/keys`);
+          this.store.email = this.reset;
+          signeduptoast();
         } else {
-          this.errorText = 'This username already exist.';
+          this.errorText = 'This email already exist.';
           this.nBtn = true;
           this.loading = false;
           console.log(error);
-          
         }
       } catch (error) {
         // Add rollbar
         console.trace(error);
-        
-        this.errorText = 'Internal Error.';
+        this.errorText = 'This email already exist.';
         this.nBtn = true;
         this.loading = false;
       }

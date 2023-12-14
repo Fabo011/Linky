@@ -28,7 +28,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/KeysView.vue'),
   },
   {
-    path: '/profile/:username',
+    path: '/profile',
     name: 'userProfile',
     component: () => import('../views/UserProfile.vue')
   },

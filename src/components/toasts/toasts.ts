@@ -1,4 +1,35 @@
 import swal from 'sweetalert2';
+import router from '@/router/index';
+
+export const signeduptoast = () => {
+    swal
+        .fire({
+            icon: 'success',
+            text: `You´re successfully signed up. Check your emails within one minute, we´ve sent you an magic link to login.`,
+            showConfirmButton: true,
+        });
+};
+
+export const signedintoast = () => {
+    swal
+        .fire({
+            icon: 'success',
+            text: `You´re successfully signed in. Check your emails within one minute, we´ve sent you an magic link to login.`,
+            showConfirmButton: true,
+        });
+};
+
+export const savedigitalkeytoast = () => {
+    swal
+        .fire({
+            icon: 'success',
+            text: `You´ve copied your digital key. Please save him secure you will need them at the next login.`,
+            showConfirmButton: true,
+            confirmButtonText: 'Got to your cloud'
+        }).then(() => {
+           router.push('/profile');
+        });
+};
 
 export const addedtoast = () => {
     swal

@@ -23,7 +23,6 @@
           <hr />
           <form class="form-data">
             <TheEmail></TheEmail>
-            <ThePassword></ThePassword>
             <TheLoginButton></TheLoginButton>
           </form>
           <router-link to="/signup"
@@ -39,14 +38,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import TheEmail from '@/components/authentication/TheEmail.vue';
-import ThePassword from '@/components/authentication/ThePassword.vue';
 import TheLoginButton from '@/components/authentication/TheLoginButton.vue';
 import TheFooter from '@/components/lib/TheFooter.vue';
 import PageNav from '@/components/navbars/ThePageNav.vue';
 
 export default defineComponent({
   name: 'SigninView.vue',
-  components: { TheEmail, ThePassword, TheLoginButton, PageNav, TheFooter },
+  components: { TheEmail, TheLoginButton, PageNav, TheFooter },
 });
 </script>
 

@@ -12,6 +12,7 @@ import { store } from '../../store/store';
 import { supabase } from '../lib/supabaseClient';
 import LoadingButton from '../buttons/TheLoadingButton.vue';
 import AuthBtn from '../buttons/TheAuthButton.vue';
+import { signedintoast } from '../toasts/toasts';
 
 export default defineComponent({
   name: 'TheLoginButton.vue',
@@ -19,8 +20,6 @@ export default defineComponent({
 
   data() {
     return {
-      username: '',
-      password: '',
       buttonText: 'Login',
       authStatus: 'loggedIn',
       url: '',
@@ -28,8 +27,6 @@ export default defineComponent({
       store,
       errorText: '',
       nBtn: true,
-
-      // loading
       loading: false,
     };
   },
@@ -38,28 +35,36 @@ export default defineComponent({
     async push() {
       this.nBtn = false;
       this.loading = true;
-      const username = store.username;
-      const email = username + '@linky.com';
-      const password = store.password;
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      const email = store.email;
 
       try {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const url = 'http://localhost:8080/keys';
+        const options = {
+          shouldCreateUser: false,
+          emailRedirectTo: url,
+        };
+
+        const { error } = await supabase.auth.signInWithOtp({ email, options });
         if (!error) {
           store.action(this.authStatus);
-          store.setPassword(this.reset);
           this.nBtn = true;
           this.loading = false;
-          this.$router.push(`/profile/${username}`);
+          this.store.email = this.reset;
+          signedintoast();
         } else {
+          // #TODO: Check user in users table
+          this.errorText = 'User already registered.';
           this.nBtn = true;
           this.loading = false;
-          this.errorText = 'Wrong username or password.';
+          console.log(error);
         }
       } catch (error) {
         // Add rollbar
+        console.trace(error);
+        this.errorText = 'Internal Error.';
         this.nBtn = true;
         this.loading = false;
-        this.errorText = 'Internal Error.';
       }
     },
   },

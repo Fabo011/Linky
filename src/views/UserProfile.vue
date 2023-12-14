@@ -16,6 +16,7 @@ import TheRetrieveCategories from '@/components/userprofile/TheRetrieveCategorie
 import TheFooter from '@/components/lib/TheFooter.vue';
 import TheProfileNav from '@/components/navbars/TheProfileNav.vue';
 import TheLoadingSpinner from '@/components/lib/TheLoadingSpinner.vue';
+import { supabase } from '@/components/lib/supabaseClient';
 
 export default defineComponent({
   components: {
@@ -39,6 +40,32 @@ export default defineComponent({
       window.location.href = '/signin';
     }*/
   },
+
+  async created() {
+      const storedToken = localStorage.getItem('sb-ycsymeeovppvwzcfdddr-auth-token');
+      const token = storedToken ? JSON.parse(storedToken) : null;
+
+      if (!token || !token.user || !token.user.email) {
+        console.log('Token or user email is missing.');
+        this.$router.push('signin');
+        return;
+      }
+
+      try {
+        const { data } = await supabase.auth.getUser();
+
+        if (!data || !data.user || !data.user.email || data.user.email !== token.user.email) {
+          console.log('You are logged out.');
+          this.$router.push('signin');
+        } else {
+          console.log(data.user);
+          console.log('Hi');
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        this.$router.push('signin');
+      }
+    },
 });
 </script>
 

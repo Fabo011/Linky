@@ -1,7 +1,7 @@
 import { reactive } from 'vue'
 import { supabase } from '../components/lib/supabaseClient'
 import { decryptData } from '@/components/crypto/crypto';
-import { convertStringToHex } from '@/components/crypto/crypto';
+import { convertStringToHex, convertHexToString } from '@/components/crypto/crypto';
 
 export const store = reactive({
     item: {} as any,
@@ -66,14 +66,14 @@ export const store = reactive({
     },
     authStatusRefresh(){
         const authStatus = localStorage.getItem('authStatus')
-        const token = localStorage.getItem('token')
-        const user = localStorage.getItem('user')
-        const privateKey: any = localStorage.getItem('privKey')
-        const publicKey: any = localStorage.getItem('pubKey')
+        //const token = localStorage.getItem('token')
+        //const user = localStorage.getItem('user')
+        //const privateKey: any = localStorage.getItem('privKey')
+        //const publicKey: any = localStorage.getItem('pubKey')
         if(authStatus) this.authStatus = authStatus
-        if (user) this.username = user 
-        this.privateKey = privateKey
-        this.publicKey = publicKey
+        //if (user) this.username = user 
+        //this.privateKey = privateKey
+        //this.publicKey = publicKey
     },
 
     //searchbar
@@ -110,14 +110,22 @@ export const store = reactive({
     setKeyPair(privateKey: any, publicKey: any) {
         this.privateKey = privateKey;
         this.publicKey = publicKey;
+        const hexPrivateKey = convertStringToHex(privateKey);
+        const hexPublicKey = convertStringToHex(publicKey);
+        sessionStorage.setItem('priv', hexPrivateKey);
+        sessionStorage.setItem('pub', hexPublicKey);
     },
 
     getPrivateKey() {
-        return sessionStorage.getItem('privKey');
+        const hexPrivateKey = sessionStorage.getItem('privKey') as string;
+        const privateKey = convertHexToString(hexPrivateKey);
+        return privateKey;
     },
 
     getPublicKey() {
-        return sessionStorage.getItem('pubKey');
+        const hexPublicKey = sessionStorage.getItem('pubKey') as string;
+        const publicKey = convertHexToString(hexPublicKey);
+        return publicKey;
     },
 
     //retrieveAllLinks and Categories

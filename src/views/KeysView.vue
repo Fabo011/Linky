@@ -20,23 +20,22 @@
             </svg>
           </h3>
           <hr />
+          <div v-if="store.privateKey">
           <p>
-            Store your private and public key in a password manager. If you switch browsers or clear
-            cookies, it's the only way to ensure you can still decrypt your data. Please never lose
-            these keys.
+            Store your digital key in a password manager or encrypted on a usb drive. 
+            It's the only way to decrypt your data in the cloud. Never lose the key or show to anyone.
           </p>
           <form class="form-data">
             <div class="key-field">
               <input type="text" :placeholder="placeholder" readonly />
-              <span class="btn copyBtn" @click.prevent="copyPrivateKey()">Copy Private Key</span>
-            </div>
-
-            <div class="key-field">
-              <input type="text" :placeholder="placeholder" readonly />
-              <span class="btn copyBtn" @click.prevent="copyPublicKey()">Copy Public Key</span>
+              <span class="btn copyBtn" @click.prevent="copyPrivateKey()">Copy Digital Key</span>
             </div>
             <TheAuthButton @click.prevent="toAccount()" />
           </form>
+          </div>
+          <div v-if="!store.privateKey || store.privateKey !== ''">
+            <p>#TODO: User need to upload privateKey</p>
+          </div>
         </div>
       </div>
     </div>
@@ -50,7 +49,7 @@ import { defineComponent } from 'vue';
 import Clipboard from 'clipboard';
 import TheFooter from '../components/lib/TheFooter.vue';
 import TheAuthButton from '@/components/buttons/TheAuthButton.vue';
-import { supabase } from '@/components/lib/supabaseClient';
+import { savedigitalkeytoast } from '@/components/toasts/toasts';
 
 export default defineComponent({
   components: { TheFooter, TheAuthButton },
@@ -63,75 +62,26 @@ export default defineComponent({
   },
 
   created() {
-    this.checkUser();
+    store.authStatusRefresh();
+    if (store.authStatus !== 'loggedIn') {
+      this.$router.push('/signin');
+    }
   },
 
   methods: {
-    async checkUser() {
-      const storedToken = localStorage.getItem('sb-ycsymeeovppvwzcfdddr-auth-token');
-      const token = storedToken ? JSON.parse(storedToken) : null;
-
-      if (!token || !token.user || !token.user.email) {
-        console.log('Token or user email is missing.');
-        this.$router.push('signin');
-        return;
-      }
-
-      try {
-        const { data } = await supabase.auth.getUser();
-
-        if (!data || !data.user || !data.user.email || data.user.email !== token.user.email) {
-          console.log('You are logged out.');
-          this.$router.push('signin');
-        } else {
-          console.log(data.user);
-          console.log('Hi');
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-        this.$router.push('signin');
-      }
-    },
-
     copyPrivateKey() {
       const privateKey = this.store.getPrivateKey();
 
-      /*new Clipboard('.btn', {
-        text: () => {
-          return privateKey;
-        },
-      });
-      this.$swal({
-        icon: 'success',
-        text: 'You copied the private key to your clipboard.',
-        timer: 1500,
-        showConfirmButton: false,
-      });
-    },
-
-    copyPublicKey() {
-      const publicKey = this.store.getPublicKey();
       new Clipboard('.btn', {
-        text: () => {
-          return publicKey;
+        text: (): any => {
+          return privateKey || '' || null;
         },
       });
-      this.$swal({
-        icon: 'success',
-        text: 'You copied the public key to your clipboard.',
-        timer: 1500,
-        showConfirmButton: false,
-      });*/
-    },
-
-    copyPublicKey() {
-     console.log('Haöllo');
-     
+      savedigitalkeytoast();
     },
 
     toAccount() {
-      const username = this.store.username;
-      this.$router.push(`/profile/${username}`);
+      this.$router.push(`/profile`);
     },
   },
 });

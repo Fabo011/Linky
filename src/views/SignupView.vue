@@ -37,12 +37,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import TheEmail from '@/components/authentication/TheEmail.vue';
-import ThePassword from '@/components/authentication/ThePassword.vue';
 import TheRegisterButton from '@/components/authentication/TheRegisterButton.vue';
 import PageNav from '@/components/navbars/ThePageNav.vue';
 
 export default defineComponent({
   name: 'SignupView.vue',
-  components: { TheEmail, ThePassword, TheRegisterButton, PageNav },
+  components: { TheEmail, TheRegisterButton, PageNav },
 });
 </script>
