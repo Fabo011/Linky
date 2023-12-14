@@ -44,12 +44,13 @@
   <TheFooter />
 </template>
 
-<script>
+<script lang="ts">
 import { store } from '../store/store';
 import { defineComponent } from 'vue';
 import Clipboard from 'clipboard';
 import TheFooter from '../components/lib/TheFooter.vue';
 import TheAuthButton from '@/components/buttons/TheAuthButton.vue';
+import { supabase } from '@/components/lib/supabaseClient';
 
 export default defineComponent({
   components: { TheFooter, TheAuthButton },
@@ -60,11 +61,42 @@ export default defineComponent({
       placeholder: '*******************************',
     };
   },
+
+  created() {
+    this.checkUser();
+  },
+
   methods: {
+    async checkUser() {
+      const storedToken = localStorage.getItem('sb-ycsymeeovppvwzcfdddr-auth-token');
+      const token = storedToken ? JSON.parse(storedToken) : null;
+
+      if (!token || !token.user || !token.user.email) {
+        console.log('Token or user email is missing.');
+        this.$router.push('signin');
+        return;
+      }
+
+      try {
+        const { data } = await supabase.auth.getUser();
+
+        if (!data || !data.user || !data.user.email || data.user.email !== token.user.email) {
+          console.log('You are logged out.');
+          this.$router.push('signin');
+        } else {
+          console.log(data.user);
+          console.log('Hi');
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        this.$router.push('signin');
+      }
+    },
+
     copyPrivateKey() {
       const privateKey = this.store.getPrivateKey();
 
-      new Clipboard('.btn', {
+      /*new Clipboard('.btn', {
         text: () => {
           return privateKey;
         },
@@ -89,7 +121,12 @@ export default defineComponent({
         text: 'You copied the public key to your clipboard.',
         timer: 1500,
         showConfirmButton: false,
-      });
+      });*/
+    },
+
+    copyPublicKey() {
+     console.log('Haöllo');
+     
     },
 
     toAccount() {

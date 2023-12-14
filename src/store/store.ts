@@ -1,6 +1,7 @@
 import { reactive } from 'vue'
 import { supabase } from '../components/lib/supabaseClient'
 import { decryptData } from '@/components/crypto/crypto';
+import { convertStringToHex } from '@/components/crypto/crypto';
 
 export const store = reactive({
     item: {} as any,
@@ -12,6 +13,7 @@ export const store = reactive({
     authStatus: '',
     token: '',
     username: '',
+    email: '',
     password: '',
 
     //searchbar
@@ -108,16 +110,14 @@ export const store = reactive({
     setKeyPair(privateKey: any, publicKey: any) {
         this.privateKey = privateKey;
         this.publicKey = publicKey;
-        localStorage.setItem('privKey', privateKey);
-        localStorage.setItem('pubKey', publicKey);
     },
 
     getPrivateKey() {
-        return localStorage.getItem('privKey');
+        return sessionStorage.getItem('privKey');
     },
 
     getPublicKey() {
-        return localStorage.getItem('pubKey');
+        return sessionStorage.getItem('pubKey');
     },
 
     //retrieveAllLinks and Categories

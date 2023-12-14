@@ -34,10 +34,10 @@ export default defineComponent({
 
   beforeRouteEnter() {
     store.isLoading = true;
-    store.authStatusRefresh();
+    /*store.authStatusRefresh();
     if (store.authStatus !== 'loggedIn') {
       window.location.href = '/signin';
-    }
+    }*/
   },
 });
 </script>

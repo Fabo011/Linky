@@ -39,27 +39,41 @@ export default defineComponent({
     async push() {
       this.nBtn = false;
       this.loading = true;
-      const username = store.username;
-      const password = store.password;
-      const email = username + '@linky.com';
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
+      const email = store.email;
+      //const password = store.password;
+      
       try {
         generateKeyPair();
 
-        const { error } = await supabase.auth.signUp({ email, password });
+        const options = {
+          shouldCreateUser: true,
+          emailRedirectTo: 'http://localhost:8080/keys',
+        }
+
+        const { data, error } = await supabase.auth.signInWithOtp({ email, options });
         if (!error) {
+          // Show user what he has to do
+          console.log('Check you emails.');
+          console.log('data: ' + data);
+          
           store.action(this.authStatus);
-          store.setPassword(this.reset);
+          //store.setPassword(this.reset);
           this.nBtn = true;
           this.loading = false;
-          this.$router.push(`/keys`);
+          //this.$router.push(`/keys`);
         } else {
           this.errorText = 'This username already exist.';
           this.nBtn = true;
           this.loading = false;
+          console.log(error);
+          
         }
       } catch (error) {
         // Add rollbar
+        console.trace(error);
+        
         this.errorText = 'Internal Error.';
         this.nBtn = true;
         this.loading = false;
