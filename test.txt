@@ -1,0 +1,156 @@
+<template>
+    <div>
+        <label for="folderPath">Enter Folder Path:</label>
+        <input v-model="folderPath" id="folderPath" type="text" />
+        <button @click="fetchMp4Files">Fetch MP4 Files</button>
+
+        <div class="file-list">
+            <h2>MP4 Files</h2>
+            <ul>
+                <li v-for="file in mp4Files" :key="file.name" @click="playVideo(file.fullPath)">
+                    <img src="https://via.placeholder.com/150" alt="Video Thumbnail" />
+                    <span>{{ file.name }}</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Video player -->
+        <video ref="videoPlayer" controls class="video-player"></video>
+    </div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            folderPath: '',
+            mp4Files: [],
+        };
+    },
+
+    methods: {
+        async fetchMp4Files() {
+            try {
+                const directoryHandle = await this.getDirectoryHandle();
+                const files = await this.readMp4Files(directoryHandle);
+                this.mp4Files = files;
+            } catch (error) {
+                console.error('Error fetching MP4 files:', error);
+            }
+        },
+
+        async getDirectoryHandle() {
+            try {
+                if ('showDirectoryPicker' in window) {
+                    return await window.showDirectoryPicker();
+                } else if ('showOpenFilePicker' in window) {
+                    const [handle] = await window.showOpenFilePicker({ type: 'open-directory' });
+                    return handle;
+                } else if ('chooseFileSystemEntries' in window) {
+                    const dirHandle = await window.chooseFileSystemEntries({ type: 'open-directory' });
+                    return dirHandle;
+                } else if ('webkitdirectory' in HTMLInputElement.prototype) {
+                    // For older versions of Safari
+                    const input = document.createElement('input');
+                    input.type = 'file';
+                    input.setAttribute('webkitdirectory', 'webkitdirectory');
+                    input.click();
+
+                    return new Promise((resolve, reject) => {
+                        input.onchange = () => {
+                            const files = input.files;
+                            if (files.length > 0) {
+                                resolve({ kind: 'directory', fullPath: files[0].webkitRelativePath });
+                            } else {
+                                reject(new Error('Invalid file input selection'));
+                            }
+                        };
+                    });
+                } else {
+                    throw new Error('Directory picker not supported');
+                }
+            } catch (error) {
+                console.error('Error getting directory handle:', error);
+                throw error;
+            }
+        },
+
+        async readMp4Files(directoryHandle) {
+            const mp4Files = [];
+            for await (const [name, handle] of directoryHandle) {
+                if (handle.kind === 'file' && handle.name.endsWith('.mp4')) {
+                    const file = await handle.getFile();
+                    mp4Files.push({ name: handle.name, fullPath: URL.createObjectURL(file) });
+                }
+            }
+            return mp4Files;
+        },
+
+        playVideo(fullPath) {
+            const videoPlayer = this.$refs.videoPlayer;
+            videoPlayer.src = fullPath;
+            videoPlayer.play();
+            videoPlayer.style.display = 'block';
+            videoPlayer.requestFullscreen();
+        },
+    },
+};
+</script>
+
+
+<style scoped>
+/* Add your component styles here */
+
+.file-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.file-list h2 {
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.file-list ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.file-list li {
+    text-align: center;
+    cursor: pointer;
+    margin: 1rem;
+    transition: transform 0.2s;
+}
+
+.file-list li:hover {
+    transform: scale(1.1);
+}
+
+.file-list img {
+    width: 100%;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+}
+
+.file-list span {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.video-player {
+    display: none;
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto;
+}
+</style>
