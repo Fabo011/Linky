@@ -20,21 +20,26 @@
             </svg>
           </h3>
           <hr />
-          <div v-if="store.privateKey">
-          <p>
-            Store your digital key in a password manager or encrypted on a usb drive. 
-            It's the only way to decrypt your data in the cloud. Never lose the key or show to anyone.
-          </p>
-          <form class="form-data">
-            <div class="key-field">
-              <input type="text" :placeholder="placeholder" readonly />
-              <span class="btn copyBtn" @click.prevent="copyPrivateKey()">Copy Digital Key</span>
-            </div>
-            <TheAuthButton @click.prevent="toAccount()" />
-          </form>
+          <div v-if="privateKey?.length > 20">
+            <p>
+              Store your digital key in a password manager or encrypted on a usb drive. It's the
+              only way to decrypt your data in the cloud. Never lose the key or show to anyone.
+            </p>
+            <form class="form-data">
+              <div class="key-field">
+                <input type="text" :placeholder="placeholder" readonly />
+                <span class="btn copyBtn" @click.prevent="copyPrivateKey()">Copy Digital Key</span>
+              </div>
+            </form>
           </div>
-          <div v-if="!store.privateKey || store.privateKey !== ''">
-            <p>#TODO: User need to upload privateKey</p>
+          <div v-if="privateKey == null">
+            <p>Please copy your digital key into the input field and click the button below.</p>
+            <form class="form-data">
+                <div class="key-field">
+                  <input v-model="userPrivateKey" type="text" placeholder="Enter Digital Key" />
+                </div>
+              </form>
+              <TheAuthButton @click.prevent="toAccount()" />
           </div>
         </div>
       </div>
@@ -58,29 +63,35 @@ export default defineComponent({
     return {
       store,
       placeholder: '*******************************',
+      privateKey: '',
+      userPrivateKey: '',
     };
   },
 
-  created() {
+  beforeMount() {
     store.authStatusRefresh();
     if (store.authStatus !== 'loggedIn') {
       this.$router.push('/signin');
     }
+    const privateKey = localStorage.getItem('priv') as string;
+    this.privateKey = privateKey; 
   },
 
   methods: {
     copyPrivateKey() {
-      const privateKey = this.store.getPrivateKey();
+      const privateKey = this.privateKey;
 
       new Clipboard('.btn', {
         text: (): any => {
-          return privateKey || '' || null;
+          return privateKey;
         },
       });
       savedigitalkeytoast();
     },
 
     toAccount() {
+      // #TODO: Validate the privateKey a bit, decode and check if ---Begin Private Key--- etc
+      localStorage.setItem('priv', this.userPrivateKey);
       this.$router.push(`/profile`);
     },
   },

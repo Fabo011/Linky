@@ -1,6 +1,7 @@
 <template>
   <div class="forms-inputs mb-3">
-    <span><b>Email</b></span><br />
+    <span><b>Email</b></span
+    ><br />
     <input
       autocomplete="off"
       type="text"

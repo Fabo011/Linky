@@ -90,7 +90,9 @@ export default defineComponent({
     async addNewLinkBtn() {
       this.nBtn = false;
       this.loading = true;
-      const username = store.username;
+      const { username } = store.getStandardUser(); 
+      console.log(username);
+      
       const linkname = store.linkname;
       const linkdescription = store.linkdescription;
       const link = store.link;

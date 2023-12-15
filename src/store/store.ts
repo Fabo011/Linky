@@ -1,7 +1,9 @@
 import { reactive } from 'vue'
 import { supabase } from '../components/lib/supabaseClient'
 import { decryptData } from '@/components/crypto/crypto';
-import { convertStringToHex, convertHexToString } from '@/components/crypto/crypto';
+import { convertHexToString } from '@/components/crypto/crypto';
+import router from '@/router/index';
+import { getUser } from '@/components/authentication/getUser';
 
 export const store = reactive({
     item: {} as any,
@@ -40,10 +42,6 @@ export const store = reactive({
     text: '',
     chatSecret: '',
 
-    // crypto
-    privateKey: '',
-    publicKey: '',
-
     setItem(item: any) {
         this.item = item;
     },
@@ -53,27 +51,16 @@ export const store = reactive({
         this.authStatus = authStatus,
         localStorage.setItem('authStatus', this.authStatus)
     },
-    setToken(data: string) {
-        this.token = data
-        localStorage.setItem('token', this.token)
-    },
-    setUsername(username: string) {
+    /*setUsername(username: string) {
         this.username = username,
         localStorage.setItem('user', this.username)    
-    },
-    setPassword(password: string) {
+    },*/
+    /*setPassword(password: string) {
         this.password = password
-    },
+    },*/
     authStatusRefresh(){
         const authStatus = localStorage.getItem('authStatus')
-        //const token = localStorage.getItem('token')
-        //const user = localStorage.getItem('user')
-        //const privateKey: any = localStorage.getItem('privKey')
-        //const publicKey: any = localStorage.getItem('pubKey')
         if(authStatus) this.authStatus = authStatus
-        //if (user) this.username = user 
-        //this.privateKey = privateKey
-        //this.publicKey = publicKey
     },
 
     //searchbar
@@ -106,29 +93,114 @@ export const store = reactive({
        this.linkUsername = linkUsername
     },
 
-    // crypto
+    /**
+     * Crypto
+     * @param privateKey 
+     * @param publicKey 
+     */
     setKeyPair(privateKey: any, publicKey: any) {
-        this.privateKey = privateKey;
-        this.publicKey = publicKey;
-        const hexPrivateKey = convertStringToHex(privateKey);
-        const hexPublicKey = convertStringToHex(publicKey);
-        sessionStorage.setItem('priv', hexPrivateKey);
-        sessionStorage.setItem('pub', hexPublicKey);
+        localStorage.setItem('priv', privateKey);
+        localStorage.setItem('pub', publicKey);
     },
 
     getPrivateKey() {
-        const hexPrivateKey = sessionStorage.getItem('privKey') as string;
+        const hexPrivateKey = sessionStorage.getItem('priv') as string;
         const privateKey = convertHexToString(hexPrivateKey);
         return privateKey;
     },
 
     getPublicKey() {
-        const hexPublicKey = sessionStorage.getItem('pubKey') as string;
-        const publicKey = convertHexToString(hexPublicKey);
-        return publicKey;
+        const hexPublicKeyPem = sessionStorage.getItem('pub') as string;
+        return hexPublicKeyPem;
     },
 
-    //retrieveAllLinks and Categories
+    /**
+     * User
+     * @param storedToken 
+     * @param publicKey 
+     * @param privateKey 
+     */
+    async setUser() {
+        const privateKey = localStorage.getItem('priv');
+        if (privateKey) {
+            sessionStorage.setItem('priv', privateKey);
+            localStorage.removeItem('priv');
+        };
+
+        const storedToken = localStorage.getItem('sb-ycsymeeovppvwzcfdddr-auth-token');
+        const token = storedToken ? JSON.parse(storedToken) : null;
+        if (token) {
+            if (!token || !token.user || !token.user.email) {
+               console.log('Token or user email is missing.');
+               router.push('signin');
+               return;
+            };
+
+        const publicKey = localStorage.getItem('pub');
+        if (publicKey) {
+            await getUser(token.user.email);
+            localStorage.removeItem('pub');
+        } else if (!publicKey) {
+            await getUser(token.user.email);
+        };
+
+        try {
+           const { data } = await supabase.auth.getUser();
+
+          if (!data || !data.user || !data.user.email || data.user.email !== token.user.email) {
+             console.log('You are logged out.');
+             router.push('signin');
+          } else {
+              sessionStorage.setItem('user', JSON.stringify(token));
+              localStorage.removeItem('sb-ycsymeeovppvwzcfdddr-auth-token');
+              localStorage.removeItem('authStatus');
+          }
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+          router.push('signin');
+        }
+        };
+    },
+
+    getStandardUser() {
+        /*const hexPrivateKey = sessionStorage.getItem('priv') as string;
+        const privateKey = convertHexToString(hexPrivateKey);
+
+        const hexPublicKey = sessionStorage.getItem('pub') as string;
+        const publicKey = convertHexToString(hexPublicKey);*/
+
+        const hexUsername = sessionStorage.getItem('username') as string;
+        const hexTariff = sessionStorage.getItem('tariff') as string;
+        const accountSize = sessionStorage.getItem('accountSize') as string;
+        const accountStatus = sessionStorage.getItem('accountStatus') as string;
+        const username = convertHexToString(hexUsername) as string;
+        const tariff = convertHexToString(hexTariff) as string;
+
+        return {
+            username: username,
+            tariff: tariff,
+            accountSize: accountSize,
+            accountStatus: accountStatus,
+        };
+    },
+
+    getUser() {
+        const user = sessionStorage.getItem('user');
+        return user;
+    },
+
+    logoutDeleteAll() {
+        sessionStorage.removeItem('priv');
+        sessionStorage.removeItem('pub');
+        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('tariff');
+        sessionStorage.removeItem('accountSize');
+        sessionStorage.removeItem('accountStatus');
+    },
+
+    /**
+     * Data
+     */
     async retrieveAllLinks() {
         const username = this.username;
 

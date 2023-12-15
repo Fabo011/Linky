@@ -6,18 +6,18 @@ export const generateKeyPair = () => {
   const keyPair = forge.pki.rsa.generateKeyPair({ bits: 4096 });
 
   const privateKeyStr = forge.pki.privateKeyToPem(keyPair.privateKey);
-  const publicKeyStr = forge.pki.publicKeyToPem(keyPair.publicKey);
+  const publicKey = forge.pki.publicKeyToPem(keyPair.publicKey);
 
-  const privateKey = convertStringToHex(privateKeyStr);
-  const publicKey = convertStringToHex(publicKeyStr);
+  const privateKey = convertPemPrivateKeyToHex(privateKeyStr);
 
-  store.setKeyPair(privateKey, publicKey); // #TODO: Save keys in indextedDb with idb
+  store.setKeyPair(privateKey, publicKey);
   return publicKey;
 };
 
 const hexStringsToOriginalKeyPair = () => {
-  const publicKeyPem = store.getPublicKey() as any;
-  const privateKeyPem = store.getPrivateKey() as any; 
+  const publicKeyPem = store.getPublicKey();
+  const hexPrivateKey = store.getPrivateKey() as any; 
+  const privateKeyPem = convertHexToPemPrivateKey(hexPrivateKey);
 
   const privateKey = forge.pki.privateKeyFromPem(privateKeyPem);
   const publicKey = forge.pki.publicKeyFromPem(publicKeyPem);
@@ -31,6 +31,8 @@ const hexStringsToOriginalKeyPair = () => {
 export const encryptData = (data: any) => {
   try {
   const { publicKey } = hexStringsToOriginalKeyPair();
+  console.log('key type publicKey: ' + publicKey);
+    
   const maxChunkSize = 2048;
 
   const chunks = [];
@@ -51,8 +53,9 @@ export const encryptData = (data: any) => {
   return encryptedBase64;
   } catch (error) {
     console.log('Encryption error: ' + error);
+    throw new Error('Encryption error')
     // Add rollbar
-    return '';
+    //return '';
   }
 }
 
@@ -73,16 +76,49 @@ export const convertStringToHex = (value: string) => {
 }
 
 export const convertHexToString = (value: string) => {
+  console.log('value: ' + value);
+  
   const matchedHexPairs = value.match(/.{1,2}/g);
   if (matchedHexPairs) {
   const orgString = new TextDecoder().decode(
     Uint8Array.from(matchedHexPairs.map(byte => parseInt(byte, 16)))
   );
+    console.log('OrgString: ' + orgString);
+    
     return orgString;
   } else {
     console.error('Invalid hex string format');
   }
 }
+
+export const convertPemPrivateKeyToHex = (pemPrivateKey: string) => {
+  const base64String = pemPrivateKey
+    .replace(/-----BEGIN PRIVATE KEY-----/, '')
+    .replace(/-----END PRIVATE KEY-----/, '')
+    .replace(/\s/g, '');
+
+  const hexString = Buffer.from(base64String, 'base64').toString('hex');
+
+  return hexString;
+};
+
+
+export const convertHexToPemPrivateKey = (hexPrivateKey: string) => {
+  const base64String = Buffer.from(hexPrivateKey, 'hex').toString('base64');
+
+  const matchedLines = base64String.match(/.{1,64}/g);
+  if (matchedLines) {
+    const pemPrivateKey =
+      `-----BEGIN PRIVATE KEY-----\n` +
+      matchedLines.join('\n') +
+      `\n-----END PRIVATE KEY-----`;
+
+    return pemPrivateKey;
+  } else {
+    console.error('Invalid base64 string format');
+    return '';
+  }
+};
 
 
 /**

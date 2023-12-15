@@ -35,7 +35,7 @@ export default defineComponent({
     async push() {
       this.nBtn = false;
       this.loading = true;
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       const email = store.email;
 
       try {
@@ -53,7 +53,6 @@ export default defineComponent({
           this.store.email = this.reset;
           signedintoast();
         } else {
-          // #TODO: Check user in users table
           this.errorText = 'User already registered.';
           this.nBtn = true;
           this.loading = false;

@@ -80,10 +80,12 @@ export default defineComponent({
 
   methods: {
     async fetchChatMessages() {
-      const chatSecret = store.chatSecret;    
+      const chatSecret = store.chatSecret;
       const { data, error } = await supabase.from('chat').select('*').eq(`chatRoom`, this.chatRoom);
       if (data) {
-        const decryptedMessages = data.map((message) => decryptChatMessage(message.message, chatSecret));
+        const decryptedMessages = data.map((message) =>
+          decryptChatMessage(message.message, chatSecret),
+        );
         this.messages = decryptedMessages as any;
       }
       if (error) {

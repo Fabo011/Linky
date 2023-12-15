@@ -45,13 +45,13 @@
         </button>
 
         <button
-            v-if="item.chatSecret !== null"
-            class="btn share"
-            @click.prevent="copyChatSecret(item)"
-          >
-            <TheChatSecretIcon /><br />
-            <span class="clipboard">Copy Chat Secret Key</span>
-          </button>
+          v-if="item.chatSecret !== null"
+          class="btn share"
+          @click.prevent="copyChatSecret(item)"
+        >
+          <TheChatSecretIcon /><br />
+          <span class="clipboard">Copy Chat Secret Key</span>
+        </button>
 
         <button
           v-if="store.editButtonActive === true && !item.chatRoom"
@@ -106,7 +106,7 @@ export default defineComponent({
     TheLinkEdit,
     TheUsernameIcon,
     TheChatEdit,
-    TheChatSecretIcon
+    TheChatSecretIcon,
   },
 
   data() {

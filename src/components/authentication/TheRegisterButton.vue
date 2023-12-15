@@ -37,9 +37,9 @@ export default defineComponent({
     async push() {
       this.nBtn = false;
       this.loading = true;
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       const email = store.email;
-      
+
       try {
         const publicKey = generateKeyPair();
 

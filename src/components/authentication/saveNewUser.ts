@@ -24,13 +24,12 @@ export const saveNewUser = async (
 
   const usernamePre = generateUsername();
   const username = usernamePre;  
-  const hexPublicKey = convertStringToHex(publicKey);
   const hexTariff = convertStringToHex(tariff);
 
   const { error } = await supabase.from('users').insert({
     email: email, // Generate foreign key in database  
     username: username,
-    publicKey: hexPublicKey,
+    publicKey: publicKey,
     tariff: hexTariff,
     size: size,
     accountStatus: accountStatus,
