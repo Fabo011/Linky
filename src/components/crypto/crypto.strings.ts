@@ -1,10 +1,11 @@
 import { Buffer } from 'buffer';
 import { hexStringsToOriginalKeyPair } from './crypto';
 
+
+
 export const encryptData = (data: any) => {
   try {
   const { publicKey } = hexStringsToOriginalKeyPair();
-  console.log('key type publicKey: ' + publicKey);
     
   const maxChunkSize = 2048;
 
@@ -28,7 +29,6 @@ export const encryptData = (data: any) => {
     console.log('Encryption error: ' + error);
     throw new Error('Encryption error')
     // Add rollbar
-    //return '';
   }
 }
 

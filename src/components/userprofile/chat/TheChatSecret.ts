@@ -1,3 +1,7 @@
+/**
+ * Maybe no longer needed
+ */
+
 import swal from 'sweetalert2';
 import { store } from '@/store/store';
 import eventBus from '@/components/lib/event-bus';
@@ -11,7 +15,7 @@ export const showChatSecretPopup = async () => {
     });
 
     if (userInput) {
-        store.chatSecret = userInput;
+        store.chatPublicKey = userInput;
         eventBus.emit('fetchChatMessages');
     } else {
         swal.fire('Cancelled', 'You did not enter anything. You cant chat with someone without encryption!', 'info');

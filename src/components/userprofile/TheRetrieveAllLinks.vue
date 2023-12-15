@@ -14,12 +14,20 @@
       <div class="card-body">
         <h6 class="card-title">{{ item.link }}</h6>
         <p class="card-text">{{ item.linkdescription }}</p>
-        <button class="btn share">
+        <!--Open Link Button for normal links-->
+        <button v-if="item.category !== 'chat'" class="btn share">
           <a :href="item.link" target="_blank" class="btn btn-sm openlink">
             <TheChatBtnIcon /><br />
             <span class="clipboard">Link</span>
           </a>
         </button>
+        <!--Open Link Button for chats-->
+        <button v-if="item.category === 'chat'" class="btn share">
+            <a @click.prevent="openChat(item)" target="_blank" class="btn btn-sm openlink">
+              <TheChatBtnIcon /><br />
+              <span class="clipboard">Link</span>
+            </a>
+          </button>
 
         <button class="btn share" @click.prevent="shareLink(item)">
           <TheClipboardIcon /><br />
@@ -44,6 +52,7 @@
           <span class="clipboard">Copy Password</span>
         </button>
 
+        <!--Replace with Share Button and implement share logic-->
         <button
           v-if="item.chatSecret !== null"
           class="btn share"
@@ -174,7 +183,7 @@ export default defineComponent({
     },
 
     copyChatSecret(item) {
-      const chatSecret = item.chatSecret;
+      const chatSecret = item.publicKey;
       new Clipboard('.btn', {
         text: () => {
           return chatSecret;
@@ -192,7 +201,7 @@ export default defineComponent({
         this.deleteCount = 1;
       } else if (this.deleteCount === 1) {
         const { error } = await supabase
-          .from('link')
+          .from('links')
           .delete()
           .eq(`username`, username)
           .eq(`id`, id);
@@ -212,6 +221,13 @@ export default defineComponent({
     setItem(item) {
       store.editButtonActive = false;
       store.item = item;
+    },
+
+    openChat(item) {
+      const publicKey = item.chatPublicKey;
+      const privateKey = item.chatPrivateKey;
+      store.setChatKeyPairKey(publicKey, privateKey);
+      this.$router.push(`/chat/${item.link}`);
     },
   },
 });

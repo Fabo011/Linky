@@ -40,7 +40,8 @@ export const store = reactive({
 
     // chat
     text: '',
-    chatSecret: '',
+    chatPublicKey: '',
+    chatPrivateKey: '',
 
     setItem(item: any) {
         this.item = item;
@@ -51,13 +52,6 @@ export const store = reactive({
         this.authStatus = authStatus,
         localStorage.setItem('authStatus', this.authStatus)
     },
-    /*setUsername(username: string) {
-        this.username = username,
-        localStorage.setItem('user', this.username)    
-    },*/
-    /*setPassword(password: string) {
-        this.password = password
-    },*/
     authStatusRefresh(){
         const authStatus = localStorage.getItem('authStatus')
         if(authStatus) this.authStatus = authStatus
@@ -70,7 +64,21 @@ export const store = reactive({
 
     // chat
     setChatTextValue(text: string) {
-       this.text = text
+        this.text = text
+    },
+    setChatKeyPairKey(publicKey: string, privateKey: string) {
+        sessionStorage.setItem('chatPub', publicKey);
+        sessionStorage.setItem('chatPriv', privateKey);
+    },
+    getChatPublicKey() {
+        // #TODO Validate incomming values, everywhere at get
+        const publicKey = sessionStorage.getItem('chatPub');
+        return publicKey;
+    },
+    getChatPrivateKey() {
+        // #TODO Validate incomming values, everywhere at get
+        const privateKey = sessionStorage.getItem('chatPriv');
+        return privateKey;
     },
 
     //createAndSaveNewLink
@@ -104,11 +112,13 @@ export const store = reactive({
     },
 
     getPrivateKey() {
+        // #TODO Validate incomming values, everywhere at get
         const privateKey = sessionStorage.getItem('priv') as string;
         return privateKey;
     },
 
     getPublicKey() {
+        // #TODO Validate incomming values, everywhere at get
         const publicKeyPem = sessionStorage.getItem('pub') as string;
         return publicKeyPem;
     },
@@ -162,6 +172,7 @@ export const store = reactive({
     },
 
     getStandardUser() {
+        // #TODO Validate incomming values, everywhere at get
         const username = sessionStorage.getItem('username') as string;
         const hexTariff = sessionStorage.getItem('tariff') as string;
         const accountSize = sessionStorage.getItem('accountSize');
@@ -188,6 +199,9 @@ export const store = reactive({
         sessionStorage.removeItem('tariff');
         sessionStorage.removeItem('accountSize');
         sessionStorage.removeItem('accountStatus');
+        sessionStorage.removeItem('chatPub');
+        sessionStorage.removeItem('chatPriv');
+        sessionStorage.removeItem('username');
     },
 
     /**
@@ -216,7 +230,8 @@ export const store = reactive({
                         decryptedItem.category = data.category || null;
                         decryptedItem.linkUsername = data.linkUsername || null;
                         decryptedItem.linkPassword = data.linkPassword || null;
-                        decryptedItem.chatSecret = data.chatSecret || null;
+                        decryptedItem.chatPublicKey = data.chatPublicKey || null;
+                        decryptedItem.chatPrivateKey = data.chatPrivateKey || null;
                     }
 
                     return decryptedItem;

@@ -36,8 +36,7 @@ import { store } from '@/store/store';
 import TheChatNav from '@/components/navbars/TheChatNav.vue';
 import eventBus from '@/components/lib/event-bus';
 import TheChatDeleteBtn from '@/components/userprofile/chat/TheChatDeleteBtn.vue';
-import { showChatSecretPopup } from '@/components/userprofile/chat/TheChatSecret';
-import { encryptChatMessage, decryptChatMessage } from '@/components/crypto/crypto';
+import { encryptData, decryptData } from '@/components/crypto/crypto.chat';
 
 export default defineComponent({
   name: 'ChatRoom.vue',
@@ -54,15 +53,8 @@ export default defineComponent({
     this.scrollToBottom();
   },
 
-  async beforeCreate() {
-    await showChatSecretPopup();
-  },
-
-  beforeRouteEnter() {
-    store.authStatusRefresh();
-    if (store.authStatus !== 'loggedIn') {
-      window.location.href = '/signin';
-    }
+  async beforeRouteEnter() {
+    await store.setUser();
   },
 
   updated() {
@@ -75,16 +67,17 @@ export default defineComponent({
       newMessage: '',
       messages: [] as any[],
       chatRoom: '' as string,
+      chatSecret: 'test'
     };
   },
 
   methods: {
     async fetchChatMessages() {
-      const chatSecret = store.chatSecret;
+      const chatSecret = store.chatPrivateKey;
       const { data, error } = await supabase.from('chat').select('*').eq(`chatRoom`, this.chatRoom);
       if (data) {
         const decryptedMessages = data.map((message) =>
-          decryptChatMessage(message.message, chatSecret),
+          decryptData(message.message, chatSecret),
         );
         this.messages = decryptedMessages as any;
       }
@@ -97,9 +90,9 @@ export default defineComponent({
     async sendMessage() {
       const message = store.text;
 
-      const chatSecret = store.chatSecret;
+      const chatSecret = store.chatPublicKey;
       console.log(chatSecret);
-      const encryptedMessage = encryptChatMessage(message, chatSecret);
+      const encryptedMessage = encryptData(message, chatSecret);
 
       const { error } = await supabase
         .from('chat')

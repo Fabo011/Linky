@@ -29,34 +29,54 @@ export const hexStringsToOriginalKeyPair = () => {
   };
 }
 
-export const encryptData = (data: any) => {
+export const encryptData = (data: any): string => {
   try {
     const { publicKey } = hexStringsToOriginalKeyPair();
-
     const jsonString = JSON.stringify(data);
 
-    const encryptedData = publicKey.encrypt(jsonString, 'RSA-OAEP');
+    // Maximum chunk size for RSA encryption
+    const maxChunkSize = 190; // You may need to adjust this based on your key size
 
-    const encryptedBase64 = forge.util.encode64(encryptedData);
+    // Convert the JSON string to UTF-8 bytes
+    const jsonBytes = forge.util.createBuffer(jsonString, 'utf8');
 
-    return encryptedBase64;
+    // Split the data into chunks
+    const chunks = [];
+    while (jsonBytes.length() > 0) {
+      const chunk = jsonBytes.getBytes(maxChunkSize);
+      const encryptedChunk = publicKey.encrypt(chunk, 'RSA-OAEP');
+      chunks.push(encryptedChunk);
+    }
+
+    // Concatenate the encrypted chunks
+    const concatenatedChunks = forge.util.createBuffer();
+    chunks.forEach(chunk => concatenatedChunks.putBytes(chunk));
+    
+    const encryptedData = forge.util.encode64(concatenatedChunks.getBytes());
+
+    return encryptedData;
   } catch (error) {
     console.error('Encryption error:', error);
     throw new Error('Encryption error');
   }
 };
 
-export const decryptData = (encryptedBase64: string) => {
+
+export const decryptData = (encryptedData: string): any => {
   try {
     const { privateKey } = hexStringsToOriginalKeyPair();
 
-    const encryptedBytes = forge.util.decode64(encryptedBase64);
+    const encryptedBytes = forge.util.decode64(encryptedData);
 
-    const decryptedBytes = privateKey.decrypt(encryptedBytes, 'RSA-OAEP');
+    const encryptedBuffer = forge.util.createBuffer(encryptedBytes);
+    const chunks = [];
+    while (encryptedBuffer.length() > 0) {
+      const chunk = encryptedBuffer.getBytes(privateKey.n.bitLength() / 8);
+      const decryptedChunk = privateKey.decrypt(chunk, 'RSA-OAEP');
+      chunks.push(decryptedChunk);
+    }
 
-    const decryptedJsonString = Buffer.from(decryptedBytes, 'binary').toString('utf-8');
-
-    const decryptedData = JSON.parse(decryptedJsonString);
+    const decryptedData = JSON.parse(forge.util.decodeUtf8(chunks.join('')));
 
     return decryptedData;
   } catch (error) {
@@ -64,6 +84,8 @@ export const decryptData = (encryptedBase64: string) => {
     throw new Error('Decryption error');
   }
 };
+
+
 
 export const convertStringToHex = (value: string) => {
   const encoded = new TextEncoder().encode(value);
@@ -111,83 +133,3 @@ export const convertHexToPemPrivateKey = (hexPrivateKey: string) => {
     return '';
   }
 };
-
-
-/**
- * 
- * Encrypt and decrypt chat messages 
- * 32 bytes for a 256-bit key
- */
-
-export const generateRandomChatKey = (): string => {
-  return forge.random.getBytesSync(32);
-}
-
-/*export const encryptChatMessage = (message: string, chatSecret: string) => {
-  const cipher = forge.cipher.createCipher('AES-CBC', forge.util.createBuffer(chatSecret));
-  cipher.start({ iv: forge.random.getBytesSync(16) });
-  cipher.update(forge.util.createBuffer(message));
-  cipher.finish();
-  return cipher.output.toHex()
-}*/
-
-
-/**
- * 
- * https://github.com/digitalbazaar/forge/issues/439
- */
-export const encryptChatMessage = (message: string, chatSecret: string) => {
-  const iv = forge.random.getBytesSync(16);
-  const cipher = forge.cipher.createCipher('AES-CBC', forge.util.createBuffer(chatSecret));
-  cipher.start({ iv: forge.util.createBuffer(iv) });
-  cipher.update(forge.util.createBuffer(message));
-  cipher.finish();
-  const encryptedMessage = iv + cipher.output.toHex();
-  return encryptedMessage;
-}
-
-
-/*export const decryptChatMessage = (messageBase64: string, secretKey: any) => {
-  try {
-    const message = forge.util.hexToBytes(messageBase64);
-
-    const decipher = forge.cipher.createDecipher('AES-CBC', secretKey);
-
-    decipher.start({ iv: forge.util.createBuffer(message).getBytes() });
-    decipher.update(forge.util.createBuffer(message));
-    decipher.finish();
-
-    const decryptedMessage = decipher.output;
-    console.log(decryptedMessage);
-   
-    return decryptedMessage;
-  } catch (error) {
-    console.log('decryptionError: ' + error);
-  }
-}*/
-
-export const decryptChatMessage = (messageBase64: string, secretKey: any) => {
-  try {
-    const message = forge.util.hexToBytes(messageBase64);
-
-    // Extract the IV from the first 16 bytes of the message
-    const iv = message.slice(0, 16);
-    const encryptedMessage = message.slice(16);
-
-    console.log('IV:', iv);
-    console.log('Encrypted Message:', encryptedMessage);
-
-    const decipher = forge.cipher.createDecipher('AES-CBC', secretKey);
-
-    decipher.start({ iv: forge.util.createBuffer(iv) });
-    decipher.update(forge.util.createBuffer(encryptedMessage));
-    decipher.finish();
-
-    const decryptedMessage = Buffer.from(decipher.output.getBytes(), 'binary');
-
-    return decryptedMessage;
-  } catch (error) {
-    console.error('Decryption Error:', error);
-    throw error; // Rethrow the error to signal a problem
-  }
-}

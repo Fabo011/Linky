@@ -19,6 +19,7 @@
                 d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
               />
             </svg>
+             <b class="magic">Magic Link</b>
           </h3>
           <hr />
           <form class="form-data">
@@ -45,3 +46,9 @@ export default defineComponent({
   components: { TheEmail, TheRegisterButton, PageNav },
 });
 </script>
+
+<style scoped>
+.magic {
+  font-size: xx-small;
+}
+</style>

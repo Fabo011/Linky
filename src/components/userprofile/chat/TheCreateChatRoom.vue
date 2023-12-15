@@ -36,12 +36,13 @@ import TheLinkName from '@/components/inputs/TheLinkName.vue';
 import TheLinkDescription from '@/components/inputs/TheLinkDescription.vue';
 import { store } from '../../../store/store';
 import { supabase } from '../../lib/supabaseClient';
-import { chatLinkLength, chatLinkCharacters, linkyChatUrl } from '../../../globalVariables';
+import { chatLinkLength, chatLinkCharacters } from '../../../globalVariables';
 import ChatIcon from '../../../assets/svg/TheChatIcon.vue';
 import AddBtn from '../../buttons/TheAddBtn.vue';
 import LoadingButton from '../../buttons/TheLoadingButton.vue';
 import CloseModalButton from '../../buttons/TheCloseModalBtn.vue';
-import { encryptData, generateRandomChatKey } from '@/components/crypto/crypto';
+import { generateChatKeyPair } from '@/components/crypto/crypto.chat';
+import { encryptData } from '@/components/crypto/crypto';
 import { addedtoast } from '@/components/toasts/toasts';
 
 export default defineComponent({
@@ -82,41 +83,32 @@ export default defineComponent({
       this.generateRandomString();
       this.nBtn = false;
       this.loading = true;
-      const username = store.username;
+      const { username } = store.getStandardUser();
       const linkname = store.linkname;
       const linkdescription = store.linkdescription;
-      const link = linkyChatUrl + this.link;
+      const link = this.link;
       const category = 'chat';
       const chatRoom = this.link.slice(0, 60);
-      const chatSecret = generateRandomChatKey();
+      const { privateKey, publicKey } = generateChatKeyPair();
 
-      const encryptedLinkName = encryptData(linkname);
-      const encryptedLinkDescription = encryptData(linkdescription);
-      const encryptedLink = encryptData(link);
-      const encryptedCategory = encryptData(category);
-      const encryptedChatSecret = encryptData(chatSecret);
-
-      const toSaveData = {
+      const data = {
         linkname: linkname,
         linkdescription: linkdescription,
         link: link,
         category: category,
         chatRoom: chatRoom,
-        chatSecret: chatSecret,
+        chatPrivateKey: privateKey,
+        chatPublicKey: publicKey,
       };
+      const encryptedData = encryptData(data);
 
-      const { error } = await supabase.from('link').insert({
+      const { error } = await supabase.from('links').insert({
         username: username,
-        linkname: encryptedLinkName,
-        linkdescription: encryptedLinkDescription,
-        link: encryptedLink,
-        category: encryptedCategory,
-        chatRoom: chatRoom,
-        chatSecret: encryptedChatSecret,
+        data: encryptedData,
       });
 
       if (!error) {
-        store.items.push(toSaveData);
+        store.items.push(data);
         this.executeCleanUp();
         addedtoast();
       } else {
