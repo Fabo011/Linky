@@ -91,7 +91,6 @@ export default defineComponent({
       this.nBtn = false;
       this.loading = true;
       const { username } = store.getStandardUser(); 
-      console.log(username);
       
       const linkname = store.linkname;
       const linkdescription = store.linkdescription;

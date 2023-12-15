@@ -104,14 +104,13 @@ export const store = reactive({
     },
 
     getPrivateKey() {
-        const hexPrivateKey = sessionStorage.getItem('priv') as string;
-        const privateKey = convertHexToString(hexPrivateKey);
+        const privateKey = sessionStorage.getItem('priv') as string;
         return privateKey;
     },
 
     getPublicKey() {
-        const hexPublicKeyPem = sessionStorage.getItem('pub') as string;
-        return hexPublicKeyPem;
+        const publicKeyPem = sessionStorage.getItem('pub') as string;
+        return publicKeyPem;
     },
 
     /**
@@ -163,17 +162,10 @@ export const store = reactive({
     },
 
     getStandardUser() {
-        /*const hexPrivateKey = sessionStorage.getItem('priv') as string;
-        const privateKey = convertHexToString(hexPrivateKey);
-
-        const hexPublicKey = sessionStorage.getItem('pub') as string;
-        const publicKey = convertHexToString(hexPublicKey);*/
-
-        const hexUsername = sessionStorage.getItem('username') as string;
+        const username = sessionStorage.getItem('username') as string;
         const hexTariff = sessionStorage.getItem('tariff') as string;
-        const accountSize = sessionStorage.getItem('accountSize') as string;
-        const accountStatus = sessionStorage.getItem('accountStatus') as string;
-        const username = convertHexToString(hexUsername) as string;
+        const accountSize = sessionStorage.getItem('accountSize');
+        const accountStatus = sessionStorage.getItem('accountStatus');
         const tariff = convertHexToString(hexTariff) as string;
 
         return {
@@ -202,7 +194,7 @@ export const store = reactive({
      * Data
      */
     async retrieveAllLinks() {
-        const username = this.username;
+        const username = sessionStorage.getItem('username');
 
         try {
             const { data, error } = await supabase.from('link').select('*').eq(`username`, username);

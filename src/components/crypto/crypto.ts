@@ -5,10 +5,8 @@ import { Buffer } from 'buffer';
 export const generateKeyPair = () => {
   const keyPair = forge.pki.rsa.generateKeyPair({ bits: 4096 });
 
-  const privateKeyStr = forge.pki.privateKeyToPem(keyPair.privateKey);
+  const privateKey = forge.pki.privateKeyToPem(keyPair.privateKey);
   const publicKey = forge.pki.publicKeyToPem(keyPair.publicKey);
-
-  const privateKey = convertPemPrivateKeyToHex(privateKeyStr);
 
   store.setKeyPair(privateKey, publicKey);
   return publicKey;
@@ -16,8 +14,7 @@ export const generateKeyPair = () => {
 
 const hexStringsToOriginalKeyPair = () => {
   const publicKeyPem = store.getPublicKey();
-  const hexPrivateKey = store.getPrivateKey() as any; 
-  const privateKeyPem = convertHexToPemPrivateKey(hexPrivateKey);
+  const privateKeyPem = store.getPrivateKey(); 
 
   const privateKey = forge.pki.privateKeyFromPem(privateKeyPem);
   const publicKey = forge.pki.publicKeyFromPem(publicKeyPem);
@@ -76,15 +73,11 @@ export const convertStringToHex = (value: string) => {
 }
 
 export const convertHexToString = (value: string) => {
-  console.log('value: ' + value);
-  
   const matchedHexPairs = value.match(/.{1,2}/g);
   if (matchedHexPairs) {
   const orgString = new TextDecoder().decode(
     Uint8Array.from(matchedHexPairs.map(byte => parseInt(byte, 16)))
-  );
-    console.log('OrgString: ' + orgString);
-    
+  );  
     return orgString;
   } else {
     console.error('Invalid hex string format');
