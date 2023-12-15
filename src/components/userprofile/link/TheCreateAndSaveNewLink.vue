@@ -99,12 +99,15 @@ export default defineComponent({
       const linkUsername = store.linkUsername;
       const linkPassword = store.linkPassword;
 
-      const encryptedLinkname = encryptData(linkname);
-      const encryptedLink = encryptData(link);
-      const encryptedLinkDescription = encryptData(linkdescription);
-      const encryptedCategory = encryptData(category);
-      const encryptedLinkUsername = encryptData(linkUsername);
-      const encryptedLinkPassword = encryptData(linkPassword);
+      const data = {
+        linkname: linkname,
+        linkdescription: linkdescription,
+        link: link,
+        category: category,
+        linkUsername: linkUsername,
+        linkPassword: linkPassword
+      };
+      const encryptedData = encryptData(data);
 
       const toSaveData: SaveDataTypes = {
         username: username,
@@ -116,14 +119,9 @@ export default defineComponent({
         linkPassword: linkPassword,
       };
 
-      const { error } = await supabase.from('link').insert({
+      const { error } = await supabase.from('links').insert({
         username: username,
-        linkname: encryptedLinkname,
-        linkdescription: encryptedLinkDescription,
-        link: encryptedLink,
-        category: encryptedCategory,
-        linkUsername: encryptedLinkUsername,
-        linkPassword: encryptedLinkPassword,
+        data: encryptedData,
       });
 
       if (!error) {

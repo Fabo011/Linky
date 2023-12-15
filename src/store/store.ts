@@ -191,33 +191,39 @@ export const store = reactive({
     },
 
     /**
-     * Data
+     * Retrieve All Data
      */
     async retrieveAllLinks() {
         const username = sessionStorage.getItem('username');
 
         try {
-            const { data, error } = await supabase.from('link').select('*').eq(`username`, username);
+            const { data, error } = await supabase.from('links').select('*').eq(`username`, username);
             if (error) throw new Error('Error retrieving data.');
-            // Add rollbar
-
+    
             if (data) {
                 const decryptedData = data.map((item) => {
-                    return {
+                    const decryptedItem = {
                         ...item,
-                        link: item.link ? decryptData(item.link) : null,
-                        linkname: item.linkname ? decryptData(item.linkname) : null,
-                        linkdescription: item.linkdescription ? decryptData(item.linkdescription) : null,
-                        category: item.category ? decryptData(item.category) : null,
-                        linkUsername: item.linkUsername ? decryptData(item.linkUsername) : null,
-                        linkPassword: item.linkPassword ? decryptData(item.linkPassword) : null,
-                        chatSecret: item.chatSecret ? decryptData(item.chatSecret) : null,
+                        data: item.data ? decryptData(item.data) : null,
                     };
+
+                    if (decryptedItem.data) {
+                        const { data } = decryptedItem;
+
+                        decryptedItem.link = data.link || null;
+                        decryptedItem.linkname = data.linkname || null;
+                        decryptedItem.linkdescription = data.linkdescription || null;
+                        decryptedItem.category = data.category || null;
+                        decryptedItem.linkUsername = data.linkUsername || null;
+                        decryptedItem.linkPassword = data.linkPassword || null;
+                        decryptedItem.chatSecret = data.chatSecret || null;
+                    }
+
+                    return decryptedItem;
                 });
 
-                this.items = decryptedData as any;
-                this.categories = decryptedData as any;
-
+                this.items = decryptedData;
+      
                 // Extract unique categories
                 let uniqueCategories = new Set();
                 decryptedData.forEach((item) => {
@@ -228,12 +234,10 @@ export const store = reactive({
 
                 this.categories = Array.from(uniqueCategories) as any;
             } else {
-                // Add rollbar
                 console.error('No data retrieved.');
             }
         } catch (error) {
-            // Add rollbar
-            console.error(error);
+            console.trace(error);
         }
     }
 });

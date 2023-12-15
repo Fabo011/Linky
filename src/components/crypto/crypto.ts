@@ -1,3 +1,7 @@
+/**
+ * This crypto file encrypt and decrypt all object data like links, notes etc.
+ */
+
 import { store } from "@/store/store";
 import forge from 'node-forge';
 import { Buffer } from 'buffer';
@@ -12,7 +16,7 @@ export const generateKeyPair = () => {
   return publicKey;
 };
 
-const hexStringsToOriginalKeyPair = () => {
+export const hexStringsToOriginalKeyPair = () => {
   const publicKeyPem = store.getPublicKey();
   const privateKeyPem = store.getPrivateKey(); 
 
@@ -27,44 +31,39 @@ const hexStringsToOriginalKeyPair = () => {
 
 export const encryptData = (data: any) => {
   try {
-  const { publicKey } = hexStringsToOriginalKeyPair();
-  console.log('key type publicKey: ' + publicKey);
-    
-  const maxChunkSize = 2048;
+    const { publicKey } = hexStringsToOriginalKeyPair();
 
-  const chunks = [];
-  for (let i = 0; i < data.length; i += maxChunkSize) {
-    const chunk = data.slice(i, i + maxChunkSize);
-    const encryptedChunk = publicKey.encrypt(chunk, 'RSA-OAEP');
-    chunks.push(Buffer.from(encryptedChunk, 'utf-8'));
-  }
+    const jsonString = JSON.stringify(data);
 
-  /**
-   * In case without chunks!
-   * const encryptedData = publicKey.encrypt(data, 'RSA-OAEP');
-   * const encryptedBase64 = Buffer.from(encryptedData).toString('base64');
-   **/
-  const concatenatedChunks = Buffer.concat(chunks);
-  const encryptedBase64 = concatenatedChunks.toString('base64');
+    const encryptedData = publicKey.encrypt(jsonString, 'RSA-OAEP');
 
-  return encryptedBase64;
+    const encryptedBase64 = forge.util.encode64(encryptedData);
+
+    return encryptedBase64;
   } catch (error) {
-    console.log('Encryption error: ' + error);
-    throw new Error('Encryption error')
-    // Add rollbar
-    //return '';
+    console.error('Encryption error:', error);
+    throw new Error('Encryption error');
   }
-}
+};
 
-export const decryptData = (data: any) => {
-  const { privateKey } = hexStringsToOriginalKeyPair();
+export const decryptData = (encryptedBase64: string) => {
+  try {
+    const { privateKey } = hexStringsToOriginalKeyPair();
 
-  const binaryData = Buffer.from(data, 'base64').toString();
+    const encryptedBytes = forge.util.decode64(encryptedBase64);
 
-  const decryptedData = privateKey.decrypt(binaryData, 'RSA-OAEP');
-  
-  return decryptedData;
-}
+    const decryptedBytes = privateKey.decrypt(encryptedBytes, 'RSA-OAEP');
+
+    const decryptedJsonString = Buffer.from(decryptedBytes, 'binary').toString('utf-8');
+
+    const decryptedData = JSON.parse(decryptedJsonString);
+
+    return decryptedData;
+  } catch (error) {
+    console.error('Decryption error:', error);
+    throw new Error('Decryption error');
+  }
+};
 
 export const convertStringToHex = (value: string) => {
   const encoded = new TextEncoder().encode(value);
@@ -86,7 +85,7 @@ export const convertHexToString = (value: string) => {
 
 export const convertPemPrivateKeyToHex = (pemPrivateKey: string) => {
   const base64String = pemPrivateKey
-    .replace(/-----BEGIN PRIVATE KEY-----/, '')
+    .replace(/-----BEGIN RSA PRIVATE KEY-----/, '')
     .replace(/-----END PRIVATE KEY-----/, '')
     .replace(/\s/g, '');
 

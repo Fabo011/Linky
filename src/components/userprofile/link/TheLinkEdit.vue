@@ -76,6 +76,13 @@ export default defineComponent({
       updateString: '',
       id: '',
       username: '',
+
+      linkname: '',
+      linkdescription: '',
+      link: '',
+      category: '',
+      linkPassword: '',
+      linkUsername: '',
     };
   },
 
@@ -83,7 +90,7 @@ export default defineComponent({
     async editLinkBtn() {
       this.nBtn = false;
       this.loading = true;
-      const username = store.username;
+      const { username } = store.getStandardUser();
       this.username = username;
       const newlinkname = store.linkname;
       const newlinkdescription = store.linkdescription;
@@ -95,140 +102,67 @@ export default defineComponent({
       this.id = id;
 
       if (newlinkname !== store.item.linkname && newlinkname !== '') {
-        const linkname = encryptData(newlinkname);
-        this.updateLinkname(linkname);
+        this.linkname = newlinkname;
+        updateItemInArrayLocally(this.id, store.linkname, 'linkname');
+      } else {
+        this.linkname = store.item.linkname;
       }
 
       if (newlinkdescription !== store.item.linkdescription && newlinkdescription !== '') {
-        const linkdescription = encryptData(newlinkdescription);
-        this.updateLinkDescription(linkdescription);
+        this.linkdescription = newlinkdescription;
+        updateItemInArrayLocally(this.id, store.linkdescription, 'linkdescription');
+      } else {
+        this.linkdescription = store.item.linkdescription;
       }
 
       if (newlink !== store.item.link && newlink !== '') {
-        const link = encryptData(newlink);
-        this.updateLink(link);
+        this.link = newlink;
+        updateItemInArrayLocally(this.id, store.link, 'link');
+      } else {
+        this.link = store.item.link;
       }
 
       if (newcategory !== store.item.category && newcategory !== '') {
-        const category = encryptData(newcategory);
-        this.updateCategory(category);
+        this.category = newcategory;
+        updateItemInArrayLocally(this.id, store.category, 'category');
+      } else {
+        this.category = store.item.category;
       }
 
       if (newlinkPassword !== store.item.linkPassword && newlinkPassword !== '') {
-        const linkPassword = encryptData(newlinkPassword);
-        this.updateLinkPassword(linkPassword);
+        this.linkPassword = newlinkPassword;
+        updateItemInArrayLocally(this.id, store.linkPassword, 'linkPassword');
+      } else {
+        this.linkPassword = store.item.linkPassword;
       }
 
       if (newlinkUsername !== store.item.linkUsername && newlinkUsername !== '') {
-        const linkUsername = encryptData(newlinkUsername);
-        this.updateLinkUsername(linkUsername);
-      }
-    },
-
-    async updateLinkDescription(data: string) {
-      const { error } = await supabase
-        .from('link')
-        .update({ linkdescription: `${data}` })
-        .eq(`id`, this.id)
-        .eq(`username`, this.username);
-
-      if (!error) {
-        updateItemInArrayLocally(this.id, store.linkdescription, 'linkdescription');
-        this.executeCleanUp();
-        updatedtoast();
-      } else {
-        // Add rollbar
-        this.nBtn = true;
-        this.loading = false;
-        console.log(error);
-      }
-    },
-
-    async updateLinkname(data: string) {
-      const { error } = await supabase
-        .from('link')
-        .update({ linkname: `${data}` })
-        .eq(`id`, this.id)
-        .eq(`username`, this.username);
-
-      if (!error) {
-        updateItemInArrayLocally(this.id, store.linkname, 'linkname');
-        this.executeCleanUp();
-        updatedtoast();
-      } else {
-        // Add rollbar
-        this.nBtn = true;
-        this.loading = false;
-        console.log(error);
-      }
-    },
-
-    async updateLink(data: string) {
-      const { error } = await supabase
-        .from('link')
-        .update({ link: `${data}` })
-        .eq(`id`, this.id)
-        .eq(`username`, this.username);
-
-      if (!error) {
-        updateItemInArrayLocally(this.id, store.link, 'link');
-        this.executeCleanUp();
-        updatedtoast();
-      } else {
-        // Add rollbar
-        this.nBtn = true;
-        this.loading = false;
-        console.log(error);
-      }
-    },
-
-    async updateCategory(data: string) {
-      const { error } = await supabase
-        .from('link')
-        .update({ category: `${data}` })
-        .eq(`id`, this.id)
-        .eq(`username`, this.username);
-
-      if (!error) {
-        updateItemInArrayLocally(this.id, store.category, 'category');
-        this.executeCleanUp();
-        updatedtoast();
-      } else {
-        // Add rollbar
-        this.nBtn = true;
-        this.loading = false;
-        console.log(error);
-      }
-    },
-
-    async updateLinkPassword(data: string) {
-      const { error } = await supabase
-        .from('link')
-        .update({ linkPassword: `${data}` })
-        .eq(`id`, this.id)
-        .eq(`username`, this.username);
-
-      if (!error) {
-        updateItemInArrayLocally(this.id, store.linkPassword, 'linkPassword');
-        this.executeCleanUp();
-        updatedtoast();
-      } else {
-        // Add rollbar
-        this.nBtn = true;
-        this.loading = false;
-        console.log(error);
-      }
-    },
-
-    async updateLinkUsername(data: string) {
-      const { error } = await supabase
-        .from('link')
-        .update({ linkUsername: `${data}` })
-        .eq(`id`, this.id)
-        .eq(`username`, this.username);
-
-      if (!error) {
+        this.linkUsername = newlinkUsername;
         updateItemInArrayLocally(this.id, store.linkUsername, 'linkUsername');
+      } else {
+        this.linkUsername = store.item.linkUsername;
+      }
+
+      const data = {
+        linkname: this.linkname,
+        linkdescription: this.linkdescription,
+        link: this.link,
+        category: this.category,
+        linkUsername: this.linkUsername,
+        linkPassword: this.linkPassword
+      };
+      const encryptedData = encryptData(data);
+      await this.updateData(encryptedData);
+    },
+
+    async updateData(data: any) {
+      const { error } = await supabase
+        .from('links')
+        .update({ data })
+        .eq(`id`, this.id)
+        .eq(`username`, this.username);
+
+      if (!error) {
         this.executeCleanUp();
         updatedtoast();
       } else {
