@@ -90,8 +90,8 @@ export default defineComponent({
     async addNewLinkBtn() {
       this.nBtn = false;
       this.loading = true;
-      const { username } = store.getStandardUser(); 
-      
+      const { username } = store.getStandardUser();
+
       const linkname = store.linkname;
       const linkdescription = store.linkdescription;
       const link = store.link;
@@ -105,7 +105,7 @@ export default defineComponent({
         link: link,
         category: category,
         linkUsername: linkUsername,
-        linkPassword: linkPassword
+        linkPassword: linkPassword,
       };
       const encryptedData = encryptData(data);
 

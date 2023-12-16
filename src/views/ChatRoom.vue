@@ -8,7 +8,7 @@
     <div v-for="message in messages" :key="message.id">
       <div v-if="store.username === message.username" class="message-block">
         <span class="user-avatar">
-          {{  message.username.slice(0, 2) }}
+          {{ message.username.slice(0, 2) }}
         </span>
         <span class="message-username">{{ message.username }}</span>
         <TheChatDeleteBtn @click.prevent="deleteMessage(message.id)" />
@@ -65,7 +65,7 @@ export default defineComponent({
       newMessage: '',
       messages: [] as any[],
       chatRoom: '',
-      username: ''
+      username: '',
     };
   },
 
@@ -73,10 +73,9 @@ export default defineComponent({
     async fetchChatMessages() {
       const privateKey = store.getChatPrivateKey() as string;
       const chatRoom = store.getChatLink();
-      
+
       const { data, error } = await supabase.from('chat').select('*').eq(`chatRoom`, chatRoom);
       if (data) {
-        
         const decryptedMessages = data.map((message) => {
           const decryptedMessage = decryptData(message.message, privateKey);
           return {

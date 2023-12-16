@@ -149,7 +149,7 @@ export default defineComponent({
         link: this.link,
         category: this.category,
         linkUsername: this.linkUsername,
-        linkPassword: this.linkPassword
+        linkPassword: this.linkPassword,
       };
       const encryptedData = encryptData(data);
       await this.updateData(encryptedData);
