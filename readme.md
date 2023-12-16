@@ -34,10 +34,10 @@ Create an account and start organizing your data with ease. The key to staying o
 
 ## Architecture
 
-The architecture of linky-cloud, as shared on GitHub, is the intellectual property of Waismayer Fabian (Github: Fabo011). Unauthorized copying, distribution, modification, or any other use of this information is strictly prohibited. The contents of this repository are provided for informational purposes only and are not intended for commercial use. Any use of this information without the express written consent of Waismayer Fabian (Github: Fabo011) is strictly forbidden.
+The high level architecture of linky-cloud, as shared on GitHub, is the intellectual property of Waismayer Fabian (Github: Fabo011). Unauthorized copying, distribution, modification, or any other use of this information is strictly prohibited. The contents of this repository are provided for informational purposes only and are not intended for commercial use. Any use of this information without the express written consent of Waismayer Fabian (Github: Fabo011) is strictly forbidden.
 
 <p align="center">
-  <a href="https://linky-cloud.com/" target="blank"><img src="./public/linky-cloud-architecture.png" width="90%" alt="Linky Logo" /></a>
+  <a href="https://linky-cloud.com/" target="blank"><img src="./docs/architecture.png" width="90%" alt="Linky Logo" /></a>
 </p>
 
 ---

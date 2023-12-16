@@ -226,7 +226,8 @@ export default defineComponent({
     openChat(item) {
       const publicKey = item.chatPublicKey;
       const privateKey = item.chatPrivateKey;
-      store.setChatKeyPairKey(publicKey, privateKey);
+      const chatRoom = item.link;
+      store.setChatKeyPairKey(publicKey, privateKey, chatRoom);
       this.$router.push(`/chat/${item.link}`);
     },
   },

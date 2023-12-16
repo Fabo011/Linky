@@ -50,7 +50,7 @@ export default defineComponent({
 
   methods: {
     home() {
-      this.$router.push(`/profile/${this.username}`);
+      this.$router.push(`/profile`);
     },
   },
 });

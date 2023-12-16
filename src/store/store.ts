@@ -14,7 +14,8 @@ export const store = reactive({
     //auth
     authStatus: '',
     token: '',
-    username: '',
+    username: sessionStorage.getItem('username') as string,
+    usernameSignUp: '',
     email: '',
     password: '',
 
@@ -47,6 +48,15 @@ export const store = reactive({
         this.item = item;
     },
 
+    setUsername(username: string) {
+        this.usernameSignUp = username
+    },
+
+    getUsername() {
+        const username = sessionStorage.getItem('username');
+        return username;
+    },
+
     //auth
     action(authStatus: string) {
         this.authStatus = authStatus,
@@ -66,9 +76,11 @@ export const store = reactive({
     setChatTextValue(text: string) {
         this.text = text
     },
-    setChatKeyPairKey(publicKey: string, privateKey: string) {
+    setChatKeyPairKey(publicKey: string, privateKey: string, chatRoom: string) {
         sessionStorage.setItem('chatPub', publicKey);
         sessionStorage.setItem('chatPriv', privateKey);
+        const chatRoomShort = chatRoom.slice(0, 60);
+        sessionStorage.setItem('chatLink', chatRoomShort);
     },
     getChatPublicKey() {
         // #TODO Validate incomming values, everywhere at get
@@ -79,6 +91,9 @@ export const store = reactive({
         // #TODO Validate incomming values, everywhere at get
         const privateKey = sessionStorage.getItem('chatPriv');
         return privateKey;
+    },
+    getChatLink() {
+        return sessionStorage.getItem('chatLink') as string;
     },
 
     //createAndSaveNewLink
@@ -202,6 +217,7 @@ export const store = reactive({
         sessionStorage.removeItem('chatPub');
         sessionStorage.removeItem('chatPriv');
         sessionStorage.removeItem('username');
+        sessionStorage.removeItem('chatLink');
     },
 
     /**
