@@ -1,6 +1,7 @@
-## ToDo
+## ToDo / Next steps
 
-- Encrypt messanger
+- Stream movies
+- Upload files
 
 ## Bugs
 
@@ -22,6 +23,8 @@
 - Add rollbar error report
 
 - All links, chatlinks.. must be editable.
+
+- Testing
 
 - https://supabase.com/docs/guides/realtime
 

@@ -17,13 +17,11 @@ const generateUsername = () => {
 export const saveNewUser = async (
   email: string,
   publicKey: string,
+  username: string,
 ) => {
   const tariff = 'defaultFree';
   const size = 0;
-  const accountStatus = true; // true is free, false is blocked
-
-  const usernamePre = generateUsername();
-  const username = usernamePre;  
+  const accountStatus = true; // true is free, false is blocked  
   const hexTariff = convertStringToHex(tariff);
 
   const { error } = await supabase.from('users').insert({

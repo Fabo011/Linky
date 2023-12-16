@@ -42,15 +42,13 @@ export default defineComponent({
   name: 'ChatRoom.vue',
   components: { TheFooter, TheChatNav, TheChatDeleteBtn },
 
-  beforeMount() {
-    this.loadChatRoom();
-  },
-
   created() {
     this.receiveMessageEventBus();
     this.receiveChatMessageEventBus();
     this.realtimeListener();
     this.scrollToBottom();
+    this.fetchChatMessages();
+    this.loadChatRoom();
   },
 
   async beforeRouteEnter() {
@@ -66,19 +64,26 @@ export default defineComponent({
       store,
       newMessage: '',
       messages: [] as any[],
-      chatRoom: '' as string,
-      chatSecret: 'test'
+      chatRoom: '',
+      username: '',
     };
   },
 
   methods: {
     async fetchChatMessages() {
-      const chatSecret = store.chatPrivateKey;
-      const { data, error } = await supabase.from('chat').select('*').eq(`chatRoom`, this.chatRoom);
+      const privateKey = store.getChatPrivateKey() as string;
+      const chatRoom = store.getChatLink();
+
+      const { data, error } = await supabase.from('chat').select('*').eq(`chatRoom`, chatRoom);
       if (data) {
-        const decryptedMessages = data.map((message) =>
-          decryptData(message.message, chatSecret),
-        );
+        const decryptedMessages = data.map((message) => {
+          const decryptedMessage = decryptData(message.message, privateKey);
+          return {
+            ...message,
+            message: decryptedMessage,
+          };
+        });
+
         this.messages = decryptedMessages as any;
       }
       if (error) {
@@ -89,14 +94,14 @@ export default defineComponent({
 
     async sendMessage() {
       const message = store.text;
+      const username = store.getUsername();
 
-      const chatSecret = store.chatPublicKey;
-      console.log(chatSecret);
+      const chatSecret = store.getChatPublicKey() as string;
       const encryptedMessage = encryptData(message, chatSecret);
 
       const { error } = await supabase
         .from('chat')
-        .insert({ username: store.username, message: encryptedMessage, chatRoom: this.chatRoom });
+        .insert({ username: username, message: encryptedMessage, chatRoom: this.chatRoom });
       if (!error) {
         store.setChatTextValue(this.newMessage);
         eventBus.emit('clearChatTextarea');
@@ -108,9 +113,12 @@ export default defineComponent({
     },
 
     realtimeListener() {
+      const privateKey = store.getChatPrivateKey() as string;
       supabase
         .channel('chat')
         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chat' }, (payload) => {
+          const decryptedMessage = decryptData(payload.new.message, privateKey);
+          payload.new.message = decryptedMessage;
           this.messages.push(payload.new);
           this.newMessageSound();
         })
@@ -127,9 +135,8 @@ export default defineComponent({
     },
 
     loadChatRoom() {
-      const route = this.$route.params.link as string;
-      const chatRR = route.slice(0, 60);
-      this.chatRoom = chatRR;
+      const chatRoom = store.getChatLink();
+      this.chatRoom = chatRoom;
     },
 
     receiveMessageEventBus() {
@@ -239,4 +246,3 @@ export default defineComponent({
   margin-right: 5px;
 }
 </style>
-@/components/userprofile/chat/TheChatSecret

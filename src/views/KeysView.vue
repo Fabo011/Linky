@@ -35,11 +35,11 @@
           <div v-if="privateKey == null">
             <p>Please copy your digital key into the input field and click the button below.</p>
             <form class="form-data">
-                <div class="key-field">
-                  <input v-model="userPrivateKey" type="text" placeholder="Enter Digital Key" />
-                </div>
-              </form>
-              <TheAuthButton @click.prevent="toAccount()" />
+              <div class="key-field">
+                <input v-model="userPrivateKey" type="text" placeholder="Enter Digital Key" />
+              </div>
+            </form>
+            <TheAuthButton @click.prevent="toAccount()" />
           </div>
         </div>
       </div>
@@ -74,7 +74,7 @@ export default defineComponent({
       this.$router.push('/signin');
     }
     const privateKey = localStorage.getItem('priv') as string;
-    this.privateKey = privateKey; 
+    this.privateKey = privateKey;
   },
 
   methods: {

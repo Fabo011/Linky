@@ -23,11 +23,11 @@
         </button>
         <!--Open Link Button for chats-->
         <button v-if="item.category === 'chat'" class="btn share">
-            <a @click.prevent="openChat(item)" target="_blank" class="btn btn-sm openlink">
-              <TheChatBtnIcon /><br />
-              <span class="clipboard">Link</span>
-            </a>
-          </button>
+          <a @click.prevent="openChat(item)" target="_blank" class="btn btn-sm openlink">
+            <TheChatBtnIcon /><br />
+            <span class="clipboard">Link</span>
+          </a>
+        </button>
 
         <button class="btn share" @click.prevent="shareLink(item)">
           <TheClipboardIcon /><br />
@@ -226,7 +226,8 @@ export default defineComponent({
     openChat(item) {
       const publicKey = item.chatPublicKey;
       const privateKey = item.chatPrivateKey;
-      store.setChatKeyPairKey(publicKey, privateKey);
+      const chatRoom = item.link;
+      store.setChatKeyPairKey(publicKey, privateKey, chatRoom);
       this.$router.push(`/chat/${item.link}`);
     },
   },

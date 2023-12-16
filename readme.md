@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-Linky-Cloud offers a premium and secure cloud storage solution for privacy entousiasts. Save links, files, images, videos, music, passwords and chat content. While we may be priced higher than Google, the reason is that we cant sell your data. We do not collect personalized data, you and your data remains anonymously.
+Linky-Cloud offers a premium and secure cloud storage solution for privacy entousiasts. Save links, files, images, videos, music, passwords and chat content. We do not collect personalized data, you and your data remains anonymously.
 </p>
 
 <!--<p align="center"><a href="https://linky-cloud.com">https://linky-cloud.com</a></p>
@@ -18,7 +18,7 @@ Linky-Cloud offers a premium and secure cloud storage solution for privacy entou
 
 ## Info
 
-Please note that not all features are implemented so far and keep in mind that this software is still in development (beta testing) and may contain bugs or have limited functionality. Your feedback and suggestions are greatly appreciated. If you encounter any issues, please report them to [linky-cloud@proton.me](mailto:linky-cloud@proton.me).
+Please note that not all features are implemented so far and keep in mind that this software is fully in development (beta testing) and may contain bugs or have limited functionality. Your feedback and suggestions are greatly appreciated. If you encounter any issues, please report them to [linky-cloud@proton.me](mailto:linky-cloud@proton.me).
 
 ---
 
@@ -34,10 +34,10 @@ Create an account and start organizing your data with ease. The key to staying o
 
 ## Architecture
 
-The architecture of linky-cloud, as shared on GitHub, is the intellectual property of Waismayer Fabian (Github: Fabo011). Unauthorized copying, distribution, modification, or any other use of this information is strictly prohibited. The contents of this repository are provided for informational purposes only and are not intended for commercial use. Any use of this information without the express written consent of Waismayer Fabian (Github: Fabo011) is strictly forbidden.
+The high level architecture of linky-cloud, as shared on GitHub, is the intellectual property of Waismayer Fabian (Github: Fabo011). Unauthorized copying, distribution, modification, or any other use of this information is strictly prohibited. The contents of this repository are provided for informational purposes only and are not intended for commercial use. Any use of this information without the express written consent of Waismayer Fabian (Github: Fabo011) is strictly forbidden.
 
 <p align="center">
-  <a href="https://linky-cloud.com/" target="blank"><img src="./public/linky-cloud-architecture.png" width="90%" alt="Linky Logo" /></a>
+  <a href="https://linky-cloud.com/" target="blank"><img src="./docs/architecture.png" width="90%" alt="Linky Logo" /></a>
 </p>
 
 ---

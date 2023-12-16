@@ -3,24 +3,14 @@
   <section class="container mt-5">
     <div class="row d-flex justify-content-center">
       <div class="col-md-6">
-        <div class="card px-4 py-5 shadow p-3 mb-5 bg-body rounded border-0" id="form1">
-          <h3>
-            <b>Login </b>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="red"
-              class="bi bi-heart-fill"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
-              />
-            </svg>
-            <b class="magic">Magic Link</b>
-          </h3>
+        <div class="card px-5 py-5 shadow p-3 mb-5 bg-body rounded border-0" id="form1">
+          <div>
+            <h3 class="magic-container">
+              <img id="img" src="../../public/img/cat-magic.png" alt="Magic Cat" />
+            </h3>
+            <b class="magic">Magic Link Login</b>
+          </div>
+
           <hr />
           <form class="form-data">
             <TheEmail></TheEmail>
@@ -54,6 +44,20 @@ export default defineComponent({
   color: var(--primary-blue-color);
 }
 .magic {
-  font-size: xx-small;
+  font-size: xs-small;
+  margin-left: 3px;
+  margin-top: 30px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.magic-container {
+  display: inline;
+}
+
+#img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
 }
 </style>

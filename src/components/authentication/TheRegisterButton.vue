@@ -39,6 +39,7 @@ export default defineComponent({
       this.loading = true;
       await new Promise((resolve) => setTimeout(resolve, 1000));
       const email = store.email;
+      const username = store.usernameSignUp;
 
       try {
         const publicKey = generateKeyPair();
@@ -51,11 +52,12 @@ export default defineComponent({
 
         const { error } = await supabase.auth.signInWithOtp({ email, options });
         if (!error) {
-          await saveNewUser(email, publicKey);
+          await saveNewUser(email, publicKey, username);
           store.action(this.authStatus);
           this.nBtn = true;
           this.loading = false;
-          this.store.email = this.reset;
+          store.email = '';
+          store.usernameSignUp = '';
           signeduptoast();
         } else {
           this.errorText = 'This email already exist.';
