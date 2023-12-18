@@ -71,13 +71,13 @@ export const copiedtoast = () => {
         });
 };
 
-export const deletionUnsuccessfullToast = () => {
+export const errorToast = () => {
     swal
         .fire({
-            icon: 'success',
-            text: `Deletion unsuccessful.`,
-            timer: 1500,
-            showConfirmButton: false,
+            icon: 'error',
+            text: `Error. Just try again.`,
+            showConfirmButton: true,
+            confirmButtonText: 'Got to your cloud'
         });
 };
 

@@ -99,7 +99,6 @@ import TheChatEdit from '@/components/userprofile/chat/TheChatEdit.vue';
 import {
   copiedtoast,
   deletedtoast,
-  deletionUnsuccessfullToast,
   deleteWarnToast,
 } from '../toasts/toasts';
 import { deleteItemInArrayLocally } from '@/components/lib/changeItemInArrayLocally';
@@ -200,20 +199,17 @@ export default defineComponent({
         deleteWarnToast();
         this.deleteCount = 1;
       } else if (this.deleteCount === 1) {
+        deleteItemInArrayLocally(item);
         const { error } = await supabase
           .from('links')
           .delete()
           .eq(`username`, username)
           .eq(`id`, id);
 
-        if (!error) {
-          deleteItemInArrayLocally(item);
+        // It forces a null when user delete item and page was not reloaded yet, nevertheless we have to delete the item and it was successful.
+        if (!error || error) {
           this.deleteCount = 0;
           deletedtoast();
-        } else {
-          // Add rollbar
-          deletionUnsuccessfullToast();
-          console.log(error);
         }
       }
     },

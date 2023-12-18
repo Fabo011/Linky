@@ -5,11 +5,11 @@
       <div class="col-md-6">
         <div class="card px-5 py-5 shadow p-3 mb-5 bg-body rounded border-0" id="form1">
           <div>
-              <h3 class="magic-container">
-                <img id="img" src="../../public/img/cat-magic.png" alt="Magic Cat" />
-              </h3>
-              <b class="magic">Magic Link Register</b>
-            </div>
+            <h3 class="magic-container">
+              <img id="img" src="../../public/img/cat-magic.png" alt="Magic Cat" />
+            </h3>
+            <b class="magic">Magic Link Register</b>
+          </div>
           <hr />
           <form class="form-data">
             <TheUsername />

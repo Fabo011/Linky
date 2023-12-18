@@ -1,7 +1,7 @@
 import forge from 'node-forge';
 import { Buffer } from 'buffer';
 
-export const generateChatKeyPair = () => {
+export const generateChatKeyPair = () => { 
   const keyPair = forge.pki.rsa.generateKeyPair({ bits: 2048 });
 
   const privateKey = forge.pki.privateKeyToPem(keyPair.privateKey);

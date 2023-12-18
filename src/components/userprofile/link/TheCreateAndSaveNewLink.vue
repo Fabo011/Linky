@@ -19,12 +19,12 @@
             <TheCloseModalBtn />
           </div>
           <form class="modal-body">
-            <TheLinkName />
-            <TheLinkDescription />
-            <TheCategory />
-            <TheLink />
-            <TheLinkUsername />
-            <TheLinkPassword />
+            <TheLinkName :key="key" />
+            <TheLinkDescription :key="key" />
+            <TheCategory :key="key" />
+            <TheLink :key="key" />
+            <TheLinkUsername :key="key" />
+            <TheLinkPassword :key="key" />
           </form>
           <div class="modal-footer d-flex justify-content-start">
             <TheAddBtn v-if="nBtn" @click.prevent="addNewLinkBtn" />
@@ -43,7 +43,7 @@ import TheLink from '@/components/inputs/TheLink.vue';
 import TheLinkName from '@/components/inputs/TheLinkName.vue';
 import TheLinkDescription from '@/components/inputs/TheLinkDescription.vue';
 import TheCategory from '@/components/inputs/TheCategory.vue';
-import { addedtoast } from '@/components/toasts/toasts';
+import { addedtoast, errorToast } from '@/components/toasts/toasts';
 import { supabase } from '@/components/lib/supabaseClient';
 import TheLinkIcon from '@/assets/svg/TheLinkIcon.vue';
 import TheAddBtn from '@/components/buttons/TheAddBtn.vue';
@@ -84,61 +84,69 @@ export default defineComponent({
       nBtn: true,
       loading: false,
       updateString: '',
+      key: 0,
     };
   },
   methods: {
     async addNewLinkBtn() {
-      this.nBtn = false;
-      this.loading = true;
-      const { username } = store.getStandardUser();
+      try {
+         this.nBtn = false;
+        this.loading = true;
+        const { username } = store.getStandardUser();
 
-      const linkname = store.linkname;
-      const linkdescription = store.linkdescription;
-      const link = store.link;
-      const category = store.category;
-      const linkUsername = store.linkUsername;
-      const linkPassword = store.linkPassword;
+        const linkname = store.linkname;
+        const linkdescription = store.linkdescription;
+        const link = store.link;
+        const category = store.category;
+        const linkUsername = store.linkUsername;
+        const linkPassword = store.linkPassword;
 
-      const data = {
-        linkname: linkname,
-        linkdescription: linkdescription,
-        link: link,
-        category: category,
-        linkUsername: linkUsername,
-        linkPassword: linkPassword,
-      };
-      const encryptedData = encryptData(data);
+        const data = {
+          linkname: linkname,
+          linkdescription: linkdescription,
+          link: link,
+          category: category,
+          linkUsername: linkUsername,
+          linkPassword: linkPassword,
+        };
+        const encryptedData = encryptData(data);
 
-      const toSaveData: SaveDataTypes = {
-        username: username,
-        linkname: linkname,
-        linkdescription: linkdescription,
-        link: link,
-        category: category,
-        linkUsername: linkUsername,
-        linkPassword: linkPassword,
-      };
+        const toSaveData: SaveDataTypes = {
+          username: username,
+          linkname: linkname,
+          linkdescription: linkdescription,
+          link: link,
+          category: category,
+          linkUsername: linkUsername,
+          linkPassword: linkPassword,
+        };
 
-      const { error } = await supabase.from('links').insert({
-        username: username,
-        data: encryptedData,
-      });
+        const { error } = await supabase.from('links').insert({
+          username: username,
+          data: encryptedData,
+        });
 
-      if (!error) {
-        store.items.push(toSaveData);
-        this.nBtn = true;
+        if (!error) {
+          store.items.push(toSaveData);
+          this.nBtn = true;
+          this.loading = false;
+          this.executeCleanUp();
+          addedtoast();
+        } else {
+          this.loading = false;
+          this.executeCleanUp();
+          errorToast();
+        }
+      } catch (error) {
         this.loading = false;
         this.executeCleanUp();
-        addedtoast();
-      } else {
-        // Add rollbar
-        console.log(error);
-        this.loading = false;
-        this.executeCleanUp();
+        errorToast();
       }
+     
     },
 
     executeCleanUp() {
+      this.key = this.key + 1;
       store.linkname = this.updateString;
       store.linkdescription = this.updateString;
       store.link = this.updateString;

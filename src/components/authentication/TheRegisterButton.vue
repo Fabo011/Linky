@@ -15,6 +15,7 @@ import AuthBtn from '../buttons/TheAuthButton.vue';
 import { generateKeyPair } from '../crypto/crypto';
 import { signeduptoast } from '@/components/toasts/toasts';
 import { saveNewUser } from '@/components/authentication/saveNewUser';
+import eventBus from '../lib/event-bus';
 
 export default defineComponent({
   name: 'TheRegisterButton.vue',
@@ -51,13 +52,15 @@ export default defineComponent({
         };
 
         const { error } = await supabase.auth.signInWithOtp({ email, options });
-        if (!error) {
+        if (url) {
           await saveNewUser(email, publicKey, username);
           store.action(this.authStatus);
           this.nBtn = true;
           this.loading = false;
-          store.email = '';
-          store.usernameSignUp = '';
+          store.username = this.reset;
+          store.email = this.reset;
+          eventBus.emit('clearUsernameInput');
+          eventBus.emit('clearEmailInput');
           signeduptoast();
         } else {
           this.errorText = 'This email already exist.';

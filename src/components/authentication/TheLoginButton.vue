@@ -13,6 +13,7 @@ import { supabase } from '../lib/supabaseClient';
 import LoadingButton from '../buttons/TheLoadingButton.vue';
 import AuthBtn from '../buttons/TheAuthButton.vue';
 import { signedintoast } from '../toasts/toasts';
+import eventBus from '../lib/event-bus';
 
 export default defineComponent({
   name: 'TheLoginButton.vue',
@@ -50,7 +51,9 @@ export default defineComponent({
           store.action(this.authStatus);
           this.nBtn = true;
           this.loading = false;
-          this.store.email = this.reset;
+          store.email = this.reset;
+          eventBus.emit('clearUsernameInput');
+          eventBus.emit('clearEmailInput');
           signedintoast();
         } else {
           this.errorText = 'User already registered.';

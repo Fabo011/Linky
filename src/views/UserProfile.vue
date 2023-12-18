@@ -37,7 +37,7 @@ export default defineComponent({
   },
 
   async created() {
-    await store.setUser();
+    //await store.setUser();
   },
 });
 </script>

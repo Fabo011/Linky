@@ -6,15 +6,13 @@
 ## Bugs
 
 - Loading spinner in Add button
-- reset email after successful register or login
 - For larger files to encrypt, implement symmetric encryption
-- Popup in chat to install public keys of partners. Or in settings??
-- Loading spinner where decrypting is happening.
+- Loading spinner where decrypting is happening (Chat).
 
 ## Security
 
 - Secure Supabase auth in code and Supabase itself. At the end of v2.0.0
-- Peer to peer chat
+- Chat link sharing
 
 ## v2.0.0 Must Haves & Features
 

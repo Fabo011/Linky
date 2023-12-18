@@ -17,11 +17,11 @@
             <CloseModalButton />
           </div>
           <form class="modal-body">
-            <TheLinkName />
-            <TheLinkDescription />
+            <TheLinkName :key="key" />
+            <TheLinkDescription :key="key" />
           </form>
           <div class="modal-footer d-flex justify-content-start">
-            <AddBtn v-if="nBtn" @click.prevent="addNewChatBtn"> Add </AddBtn>
+            <AddBtn v-if="nBtn" data-bs-dismiss="modal" @click.prevent="addNewChatBtn"> Add </AddBtn>
             <LoadingButton v-if="loading" />
           </div>
         </div>
@@ -43,7 +43,7 @@ import LoadingButton from '../../buttons/TheLoadingButton.vue';
 import CloseModalButton from '../../buttons/TheCloseModalBtn.vue';
 import { generateChatKeyPair } from '@/components/crypto/crypto.chat';
 import { encryptData } from '@/components/crypto/crypto';
-import { addedtoast } from '@/components/toasts/toasts';
+import { addedtoast, errorToast } from '@/components/toasts/toasts';
 
 export default defineComponent({
   name: 'TheCreateChatRoom.vue',
@@ -62,6 +62,7 @@ export default defineComponent({
       loading: false,
       link: '',
       updateString: '',
+      key: 0,
     };
   },
 
@@ -80,45 +81,57 @@ export default defineComponent({
     },
 
     async addNewChatBtn() {
-      this.generateRandomString();
-      this.nBtn = false;
-      this.loading = true;
-      const { username } = store.getStandardUser();
-      const linkname = store.linkname;
-      const linkdescription = store.linkdescription;
-      const link = this.link;
-      const category = 'chat';
-      const chatRoom = this.link.slice(0, 60);
-      const { privateKey, publicKey } = generateChatKeyPair();
+      try {
+        this.nBtn = false;
+        this.loading = true;
+        this.generateRandomString();
+        const { username } = store.getStandardUser();
+        const linkname = store.linkname;
+        const linkdescription = store.linkdescription;
+        const link = this.link;
+        const category = 'chat';
+        const chatRoom = this.link.slice(0, 60);
 
-      const data = {
-        linkname: linkname,
-        linkdescription: linkdescription,
-        link: link,
-        category: category,
-        chatRoom: chatRoom,
-        chatPrivateKey: privateKey,
-        chatPublicKey: publicKey,
-      };
-      const encryptedData = encryptData(data);
-
-      const { error } = await supabase.from('links').insert({
-        username: username,
-        data: encryptedData,
-      });
-
-      if (!error) {
-        store.items.push(data);
-        this.executeCleanUp();
         addedtoast();
-      } else {
+        const { privateKey, publicKey } = generateChatKeyPair();
+
+        const data = {
+          linkname: linkname,
+          linkdescription: linkdescription,
+          link: link,
+          category: category,
+          chatRoom: chatRoom,
+          chatPrivateKey: privateKey,
+          chatPublicKey: publicKey,
+        };
+        const encryptedData = encryptData(data);
+
+        const { error } = await supabase.from('links').insert({
+          username: username,
+          data: encryptedData,
+        });
+
+        if (!error) {
+          store.items.push(data);
+          this.executeCleanUp();
+          this.nBtn = true;
+          this.loading = false;
+        } else {
+          this.nBtn = true;
+          this.loading = false;
+          this.executeCleanUp();
+          errorToast();
+        }
+      } catch (error) {
         this.nBtn = true;
         this.loading = false;
         this.executeCleanUp();
+        errorToast();
       }
     },
 
     executeCleanUp() {
+      this.key = this.key + 1;
       store.linkname = this.updateString;
       store.linkdescription = this.updateString;
       store.link = this.updateString;

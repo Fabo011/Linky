@@ -19,6 +19,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { store } from '../../store/store';
+import eventBus from '../lib/event-bus';
 
 export default defineComponent({
   data() {
@@ -26,6 +27,10 @@ export default defineComponent({
       username: '',
       usernameError: '',
     };
+  },
+
+  created() {
+    this.receiveMessageEventBus();
   },
 
   methods: {
@@ -43,6 +48,12 @@ export default defineComponent({
 
     resetInput() {
       this.usernameError = '';
+    },
+
+    receiveMessageEventBus() {
+      eventBus.on('clearUsernameInput', () => {
+        this.username = '';
+      });
     },
   },
 });
