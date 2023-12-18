@@ -52,17 +52,7 @@ import TheLoadingButton from '@/components/buttons/TheLoadingButton.vue';
 import TheLinkPassword from './TheLinkPassword.vue';
 import { encryptData } from '@/components/crypto/crypto';
 import TheLinkUsername from './TheLinkUsername.vue';
-
-interface SaveDataTypes {
-  username: string;
-  linkname: string;
-  linkdescription: string;
-  link: string;
-  category: string;
-  linkUsername?: string;
-  linkPassword?: string;
-  chatRoom?: string;
-}
+import { createId } from '@/components/lib/createId';
 
 export default defineComponent({
   name: 'CreateAndSaveNewLink.vue',
@@ -90,9 +80,10 @@ export default defineComponent({
   methods: {
     async addNewLinkBtn() {
       try {
-         this.nBtn = false;
+        this.nBtn = false;
         this.loading = true;
         const { username } = store.getStandardUser();
+        const id = createId();
 
         const linkname = store.linkname;
         const linkdescription = store.linkdescription;
@@ -111,7 +102,8 @@ export default defineComponent({
         };
         const encryptedData = encryptData(data);
 
-        const toSaveData: SaveDataTypes = {
+        const toSaveData = {
+          id: id,
           username: username,
           linkname: linkname,
           linkdescription: linkdescription,
@@ -122,6 +114,7 @@ export default defineComponent({
         };
 
         const { error } = await supabase.from('links').insert({
+          id: id,
           username: username,
           data: encryptedData,
         });
@@ -132,12 +125,13 @@ export default defineComponent({
           this.loading = false;
           this.executeCleanUp();
           addedtoast();
-        } else {
+        } else {  
           this.loading = false;
           this.executeCleanUp();
           errorToast();
         }
       } catch (error) {
+        console.trace(error);
         this.loading = false;
         this.executeCleanUp();
         errorToast();

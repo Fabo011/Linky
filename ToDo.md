@@ -1,7 +1,8 @@
 ## ToDo / Next steps
 
-- Stream movies
+- Chat link sharing
 - Upload files
+- Password generator
 
 ## Bugs
 
@@ -12,7 +13,6 @@
 ## Security
 
 - Secure Supabase auth in code and Supabase itself. At the end of v2.0.0
-- Chat link sharing
 
 ## v2.0.0 Must Haves & Features
 

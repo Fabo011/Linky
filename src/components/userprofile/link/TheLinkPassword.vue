@@ -7,9 +7,10 @@
       placeholder="jsdho@hihiweifw!?"
       autocomplete="off"
       minlength="6"
-      maxlength="200"
-      class="w-100"
+      maxlength="3000"
+      class="w-90"
     />
+    <button @click.prevent="generatePassword()" class="btn btn-secondary btn-sm ms-1">Generate Password</button>
   </div>
 </template>
 
@@ -27,6 +28,17 @@ export default defineComponent({
   methods: {
     set() {
       store.setLinkPassword(this.linkPassword);
+    },
+
+    generatePassword() {      
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@?!';
+      let generatedPassword = '';
+      for (let i = 0; i < 15; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        generatedPassword += characters[randomIndex];
+      }
+      this.linkPassword = generatedPassword;
+      this.set();
     },
   },
 });

@@ -17,12 +17,12 @@
             <TheCloseModalBtn @click.prevent="setEditButtonActive()" />
           </div>
           <form class="modal-body">
-            <TheLinkName />
-            <TheLinkDescription />
-            <TheCategory />
-            <TheLink />
-            <TheLinkUsername />
-            <TheLinkPassword />
+            <TheLinkName :key="key" />
+            <TheLinkDescription :key="key" />
+            <TheCategory :key="key" />
+            <TheLink :key="key" />
+            <TheLinkUsername :key="key" />
+            <TheLinkPassword :key="key" />
           </form>
           <div class="modal-footer d-flex justify-content-start">
             <TheAddBtn v-if="nBtn" @click.prevent="editLinkBtn()" />
@@ -83,6 +83,7 @@ export default defineComponent({
       category: '',
       linkPassword: '',
       linkUsername: '',
+      key: 0,
     };
   },
 
@@ -174,6 +175,7 @@ export default defineComponent({
     },
 
     executeCleanUp() {
+      this.key = this.key + 1;
       this.nBtn = true;
       this.loading = false;
       store.editButtonActive = true;

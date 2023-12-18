@@ -77,7 +77,7 @@ export const errorToast = () => {
             icon: 'error',
             text: `Error. Just try again.`,
             showConfirmButton: true,
-            confirmButtonText: 'Got to your cloud'
+            confirmButtonText: 'Ok'
         });
 };
 

@@ -100,6 +100,7 @@ import {
   copiedtoast,
   deletedtoast,
   deleteWarnToast,
+errorToast,
 } from '../toasts/toasts';
 import { deleteItemInArrayLocally } from '@/components/lib/changeItemInArrayLocally';
 import TheChatSecretIcon from '@/assets/svg/TheChatSecretIcon.vue';
@@ -198,18 +199,20 @@ export default defineComponent({
       if (this.deleteCount === 0) {
         deleteWarnToast();
         this.deleteCount = 1;
-      } else if (this.deleteCount === 1) {
-        deleteItemInArrayLocally(item);
+      } else if (this.deleteCount >= 1) {
         const { error } = await supabase
           .from('links')
           .delete()
           .eq(`username`, username)
           .eq(`id`, id);
 
-        // It forces a null when user delete item and page was not reloaded yet, nevertheless we have to delete the item and it was successful.
         if (!error || error) {
           this.deleteCount = 0;
+          deleteItemInArrayLocally(item);
           deletedtoast();
+        } else {
+          this.deleteCount = 0;
+          errorToast();
         }
       }
     },

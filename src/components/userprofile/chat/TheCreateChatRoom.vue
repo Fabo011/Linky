@@ -21,7 +21,7 @@
             <TheLinkDescription :key="key" />
           </form>
           <div class="modal-footer d-flex justify-content-start">
-            <AddBtn v-if="nBtn" data-bs-dismiss="modal" @click.prevent="addNewChatBtn"> Add </AddBtn>
+            <AddBtn v-if="nBtn" @click.prevent="addNewChatBtn"> Add </AddBtn>
             <LoadingButton v-if="loading" />
           </div>
         </div>
@@ -44,6 +44,7 @@ import CloseModalButton from '../../buttons/TheCloseModalBtn.vue';
 import { generateChatKeyPair } from '@/components/crypto/crypto.chat';
 import { encryptData } from '@/components/crypto/crypto';
 import { addedtoast, errorToast } from '@/components/toasts/toasts';
+import { createId } from '@/components/lib/createId';
 
 export default defineComponent({
   name: 'TheCreateChatRoom.vue',
@@ -86,13 +87,14 @@ export default defineComponent({
         this.loading = true;
         this.generateRandomString();
         const { username } = store.getStandardUser();
+        const id = createId();
         const linkname = store.linkname;
         const linkdescription = store.linkdescription;
         const link = this.link;
         const category = 'chat';
         const chatRoom = this.link.slice(0, 60);
-
-        addedtoast();
+        
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         const { privateKey, publicKey } = generateChatKeyPair();
 
         const data = {
@@ -106,16 +108,30 @@ export default defineComponent({
         };
         const encryptedData = encryptData(data);
 
+        const toSaveData = {
+          id: id,
+          username: username,
+          linkname: linkname,
+          linkdescription: linkdescription,
+          link: link,
+          category: category,
+          chatRoom: chatRoom,
+          chatPrivateKey: privateKey,
+          chatPublicKey: publicKey,
+        };
+
         const { error } = await supabase.from('links').insert({
+          id: id,
           username: username,
           data: encryptedData,
         });
 
         if (!error) {
-          store.items.push(data);
+          store.items.push(toSaveData);
           this.executeCleanUp();
           this.nBtn = true;
           this.loading = false;
+          addedtoast();
         } else {
           this.nBtn = true;
           this.loading = false;
