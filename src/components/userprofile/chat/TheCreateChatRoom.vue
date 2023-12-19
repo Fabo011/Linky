@@ -37,7 +37,7 @@ import TheChatDescription from './TheChatDescription.vue';
 import { store } from '../../../store/store';
 import { supabase } from '../../lib/supabaseClient';
 import swal from 'sweetalert2';
-import { chatLinkLength, chatLinkCharacters, linkyChatUrl } from '../../../globalVariables';
+import { chatLinkLength, chatLinkCharacters } from '../../../globalVariables';
 import ChatIcon from '../../../assets/svg/TheChatIcon.vue';
 import AddBtn from '../../buttons/TheAddBtn.vue';
 import LoadingButton from '../../buttons/TheLoadingButton.vue';

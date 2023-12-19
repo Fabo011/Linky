@@ -11,6 +11,7 @@
     <ul class="dropdown-menu">
       <li><TheCreateAndSaveNewLink class="dropdown-item" /></li>
       <li><TheCreateChatRoom class="dropdown-item" /></li>
+      <li><i @click.prevent="openArchive()" class="bi bi-archive dropdown-item cur"> Go To File Archive</i></li>
     </ul>
   </div>
 </template>
@@ -19,9 +20,17 @@
 import { defineComponent } from 'vue';
 import TheCreateAndSaveNewLink from './link/TheCreateAndSaveNewLink.vue';
 import TheCreateChatRoom from './chat/TheCreateChatRoom.vue';
+import TheArchiveIcon from '@/assets/svg/TheArchiveIcon.vue';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export default defineComponent({
-  components: { TheCreateAndSaveNewLink, TheCreateChatRoom },
+  components: { TheCreateAndSaveNewLink, TheCreateChatRoom, TheArchiveIcon },
+
+  methods: {
+    openArchive() {
+      this.$router.push('archive');
+    },
+  }
 });
 </script>
 
@@ -56,5 +65,8 @@ export default defineComponent({
   margin-left: 3px;
   margin-right: 3px;
   background-color: var(--primary-blue-color);
+}
+.cur {
+  cursor: pointer;
 }
 </style>

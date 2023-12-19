@@ -12,8 +12,8 @@
         </button>
       </h5>
       <div class="card-body">
-        <h6 class="card-title">{{ item.link }}</h6>
-        <p class="card-text">{{ item.linkdescription }}</p>
+        <h6 class="card-title card-title text-truncate"><i class="bi bi-link-45deg icons"></i>{{ item.link }}</h6>
+        <p class="card-text"><i class="bi bi-tags icons"></i>{{ item.linkdescription }}</p>
         <button v-if="item.category !== 'chat'" class="btn share">
           <a :href="item.link" target="_blank" class="btn btn-sm openlink">
             <TheChatBtnIcon /><br />
@@ -206,5 +206,8 @@ export default defineComponent({
 .clipboard {
   margin: 0;
   font-size: 8px;
+}
+.icons {
+  margin-right: 3px;
 }
 </style>

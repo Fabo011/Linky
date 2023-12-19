@@ -14,6 +14,7 @@ import RetrieveAllLinks from '@/components/userprofile/link/TheRetrieveAllLinks.
 import RetrieveCategories from '@/components/userprofile/link/TheRetrieveCategories.vue';
 import TheFooter from '@/components/lib/TheFooter.vue';
 import ProfileNav from '@/components/navbars/TheProfileNav.vue';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export default defineComponent({
   components: {

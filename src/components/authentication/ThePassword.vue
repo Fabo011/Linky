@@ -1,12 +1,12 @@
 <template>
   <div class="forms-inputs mb-4">
-    <span><b>Password</b></span> <mark id="mark-counter">{{ password.length }}/25</mark> <br />
+    <span><b>Password</b></span> <mark id="mark-counter">{{ password.length }}/50</mark> <br />
     <input
       autocomplete="off"
       type="password"
       v-model="password"
-      minlength="8"
-      maxlength="25"
+      minlength="10"
+      maxlength="50"
       class="w-100"
       @input="validatePass"
       @click.prevent="resetInput"
@@ -30,7 +30,7 @@ export default defineComponent({
   methods: {
     validatePass() {
       if (this.password.length <= 7) {
-        this.passwordError = 'Password may have between 8 and 25 characters';
+        this.passwordError = 'Password may have between 10 and 50 characters';
       } else {
         this.passwordError = '';
       }

@@ -130,4 +130,7 @@ export default defineComponent({
 .btn {
   background-color: var(--primary-blue-color);
 }
+.modal-title {
+  margin-left: 5px;
+}
 </style>
