@@ -36,6 +36,7 @@ import { store } from '@/store/store';
 import ChatNav from '@/components/navbars/TheChatNav.vue';
 import eventBus from '@/components/lib/event-bus';
 import ChatDeleteBtn from '@/components/userprofile/chat/TheChatDeleteBtn.vue';
+import { encryptMessage, decryptMessage } from '@/components/crypto/crypto';
 
 export default defineComponent({
   name: 'ChatRoom.vue',
@@ -77,7 +78,16 @@ export default defineComponent({
   methods: {
     async fetchMessages() {
       const { data, error } = await supabase.from('chat').select('*').eq(`chatRoom`, this.chatRoom);
-      if (data) this.messages = data;
+      const decryptedMessages = data?.map((message) => {
+        const decryptedMessage = decryptMessage(message.message);
+        return {
+          ...message,
+          message: decryptedMessage,
+        };
+      });
+
+      this.messages = decryptedMessages as any;
+
       if (error) {
         throw new Error('fetch chat message failed.');
         // Add rollbar
@@ -86,9 +96,11 @@ export default defineComponent({
 
     async sendMessage() {
       const message = store.text;
+      const encryptedMessage = encryptMessage(message);
+
       const { error } = await supabase
         .from('chat')
-        .insert({ username: this.user, message: message, chatRoom: this.chatRoom });
+        .insert({ username: this.user, message: encryptedMessage, chatRoom: this.chatRoom });
       if (!error) {
         store.setChatTextValue(this.newMessage);
         eventBus.emit('clearChatTextarea');
@@ -103,6 +115,8 @@ export default defineComponent({
       supabase
         .channel('chat')
         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chat' }, (payload) => {
+          const decryptedMessage = decryptMessage(payload.new.message);
+          payload.new.message = decryptedMessage;
           this.messages.push(payload.new);
           this.newMessageSound();
         })

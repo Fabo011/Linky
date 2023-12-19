@@ -8,6 +8,8 @@ export const store = reactive({
     token: '',
     username: '',
     password: '',
+    
+    friendUsername: '',
 
     //searchbar
     searchValue: '',
@@ -19,13 +21,16 @@ export const store = reactive({
     link: '',
 
     // link data
+    item: {} as any,
     items: [],
+    editButtonActive: true,
 
     // categories
     categories: [],
 
     // chat
     text: '',
+    shareChatButtonActive: true,
 
     //auth
     action(authStatus: string) {
@@ -49,6 +54,11 @@ export const store = reactive({
         const user = localStorage.getItem('user')
         if(authStatus) this.authStatus = authStatus
         if (user) this.username = user 
+    },
+
+
+    setFriendUsername(friendUsername: string) {
+        this.friendUsername = friendUsername   
     },
 
     //searchbar

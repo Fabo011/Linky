@@ -14,28 +14,39 @@
       <div class="card-body">
         <h6 class="card-title">{{ item.link }}</h6>
         <p class="card-text">{{ item.linkdescription }}</p>
-        <button class="btn share">
+        <button v-if="item.category !== 'chat'" class="btn share">
           <a :href="item.link" target="_blank" class="btn btn-sm openlink">
             <TheChatBtnIcon /><br />
             <span class="clipboard">Link</span>
           </a>
         </button>
 
-        <button class="btn share" @click.prevent="shareLink(item)">
+        <!--Chat-->
+        <button v-if="item.category === 'chat'" class="btn share" @click.prevent="setChatKey(item)">
+          <a class="btn btn-sm openlink">
+            <TheChatBtnIcon /><br />
+            <span class="clipboard">Link</span>
+          </a>
+        </button>
+
+        <button v-if="item.category == 'chat' && store.shareChatButtonActive === true" class="btn share" @click.prevent="shareChat(item)">
+          <TheShareChat />
+          <span class="clipboard">Share Chat</span>
+        </button>
+        <!-------->
+
+        <button v-if="item.category !== 'chat'" class="btn share" @click.prevent="shareLink(item)">
           <TheClipboardIcon /><br />
           <span class="clipboard">Copy Link</span>
         </button>
 
         <button
-          v-if="item.linkPassword !== null"
+          v-if="store.editButtonActive === true && item.category !== 'chat'"
           class="btn share"
-          @click.prevent="copyPassword(item)"
+          @click.prevent="setItem(item)"
         >
-          <TheCopyPasswordIcon /><br />
-          <span class="clipboard">Copy Password</span>
+          <TheLinkEdit />
         </button>
-
-        <TheLinkEdit />
       </div>
     </div>
   </section>
@@ -51,10 +62,18 @@ import TheClipboardIcon from '@/assets/svg/TheClipboardIcon.vue';
 import TheCopyPasswordIcon from '@/assets/svg/TheCopyPasswordIcon.vue';
 import TheChatBtnIcon from '@/assets/svg/TheChatBtnIcon.vue';
 import TheLinkEdit from './TheLinkEdit.vue';
+import TheShareChat from '../chat/TheShareChat.vue';
 
 export default defineComponent({
   name: 'TheRetrieveAllLinks',
-  components: { TheTrashIcon, TheClipboardIcon, TheCopyPasswordIcon, TheChatBtnIcon, TheLinkEdit },
+  components: {
+    TheTrashIcon,
+    TheClipboardIcon,
+    TheCopyPasswordIcon,
+    TheChatBtnIcon,
+    TheLinkEdit,
+    TheShareChat,
+  },
 
   data() {
     return {
@@ -82,15 +101,6 @@ export default defineComponent({
   },
 
   methods: {
-    textDecoder(hexpassword) {
-      const hexBytes = new Uint8Array(
-        hexpassword.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)),
-      );
-      const decoder = new TextDecoder('utf-8');
-      const pass = decoder.decode(hexBytes);
-      return pass;
-    },
-
     shareLink(item) {
       const link = item.link;
       new Clipboard('.btn', {
@@ -106,20 +116,14 @@ export default defineComponent({
       });
     },
 
-    copyPassword(item) {
-      const hexpassword = item.linkPassword;
-      new Clipboard('.btn', {
-        text: () => {
-          const linkPassword = this.textDecoder(hexpassword);
-          return linkPassword;
-        },
-      });
-      this.$swal({
-        icon: 'success',
-        text: 'You copied the password to your clipboard.',
-        timer: 1500,
-        showConfirmButton: false,
-      });
+    setItem(item) {
+      store.editButtonActive = false;
+      store.item = item;
+    },
+
+    shareChat(item) {
+      store.shareChatButtonActive = false;
+      store.item = item;
     },
 
     async deleteLink(item) {
@@ -153,17 +157,25 @@ export default defineComponent({
         } // swal if else
       }); //swal then
     }, //deleteLink
+
+    setChatKey(item) {
+      const chatKey = item.chatKey;
+      const iv = item.iv;
+      sessionStorage.setItem('chatKey', chatKey);
+      sessionStorage.setItem('iv', iv);
+      this.$router.push(`/chat/${item.chatRoom}`);
+    },
   }, //methods
 });
 </script>
 <style scoped>
 .card {
-  opacity: 0.9;
   margin-top: 10px;
 }
 .card-header {
   background-color: var(--primary-white-darker-background);
   color: var(--primary-background-color);
+  opacity: 0.9;
 }
 .category {
   background-color: var(--primary-white-darker-background);

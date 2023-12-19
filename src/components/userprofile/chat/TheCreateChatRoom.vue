@@ -42,6 +42,7 @@ import ChatIcon from '../../../assets/svg/TheChatIcon.vue';
 import AddBtn from '../../buttons/TheAddBtn.vue';
 import LoadingButton from '../../buttons/TheLoadingButton.vue';
 import CloseModalButton from '../../buttons/TheCloseModalBtn.vue';
+import { generateRandomKey } from '@/components/crypto/crypto';
 
 export default defineComponent({
   name: 'TheSettings.vue',
@@ -79,12 +80,13 @@ export default defineComponent({
 
     async addNewChatBtn() {
       this.generateRandomString();
+      const { key, iv } = generateRandomKey();
       this.nBtn = false;
       this.loading = true;
       const username = store.username;
       const linkname = store.linkname;
       const linkdescription = store.linkdescription;
-      const link = linkyChatUrl + this.link;
+      const link = this.link;
       const category = 'chat';
       const chatRoom = this.link.slice(0, 60);
 
@@ -98,6 +100,8 @@ export default defineComponent({
             link: link,
             category: category,
             chatRoom: chatRoom,
+            chatKey: key,
+            iv: iv,
           })
           .then(() => {
             swal

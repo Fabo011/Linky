@@ -1,30 +1,35 @@
 <template>
-    <section>
-        <LinkIcon data-bs-target="#editLink" data-bs-toggle="modal" class="text" />
-        <i class="text" data-bs-target="#editLink" data-bs-toggle="modal"></i>
-        <div class="modal fade" id="editLink" tabindex="-1" aria-labelledby="linkyModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content shadow p-2 mb-4 bg-body rounded border-0">
-                    <div class="modal-header">
-                        <LinkIcon />
-                        <h5 class="modal-title" id="linkyModalLabel"><b>EditLink</b></h5>
-                        <CloseModalButton />
-                    </div>
-                    <form class="modal-body">
-                        <LinkName :key="key"></LinkName>
-                        <LinkDescription :key="key"></LinkDescription>
-                        <TheCategory :key="key"></TheCategory>
-                        <TheLink :key="key"></TheLink>
-                    </form>
-                    <div class="modal-footer d-flex justify-content-start">
-                        <AddBtn v-if="nBtn" @click.prevent="editLinkBtn"> Add </AddBtn>
-                        <LoadingButton v-if="loading" />
-                    </div>
-                </div>
-            </div>
+  <section>
+    <LinkIcon data-bs-target="#editLink" data-bs-toggle="modal" class="text" />
+    <i class="text" data-bs-target="#editLink" data-bs-toggle="modal"></i>
+    <div
+      class="modal fade"
+      id="editLink"
+      tabindex="-1"
+      aria-labelledby="editModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content shadow p-2 mb-4 bg-body rounded border-0">
+          <div class="modal-header">
+            <LinkIcon />
+            <h5 class="modal-title" id="editModalLabel"><b>EditLink</b></h5>
+            <CloseModalButton />
+          </div>
+          <form class="modal-body">
+            <LinkName :key="key"></LinkName>
+            <LinkDescription :key="key"></LinkDescription>
+            <TheCategory :key="key"></TheCategory>
+            <TheLink :key="key"></TheLink>
+          </form>
+          <div class="modal-footer d-flex justify-content-start">
+            <AddBtn v-if="nBtn" @click.prevent="editLinkBtn"> Add </AddBtn>
+            <LoadingButton v-if="loading" />
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script lang="ts">
@@ -61,33 +66,61 @@ export default defineComponent({
       nBtn: true,
       loading: false,
       key: 1,
+      linkname: '',
+      linkdescription: '',
+      link: '',
+      category: '',
+      updateString: '',
     };
   },
   methods: {
-    textEncoder(linkPassword: string) {
-      const encoder = new TextEncoder();
-      const uint8Array = encoder.encode(linkPassword);
-      const hexString = Array.from(uint8Array, (byte) => byte.toString(16).padStart(2, '0')).join(
-        '',
-      );
-      return hexString;
-    },
-
     async editLinkBtn() {
       this.nBtn = false;
       this.loading = true;
       const username = store.username;
-      const linkname = store.linkname;
-      const linkdescription = store.linkdescription;
-      const link = store.link;
-      const category = store.category;
+      const newlinkname = store.linkname;
+      const newlinkdescription = store.linkdescription;
+      const newlink = store.link;
+      const newcategory = store.category;
+      const id = store.item.id;
+
+      if (newlinkname !== store.item.linkname && newlinkname !== '') {
+        this.linkname = newlinkname;
+      } else {
+        this.linkname = store.item.linkname;
+      }
+
+      if (newlinkdescription !== store.item.linkdescription && newlinkdescription !== '') {
+        this.linkdescription = newlinkdescription;
+      } else {
+        this.linkdescription = store.item.linkdescription;
+      }
+
+      if (newlink !== store.item.link && newlink !== '') {
+        this.link = newlink;
+      } else {
+        this.link = store.item.link;
+      }
+
+      if (newcategory !== store.item.category && newcategory !== '') {
+        this.category = newcategory;
+      } else {
+        this.category = store.item.category;
+      }
+
+      const data = {
+        linkname: this.linkname,
+        linkdescription: this.linkdescription,
+        link: this.link,
+        category: this.category,
+      };
 
       const updateData: any = {
         username: username,
-        linkname: linkname,
-        linkdescription: linkdescription,
-        link: link,
-        category: category,
+        linkname: this.linkname,
+        linkdescription: this.linkdescription,
+        link: this.link,
+        category: this.category,
       };
 
       for (const key in updateData) {
@@ -99,26 +132,37 @@ export default defineComponent({
       try {
         await supabase
           .from('link')
-          .update(updateData)
+          .update(data)
+          .eq(`id`, id)
+          .eq(`username`, username)
           .then(() => {
             swal
               .fire({
                 icon: 'success',
-                text: `You´ve successfully updated the link ${linkname}.`,
+                text: `You´ve successfully updated the link ${this.linkname}.`,
                 timer: 1500,
                 showConfirmButton: false,
               })
               .then(() => {
+                this.executeCleanUp();
                 store.retieveAllLinks();
-                this.nBtn = true;
-                this.loading = false;
-                this.key = this.key + 1;
               });
           });
       } catch (error) {
-        this.loading = false;
+        this.executeCleanUp();
         console.log(error);
       }
+    },
+
+    executeCleanUp() {
+      store.editButtonActive = true;
+      this.key = this.key + 1;
+      this.nBtn = true;
+      this.loading = false;
+      store.linkname = this.updateString;
+      store.linkdescription = this.updateString;
+      store.link = this.updateString;
+      store.category = this.updateString;
     },
   },
 });
@@ -147,5 +191,11 @@ export default defineComponent({
 .text {
   cursor: pointer;
   font-size: 10px;
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    margin-top: 28%;
+  }
 }
 </style>
