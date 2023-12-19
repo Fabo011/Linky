@@ -83,6 +83,7 @@ export default defineComponent({
       const newlink = store.link;
       const newcategory = store.category;
       const id = store.item.id;
+      const email = username.toLowerCase() + '@linky.com';
 
       if (newlinkname !== store.item.linkname && newlinkname !== '') {
         this.linkname = newlinkname;
@@ -117,6 +118,7 @@ export default defineComponent({
 
       const updateData: any = {
         username: username,
+        email: email,
         linkname: this.linkname,
         linkdescription: this.linkdescription,
         link: this.link,

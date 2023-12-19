@@ -62,10 +62,12 @@ export default defineComponent({
       this.nBtn = false;
       this.loading = true;
       const username = store.friendUsername;
-      const item = store.item;
+      const email = username.toLowerCase() + '@linky.com';
+      const item = store.item;  
       
     const data = {
         username: username,
+        email: email,
         linkname: item.linkname,
         linkdescription: item.linkdescription,
         category: item.category,

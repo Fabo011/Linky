@@ -41,3 +41,21 @@ export const decryptMessage = (encryptedHex: string): string => {
   }
 };
 
+export const convertStringToHex = (value: string) => {
+  const encoded = new TextEncoder().encode(value);
+  const hex = Array.from(encoded).map(byte => byte.toString(16).padStart(2, '0')).join('');
+  return hex;
+}
+
+export const convertHexToString = (value: string) => {
+  const matchedHexPairs = value.match(/.{1,2}/g);
+  if (matchedHexPairs) {
+  const orgString = new TextDecoder().decode(
+    Uint8Array.from(matchedHexPairs.map(byte => parseInt(byte, 16)))
+  );  
+    return orgString;
+  } else {
+    console.error('Invalid hex string format');
+  }
+}
+

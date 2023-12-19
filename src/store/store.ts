@@ -1,11 +1,12 @@
-import { reactive } from 'vue'
-import { supabase } from '../components/lib/supabaseClient'
+import { reactive } from 'vue';
+import { supabase } from '../components/lib/supabaseClient';
+import { convertStringToHex, convertHexToString } from '@/components/crypto/crypto';
+import router from '@/router/index';
 
 export const store = reactive({
 
     //auth
     authStatus: '',
-    token: '',
     username: '',
     password: '',
     
@@ -34,28 +35,52 @@ export const store = reactive({
 
     //auth
     action(authStatus: string) {
-        this.authStatus = authStatus,
-        localStorage.setItem('authStatus', this.authStatus)
-    },
-    setToken(data: string) {
-        this.token = data
-        localStorage.setItem('token', this.token)
+        this.authStatus = authStatus;
+        const authStatusHex = convertStringToHex(authStatus);
+        sessionStorage.setItem('authStatus', authStatusHex);
     },
     setUsername(username: string) {
-        this.username = username,
-        localStorage.setItem('user', this.username)    
+        this.username = username;
+        const usernameHex = convertStringToHex(username);
+        sessionStorage.setItem('user', usernameHex);
     },
     setPassword(password: string) {
         this.password = password
     },
     authStatusRefresh(){
-        const authStatus = localStorage.getItem('authStatus')
-        const token = localStorage.getItem('token')
-        const user = localStorage.getItem('user')
+        const authStatusHex = sessionStorage.getItem('authStatus') as string;
+        const authStatus = convertHexToString(authStatusHex); 
+        const userHex = sessionStorage.getItem('user') as string;
+        const user = convertHexToString(userHex);
         if(authStatus) this.authStatus = authStatus
         if (user) this.username = user 
     },
 
+    async checkUser() {
+       if (this.authStatus !== 'loggedIn') {
+          router.push('signin');
+        };
+        
+        const storedToken = localStorage.getItem('sb-ycsymeeovppvwzcfdddr-auth-token');
+        const token = storedToken ? JSON.parse(storedToken) : null;
+        if (token) {
+            if (!token || !token.user || !token.user.email) {
+                console.log('Token or user email is missing.');
+                router.push('signin');
+                return;
+            };
+        };
+
+        try {
+            const { data } = await supabase.auth.getUser();
+
+          if (!data || !data.user || !data.user.email || data.user.email !== token.user.email) {
+             router.push('signin');
+          }
+        } catch (error) {
+            router.push('signin');
+        }
+    },
 
     setFriendUsername(friendUsername: string) {
         this.friendUsername = friendUsername   
@@ -91,9 +116,13 @@ export const store = reactive({
       
            try {
             const { data, error } = await supabase.from('link').select('*').eq(`username`, username)
-            if (error) throw new Error('Error retrieving data.')
+               if (error) {
+                   console.log(error);
+                   throw new Error('Error retrieving data.')
+               }
         
-            this.items = data as any   
+               this.items = data as any 
+               
 
             this.categories = data as any
              // eslint-disable-next-line prefer-const

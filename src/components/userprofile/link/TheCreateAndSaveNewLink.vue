@@ -77,12 +77,14 @@ export default defineComponent({
       const linkdescription = store.linkdescription;
       const link = store.link;
       const category = store.category;
+      const email = username.toLowerCase() + '@linky.com';
 
       try {
         await supabase
           .from('link')
           .insert({
             username: username,
+            email: email,
             linkname: linkname,
             linkdescription: linkdescription,
             link: link,

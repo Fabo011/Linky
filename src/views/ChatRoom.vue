@@ -54,11 +54,9 @@ export default defineComponent({
     this.scrollToBottom();
   },
 
-  beforeRouteEnter() {
+  async beforeRouteEnter() {
     store.authStatusRefresh();
-    if (store.authStatus !== 'loggedIn') {
-      window.location.href = '/signin';
-    }
+    await store.checkUser();
   },
 
   updated() {

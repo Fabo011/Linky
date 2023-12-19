@@ -50,7 +50,6 @@ export default defineComponent({
   methods: {
     home() {
       store.setUsername(this.refresh);
-      store.setToken(this.refresh);
       store.action(this.refresh);
       this.$router.push(`/`);
     },

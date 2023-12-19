@@ -29,11 +29,9 @@ export default defineComponent({
     };
   },
 
-  beforeRouteEnter() {
+  async beforeRouteEnter() {
     store.authStatusRefresh();
-    if (store.authStatus !== 'loggedIn') {
-      window.location.href = '/signin';
-    }
+    await store.checkUser();
   },
 });
 </script>

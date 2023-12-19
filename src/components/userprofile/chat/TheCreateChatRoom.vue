@@ -89,12 +89,14 @@ export default defineComponent({
       const link = this.link;
       const category = 'chat';
       const chatRoom = this.link.slice(0, 60);
+      const email = username.toLowerCase() + '@linky.com';
 
       try {
         await supabase
           .from('link')
           .insert({
             username: username,
+            email: email,
             linkname: linkname,
             linkdescription: linkdescription,
             link: link,
