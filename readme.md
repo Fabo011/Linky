@@ -1,5 +1,3 @@
-<strong>linky-cloud not yet available. v2.0.0 will be released in August 2024.</strong>
-
 <h2 align="center">Linky-Cloud</h2>
 <p align="center">
   <a href="https://linky-cloud.com/" target="blank"><img src="./public/img/icons/android-chrome-maskable-192x192.png" width="120" alt="Linky Logo" /></a>
@@ -9,8 +7,8 @@
 Linky-Cloud offers a premium and secure cloud storage solution for privacy entousiasts. Save links, files, images, videos, music, passwords and chat content. While we may be priced higher than Google, the reason is that we cant sell your data. We do not collect personalized data, you and your data remains anonymously.
 </p>
 
-<!--<p align="center"><a href="https://linky-cloud.com">https://linky-cloud.com</a></p>
-<br />-->
+<p align="center"><a href="https://linky-cloud.com">https://linky-cloud.com</a></p>
+<br />
 
 ---
 
