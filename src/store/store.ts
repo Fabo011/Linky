@@ -2,7 +2,6 @@ import { reactive } from 'vue';
 import { supabase } from '../components/lib/supabaseClient';
 import { convertStringToHex, convertHexToString } from '@/components/crypto/crypto';
 import router from '@/router/index';
-import { splitDigitalKey } from '@/components/crypto/crypto';
 
 export const store = reactive({
 
@@ -63,6 +62,12 @@ export const store = reactive({
         const user = convertHexToString(userHex);
         if(authStatus) this.authStatus = authStatus
         if (user) this.username = user 
+    },
+
+    getUsername() {
+        const userHex = sessionStorage.getItem('user') as string;
+        const username = convertHexToString(userHex);
+        return username;
     },
 
     async checkUser() {

@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-Linky-Cloud offers a premium and secure cloud storage solution for privacy entousiasts. Save links, files, images, videos, music, passwords and chat content. We do not collect personalized data, you and your data remains anonymously.
+Linky-Cloud offers a premium and secure cloud storage solution for privacy entousiasts. Save encrypted links, passwords, files, images, videos, music and chat content. We do not collect personalized data, you and your data remains anonymously.
 </p>
 
 <p align="center"><a href="https://linky-cloud.com">https://linky-cloud.com</a></p>

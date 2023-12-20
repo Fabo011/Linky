@@ -43,7 +43,7 @@ export default defineComponent({
         generatedPassword += characters[randomIndex];
       }
       this.linkPassword = generatedPassword;
-      
+
       this.set();
     },
   },

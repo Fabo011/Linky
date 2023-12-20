@@ -11,8 +11,8 @@
 
       <nav>
         <div class="d-flex align-items-center justify-content-center">
-          <!--Replace with atchive searchbar--><SearchBar />
-          <!--Add files button-->
+          <!--Eventually replace with atchive searchbar--><SearchBar />
+          <TheUploadSelector />
         </div>
       </nav>
     </div>
@@ -26,13 +26,14 @@ import { defineComponent } from 'vue';
 import { store } from '../../store/store';
 import SearchBar from '../lib/TheSearchBar.vue';
 import CreateChatRoom from '../userprofile/chat/TheCreateChatRoom.vue';
+import TheUploadSelector from '../userprofile/filearchive/TheUploadSelector.vue';
 
 export default defineComponent({
   name: 'TheArchiveNav.vue',
 
   components: {
     SearchBar,
-    CreateChatRoom,
+    TheUploadSelector,
   },
 
   data() {

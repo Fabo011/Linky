@@ -119,19 +119,17 @@ export default defineComponent({
               .then(() => {
                 this.executeCleanUp();
                 store.retieveAllLinks();
-                this.nBtn = true;
-                this.loading = false;
-                this.key = this.key + 1;
               });
           });
       } catch (error) {
         this.executeCleanUp();
-        this.loading = false;
         console.log(error);
       }
     },
 
     executeCleanUp() {
+      this.nBtn = true;
+      this.loading = false;
       this.key = this.key + 1;
       store.linkname = this.updateString;
       store.linkdescription = this.updateString;

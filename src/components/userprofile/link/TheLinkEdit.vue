@@ -69,7 +69,7 @@ export default defineComponent({
   },
 
   props: {
-    item: Object
+    item: Object,
   },
 
   data() {
@@ -103,7 +103,7 @@ export default defineComponent({
       const email = username.toLowerCase() + '@linky.com';
 
       if (newlinkname !== item.linkname && newlinkname !== '') {
-        this.linkname = newlinkname;        
+        this.linkname = newlinkname;
       } else {
         this.linkname = item.linkname;
       }

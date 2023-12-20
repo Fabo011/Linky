@@ -51,7 +51,7 @@ export default defineComponent({
   },
 
   props: {
-    item: Object
+    item: Object,
   },
 
   data() {

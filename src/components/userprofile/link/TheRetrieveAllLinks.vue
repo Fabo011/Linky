@@ -3,7 +3,7 @@
     <div class="card" id="theCard">
       <h5 class="card-header">
         <img height="18" width="18" :src="baseUrl + item.link" :alt="item.linkname" />
-              {{ item.linkname }}
+        {{ item.linkname }}
         <mark class="category text-primary mt-2"
           ><span id="cat">{{ item.category }}</span></mark
         >
@@ -32,10 +32,7 @@
           </a>
         </button>
 
-        <button
-          v-if="item.category == 'chat'"
-          class="btn share"
-        >
+        <button v-if="item.category == 'chat'" class="btn share">
           <TheShareChat :item="item" />
           <span class="clipboard">Share Chat</span>
         </button>
@@ -67,7 +64,6 @@
         <button class="btn share">
           <TheLinkEdit v-if="item.category !== 'chat'" :item="item" />
         </button>
-        
       </div>
     </div>
   </section>
