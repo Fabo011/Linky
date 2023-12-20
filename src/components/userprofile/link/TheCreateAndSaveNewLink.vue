@@ -23,6 +23,8 @@
             <LinkDescription :key="key"></LinkDescription>
             <TheCategory :key="key"></TheCategory>
             <TheLink :key="key"></TheLink>
+            <TheLinkUsername :key="key" />
+            <TheLinkPassword :key="key" />
           </form>
           <div class="modal-footer d-flex justify-content-start">
             <AddBtn v-if="nBtn" @click.prevent="addNewLinkBtn"> Add </AddBtn>
@@ -47,6 +49,9 @@ import LinkIcon from '../../../assets/svg/TheLinkIcon.vue';
 import AddBtn from '../../buttons/TheAddBtn.vue';
 import CloseModalButton from '../../buttons/TheCloseModalBtn.vue';
 import LoadingButton from '../../buttons/TheLoadingButton.vue';
+import TheLinkUsername from './TheLinkUsername.vue';
+import TheLinkPassword from './TheLinkPassword.vue';
+import { encryptString } from '@/components/crypto/crypto';
 
 export default defineComponent({
   name: 'CreateAndSaveNewLink.vue',
@@ -55,6 +60,8 @@ export default defineComponent({
     LinkName,
     LinkDescription,
     TheCategory,
+    TheLinkUsername,
+    TheLinkPassword,
     LinkIcon,
     AddBtn,
     CloseModalButton,
@@ -66,6 +73,8 @@ export default defineComponent({
       nBtn: true,
       loading: false,
       key: 1,
+      encryptedLinkPassword: '',
+      updateString: '',
     };
   },
   methods: {
@@ -77,7 +86,14 @@ export default defineComponent({
       const linkdescription = store.linkdescription;
       const link = store.link;
       const category = store.category;
+      const linkusername = store?.linkUsername;
+      const linkpassword = store?.linkPassword;
       const email = username.toLowerCase() + '@linky.com';
+
+      if (linkpassword) {
+        const encryptedPass = encryptString(linkpassword);
+        this.encryptedLinkPassword = encryptedPass;
+      }
 
       try {
         await supabase
@@ -89,6 +105,8 @@ export default defineComponent({
             linkdescription: linkdescription,
             link: link,
             category: category,
+            linkusername: linkusername,
+            linkpassword: this.encryptedLinkPassword,
           })
           .then(() => {
             swal
@@ -99,6 +117,7 @@ export default defineComponent({
                 showConfirmButton: false,
               })
               .then(() => {
+                this.executeCleanUp();
                 store.retieveAllLinks();
                 this.nBtn = true;
                 this.loading = false;
@@ -106,9 +125,20 @@ export default defineComponent({
               });
           });
       } catch (error) {
+        this.executeCleanUp();
         this.loading = false;
         console.log(error);
       }
+    },
+
+    executeCleanUp() {
+      this.key = this.key + 1;
+      store.linkname = this.updateString;
+      store.linkdescription = this.updateString;
+      store.link = this.updateString;
+      store.category = this.updateString;
+      store.linkUsername = this.updateString;
+      store.linkPassword = this.updateString;
     },
   },
 });

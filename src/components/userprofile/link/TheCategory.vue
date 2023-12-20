@@ -1,24 +1,27 @@
 <template>
-  <label for="link-category"
-    ><b>Category</b> <mark id="mark-counter">{{ category.length }}/15</mark></label
-  ><br />
-  <input
-    type="text"
-    v-model="category"
-    placeholder="Find or create category..."
-    minlength="3"
-    maxlength="15"
-    class="text-lowercase w-100"
-    @input="validate"
-    @click.prevent="resetInput"
-    @click="showOptions = true"
-  />
-  <ul v-if="showOptions" class="options border">
-    <li v-for="item in store.categories" :key="item" @click.prevent="selectOption(item)">
-      {{ item }}
-    </li>
-  </ul>
-  <p class="text-danger">{{ categoryError }}</p>
+  <div class="container">
+    <label for="link-category" class="d-flex align-items-center">
+      <b>Category</b>
+      <mark id="mark-counter" class="ms-auto">{{ category.length }}/15</mark>
+    </label>
+    <input
+      type="text"
+      v-model="category"
+      placeholder="Find or create category..."
+      minlength="3"
+      maxlength="15"
+      class="text-lowercase w-100"
+      @input="validate"
+      @click.prevent="resetInput"
+      @click="showOptions = true"
+    />
+    <ul v-if="showOptions" class="options border">
+      <li v-for="item in store.categories" :key="item" @click.prevent="selectOption(item)">
+        {{ item }}
+      </li>
+    </ul>
+    <p class="text-danger">{{ categoryError }}</p>
+  </div>
 </template>
 
 <script lang="ts">

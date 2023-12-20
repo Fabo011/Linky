@@ -21,9 +21,11 @@
             <LinkDescription :key="key"></LinkDescription>
             <TheCategory :key="key"></TheCategory>
             <TheLink :key="key"></TheLink>
+            <TheLinkUsername :key="key" />
+            <TheLinkPassword :key="key" />
           </form>
           <div class="modal-footer d-flex justify-content-start">
-            <AddBtn v-if="nBtn" @click.prevent="editLinkBtn"> Add </AddBtn>
+            <AddBtn v-if="nBtn" @click.prevent="editLinkBtn()"> Add </AddBtn>
             <LoadingButton v-if="loading" />
           </div>
         </div>
@@ -46,6 +48,9 @@ import AddBtn from '../../buttons/TheAddBtn.vue';
 import CloseModalButton from '../../buttons/TheCloseModalBtn.vue';
 import LoadingButton from '../../buttons/TheLoadingButton.vue';
 import LinkIcon from '../../../assets/svg/TheLinkIcon.vue';
+import TheLinkUsername from './TheLinkUsername.vue';
+import TheLinkPassword from './TheLinkPassword.vue';
+import { encryptString } from '@/components/crypto/crypto';
 
 export default defineComponent({
   name: 'TheLinkEdit.vue',
@@ -54,11 +59,17 @@ export default defineComponent({
     LinkName,
     LinkDescription,
     TheCategory,
+    TheLinkUsername,
+    TheLinkPassword,
     TheEditIcon,
     AddBtn,
     CloseModalButton,
     LoadingButton,
     LinkIcon,
+  },
+
+  props: {
+    item: Object
   },
 
   data() {
@@ -71,10 +82,14 @@ export default defineComponent({
       link: '',
       category: '',
       updateString: '',
+      linkusername: '',
+      linkpassword: '',
     };
   },
   methods: {
     async editLinkBtn() {
+      const item = this.item as any;
+
       this.nBtn = false;
       this.loading = true;
       const username = store.username;
@@ -82,31 +97,46 @@ export default defineComponent({
       const newlinkdescription = store.linkdescription;
       const newlink = store.link;
       const newcategory = store.category;
-      const id = store.item.id;
+      const newlinkUsername = store?.linkUsername;
+      const newlinkPassword = store?.linkPassword;
+      const id = item.id;
       const email = username.toLowerCase() + '@linky.com';
 
-      if (newlinkname !== store.item.linkname && newlinkname !== '') {
-        this.linkname = newlinkname;
+      if (newlinkname !== item.linkname && newlinkname !== '') {
+        this.linkname = newlinkname;        
       } else {
-        this.linkname = store.item.linkname;
+        this.linkname = item.linkname;
       }
 
-      if (newlinkdescription !== store.item.linkdescription && newlinkdescription !== '') {
+      if (newlinkdescription !== item.linkdescription && newlinkdescription !== '') {
         this.linkdescription = newlinkdescription;
       } else {
-        this.linkdescription = store.item.linkdescription;
+        this.linkdescription = item.linkdescription;
       }
 
-      if (newlink !== store.item.link && newlink !== '') {
+      if (newlink !== item.link && newlink !== '') {
         this.link = newlink;
       } else {
-        this.link = store.item.link;
+        this.link = item.link;
       }
 
-      if (newcategory !== store.item.category && newcategory !== '') {
+      if (newcategory !== item.category && newcategory !== '') {
         this.category = newcategory;
       } else {
-        this.category = store.item.category;
+        this.category = item.category;
+      }
+
+      if (newlinkUsername !== item.linkUsername && newlinkUsername !== '') {
+        this.linkusername = newlinkUsername;
+      } else {
+        this.linkusername = item.linkUsername;
+      }
+
+      if (newlinkPassword !== item.linkPassword && newlinkPassword !== '') {
+        const excryptedLinkPass = encryptString(newlinkPassword);
+        this.linkpassword = excryptedLinkPass;
+      } else {
+        this.linkpassword = item.linkPassword;
       }
 
       const data = {
@@ -114,6 +144,8 @@ export default defineComponent({
         linkdescription: this.linkdescription,
         link: this.link,
         category: this.category,
+        linkusername: this.linkusername,
+        linkpassword: this.linkpassword,
       };
 
       const updateData: any = {
@@ -123,6 +155,8 @@ export default defineComponent({
         linkdescription: this.linkdescription,
         link: this.link,
         category: this.category,
+        linkusername: this.linkusername,
+        linkpassword: this.linkpassword,
       };
 
       for (const key in updateData) {
@@ -157,7 +191,6 @@ export default defineComponent({
     },
 
     executeCleanUp() {
-      store.editButtonActive = true;
       this.key = this.key + 1;
       this.nBtn = true;
       this.loading = false;
@@ -165,6 +198,8 @@ export default defineComponent({
       store.linkdescription = this.updateString;
       store.link = this.updateString;
       store.category = this.updateString;
+      store.linkUsername = this.updateString;
+      store.linkPassword = this.updateString;
     },
   },
 });

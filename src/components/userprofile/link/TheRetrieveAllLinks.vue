@@ -3,16 +3,19 @@
     <div class="card" id="theCard">
       <h5 class="card-header">
         <img height="18" width="18" :src="baseUrl + item.link" :alt="item.linkname" />
-        {{ item.linkname }}
-        <mark class="category text-primary"
+              {{ item.linkname }}
+        <mark class="category text-primary mt-2"
           ><span id="cat">{{ item.category }}</span></mark
         >
+
         <button class="btn btn-danger btn-sm btn-space" @click.prevent="deleteLink(item)">
           <TheTrashIcon />
         </button>
       </h5>
       <div class="card-body">
-        <h6 class="card-title card-title text-truncate"><i class="bi bi-link-45deg icons"></i>{{ item.link }}</h6>
+        <h6 class="card-title card-title text-truncate">
+          <i class="bi bi-link-45deg icons"></i>{{ item.link }}
+        </h6>
         <p class="card-text"><i class="bi bi-tags icons"></i>{{ item.linkdescription }}</p>
         <button v-if="item.category !== 'chat'" class="btn share">
           <a :href="item.link" target="_blank" class="btn btn-sm openlink">
@@ -29,8 +32,11 @@
           </a>
         </button>
 
-        <button v-if="item.category == 'chat' && store.shareChatButtonActive === true" class="btn share" @click.prevent="shareChat(item)">
-          <TheShareChat />
+        <button
+          v-if="item.category == 'chat'"
+          class="btn share"
+        >
+          <TheShareChat :item="item" />
           <span class="clipboard">Share Chat</span>
         </button>
         <!-------->
@@ -41,12 +47,27 @@
         </button>
 
         <button
-          v-if="store.editButtonActive === true && item.category !== 'chat'"
+          v-if="item.linkusername !== '' && item.category !== 'chat'"
           class="btn share"
-          @click.prevent="setItem(item)"
+          @click.prevent="copyUsername(item)"
         >
-          <TheLinkEdit />
+          <TheUsernameIcon /><br />
+          <span class="clipboard">Copy Username</span>
         </button>
+
+        <button
+          v-if="item.linkpassword !== '' && item.category !== 'chat'"
+          class="btn share"
+          @click.prevent="copyPassword(item)"
+        >
+          <TheCopyPasswordIcon /><br />
+          <span class="clipboard">Copy Password</span>
+        </button>
+
+        <button class="btn share">
+          <TheLinkEdit v-if="item.category !== 'chat'" :item="item" />
+        </button>
+        
       </div>
     </div>
   </section>
@@ -63,6 +84,9 @@ import TheCopyPasswordIcon from '@/assets/svg/TheCopyPasswordIcon.vue';
 import TheChatBtnIcon from '@/assets/svg/TheChatBtnIcon.vue';
 import TheLinkEdit from './TheLinkEdit.vue';
 import TheShareChat from '../chat/TheShareChat.vue';
+import TheUsernameIcon from '@/assets/svg/TheUsernameIcon.vue';
+import { copiedtoast } from '@/components/toasts/toasts';
+import { decryptString } from '@/components/crypto/crypto';
 
 export default defineComponent({
   name: 'TheRetrieveAllLinks',
@@ -73,6 +97,7 @@ export default defineComponent({
     TheChatBtnIcon,
     TheLinkEdit,
     TheShareChat,
+    TheUsernameIcon,
   },
 
   data() {
@@ -121,11 +146,6 @@ export default defineComponent({
       store.item = item;
     },
 
-    shareChat(item) {
-      store.shareChatButtonActive = false;
-      store.item = item;
-    },
-
     async deleteLink(item) {
       this.$swal({
         icon: 'warning',
@@ -164,6 +184,27 @@ export default defineComponent({
       sessionStorage.setItem('chatKey', chatKey);
       sessionStorage.setItem('iv', iv);
       this.$router.push(`/chat/${item.chatRoom}`);
+    },
+
+    copyUsername(item) {
+      const linkUsername = item.linkusername;
+      new Clipboard('.btn', {
+        text: () => {
+          return linkUsername;
+        },
+      });
+      copiedtoast();
+    },
+
+    copyPassword(item) {
+      const linkPassword = item.linkpassword;
+      const decryptedPassword = decryptString(linkPassword);
+      new Clipboard('.btn', {
+        text: () => {
+          return decryptedPassword;
+        },
+      });
+      copiedtoast();
     },
   }, //methods
 });

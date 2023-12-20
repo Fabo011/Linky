@@ -1,18 +1,21 @@
 <template>
-  <label for="link-description"
-    ><b>Link-Tags</b> <mark id="mark-counter">{{ linkdescription.length }}/60</mark></label
-  ><br />
-  <input
-    type="text"
-    v-model="linkdescription"
-    placeholder="use tags"
-    minlength="3"
-    maxlength="60"
-    class="w-100"
-    @input="validate"
-    @click.prevent="resetInput"
-  />
-  <p class="text-danger">{{ linkdescriptionError }}</p>
+  <div class="container">
+    <label for="link-description" class="d-flex align-items-center">
+      <b>Link-Tags</b>
+      <mark id="mark-counter" class="ms-auto">{{ linkdescription.length }}/60</mark>
+    </label>
+    <input
+      type="text"
+      v-model="linkdescription"
+      placeholder="use tags"
+      minlength="3"
+      maxlength="60"
+      class="w-100"
+      @input="validate"
+      @click.prevent="resetInput"
+    />
+    <p class="text-danger">{{ linkdescriptionError }}</p>
+  </div>
 </template>
 
 <script lang="ts">

@@ -2,6 +2,7 @@ import { reactive } from 'vue';
 import { supabase } from '../components/lib/supabaseClient';
 import { convertStringToHex, convertHexToString } from '@/components/crypto/crypto';
 import router from '@/router/index';
+import { splitDigitalKey } from '@/components/crypto/crypto';
 
 export const store = reactive({
 
@@ -20,18 +21,26 @@ export const store = reactive({
     linkdescription: '',
     category: '',
     link: '',
+    linkPassword: '',
+    linkUsername: '',
 
     // link data
     item: {} as any,
     items: [],
-    editButtonActive: true,
 
     // categories
     categories: [],
 
     // chat
     text: '',
-    shareChatButtonActive: true,
+
+    // crypto
+    key: '',
+
+    getKey() {
+        const fullKey = sessionStorage.getItem('key') as string;
+        return fullKey;
+    },
 
     //auth
     action(authStatus: string) {
@@ -108,6 +117,13 @@ export const store = reactive({
     },
     setCategory(category: string) {
         this.category = category
+    },
+
+    setLinkPassword(linkPassword: string) {
+        this.linkPassword = linkPassword
+    },
+    setLinkUsername(linkUsername: string) {
+       this.linkUsername = linkUsername
     },
 
     //retrieveAllLinks and Categories

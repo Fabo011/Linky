@@ -4,12 +4,12 @@
     <div class="row d-flex justify-content-center">
       <div class="col-md-6">
         <div class="card px-4 py-5 shadow p-3 mb-5 bg-body rounded border-0" id="form1">
-         <div>
-              <h3 class="magic-container">
-                <img id="img" src="../assets/magic-cat.png" alt="Magic Cat" />
-              </h3>
-              <b class="magic">Register</b>
-            </div>
+          <div>
+            <h3 class="magic-container">
+              <img id="img" src="../assets/magic-cat.png" alt="Magic Cat" />
+            </h3>
+            <b class="magic">Register</b>
+          </div>
           <hr />
           <form class="form-data">
             <TheUsername></TheUsername>
@@ -61,4 +61,3 @@ export default defineComponent({
   border-radius: 50%;
 }
 </style>
-

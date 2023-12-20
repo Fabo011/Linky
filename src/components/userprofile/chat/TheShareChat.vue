@@ -17,7 +17,7 @@
             <CloseModalButton />
           </div>
           <form class="modal-body">
-                <TheFriendUsername :key="key" />
+            <TheFriendUsername :key="key" />
           </form>
           <div class="modal-footer d-flex justify-content-start">
             <AddBtn v-if="nBtn" @click.prevent="shareChatBtn()"> Share </AddBtn>
@@ -50,6 +50,10 @@ export default defineComponent({
     LoadingButton,
   },
 
+  props: {
+    item: Object
+  },
+
   data() {
     return {
       nBtn: true,
@@ -59,13 +63,14 @@ export default defineComponent({
   },
   methods: {
     async shareChatBtn() {
+      const item = this.item as any;
+
       this.nBtn = false;
       this.loading = true;
       const username = store.friendUsername;
       const email = username.toLowerCase() + '@linky.com';
-      const item = store.item;  
-      
-    const data = {
+
+      const data = {
         username: username,
         email: email,
         linkname: item.linkname,
@@ -75,8 +80,8 @@ export default defineComponent({
         chatRoom: item.chatRoom,
         chatKey: item.chatKey,
         iv: item.iv,
-    };
-    
+      };
+
       try {
         await supabase
           .from('link')
@@ -101,8 +106,6 @@ export default defineComponent({
     },
 
     executeCleanUp() {
-      store.editButtonActive = true;
-      store.shareChatButtonActive = true;
       this.key = this.key + 1;
       this.nBtn = true;
       this.loading = false;

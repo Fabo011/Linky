@@ -1,4 +1,5 @@
 import * as forge from 'node-forge';
+import { store } from '@/store/store';
 
 export const generateRandomKey = (): { key: string; iv: string } => {
   const key = forge.random.getBytesSync(16);
@@ -59,3 +60,45 @@ export const convertHexToString = (value: string) => {
   }
 }
 
+export const splitDigitalKey = (digitalKey: string)  => {
+  const dotIndex = digitalKey.indexOf('.');
+  const key: string = digitalKey.substring(0, dotIndex);
+  const iv: string = digitalKey.substring(dotIndex + 1);
+
+  return { key, iv };
+}
+
+export const encryptString = (input: string): string => {
+  try {
+    const fullKey = store.getKey();
+    const { key, iv } = splitDigitalKey(fullKey);
+        
+    const inputBytes = forge.util.createBuffer(input, 'utf-8' as forge.Encoding).getBytes();
+    const cipher = forge.cipher.createCipher('AES-CBC', forge.util.hexToBytes(key));
+    cipher.start({ iv: forge.util.hexToBytes(iv) });
+    cipher.update(forge.util.createBuffer(inputBytes));
+    cipher.finish();
+       
+    return cipher.output.toHex(); 
+   } catch (error) {
+        return ''  
+   }
+};
+
+export const decryptString = (encryptedHex: string): string => {
+  try {
+    const fullKey = store.getKey();
+    const { key, iv } = splitDigitalKey(fullKey);
+    const decipher = forge.cipher.createDecipher('AES-CBC', forge.util.hexToBytes(key));
+    decipher.start({ iv: forge.util.hexToBytes(iv) });
+    decipher.update(forge.util.createBuffer(forge.util.hexToBytes(encryptedHex)));
+    const result = decipher.finish();
+    if (!result) {
+      throw new Error('Decryption failed');
+    }
+        
+    return forge.util.decodeUtf8(decipher.output.getBytes());
+  } catch (error) {
+    return '';
+  }
+};

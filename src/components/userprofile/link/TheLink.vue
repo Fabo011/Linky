@@ -1,17 +1,21 @@
 <template>
-  <div class="forms-inputs mb-3" id="space-top">
-    <span><b>Link</b></span
-    ><mark id="mark-counter">{{ link.length }}/800</mark> <br />
-    <input
-      type="text"
-      class="w-100"
-      placeholder="https://www.linky.io"
-      minlength="5"
-      maxlength="800"
-      v-model="link"
-      @input="validate"
-    /><br />
-    <p class="text-danger">{{ linkError }}</p>
+  <div class="container">
+    <div class="forms-inputs mb-3" id="space-top">
+      <label class="d-flex align-items-center">
+        <b>Link</b>
+        <mark id="mark-counter" class="ms-auto">{{ link.length }}/800</mark>
+      </label>
+      <input
+        type="text"
+        class="w-100"
+        placeholder="https://www.linky.io"
+        minlength="5"
+        maxlength="800"
+        v-model="link"
+        @input="validate"
+      />
+      <p class="text-danger">{{ linkError }}</p>
+    </div>
   </div>
 </template>
 

@@ -49,7 +49,7 @@ export default defineComponent({
           store.setPassword(this.reset);
           this.nBtn = true;
           this.loading = false;
-          this.$router.push(`/profile`);
+          this.$router.push(`/key`);
         } else {
           this.nBtn = true;
           this.loading = false;

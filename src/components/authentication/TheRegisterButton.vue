@@ -12,6 +12,7 @@ import { store } from '../../store/store';
 import { supabase } from '../lib/supabaseClient';
 import LoadingButton from '../buttons/TheLoadingButton.vue';
 import AuthBtn from '../buttons/TheAuthButton.vue';
+import { generateRandomKey } from '../crypto/crypto';
 
 export default defineComponent({
   name: 'TheRegisterButton.vue',
@@ -45,11 +46,14 @@ export default defineComponent({
       try {
         const { error } = await supabase.auth.signUp({ email, password });
         if (!error) {
+          const { key, iv } = generateRandomKey();
+          const digitalKey = `${key}.${iv}`;
+          sessionStorage.setItem('key', digitalKey);
           store.action(this.authStatus);
           store.setPassword(this.reset);
           this.nBtn = true;
           this.loading = false;
-          this.$router.push(`/profile`);
+          this.$router.push(`/key`);
         } else {
           this.errorText = 'This username already exist.';
           this.nBtn = true;

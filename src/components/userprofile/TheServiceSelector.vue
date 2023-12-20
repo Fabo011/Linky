@@ -11,7 +11,11 @@
     <ul class="dropdown-menu">
       <li><TheCreateAndSaveNewLink class="dropdown-item" /></li>
       <li><TheCreateChatRoom class="dropdown-item" /></li>
-      <li><i @click.prevent="openArchive()" class="bi bi-archive dropdown-item cur"> Go To File Archive</i></li>
+      <li>
+        <i @click.prevent="openArchive()" class="bi bi-archive dropdown-item cur">
+          Go To File Archive</i
+        >
+      </li>
     </ul>
   </div>
 </template>
@@ -30,7 +34,7 @@ export default defineComponent({
     openArchive() {
       this.$router.push('archive');
     },
-  }
+  },
 });
 </script>
 

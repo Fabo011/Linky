@@ -1,18 +1,21 @@
 <template>
-  <label for="link-name"
-    ><b>Link-Name</b> <mark id="mark-counter">{{ linkname.length }}/20</mark></label
-  ><br />
-  <input
-    type="text"
-    v-model="linkname"
-    placeholder="linky"
-    minlength="3"
-    maxlength="20"
-    class="w-100"
-    @input="validate"
-    @click.prevent="resetInput"
-  />
-  <p class="text-danger">{{ linknameError }}</p>
+  <div class="container">
+    <label for="link-name" class="d-flex align-items-center">
+      <b>Link-Name</b>
+      <mark id="mark-counter" class="ms-auto">{{ linkname.length }}/20</mark>
+    </label>
+    <input
+      type="text"
+      v-model="linkname"
+      placeholder="linky"
+      minlength="3"
+      maxlength="20"
+      class="w-100"
+      @input="validate"
+      @click.prevent="resetInput"
+    />
+    <p class="text-danger">{{ linknameError }}</p>
+  </div>
 </template>
 
 <script lang="ts">
