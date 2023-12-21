@@ -122,6 +122,10 @@ export const store = reactive({
     },
     setCategory(category: string) {
         this.category = category
+        sessionStorage.setItem('cat', category);        
+    },
+    getCategory() {
+        return sessionStorage.getItem('cat');
     },
 
     setLinkPassword(linkPassword: string) {

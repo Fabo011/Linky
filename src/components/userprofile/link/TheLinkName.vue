@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <label for="link-name" class="d-flex align-items-center">
-      <b>Link-Name</b>
+      <b>Name</b>
       <mark id="mark-counter" class="ms-auto">{{ linkname.length }}/20</mark>
     </label>
     <input

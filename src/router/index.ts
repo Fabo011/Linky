@@ -37,11 +37,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'chat',
     component: () => import('../views/ChatRoom.vue')
   },
-  {
-    path: '/archive',
-    name: 'archive',
-    component: () => import('../views/Archive.vue')
-  },
 ]
 
 const router = createRouter({

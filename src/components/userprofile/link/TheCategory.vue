@@ -55,10 +55,11 @@ export default defineComponent({
       this.showOptions = false;
       if (this.category.length < 3 || this.category.length > 15) {
         this.categoryError =
-          'Category may have between 3 and 15 characters. Only lowercase for better search results.';
+          'Category may have between 3 and 15 characters.';
       } else {
         this.categoryError = '';
       }
+        
       store.setCategory(this.category);
     },
 

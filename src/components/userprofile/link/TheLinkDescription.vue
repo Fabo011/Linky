@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <label for="link-description" class="d-flex align-items-center">
-      <b>Link-Tags</b>
+      <b>Tags</b>
       <mark id="mark-counter" class="ms-auto">{{ linkdescription.length }}/60</mark>
     </label>
     <input
