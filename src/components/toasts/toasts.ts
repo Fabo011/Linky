@@ -71,4 +71,14 @@ export const deleteWarnToast = () => {
             timer: 3500,
             showConfirmButton: false,
         });
-}
+};
+
+export const downloadtoast = () => {
+    swal
+        .fire({
+            icon: 'success',
+            text: `Successfully downloaded.`,
+            timer: 1500,
+            showConfirmButton: false,
+        });
+};

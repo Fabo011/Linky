@@ -1,6 +1,11 @@
 ## Feature
 
 - Contacts backup - vCard
+- https://bootstrap-vue.org
+- https://bootstrap-vue.org/docs/components/overlay
+- https://bootstrap-vue.org/docs/components/modal
+- https://bootstrap-vue.org/docs/components/sidebar
+- https://bootstrap-vue.org/docs/components/toast
 
 ## Bugs
 

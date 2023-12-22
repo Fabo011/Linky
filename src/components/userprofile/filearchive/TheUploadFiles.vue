@@ -55,6 +55,7 @@ import { supabase } from '@/components/lib/supabaseClient';
 import { addedtoast } from '@/components/toasts/toasts';
 import { errorToast } from '@/components/toasts/toasts';
 import TheCategory from '@/components/userprofile/link/TheCategory.vue';
+import { encryptFile } from '@/components/crypto/crypto';
 
 export default defineComponent({
   name: 'TheUploadEncryFiles.vue',
@@ -84,15 +85,13 @@ export default defineComponent({
     async uploadFiles() {
       try {
         for (const file of this.files) {
-          // #TODO: Encrypt files
-          await supabase.storage
-            .from('linky')
-            .upload(`${this.username}/${file.name}`, file);
+          const encryptedFile = await encryptFile(file);
+          await supabase.storage.from('linky').upload(`${this.username}/${file.name}`, encryptedFile as any);
           this.executeCleanUp();
           await this.saveNewFile(file.name);
           store.retieveAllLinks();
           addedtoast();
-        } 
+        }
       } catch (error) {
         this.executeCleanUp();
         errorToast();
@@ -105,22 +104,20 @@ export default defineComponent({
       const email = username.toLowerCase() + '@linky.com';
       const category = store.getCategory();
       const type = 'file';
-      
+
       const linkdescription = store.linkdescription;
 
-      const { error } = await supabase
-        .from('link')
-        .insert({
-          username: this.username,
-          email: email,
-          linkname: filename,
-          linkdescription: linkdescription,
-          category: category,
-          type: type,
-        });
+      const { error } = await supabase.from('link').insert({
+        username: this.username,
+        email: email,
+        linkname: filename,
+        linkdescription: linkdescription,
+        category: category,
+        type: type,
+      });
       if (error) console.log(error);
     },
-  
+
     executeCleanUp() {
       this.nBtn = true;
       this.loading = false;
@@ -132,7 +129,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped>
-/* Add your custom styles or Bootstrap classes here */
-</style>

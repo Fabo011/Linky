@@ -4,31 +4,30 @@
   <section v-for="item in filteredLinks" :key="item.id" ref="dataComponent">
     <div class="card" id="theCard">
       <div class="card-header">
-
         <!--#TODO Seperate Card-Header-->
         <div v-if="item.type == null">
           <img height="18" width="18" :src="baseUrl + item.link" :alt="item.linkname" />
           {{ item.linkname }}
           <mark class="category text-primary mt-2"
-          ><span id="cat">{{ item.category }}</span></mark
+            ><span id="cat">{{ item.category }}</span></mark
           >
-          
+
           <button class="btn btn-danger btn-sm btn-space" @click.prevent="deleteLink(item)">
             <TheTrashIcon />
           </button>
         </div>
         <div v-if="item.type === 'file'">
-            <img height="18" width="18" src="../../../assets/file.png" :alt="item.linkname" />
-            {{ item.linkname }}
-            <mark class="category text-primary mt-2"
+          <img height="18" width="18" src="../../../assets/file.png" :alt="item.linkname" />
+          {{ item.linkname }}
+          <mark class="category text-primary mt-2"
             ><span id="cat">{{ item.category }}</span></mark
-            >
-          
-            <!--Create deleteFile func, that also file in storage get deleted-->
-            <button class="btn btn-danger btn-sm btn-space" @click.prevent="deleteLink(item)">
-              <TheTrashIcon />
-            </button>
-          </div>
+          >
+
+          <!--Create deleteFile func, that also file in storage get deleted-->
+          <button class="btn btn-danger btn-sm btn-space" @click.prevent="deleteLink(item)">
+            <TheTrashIcon />
+          </button>
+        </div>
       </div>
 
       <div class="card-body">
@@ -65,7 +64,11 @@
         </button>
         <!-------->
 
-        <button v-if="item.category !== 'chat' && item.type !== 'file'" class="btn share" @click.prevent="shareLink(item)">
+        <button
+          v-if="item.category !== 'chat' && item.type !== 'file'"
+          class="btn share"
+          @click.prevent="shareLink(item)"
+        >
           <TheClipboardIcon /><br />
           <span class="clipboard">Copy Link</span>
         </button>
@@ -91,6 +94,8 @@
         <button class="btn share">
           <TheLinkEdit v-if="item.category !== 'chat' && item.type !== 'file'" :item="item" />
         </button>
+
+        <TheDownloadFile v-if="item.type === 'file'" :item="item" />
       </div>
     </div>
   </section>
@@ -110,6 +115,7 @@ import TheShareChat from '../chat/TheShareChat.vue';
 import TheUsernameIcon from '@/assets/svg/TheUsernameIcon.vue';
 import { copiedtoast } from '@/components/toasts/toasts';
 import { decryptString } from '@/components/crypto/crypto';
+import TheDownloadFile from '../filearchive/TheDownloadFile.vue';
 
 export default defineComponent({
   name: 'TheRetrieveAllLinks',
@@ -121,6 +127,7 @@ export default defineComponent({
     TheLinkEdit,
     TheShareChat,
     TheUsernameIcon,
+    TheDownloadFile,
   },
 
   data() {
