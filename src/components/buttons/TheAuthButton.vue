@@ -16,7 +16,7 @@ export default defineComponent({
       this.buttonText = 'Login';
     } else if (route === 'signup') {
       this.buttonText = 'Register';
-    } else if (route === 'keys') {
+    } else if (route === 'key') {
       this.buttonText = 'Got To Account';
     }
   },

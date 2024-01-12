@@ -1,6 +1,5 @@
 import * as forge from 'node-forge';
 import { store } from '@/store/store';
-import * as CryptoJS from 'crypto-js';
 
 export const generateRandomKey = (): { key: string; iv: string } => {
   const key = forge.random.getBytesSync(16);
@@ -105,35 +104,57 @@ export const decryptString = (encryptedHex: string): string => {
 };
 
 
-export async function encryptFile(file: File): Promise<string> {
-  const password = 'fnjnf'
-  const reader = new FileReader();
-
-  return new Promise((resolve, reject) => {
-    reader.onload = (event) => {
-      const fileData = (event.target as any).result;
-      const encryptedData = CryptoJS.AES.encrypt(fileData, password).toString();
-      resolve(encryptedData);
-    };
-
-    reader.onerror = (error) => {
-      reject(error);
-    };
-
-    reader.readAsArrayBuffer(file);
-  });
+async function stringToUint8Array(str: string) {
+        const result = new Uint8Array(str.length);
+        for (let i = 0; i < str.length; i++) {
+            result[i] = str.charCodeAt(i);
+        }
+        return result;
 }
 
-export async function decryptFile(encryptedData: string): Promise<Blob> {
-  const password = 'fnjnf'
-  try {
-    const decryptedData = CryptoJS.AES.decrypt(encryptedData, password);
-    const decryptedUint8Array = new Uint8Array(decryptedData.words);
+async function stringKeyToCryptoKey(key: string) {
+return await crypto.subtle.importKey(
+            'raw',
+            await stringToUint8Array(key),
+            { name: 'AES-GCM', length: 256 },
+            false,
+            ['encrypt', 'decrypt']
+        );
+}
 
-    // Create a Blob from the Uint8Array
-    const blob = new Blob([decryptedUint8Array], { type: 'application/octet-stream' });
-    return blob;
-  } catch (error) {
-    throw new Error('Decryption failed. Incorrect password or invalid data.');
-  }
+export async function encryptFile(file: File) {
+  const arrayBuffer = await file.arrayBuffer();
+  const fullKey = store.getKey();
+  const { key, iv } = splitDigitalKey(fullKey);
+  const ivByte = await stringToUint8Array(iv);
+  const keyByte = await stringKeyToCryptoKey(key); 
+
+  return await crypto.subtle.encrypt({
+    name: 'AES-GCM',
+    iv: ivByte
+  },
+    keyByte,
+    arrayBuffer
+  );
+}
+
+async function blobToArrayBuffer(blob: Blob | null): Promise<ArrayBuffer> {
+  return await new Response(blob).arrayBuffer();
+}
+
+export async function decryptFile(encryptedData: Blob | null) {
+ const fullKey = store.getKey();
+ const { key, iv } = splitDigitalKey(fullKey);
+ const ivByte = await stringToUint8Array(iv);
+  const keyByte = await stringKeyToCryptoKey(key);
+  const file = await blobToArrayBuffer(encryptedData);
+  
+ return await crypto.subtle.decrypt(
+   {
+     name: 'AES-GCM',
+     iv: ivByte
+   },
+    keyByte,
+    file
+    );
 }

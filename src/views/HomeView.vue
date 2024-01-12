@@ -2,7 +2,7 @@
   <PageNav />
   <article>
     <section
-      class="position-absolute top-50 start-50 translate-middle w-75 p-3"
+      class="position-absolute top-50 start-50 translate-middle w-70 p-3 section-con"
       style="color: #333"
     >
       <div
@@ -34,6 +34,10 @@
           <div class="feature">
             <i class="bi bi-lock"></i>
             <p>Secure File Sharing</p>
+          </div>
+          <div class="feature">
+            <i class="bi bi-pass"></i>
+            <p>Encrypted Password Manager</p>
           </div>
           <div class="feature">
             <i class="bi bi-chat"></i>
@@ -83,8 +87,7 @@ body {
 }
 
 .background-container {
-  perspective: 1000px;
-  opacity: 0.8;
+  perspective: 100%;
 }
 
 .animated-text {
@@ -108,9 +111,8 @@ body {
 }
 
 .features {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
+  display: grid;
+  grid-template-columns: auto auto auto;
 }
 
 .feature {
@@ -131,5 +133,14 @@ body {
   width: 70px;
   height: 70px;
   border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+  .section-con {
+    margin-top: 15%;
+    height: 100%;
+    margin-bottom: 5%;
+    width: 98%;
+  }
 }
 </style>

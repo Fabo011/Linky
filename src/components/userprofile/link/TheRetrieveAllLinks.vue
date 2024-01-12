@@ -183,9 +183,9 @@ export default defineComponent({
         html: `Do you really want to delete the <b>${item.linkname}</b> link?`,
         showCancelButton: true,
         cancelButtonText: 'Cancel',
-        cancelButtonColor: '#0d6efd',
+        cancelButtonColor: '#5F7FFF',
         confirmButtonText: 'Delete',
-        confirmButtonColor: '#dc3545',
+        confirmButtonColor: '#B30000',
       }).then(async (result) => {
         if (result.value == true) {
           const username = item.username;
@@ -199,6 +199,12 @@ export default defineComponent({
               .then(() => {
                 store.retieveAllLinks();
               });
+
+            if (item.linkname.match(/\.(png|jpg|jpeg|gif|bmp|svg|pdf|doc|docx|xls|xlsx|ppt|pptx|odt|mp3|wav|mp4|avi|zip|rar|tar|txt|html|xml)$/)) {
+                await supabase.storage
+                .from('linky')
+                .remove([`${username}/${item.linkname}`]);
+            }
           } catch (error) {
             console.log(error);
           }

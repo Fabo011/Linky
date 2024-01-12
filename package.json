@@ -18,7 +18,6 @@
     "bootstrap-vue": "^2.23.1",
     "clipboard": "^2.0.11",
     "core-js": "^3.8.3",
-    "crypto-js": "^4.2.0",
     "mitt": "^3.0.1",
     "node-forge": "^1.3.1",
     "vue": "^3.3.13",
@@ -29,7 +28,6 @@
   },
   "devDependencies": {
     "@types/chai": "^4.3.4",
-    "@types/crypto-js": "^4.2.1",
     "@types/jest": "^27.0.1",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",

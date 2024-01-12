@@ -86,7 +86,9 @@ export default defineComponent({
       try {
         for (const file of this.files) {
           const encryptedFile = await encryptFile(file);
-          await supabase.storage.from('linky').upload(`${this.username}/${file.name}`, encryptedFile as any);
+          await supabase.storage
+            .from('linky')
+            .upload(`${this.username}/${file.name}`, encryptedFile);
           this.executeCleanUp();
           await this.saveNewFile(file.name);
           store.retieveAllLinks();
