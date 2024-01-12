@@ -12,6 +12,8 @@
       <li><TheCreateAndSaveNewLink class="dropdown-item" /></li>
       <li><TheCreateChatRoom class="dropdown-item" /></li>
       <li><TheUploadFiles class="dropdown-item" /></li>
+      <li><TheAddContacts class="dropdown-item" /></li>
+      <li><TheContacts class="dropdown-item" /></li>
     </ul>
   </div>
 </template>
@@ -23,9 +25,11 @@ import TheCreateChatRoom from './chat/TheCreateChatRoom.vue';
 import TheArchiveIcon from '@/assets/svg/TheArchiveIcon.vue';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import TheUploadFiles from './filearchive/TheUploadFiles.vue';
+import TheContacts from './contacts/TheContacts.vue';
+import TheAddContacts from './contacts/TheAddContacts.vue';
 
 export default defineComponent({
-  components: { TheCreateAndSaveNewLink, TheCreateChatRoom, TheArchiveIcon, TheUploadFiles },
+  components: { TheCreateAndSaveNewLink, TheCreateChatRoom, TheArchiveIcon, TheUploadFiles, TheContacts, TheAddContacts },
 
   methods: {
     openArchive() {

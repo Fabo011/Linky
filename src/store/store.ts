@@ -30,6 +30,9 @@ export const store = reactive({
     // categories
     categories: [],
 
+    // contacts
+    contacts: [],
+
     // chat
     text: '',
 
@@ -173,5 +176,16 @@ export const store = reactive({
            } catch (error) {
               console.error(error)
            }   
-    },      
+    },     
+    
+    async fetchContacts() {
+            const username = this.getUsername();
+            const { data, error } = await supabase.from('contacts').select('*').eq(`username`, username);
+
+            if (error) {
+                console.error('Error fetching contacts:', error.message);
+            } else {
+                this.contacts = data as any;
+            }
+    },
 });
