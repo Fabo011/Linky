@@ -14,9 +14,11 @@
           Linky Cloud
         </h1>
         <p>
-          Linky Cloud offers a premium and secure cloud storage solution for privacy entousiasts.
-          Save links, encrypted files ans encrypted chat content. We do not collect personalized
-          data, you and your data remains anonymously and decentralized.
+          Linky Cloud provides a premium and secure cloud storage solution tailored for privacy
+          enthusiasts. Our services ensure the encryption of all sensitive data, with exclusive
+          access granted only through your digital key for decryption. Emphasizing a commitment to
+          privacy, we refrain from collecting personalized data, maintaining both you and your
+          information in an anonymous and decentralized manner.
         </p>
         <div class="features">
           <div class="feature">
@@ -25,11 +27,11 @@
           </div>
           <div class="feature">
             <i class="bi bi-link"></i>
-            <p>Organize Links</p>
+            <p>Organize Web Links</p>
           </div>
           <div class="feature">
-            <i class="bi bi-image"></i>
-            <p>Save Images</p>
+            <i class="bi bi-person-lines-fill"></i>
+            <p>Save Contacts</p>
           </div>
           <div class="feature">
             <i class="bi bi-lock"></i>

@@ -23,7 +23,6 @@
             ><span id="cat">{{ item.category }}</span></mark
           >
 
-          <!--Create deleteFile func, that also file in storage get deleted-->
           <button class="btn btn-danger btn-sm btn-space" @click.prevent="deleteLink(item)">
             <TheTrashIcon />
           </button>
@@ -200,10 +199,12 @@ export default defineComponent({
                 store.retieveAllLinks();
               });
 
-            if (item.linkname.match(/\.(png|jpg|jpeg|gif|bmp|svg|pdf|doc|docx|xls|xlsx|ppt|pptx|odt|mp3|wav|mp4|avi|zip|rar|tar|txt|html|xml)$/)) {
-                await supabase.storage
-                .from('linky')
-                .remove([`${username}/${item.linkname}`]);
+            if (
+              item.linkname.match(
+                /\.(png|jpg|jpeg|gif|bmp|svg|pdf|doc|docx|xls|xlsx|ppt|pptx|odt|mp3|wav|mp4|avi|zip|rar|tar|txt|html|xml)$/,
+              )
+            ) {
+              await supabase.storage.from('linky').remove([`${username}/${item.linkname}`]);
             }
           } catch (error) {
             console.log(error);

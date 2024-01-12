@@ -135,6 +135,15 @@ export const store = reactive({
        this.linkUsername = linkUsername
     },
 
+    logout() {
+        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('cat');
+        sessionStorage.removeItem('chatKey');
+        sessionStorage.removeItem('authStatus');
+        sessionStorage.removeItem('key');
+        sessionStorage.removeItem('iv');
+    },
+
     //retrieveAllLinks and Categories
     async retieveAllLinks() {
         const username = this.username

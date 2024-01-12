@@ -51,6 +51,7 @@ export default defineComponent({
     home() {
       store.setUsername(this.refresh);
       store.action(this.refresh);
+      store.logout();
       this.$router.push(`/`);
     },
   },

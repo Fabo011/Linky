@@ -22,6 +22,13 @@
                 <span class="text-decoration-underline text-white">Register</span>
               </a>
             </router-link>
+            <a
+              class="nav-link text-white space"
+              href="https://github.com/Fabo011/Linky/wiki"
+              target="_blank"
+            >
+              <span class="text-decoration-underline text-white">Docs</span>
+            </a>
           </li>
         </ul>
       </nav>
@@ -101,5 +108,8 @@ export default defineComponent({
 
 .my {
   margin-top: 13%;
+}
+.space {
+  margin-left: 5px;
 }
 </style>
