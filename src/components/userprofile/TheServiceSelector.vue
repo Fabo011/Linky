@@ -29,7 +29,14 @@ import TheContacts from './contacts/TheContacts.vue';
 import TheAddContacts from './contacts/TheAddContacts.vue';
 
 export default defineComponent({
-  components: { TheCreateAndSaveNewLink, TheCreateChatRoom, TheArchiveIcon, TheUploadFiles, TheContacts, TheAddContacts },
+  components: {
+    TheCreateAndSaveNewLink,
+    TheCreateChatRoom,
+    TheArchiveIcon,
+    TheUploadFiles,
+    TheContacts,
+    TheAddContacts,
+  },
 
   methods: {
     openArchive() {

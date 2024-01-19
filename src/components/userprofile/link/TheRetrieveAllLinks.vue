@@ -3,31 +3,7 @@
 <template>
   <section v-for="item in filteredLinks" :key="item.id" ref="dataComponent">
     <div class="card" id="theCard">
-      <div class="card-header">
-        <!--#TODO Seperate Card-Header-->
-        <div v-if="item.type == null">
-          <img height="18" width="18" :src="baseUrl + item.link" :alt="item.linkname" />
-          {{ item.linkname }}
-          <mark class="category text-primary mt-2"
-            ><span id="cat">{{ item.category }}</span></mark
-          >
-
-          <button class="btn btn-danger btn-sm btn-space" @click.prevent="deleteLink(item)">
-            <TheTrashIcon />
-          </button>
-        </div>
-        <div v-if="item.type === 'file'">
-          <img height="18" width="18" src="../../../assets/file.png" :alt="item.linkname" />
-          {{ item.linkname }}
-          <mark class="category text-primary mt-2"
-            ><span id="cat">{{ item.category }}</span></mark
-          >
-
-          <button class="btn btn-danger btn-sm btn-space" @click.prevent="deleteLink(item)">
-            <TheTrashIcon />
-          </button>
-        </div>
-      </div>
+      <TheRetrieveAllLinksHeader :item="item" />
 
       <div class="card-body">
         <div v-if="item.type !== 'file'">
@@ -40,59 +16,9 @@
           <p class="card-text"><i class="bi bi-tags icons"></i>{{ item.linkdescription }}</p>
         </div>
 
-        <div v-if="item.type !== 'file'">
-          <button v-if="item.category !== 'chat'" class="btn share">
-            <a :href="item.link" target="_blank" class="btn btn-sm openlink">
-              <TheChatBtnIcon /><br />
-              <span class="clipboard">Link</span>
-            </a>
-          </button>
-        </div>
+        <TheRetrieveAllLinksLinksOnly :item="item" />
 
-        <!--Chat-->
-        <button v-if="item.category === 'chat'" class="btn share" @click.prevent="setChatKey(item)">
-          <a class="btn btn-sm openlink">
-            <TheChatBtnIcon /><br />
-            <span class="clipboard">Link</span>
-          </a>
-        </button>
-
-        <button v-if="item.category == 'chat'" class="btn share">
-          <TheShareChat :item="item" />
-          <span class="clipboard">Share Chat</span>
-        </button>
-        <!-------->
-
-        <button
-          v-if="item.category !== 'chat' && item.type !== 'file'"
-          class="btn share"
-          @click.prevent="shareLink(item)"
-        >
-          <TheClipboardIcon /><br />
-          <span class="clipboard">Copy Link</span>
-        </button>
-
-        <button
-          v-if="item.linkusername !== '' && item.category !== 'chat'"
-          class="btn share"
-          @click.prevent="copyUsername(item)"
-        >
-          <TheUsernameIcon /><br />
-          <span class="clipboard">Copy Username</span>
-        </button>
-
-        <button
-          v-if="item.linkpassword !== '' && item.category !== 'chat'"
-          class="btn share"
-          @click.prevent="copyPassword(item)"
-        >
-          <TheCopyPasswordIcon /><br />
-          <span class="clipboard">Copy Password</span>
-        </button>
-
-        <button class="btn share">
-          <TheLinkEdit v-if="item.category !== 'chat' && item.type !== 'file'" :item="item" />
-        </button>
+        <TheRetrieveAllLinksChatOnly :item="item" />
 
         <TheDownloadFile v-if="item.type === 'file'" :item="item" />
       </div>
@@ -103,8 +29,6 @@
 <script>
 import { store } from '../../../store/store';
 import { defineComponent } from 'vue';
-import Clipboard from 'clipboard';
-import { supabase } from '../../lib/supabaseClient';
 import TheTrashIcon from '@/assets/svg/TheTrashIcon.vue';
 import TheClipboardIcon from '@/assets/svg/TheClipboardIcon.vue';
 import TheCopyPasswordIcon from '@/assets/svg/TheCopyPasswordIcon.vue';
@@ -112,9 +36,10 @@ import TheChatBtnIcon from '@/assets/svg/TheChatBtnIcon.vue';
 import TheLinkEdit from './TheLinkEdit.vue';
 import TheShareChat from '../chat/TheShareChat.vue';
 import TheUsernameIcon from '@/assets/svg/TheUsernameIcon.vue';
-import { copiedtoast } from '@/components/toasts/toasts';
-import { decryptString } from '@/components/crypto/crypto';
 import TheDownloadFile from '../filearchive/TheDownloadFile.vue';
+import TheRetrieveAllLinksHeader from './linkchildcomponents/TheRetrieveAllLinksHeader.vue';
+import TheRetrieveAllLinksChatOnly from './linkchildcomponents/TheRetrieveAllLinksChatOnly.vue';
+import TheRetrieveAllLinksLinksOnly from './linkchildcomponents/TheRetrieveAllLinksLinksOnly.vue';
 
 export default defineComponent({
   name: 'TheRetrieveAllLinks',
@@ -127,12 +52,14 @@ export default defineComponent({
     TheShareChat,
     TheUsernameIcon,
     TheDownloadFile,
+    TheRetrieveAllLinksHeader,
+    TheRetrieveAllLinksChatOnly,
+    TheRetrieveAllLinksLinksOnly,
   },
 
   data() {
     return {
       store,
-      baseUrl: 'http://www.google.com/s2/favicons?domain=',
       toast: true,
     };
   },
@@ -155,93 +82,9 @@ export default defineComponent({
   },
 
   methods: {
-    shareLink(item) {
-      const link = item.link;
-      new Clipboard('.btn', {
-        text: () => {
-          return link;
-        },
-      });
-      this.$swal({
-        icon: 'success',
-        text: 'You copied the link to your clipboard.',
-        timer: 1500,
-        showConfirmButton: false,
-      });
-    },
-
     setItem(item) {
       store.editButtonActive = false;
       store.item = item;
-    },
-
-    async deleteLink(item) {
-      this.$swal({
-        icon: 'warning',
-        title: 'Warning',
-        html: `Do you really want to delete the <b>${item.linkname}</b> link?`,
-        showCancelButton: true,
-        cancelButtonText: 'Cancel',
-        cancelButtonColor: '#5F7FFF',
-        confirmButtonText: 'Delete',
-        confirmButtonColor: '#B30000',
-      }).then(async (result) => {
-        if (result.value == true) {
-          const username = item.username;
-          const link = item.link;
-          try {
-            await supabase
-              .from('link')
-              .delete()
-              .eq(`username`, username)
-              .eq(`link`, link)
-              .then(() => {
-                store.retieveAllLinks();
-              });
-
-            if (
-              item.linkname.match(
-                /\.(png|jpg|jpeg|gif|bmp|svg|pdf|doc|docx|xls|xlsx|ppt|pptx|odt|mp3|wav|mp4|avi|zip|rar|tar|txt|html|xml)$/,
-              )
-            ) {
-              await supabase.storage.from('linky').remove([`${username}/${item.linkname}`]);
-            }
-          } catch (error) {
-            console.log(error);
-          }
-        } else {
-          this.$swal.close();
-        } // swal if else
-      }); //swal then
-    }, //deleteLink
-
-    setChatKey(item) {
-      const chatKey = item.chatKey;
-      const iv = item.iv;
-      sessionStorage.setItem('chatKey', chatKey);
-      sessionStorage.setItem('iv', iv);
-      this.$router.push(`/chat/${item.chatRoom}`);
-    },
-
-    copyUsername(item) {
-      const linkUsername = item.linkusername;
-      new Clipboard('.btn', {
-        text: () => {
-          return linkUsername;
-        },
-      });
-      copiedtoast();
-    },
-
-    copyPassword(item) {
-      const linkPassword = item.linkpassword;
-      const decryptedPassword = decryptString(linkPassword);
-      new Clipboard('.btn', {
-        text: () => {
-          return decryptedPassword;
-        },
-      });
-      copiedtoast();
     },
   }, //methods
 });
@@ -249,11 +92,6 @@ export default defineComponent({
 <style scoped>
 .card {
   margin-top: 10px;
-}
-.card-header {
-  background-color: var(--primary-white-darker-background);
-  color: var(--primary-background-color);
-  opacity: 0.9;
 }
 .category {
   background-color: var(--primary-white-darker-background);

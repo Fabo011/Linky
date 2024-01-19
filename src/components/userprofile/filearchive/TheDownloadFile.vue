@@ -1,5 +1,13 @@
 <template>
-  <button @click.prevent="downloadFile()">Download</button>
+  <button
+      class="btn share"
+      @click.prevent="downloadFile()"
+    >
+    <div class="d-flex justify-content-center align-items-center">
+      <TheDownloadIcon />
+      </div>
+      <span class="clipboard">Download</span>
+    </button>
 </template>
 
 <script lang="ts">
@@ -8,9 +16,13 @@ import { supabase } from '@/components/lib/supabaseClient';
 import { store } from '@/store/store';
 import { errorToast, downloadtoast } from '@/components/toasts/toasts';
 import { decryptFile } from '@/components/crypto/crypto';
+import TheDownloadIcon from '@/assets/svg/TheDownloadIcon.vue';
 
 export default defineComponent({
   name: 'TheDownloadFile.vue',
+  components: {
+   TheDownloadIcon
+  },
 
   data() {
     return {
@@ -122,3 +134,13 @@ export default defineComponent({
   },
 });
 </script>
+<style scoped>
+.btn {
+  color: var(--primary-background-color);
+  color: var(--primary-white-color);
+}
+.clipboard {
+  margin: 0;
+  font-size: 10px;
+}
+</style>
