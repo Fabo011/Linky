@@ -2,13 +2,17 @@
   <div class="scrollableCategories">
     <div class="text-secondary child" @click.prevent="resetCategories">
       <div class="d-flex justify-content-center align-items-center">
-      <TheReloadIcon />
-    </div>
+        <TheReloadIcon />
+      </div>
       <span class="cat">All</span>
     </div>
 
-    <mark v-for="item in store.categories" :key="item.category" @click.prevent="setCategory(item)"
-      class="bg-white text-decoration-none child children position-relative text-center">
+    <mark
+      v-for="item in store.categories"
+      :key="item.category"
+      @click.prevent="setCategory(item)"
+      class="bg-white text-decoration-none child children position-relative text-center"
+    >
       <div class="d-flex justify-content-center align-items-center">
         <TheFolderIcon />
       </div>
@@ -17,13 +21,11 @@
   </div>
 </template>
 
-
-
 <script>
 import { defineComponent } from 'vue';
 import { store } from '../../../store/store';
 import TheFolderIcon from '@/assets/svg/TheFolderIcon.vue';
-import TheReloadIcon from '@/assets/svg/TheReloadIcon.vue'
+import TheReloadIcon from '@/assets/svg/TheReloadIcon.vue';
 
 export default defineComponent({
   name: 'TheRetrieveCategories',

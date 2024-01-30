@@ -1,8 +1,7 @@
 <template>
   <section>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#vcfModal">
-      Open Contacts
-    </button>
+    <ContactIcon class="text" data-bs-toggle="modal" data-bs-target="#vcfModal" />
+    <i class="text" data-bs-toggle="modal" data-bs-target="#vcfModal"> Open your Contact</i>
 
     <div
       class="modal fade"
@@ -51,9 +50,14 @@
 <script>
 import { defineComponent } from 'vue';
 import { store } from '@/store/store';
+import ContactIcon from '../../../assets/svg/TheContactIcon.vue';
 
 export default defineComponent({
   name: 'YourComponentName',
+  components: {
+    ContactIcon,
+  },
+
   data() {
     return {
       store,

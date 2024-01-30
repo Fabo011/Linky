@@ -95,7 +95,7 @@ export default defineComponent({
                 showConfirmButton: false,
               })
               .then(() => {
-                //store.retieveAllLinks();
+                store.fetchContacts();
               });
           });
       } catch (error) {

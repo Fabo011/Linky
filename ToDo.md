@@ -1,6 +1,7 @@
 ## Feature
 
 - Contacts backup - vCard
+- Like bio, but for privacy, where users with their ideas have their own webpage with all the links and a photos
 - https://bootstrap-vue.org
 - https://bootstrap-vue.org/docs/components/overlay
 - https://bootstrap-vue.org/docs/components/modal

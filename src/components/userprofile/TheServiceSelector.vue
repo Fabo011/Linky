@@ -14,6 +14,7 @@
       <li><TheUploadFiles class="dropdown-item" /></li>
       <li><TheAddContacts class="dropdown-item" /></li>
       <li><TheContacts class="dropdown-item" /></li>
+      <li><TheAccount class="dropdown-item" /></li>
     </ul>
   </div>
 </template>
@@ -27,6 +28,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import TheUploadFiles from './filearchive/TheUploadFiles.vue';
 import TheContacts from './contacts/TheContacts.vue';
 import TheAddContacts from './contacts/TheAddContacts.vue';
+import TheAccount from '@/components/userprofile/account/TheAccount.vue';
 
 export default defineComponent({
   components: {
@@ -36,6 +38,7 @@ export default defineComponent({
     TheUploadFiles,
     TheContacts,
     TheAddContacts,
+    TheAccount,
   },
 
   methods: {

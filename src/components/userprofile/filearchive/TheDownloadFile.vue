@@ -1,13 +1,10 @@
 <template>
-  <button
-      class="btn share"
-      @click.prevent="downloadFile()"
-    >
+  <button class="btn share" @click.prevent="downloadFile()">
     <div class="d-flex justify-content-center align-items-center">
       <TheDownloadIcon />
-      </div>
-      <span class="clipboard">Download</span>
-    </button>
+    </div>
+    <span class="clipboard">Download</span>
+  </button>
 </template>
 
 <script lang="ts">
@@ -21,7 +18,7 @@ import TheDownloadIcon from '@/assets/svg/TheDownloadIcon.vue';
 export default defineComponent({
   name: 'TheDownloadFile.vue',
   components: {
-   TheDownloadIcon
+    TheDownloadIcon,
   },
 
   data() {
