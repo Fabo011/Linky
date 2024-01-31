@@ -21,22 +21,37 @@
             <CloseModalButton />
           </div>
           <form class="modal-body">
-            <label><b>Upgrade Account with Crypto</b></label><br>
+            <label><b>Upgrade Account with Buy Me A Coffee Membership</b></label
+            ><br />
+            <a href="https://www.buymeacoffee.com/linkycloudstorage/membership" target="_blank"
+              ><img
+                src="https://cdn.buymeacoffee.com/buttons/v2/arial-blue.png"
+                alt="Buy Me A Coffee"
+                style="height: 60px !important; width: 217px !important" /></a
+            ><br />
+
+            <label class="space-docs"><b>Upgrade Account with Crypto</b></label
+            ><br />
             <a href="https://plisio.net/donate/BLH2GdX5" target="_blank"
               ><img
                 src="https://plisio.net/img/donate/donate_light_icons_color.png"
                 alt="Donate Crypto on Plisio"
                 width="180"
                 height="60"
-                id="space-top"
-            /></a><br>
+            /></a>
+            <hr />
+
+            <label class="space-docs"><b>Docs</b></label
+            ><br />
             <a
-                class="nav-link space-docs"
-                href="https://github.com/Fabo011/Linky/wiki/Linky-Cloud-User-Documentation"
-                target="_blank"
-              >
-                <span class="text-decoration-underline"><TheDocuIcon />Documentation</span>
-              </a>
+              class="nav-link"
+              href="https://github.com/Fabo011/Linky/wiki/Linky-Cloud-User-Documentation"
+              target="_blank"
+            >
+              <span class="text-decoration-underline"><TheDocuIcon />Documentation</span>
+            </a>
+            <hr />
+            <TheAccountMetric />
           </form>
         </div>
       </div>
@@ -51,6 +66,7 @@ import AddBtn from '../../buttons/TheAddBtn.vue';
 import LoadingButton from '../../buttons/TheLoadingButton.vue';
 import CloseModalButton from '../../buttons/TheCloseModalBtn.vue';
 import TheDocuIcon from '@/assets/svg/TheDocuIcon.vue';
+import TheAccountMetric from '@/components/userprofile/account/TheAccountMetric.vue';
 
 export default defineComponent({
   name: 'TheSettings.vue',
@@ -59,7 +75,8 @@ export default defineComponent({
     AddBtn,
     LoadingButton,
     CloseModalButton,
-    TheDocuIcon
+    TheDocuIcon,
+    TheAccountMetric,
   },
 
   data() {

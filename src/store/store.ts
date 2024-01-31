@@ -91,9 +91,11 @@ export const store = reactive({
         try {
             const { data } = await supabase.auth.getUser();
 
-          if (!data || !data.user || !data.user.email || data.user.email !== token.user.email) {
-             router.push('signin');
-          }
+            if (!data || !data.user || !data.user.email || data.user.email !== token.user.email) {
+                router.push('signin');
+            } else {
+                sessionStorage.setItem('tariff', data.user?.user_metadata.tariff as any)
+            }
         } catch (error) {
             router.push('signin');
         }
@@ -145,6 +147,7 @@ export const store = reactive({
         sessionStorage.removeItem('authStatus');
         sessionStorage.removeItem('key');
         sessionStorage.removeItem('iv');
+        sessionStorage.removeItem('tariff');
     },
 
     //retrieveAllLinks and Categories

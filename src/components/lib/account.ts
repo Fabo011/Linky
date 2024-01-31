@@ -1,14 +1,13 @@
 import { supabase } from "@/components/lib/supabaseClient";
 import { store } from "@/store/store";
 
-const username = store.getUsername()
 
 export const getAccountSize = async() => {
-   const { data, error } = await supabase.storage.from('linky').list(username);
+  const username = store.getUsername()
+  const { data, error } = await supabase.storage.from('linky').list(username);
 
   if (error) {
     console.error('Error fetching files for account size:', error);
-    return null;
   }
 
   let totalSize = 0;
@@ -18,5 +17,11 @@ export const getAccountSize = async() => {
     });
   }
 
-  return totalSize;
+  const totalSizeInMB = totalSize / (1024 * 1024);
+  const mb = totalSizeInMB.toFixed(2);
+
+  const totalSizeInGB = totalSize / (1024 * 1024 * 1024);
+  const gb = totalSizeInGB.toFixed(2);
+
+  return { mb, gb };
 }

@@ -44,7 +44,12 @@ export default defineComponent({
       const email = username + '@linky.com';
 
       try {
-        const { error } = await supabase.auth.signUp({ email, password });
+        const options = {
+          data: {
+            tariff: 'Free',
+          },
+        };
+        const { error } = await supabase.auth.signUp({ email, password, options });
         if (!error) {
           const { key, iv } = generateRandomKey();
           const digitalKey = `${key}.${iv}`;
