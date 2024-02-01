@@ -230,6 +230,10 @@ export default defineComponent({
   font-size: 10px;
 }
 
+.modal-content {
+  margin-top: 15%;
+}
+
 @media (max-width: 768px) {
   .modal-content {
     margin-top: 28%;

@@ -12,15 +12,19 @@
 
 - Close dropdown in links and file archive when service is choosen
 
-## Security
-
-## v2.0.0 Must Haves & Features
+## Until v3.1.0 release
 
 - GitHub actions pipeline
 
 - Add rollbar error report
 
 - https://supabase.com/docs/guides/storage
+
+- Bucket policies depending on user payment status
+
+- Security check
+
+- Contacts number and email downloadable
 
 ---
 
