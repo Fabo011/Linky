@@ -186,7 +186,7 @@ export default defineComponent({
           });
       } catch (error) {
         this.executeCleanUp();
-        console.log(error);
+        throw new Error('editLinkBtn Error: ' + error);
       }
     },
 

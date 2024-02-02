@@ -95,6 +95,7 @@ export default defineComponent({
         }
       } catch (error) {
         errorToast();
+        throw new Error('handleFileChange Error: ' + error);
       }
     },
 
@@ -111,7 +112,7 @@ export default defineComponent({
       } catch (error) {
         this.executeCleanUp();
         errorToast();
-        console.trace('Error during file upload:', error);
+        throw new Error('uploadFiles Error: ' + error);
       }
     },
 

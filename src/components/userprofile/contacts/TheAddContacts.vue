@@ -99,7 +99,7 @@ export default defineComponent({
               });
           });
       } catch (error) {
-        console.log(error);
+        throw new Error('addNewContactBtn Error: ' + error);
       }
     },
   },

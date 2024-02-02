@@ -122,7 +122,7 @@ export default defineComponent({
           });
       } catch (error) {
         this.loading = false;
-        console.log(error);
+        throw new Error('addNewChat Error: ' + error);
       }
     },
   },

@@ -97,7 +97,7 @@ export default defineComponent({
             store.fetchContacts();
           });
       } catch (error) {
-        console.log(error);
+        throw new Error('deleteContact Error: ' + error);
       }
     },
 

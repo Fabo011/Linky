@@ -68,6 +68,7 @@ export default defineComponent({
         this.errorText = 'Internal Error.';
         this.nBtn = true;
         this.loading = false;
+        throw new Error('Register Internal Error: ' + error);
       }
     },
   },

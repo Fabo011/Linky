@@ -49,17 +49,3 @@ const parsedVCard = vCard.parse(vCardData);
 export const checkStorageLimit = async (): Promise<boolean> => {
 const { data } = await supabase.auth.getUser();
 const account = data.user?.user_metadata.tariff as string | undefined;
-
-const { mb, gb } = await getAccountSize();
-if (account === 'bronze' && gb > '200') {
-return false;
-} else if (account === 'silver' && gb > '500') {
-return false;
-} else if (account === 'gold' && gb > '1000') {
-return false;
-} else if (account === 'free') {
-return false;
-} else {
-return true;
-}
-}

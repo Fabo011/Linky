@@ -186,18 +186,22 @@ export const store = reactive({
              this.categories = Array.from(uniqueCategories)
              
            } catch (error) {
-              console.error(error)
+               throw new Error('retrieveAllLinks Error: ' + error);
            }   
     },     
     
     async fetchContacts() {
-            const username = this.getUsername();
+        try {
+           const username = this.getUsername();
             const { data, error } = await supabase.from('contacts').select('*').eq(`username`, username);
 
             if (error) {
                 console.error('Error fetching contacts:', error.message);
             } else {
                 this.contacts = data as any;
-            }
+            } 
+        } catch (error) {
+            throw new Error('fetchContacts Error: ' + error);
+        }
     },
 });

@@ -59,6 +59,7 @@ export default defineComponent({
         this.nBtn = true;
         this.loading = false;
         this.errorText = 'Internal Error.';
+        throw new Error('Login Internal Error: ' + error);
       }
     },
   },

@@ -94,7 +94,7 @@ export default defineComponent({
               await supabase.storage.from('linky').remove([`${uuid}/${item.linkname}`]);
             }
           } catch (error) {
-            console.log(error);
+            throw new Error('deleteLink Error: ' + error);
           }
         } else {
           // @ts-ignore
