@@ -33,3 +33,10 @@ npm run lint
 ```
 npm run format
 ```
+
+### Security
+
+```
+npx snyk auth
+npx snyk test
+```
