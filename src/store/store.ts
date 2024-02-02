@@ -73,6 +73,12 @@ export const store = reactive({
         return username;
     },
 
+    getUUID() {
+        const hexUUID = sessionStorage.getItem('uuid') as string;
+        const uuid = convertHexToString(hexUUID);
+        return uuid;
+    },
+
     async checkUser() {
        if (this.authStatus !== 'loggedIn') {
           router.push('signin');
@@ -95,6 +101,8 @@ export const store = reactive({
                 router.push('signin');
             } else {
                 sessionStorage.setItem('tariff', data.user?.user_metadata.tariff as any)
+                const userUUIDHex = convertStringToHex(data.user.id);
+                sessionStorage.setItem('uuid', userUUIDHex);
             }
         } catch (error) {
             router.push('signin');
@@ -148,6 +156,7 @@ export const store = reactive({
         sessionStorage.removeItem('key');
         sessionStorage.removeItem('iv');
         sessionStorage.removeItem('tariff');
+        sessionStorage.removeItem('uuid');
     },
 
     //retrieveAllLinks and Categories

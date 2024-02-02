@@ -5,7 +5,9 @@
     <p>
       Account Tariff: <b>{{ tariff }}</b>
     </p>
-    <p>{{ accountMB }}MB / {{ accountGB }}GB of <b>200Gb</b></p>
+    <p>
+      {{ accountMB }}MB / {{ accountGB }}GB of <b>{{ size }}GB</b>
+    </p>
     <div>
       <h6>MB in %</h6>
       <div class="progress">
@@ -42,7 +44,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { getAccountSize } from '@/components/lib/account';
+import { getAccountSize, tariffCheck } from '@/components/lib/account';
 
 export default defineComponent({
   name: 'TheAccountMetric.vue',
@@ -53,6 +55,7 @@ export default defineComponent({
       accountMB: 0,
       accountGB: 0,
       tariff: '',
+      size: '',
     };
   },
 
@@ -63,6 +66,9 @@ export default defineComponent({
 
     const tariff = sessionStorage.getItem('tariff') as string;
     this.tariff = tariff;
+
+    const size = (await tariffCheck()) as string;
+    this.size = size;
   },
 
   methods: {},

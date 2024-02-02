@@ -23,7 +23,7 @@ export default defineComponent({
 
   data() {
     return {
-      username: store.getUsername(),
+      uuid: store.getUUID(),
     };
   },
 
@@ -38,7 +38,7 @@ export default defineComponent({
       try {
         const { error, data } = await supabase.storage
           .from('linky')
-          .download(`${this.username}/${item.linkname}`);
+          .download(`${this.uuid}/${item.linkname}`);
 
         if (error) {
           console.log(error);

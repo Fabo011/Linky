@@ -35,7 +35,7 @@
             </div>
           </form>
           <div class="modal-footer d-flex justify-content-start">
-            <TheAddBtn v-if="nBtn" @click.prevent="uploadFiles()"> Upload </TheAddBtn>
+            <TheAddBtn v-if="nBtn" @click.prevent="upload()"> Upload </TheAddBtn>
             <TheLoadingButton v-if="loading" />
           </div>
         </div>
@@ -53,9 +53,10 @@ import TheEncryFileIcon from '@/assets/svg/TheEncryFileIcon.vue';
 import TheCloseModalBtn from '@/components/buttons/TheCloseModalBtn.vue';
 import { supabase } from '@/components/lib/supabaseClient';
 import { addedtoast } from '@/components/toasts/toasts';
-import { errorToast } from '@/components/toasts/toasts';
+import { errorToast, errorToastFileUploadNoMembership } from '@/components/toasts/toasts';
 import TheCategory from '@/components/userprofile/link/TheCategory.vue';
 import { encryptFile } from '@/components/crypto/crypto';
+import { checkStorageLimit } from '@/components/lib/account';
 
 export default defineComponent({
   name: 'TheUploadEncryFiles.vue',
@@ -73,6 +74,7 @@ export default defineComponent({
       loading: false,
       key: 1,
       username: store.getUsername(),
+      uuid: store.getUUID(),
       updateString: '',
     };
   },
@@ -82,13 +84,25 @@ export default defineComponent({
       this.files = this.$refs.fileInput.files;
     },
 
+    async upload() {
+      try {
+        const account = await checkStorageLimit();
+
+        if (account === true) {
+          await this.uploadFiles();
+        } else {
+          errorToastFileUploadNoMembership();
+        }
+      } catch (error) {
+        errorToast();
+      }
+    },
+
     async uploadFiles() {
       try {
         for (const file of this.files) {
           const encryptedFile = await encryptFile(file);
-          await supabase.storage
-            .from('linky')
-            .upload(`${this.username}/${file.name}`, encryptedFile);
+          await supabase.storage.from('linky').upload(`${this.uuid}/${file.name}`, encryptedFile);
           this.executeCleanUp();
           await this.saveNewFile(file.name);
           store.retieveAllLinks();

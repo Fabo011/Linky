@@ -46,7 +46,7 @@ export default defineComponent({
       try {
         const options = {
           data: {
-            tariff: 'Free',
+            tariff: 'free',
           },
         };
         const { error } = await supabase.auth.signUp({ email, password, options });

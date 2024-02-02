@@ -74,6 +74,7 @@ export default defineComponent({
       }).then(async (result: any) => {
         if (result.value == true) {
           const username = item.username;
+          const uuid = store.getUUID();
           const link = item.link;
           try {
             await supabase
@@ -90,7 +91,7 @@ export default defineComponent({
                 /\.(png|jpg|jpeg|gif|bmp|svg|pdf|doc|docx|xls|xlsx|ppt|pptx|odt|mp3|wav|mp4|avi|zip|rar|tar|txt|html|xml)$/,
               )
             ) {
-              await supabase.storage.from('linky').remove([`${username}/${item.linkname}`]);
+              await supabase.storage.from('linky').remove([`${uuid}/${item.linkname}`]);
             }
           } catch (error) {
             console.log(error);

@@ -63,6 +63,20 @@ export const errorToast = () => {
         });
 };
 
+export const errorToastFileUploadNoMembership = () => {
+    swal
+        .fire({
+            icon: 'error',
+            html: `
+            You have to be a member to upload files. Thanks for understanding. <br>
+            <a href="https://www.buymeacoffee.com/linkycloudstorage/membership" target="_blank">Upgrade Account</a><br>
+            <a href="https://plisio.net/donate/BLH2GdX5" target="_blank">Upgrade Account with Crypto</a>
+            `,
+            showConfirmButton: true,
+            confirmButtonText: 'Ok'
+        });
+};
+
 export const deleteWarnToast = () => {
     swal
         .fire({
