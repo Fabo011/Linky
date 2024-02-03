@@ -23,10 +23,10 @@ jobs:
     - run: npm ci
     - run: npm run build
       
-    - name: Commit dist directory
+    - name: Switch to 'production' branch and push dist
       run: |
-        git config user.name "${{ github.actor }}"
-        git config user.email "${{ github.actor }}@users.noreply.github.com"
+        git checkout -b production
         git add dist
-        git commit -m "Add dist directory"
-        git push origin v3.1.0
+        git commit -m "New version"
+        git push origin production
+
