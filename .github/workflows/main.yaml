@@ -25,10 +25,16 @@ jobs:
       
     - name: Get package version
       id: version
-      run: echo ::set-output name=version::$(node -pe "require('./package.json').version")
+      run: echo ::set-output name=version::$(node -pe "require('./package.json').version") 
 
     - name: Create Tag
-      run: git tag -a ${{ steps.version.outputs.version }} -m "${{ steps.version.outputs.version }}"
+      run: |
+        git config --global user.email "linky-cloud@proton.me"
+        git config --global user.name "Fabo011"
+        git tag -a ${{ steps.version.outputs.version }} -m "${{ steps.version.outputs.version }}"
 
     - name: Push Tag
-      run: git push origin ${{ steps.version.outputs.version }}
+      run: |
+        git config --global user.email "linky-cloud@proton.me"
+        git config --global user.name "Fabo011"
+        git push origin --tags
