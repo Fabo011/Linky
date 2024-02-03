@@ -28,8 +28,8 @@ jobs:
         git config --global user.email "linky-cloud@proton.me"
         git config --global user.name "Fabo011"
         git checkout -b production
-        git pull origin production
+        git pull --force origin production
         git add dist
         git commit -m "New version"
-        git push origin production
+        git push --force --set-upstream origin production
 
