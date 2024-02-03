@@ -25,12 +25,10 @@ jobs:
       
     - name: Get package version
       id: version
-      run: echo ::set-output name=version::$(node -pe "require('./package.json').version")  
-      
-    - name: Build Docker image
-      run: |
-        docker build -t fabo011/linky-cloud:${{ steps.version.outputs.version }} .
-        docker login -u fabo011 -p ${{ secrets.DOCKERHUB_TOKEN }}
-        docker push fabo011/linky-cloud:${{ steps.version.outputs.version }}
-      env:
-        DOCKER_BUILDKIT: 1
+      run: echo ::set-output name=version::$(node -pe "require('./package.json').version")
+
+    - name: Create Tag
+      run: git tag -a ${{ steps.version.outputs.version }} -m "${{ steps.version.outputs.version }}"
+
+    - name: Push Tag
+      run: git push origin ${{ steps.version.outputs.version }}
