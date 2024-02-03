@@ -53,7 +53,7 @@ export default defineComponent({
   data() {
     return {
       store,
-      baseUrl: 'http://www.google.com/s2/favicons?domain=',
+      baseUrl: 'https://www.google.com/s2/favicons?domain=',
     };
   },
 
