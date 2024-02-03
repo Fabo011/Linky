@@ -25,6 +25,8 @@ jobs:
       
     - name: Switch to 'production' branch and push dist
       run: |
+        git config --global user.email "linky-cloud@proton.me"
+        git config --global user.name "Fabo011"
         git checkout -b production
         git add dist
         git commit -m "New version"
