@@ -2,7 +2,7 @@ name: Build Linky-Cloud
 
 on:
   push:
-    branches: [ "v3.1.0" ]
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -31,10 +31,18 @@ jobs:
       run: |
         git config --global user.email "linky-cloud@proton.me"
         git config --global user.name "Fabo011"
-        git tag -a ${{ steps.version.outputs.version }} -m "${{ steps.version.outputs.version }}"
+        git tag -a v${{ steps.version.outputs.version }} -m "v${{ steps.version.outputs.version }}"
 
     - name: Push Tag
       run: |
         git config --global user.email "linky-cloud@proton.me"
         git config --global user.name "Fabo011"
         git push origin --tags
+
+    - name: Build Docker image
+      run: |
+        docker build -t fabo011/linky-cloud:v${{ steps.version.outputs.version }} .
+        docker login -u fabo011 -p ${{ secrets.DOCKERHUB_TOKEN }}
+        docker push fabo011/linky-cloud:v${{ steps.version.outputs.version }}
+      env:
+        DOCKER_BUILDKIT: 1
