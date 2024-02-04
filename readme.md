@@ -1,15 +1,13 @@
-<strong>Warning: Linky-Cloud is fully in development, all current versions are just steps and can have bugs.</strong>
-
 <h2 align="center">Linky-Cloud</h2>
 <p align="center">
-  <a href="https://linky-cloud.com/" target="blank"><img src="./public/img/icons/android-chrome-maskable-192x192.png" width="120" alt="Linky Logo" /></a>
+  <a href="https://linkycloud.com/" target="blank"><img src="./public/img/icons/android-chrome-maskable-192x192.png" width="120" alt="Linky Logo" /></a>
 </p>
 
 <p align="center">
 Linky-Cloud offers a premium and secure cloud storage solution for privacy entousiasts. Save encrypted links, passwords, files, images, videos, music and chat content. We do not collect personalized data, you and your data remains anonymously.
 </p>
 
-<p align="center"><a href="https://linky-cloud.com">https://linky-cloud.com</a></p>
+<p align="center"><a href="https://linkycloud.com">https://linkycloud.com</a></p>
 <br />
 
 ---
@@ -37,7 +35,7 @@ Create an account and start organizing your data with ease. The key to staying o
 The architecture of linky-cloud, as shared on GitHub, is the intellectual property of Waismayer Fabian (Github: Fabo011). Unauthorized copying, distribution, modification, or any other use of this information is strictly prohibited. The contents of this repository are provided for informational purposes only and are not intended for commercial use. Any use of this information without the express written consent of Waismayer Fabian (Github: Fabo011) is strictly forbidden.
 
 <p align="center">
-  <a href="https://linky-cloud.com/" target="blank"><img src="./docs/architecture.png" width="90%" alt="Linky Logo" /></a>
+  <a href="https://linkycloud.com/" target="blank"><img src="./docs/architecture.png" width="90%" alt="Linky Logo" /></a>
 </p>
 
 ---
