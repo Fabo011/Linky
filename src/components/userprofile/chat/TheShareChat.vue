@@ -101,7 +101,7 @@ export default defineComponent({
           });
       } catch (error) {
         this.executeCleanUp();
-        throw new Error('shareChatBtn Error: ' + error);
+        console.error('shareChatBtn Error: ' + error);
       }
     },
 
