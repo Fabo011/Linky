@@ -87,8 +87,7 @@ export default defineComponent({
       this.messages = decryptedMessages as any;
 
       if (error) {
-        throw new Error('fetch chat message failed.');
-        // Add rollbar
+        console.error('fetch chat message failed.');
       }
     },
 
@@ -104,8 +103,7 @@ export default defineComponent({
         eventBus.emit('clearChatTextarea');
         this.scrollToBottom();
       } else {
-        throw new Error('send chat failed.');
-        // Add rollbar
+        console.error('send chat failed.');
       }
     },
 
@@ -125,8 +123,7 @@ export default defineComponent({
       this.messages.pop();
       const { error } = await supabase.from('chat').delete().eq(`id`, messageId);
       if (error) {
-        // Add rollbar
-        throw new Error('chat message deletion failed.');
+        console.error('chat message deletion failed.');
       }
     },
 

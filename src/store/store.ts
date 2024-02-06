@@ -186,7 +186,7 @@ export const store = reactive({
              this.categories = Array.from(uniqueCategories)
              
            } catch (error) {
-               throw new Error('retrieveAllLinks Error: ' + error);
+               console.error('retrieveAllLinks Error: ' + error);
            }   
     },     
     

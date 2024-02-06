@@ -123,7 +123,7 @@ export default defineComponent({
           });
       } catch (error) {
         this.executeCleanUp();
-        throw new Error('addNewLinkBtn Error: ' + error);
+        console.error('addNewLinkBtn Error: ' + error);
       }
     },
 

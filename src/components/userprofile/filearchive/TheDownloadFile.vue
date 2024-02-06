@@ -59,7 +59,7 @@ export default defineComponent({
         downloadtoast();
       } catch (error) {
         errorToast();
-        throw new Error('downloadFile Error: ' + error);
+        console.error('downloadFile Error: ' + error);
       }
     },
 
