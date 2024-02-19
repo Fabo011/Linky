@@ -1,5 +1,3 @@
-<!--#TODO Cleanup and seperation into smaller components necesarry-->
-
 <template>
   <section v-for="item in filteredLinks" :key="item.id" ref="dataComponent">
     <div class="card" id="theCard">
@@ -33,7 +31,6 @@ import TheTrashIcon from '@/assets/svg/TheTrashIcon.vue';
 import TheClipboardIcon from '@/assets/svg/TheClipboardIcon.vue';
 import TheCopyPasswordIcon from '@/assets/svg/TheCopyPasswordIcon.vue';
 import TheChatBtnIcon from '@/assets/svg/TheChatBtnIcon.vue';
-import TheLinkEdit from './TheLinkEdit.vue';
 import TheShareChat from '../chat/TheShareChat.vue';
 import TheUsernameIcon from '@/assets/svg/TheUsernameIcon.vue';
 import TheDownloadFile from '../filearchive/TheDownloadFile.vue';
@@ -48,7 +45,6 @@ export default defineComponent({
     TheClipboardIcon,
     TheCopyPasswordIcon,
     TheChatBtnIcon,
-    TheLinkEdit,
     TheShareChat,
     TheUsernameIcon,
     TheDownloadFile,
