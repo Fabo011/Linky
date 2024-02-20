@@ -51,6 +51,7 @@ import ContactIcon from '../../../assets/svg/TheContactIcon.vue';
 import AddBtn from '../../buttons/TheAddBtn.vue';
 import LoadingButton from '../../buttons/TheLoadingButton.vue';
 import CloseModalButton from '../../buttons/TheCloseModalBtn.vue';
+import { encryptString } from '@/components/crypto/crypto';
 
 export default defineComponent({
   name: 'TheSettings.vue',
@@ -78,13 +79,16 @@ export default defineComponent({
   methods: {
     async addNewContactBtn() {
       try {
+        const encryptedPhone = encryptString(this.contact.phone);
+        const encryptedEmail = encryptString(this.contact.email);
+
         await supabase
           .from('contacts')
           .insert({
             username: this.username,
             name: this.contact.name,
-            phone: this.contact.phone,
-            email: this.contact.email,
+            phone: encryptedPhone,
+            email: encryptedEmail,
           })
           .then(() => {
             swal

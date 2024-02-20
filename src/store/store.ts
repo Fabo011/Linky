@@ -1,6 +1,6 @@
 import { reactive } from 'vue';
 import { supabase } from '../components/lib/supabaseClient';
-import { convertStringToHex, convertHexToString } from '@/components/crypto/crypto';
+import { convertStringToHex, convertHexToString, decryptString } from '@/components/crypto/crypto';
 import router from '@/router/index';
 
 export const store = reactive({
@@ -193,12 +193,16 @@ export const store = reactive({
     async fetchContacts() {
         try {
            const username = this.getUsername();
-            const { data, error } = await supabase.from('contacts').select('*').eq(`username`, username);
+            const { data, error }: any = await supabase.from('contacts').select('*').eq(`username`, username);
 
             if (error) {
                 console.error('Error fetching contacts:', error.message);
             } else {
-                this.contacts = data as any;
+                this.contacts = data.map((contact: any) => ({
+                ...contact,
+                email: decryptString(contact.email),
+                phone: decryptString(contact.phone)
+            }));
             } 
         } catch (error) {
             throw new Error('fetchContacts Error: ' + error);

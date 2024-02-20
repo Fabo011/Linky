@@ -2,6 +2,8 @@
 
 - Contacts backup - vCard
 - Like bio, but for privacy, where users with their ideas have their own webpage with all the links and a photos
+- Kanban Board ToDo
+- !!!! Payment, Upgrade Account
 - https://bootstrap-vue.org
 - https://bootstrap-vue.org/docs/components/overlay
 - https://bootstrap-vue.org/docs/components/modal
@@ -10,22 +12,15 @@
 
 ## Bugs
 
+- 1. !!!! Contacts to another page and not a overlay to add edit and searchbar for contacts
+- 2. Error messages at register or login when password too short
 - Close dropdown in links and file archive when service is choosen
 - Convert filename is case of spaces in the filename
-
-## Until v3.1.0 release
-
-- GitHub actions pipeline
-
-- Add rollbar error report
-
-- https://supabase.com/docs/guides/storage
-
-- Bucket policies depending on user payment status
-
-- Security check
-
-- Contacts number and email downloadable
+- Generate password in edit link
+- Chat bug????
+- Must Have: Sort catgories alphabetic in selection
+- Only show categories with for example (tech) when click on folders
+- Upload for link json for example from Firefox to store all links from Browser
 
 ---
 
