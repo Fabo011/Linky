@@ -125,14 +125,15 @@ export default defineComponent({
       <input id="input2" class="swal2-input" placeholder="Tags" minlength="3" maxlength="60">
       <input id="input3" class="swal2-input" placeholder="Category" minlength="3" maxlength="15">
       <input id="input4" class="swal2-input" placeholder="Link" minlength="4" maxlength="801">
-      <input id="input5" class="swal2-input" placeholder="Link Username" minlength="6" maxlength="200">
-      <input id="input6" class="swal2-input" placeholder="LinkPassword" minlength="6" maxlength="3000">
+      <input id="input5" class="swal2-input" placeholder="Link Username" minlength="6" maxlength="200"><br>
+      <button id="generatePasswordBtn" style="margin-top: 15px; margin-bottom: 2px; background-color: #5F7FFF;" class="btn btn-primary">Generate Password</button>
+      <input id="input6" class="swal2-input" style="margin-top: 0;" placeholder="LinkPassword" minlength="6" maxlength="3000">
     </div>
         `,
         confirmButtonText: 'Send Update',
         confirmButtonColor: '#5F7FFF',
         preConfirm: async () => {
-           const username = store.username;
+          const username = store.username;
           const newlinkname = document.getElementById('input1').value;
           const newlinkdescription = document.getElementById('input2').value;
           const newcategory = document.getElementById('input3').value;
@@ -228,6 +229,16 @@ export default defineComponent({
           }
         }
       })
+
+      document.getElementById('generatePasswordBtn').addEventListener('click', async () => {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@?!';
+        let generatedPassword = '';
+        for (let i = 0; i < 15; i++) {
+          const randomIndex = Math.floor(Math.random() * characters.length);
+          generatedPassword += characters[randomIndex];
+        }
+        document.getElementById('input6').value = generatedPassword;
+      });
     }
   },
 });

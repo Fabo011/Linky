@@ -21,6 +21,8 @@
               aria-label="Close"
             ></button>
           </div>
+          <input data-mdb-input-init
+          type="search" v-model="searchQuery" placeholder="Search" class="form-control mt-1 sinput">
           <div class="modal-body">
             <table class="table">
               <thead>
@@ -31,7 +33,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="contact in store.contacts" :key="store.contacts.id">
+                <tr v-for="contact in filteredContacts" :key="store.contacts.id">
                   <td>{{ contact.name }}</td>
                   <td>
                     <a :href="'tel:' + contact.phone">{{ contact.phone }}</a>
@@ -76,7 +78,20 @@ export default defineComponent({
   data() {
     return {
       store,
+      searchQuery: '',
     };
+  },
+
+  computed: {
+    filteredContacts() {
+      return this.store.contacts.filter(contact => {
+        return (
+          contact.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          contact.phone.includes(this.searchQuery) ||
+          contact.email.toLowerCase().includes(this.searchQuery.toLowerCase())
+        );
+      });
+    },
   },
 
   beforeCreate() {
@@ -122,5 +137,16 @@ export default defineComponent({
   margin-top: 12px;
   margin-right: 10px;
   margin-left: 25px;
+}
+.sinput {
+  margin-left: 10px;
+  width: 20%;
+}
+
+@media (max-width: 768px) {
+   .sinput {
+     margin-left: 10px;
+     width: 95%;
+    }
 }
 </style>

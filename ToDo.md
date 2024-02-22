@@ -13,10 +13,9 @@
 ## Bugs
 
 - 1. !!!! Contacts to another page and not a overlay to add edit and searchbar for contacts
-- 2. Error messages at register or login when password too short
+- 2. Error messages at register or login when password too short. Add script to check length and format at send button level
 - Close dropdown in links and file archive when service is choosen
 - Convert filename is case of spaces in the filename
-- Generate password in edit link
 - Chat bug????
 - Must Have: Sort catgories alphabetic in selection
 - Only show categories with for example (tech) when click on folders
