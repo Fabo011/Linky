@@ -12,6 +12,7 @@
 
 ## Bugs
 
+- !!! Loading Spinner file upload, download
 - 1. !!!! Contacts to another page and not a overlay to add edit and searchbar for contacts
 - 2. Error messages at register or login when password too short. Add script to check length and format at send button level
 - Close dropdown in links and file archive when service is choosen

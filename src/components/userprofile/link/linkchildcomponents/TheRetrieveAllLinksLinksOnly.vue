@@ -33,8 +33,12 @@
     <span class="clipboard">Copy Password</span>
   </button>
 
-  <button v-if="item.category !== 'chat' && item.type !== 'file'" class="btn share" @click.prevent="updateLink(item)">
-    <TheLinkIcon /><br>
+  <button
+    v-if="item.category !== 'chat' && item.type !== 'file'"
+    class="btn share"
+    @click.prevent="updateLink(item)"
+  >
+    <TheLinkIcon /><br />
     <span class="clipboard">Edit Link</span>
   </button>
 </template>
@@ -62,7 +66,7 @@ export default defineComponent({
     TheCopyPasswordIcon,
     TheChatBtnIcon,
     TheLinkName,
-    TheLinkIcon
+    TheLinkIcon,
   },
 
   props: {
@@ -227,8 +231,8 @@ export default defineComponent({
           } catch (error) {
             throw new Error('editLinkBtn Error: ' + error);
           }
-        }
-      })
+        },
+      });
 
       document.getElementById('generatePasswordBtn').addEventListener('click', async () => {
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@?!';
@@ -239,7 +243,7 @@ export default defineComponent({
         }
         document.getElementById('input6').value = generatedPassword;
       });
-    }
+    },
   },
 });
 </script>

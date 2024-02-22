@@ -21,8 +21,13 @@
               aria-label="Close"
             ></button>
           </div>
-          <input data-mdb-input-init
-          type="search" v-model="searchQuery" placeholder="Search" class="form-control mt-1 sinput">
+          <input
+            data-mdb-input-init
+            type="search"
+            v-model="searchQuery"
+            placeholder="Search"
+            class="form-control mt-1 sinput"
+          />
           <div class="modal-body">
             <table class="table">
               <thead>
@@ -84,7 +89,7 @@ export default defineComponent({
 
   computed: {
     filteredContacts() {
-      return this.store.contacts.filter(contact => {
+      return this.store.contacts.filter((contact) => {
         return (
           contact.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
           contact.phone.includes(this.searchQuery) ||
@@ -144,9 +149,9 @@ export default defineComponent({
 }
 
 @media (max-width: 768px) {
-   .sinput {
-     margin-left: 10px;
-     width: 95%;
-    }
+  .sinput {
+    margin-left: 10px;
+    width: 95%;
+  }
 }
 </style>
