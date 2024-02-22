@@ -23,6 +23,7 @@
       </div>
     </div>
   </section>
+    <TheFooter />
 </template>
 
 <script lang="ts">
@@ -31,10 +32,11 @@ import TheUsername from '@/components/authentication/TheUsername.vue';
 import ThePassword from '@/components/authentication/ThePassword.vue';
 import TheRegisterButton from '@/components/authentication/TheRegisterButton.vue';
 import PageNav from '@/components/navbars/ThePageNav.vue';
+import TheFooter from '@/components/lib/TheFooter.vue';
 
 export default defineComponent({
   name: 'SignupView.vue',
-  components: { TheUsername, ThePassword, TheRegisterButton, PageNav },
+  components: { TheUsername, ThePassword, TheRegisterButton, PageNav, TheFooter },
 });
 </script>
 

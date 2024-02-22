@@ -88,8 +88,8 @@ export default defineComponent({
 
   data() {
     return {
-      projectName: 'Linky',
-      projectUrl: 'https://linky-cloud.com',
+      projectName: 'Linky Cloud',
+      projectUrl: 'https://linkycloud.com',
       contactEmail: 'linky-cloud@proton.me',
       socialHandle: 'in/fabian-waismayer-5a4931287',
       githubRepository: 'https://github.com/Fabo011/Linky',
