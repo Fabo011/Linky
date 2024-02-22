@@ -9,7 +9,7 @@
     placeholder="Payment Number"
   /><br />
   <button type="button" class="btn w-100" @click.prevent="upgradeAccount">
-    Finalize Upgrade with Payment Number
+    Finalize Upgrade with Payment Code
   </button>
 </template>
 
