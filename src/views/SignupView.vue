@@ -23,7 +23,7 @@
       </div>
     </div>
   </section>
-    <TheFooter />
+  <TheFooter />
 </template>
 
 <script lang="ts">

@@ -83,7 +83,7 @@ export default defineComponent({
     },
 
     async upload() {
-      this.userInformation()
+      this.userInformation();
 
       try {
         const account = await checkStorageLimit();
@@ -92,7 +92,6 @@ export default defineComponent({
           await this.uploadFiles();
         } else {
           errorToastFileUploadNoMembership();
-
         }
       } catch (error) {
         errorToast();
@@ -145,16 +144,16 @@ export default defineComponent({
 
     userInformation() {
       swal.fire({
-        title: "Upload!",
-        text: "Your file is uploading... Depending on the size it could take a while.",
-        imageUrl: "/img/upload.png",
+        title: 'Upload!',
+        text: 'Your file is uploading... Depending on the size it could take a while.',
+        imageUrl: '/img/upload.png',
         imageWidth: 200,
         imageHeight: 200,
-        imageAlt: "Custom image",
-        position: "bottom-end",
-        showConfirmButton: false
+        imageAlt: 'Custom image',
+        position: 'bottom-end',
+        showConfirmButton: false,
       });
-    }
+    },
   },
 });
 </script>
