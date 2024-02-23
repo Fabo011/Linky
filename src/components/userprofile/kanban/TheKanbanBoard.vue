@@ -120,28 +120,32 @@ export default defineComponent({
     };
   },
   methods: {
-      dragStart(list, task, event) {
+    dragStart(list, task, event) {
       const taskId = task.id;
       this.draggingTask = { list, taskId };
       event.dataTransfer.effectAllowed = 'move';
       event.dataTransfer.setData('text/plain', '');
     },
 
-     drop(list) {
-            if (this.draggingTask && this.draggingTask.list !== list) {
-                const movedTask = this.tasks[this.draggingTask.list].find(task => task.id === this.draggingTask.taskId);
-                if (movedTask) {
-                    // Remove the moved task from its current list
-                    this.tasks[this.draggingTask.list] = this.tasks[this.draggingTask.list].filter(task => task.id !== this.draggingTask.taskId);
-                    // Add the moved task to the new list
-                    this.tasks[list].push(movedTask);
-                    
-                    this.updateTaskStatus(movedTask.id, list);
-                    this.fetchTodos();
-                }
-            }
-            this.draggingTask = null;
-        },
+    drop(list) {
+      if (this.draggingTask && this.draggingTask.list !== list) {
+        const movedTask = this.tasks[this.draggingTask.list].find(
+          (task) => task.id === this.draggingTask.taskId,
+        );
+        if (movedTask) {
+          // Remove the moved task from its current list
+          this.tasks[this.draggingTask.list] = this.tasks[this.draggingTask.list].filter(
+            (task) => task.id !== this.draggingTask.taskId,
+          );
+          // Add the moved task to the new list
+          this.tasks[list].push(movedTask);
+
+          this.updateTaskStatus(movedTask.id, list);
+          this.fetchTodos();
+        }
+      }
+      this.draggingTask = null;
+    },
 
     async addNewTodo() {
       const username = store.getUsername();
@@ -173,32 +177,36 @@ export default defineComponent({
         this.tasks.todo = [];
         this.tasks.progress = [];
         this.tasks.done = [];
-        data.forEach(todo => {
-                    switch (todo.status) {
-                        case 'todo':
-                            this.tasks.todo.push({ id: todo.id, name: todo.task });
-                            break;
-                        case 'progress':
-                            this.tasks.progress.push({ id: todo.id, name: todo.task });
-                            break;
-                        case 'done':
-                            this.tasks.done.push({ id: todo.id, name: todo.task });
-                            break;
-                    }
+        data.forEach((todo) => {
+          switch (todo.status) {
+            case 'todo':
+              this.tasks.todo.push({ id: todo.id, name: todo.task });
+              break;
+            case 'progress':
+              this.tasks.progress.push({ id: todo.id, name: todo.task });
+              break;
+            case 'done':
+              this.tasks.done.push({ id: todo.id, name: todo.task });
+              break;
+          }
         });
       }
-      },
+    },
 
-      async updateTaskStatus(taskId, status) {
-        const username = store.getUsername();
-            try {
-                const { error } = await supabase.from('kanban').update({ status: status }).eq(`id`, taskId).eq(`username`, username);
+    async updateTaskStatus(taskId, status) {
+      const username = store.getUsername();
+      try {
+        const { error } = await supabase
+          .from('kanban')
+          .update({ status: status })
+          .eq(`id`, taskId)
+          .eq(`username`, username);
 
-                if (error) console.log(error);
-            } catch (error) {
-                console.error('Error updating task status:', error.message);
-            }
-        },
+        if (error) console.log(error);
+      } catch (error) {
+        console.error('Error updating task status:', error.message);
+      }
+    },
   },
 });
 </script>
