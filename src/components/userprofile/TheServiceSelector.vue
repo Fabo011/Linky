@@ -14,6 +14,7 @@
       <li><TheUploadFiles class="dropdown-item" /></li>
       <li><TheAddContacts class="dropdown-item" /></li>
       <li><TheContacts class="dropdown-item" /></li>
+      <li><TheKanbanBoard class="dropdown-item" /></li>
       <li><TheAccount class="dropdown-item" /></li>
     </ul>
   </div>
@@ -29,6 +30,7 @@ import TheUploadFiles from './filearchive/TheUploadFiles.vue';
 import TheContacts from './contacts/TheContacts.vue';
 import TheAddContacts from './contacts/TheAddContacts.vue';
 import TheAccount from '@/components/userprofile/account/TheAccount.vue';
+import TheKanbanBoard from '@/components/userprofile/kanban/TheKanbanBoard.vue';
 
 export default defineComponent({
   components: {
@@ -39,6 +41,7 @@ export default defineComponent({
     TheContacts,
     TheAddContacts,
     TheAccount,
+    TheKanbanBoard,
   },
 
   methods: {

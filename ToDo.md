@@ -1,5 +1,12 @@
-## Feature
+## Features 4.0.0
 
+1. Files: Editable filename
+2. ChatGPT api. Save results in md file to edit further.
+3. Kanban Todo board.
+
+## Features
+
+- Add notes. Connect notes with links.
 - Contacts backup - vCard
 - Like bio, but for privacy, where users with their ideas have their own webpage with all the links and a photos
 - Kanban Board ToDo
