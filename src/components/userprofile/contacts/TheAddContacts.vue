@@ -21,15 +21,41 @@
           <form class="modal-body">
             <div class="mb-3">
               <label for="contactName" class="form-label">Name</label>
-              <input type="text" class="form-control" id="contactName" v-model="contact.name" />
+              <input
+                type="text"
+                placeholder="John Doe"
+                class="form-control"
+                id="contactName"
+                v-model="contact.name"
+                minlength="3"
+                maxlength="40"
+              />
             </div>
             <div class="mb-3">
               <label for="contactPhone" class="form-label">Phone</label>
-              <input type="text" class="form-control" id="contactPhone" v-model="contact.phone" />
+              <input
+                type="text"
+                placeholder="+43 660 989898989"
+                class="form-control"
+                id="phone"
+                name="phone"
+                v-model="contact.phone"
+                minlength="5"
+                maxlength="30"
+              />
             </div>
             <div class="mb-3">
-              <label for="contactEmail" class="form-label">Email</label>
-              <input type="email" class="form-control" id="contactEmail" v-model="contact.email" />
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                placeholder="example@skiff.com"
+                class="form-control"
+                id="email"
+                v-model="contact.email"
+                minlength="5"
+                maxlength="50"
+                pattern=".+@example\.com"
+              />
             </div>
           </form>
           <div class="modal-footer d-flex justify-content-start">
@@ -51,6 +77,7 @@ import ContactIcon from '../../../assets/svg/TheContactIcon.vue';
 import AddBtn from '../../buttons/TheAddBtn.vue';
 import LoadingButton from '../../buttons/TheLoadingButton.vue';
 import CloseModalButton from '../../buttons/TheCloseModalBtn.vue';
+import { encryptString } from '@/components/crypto/crypto';
 
 export default defineComponent({
   name: 'TheSettings.vue',
@@ -78,13 +105,16 @@ export default defineComponent({
   methods: {
     async addNewContactBtn() {
       try {
+        const encryptedPhone = encryptString(this.contact.phone);
+        const encryptedEmail = encryptString(this.contact.email);
+
         await supabase
           .from('contacts')
           .insert({
             username: this.username,
             name: this.contact.name,
-            phone: this.contact.phone,
-            email: this.contact.email,
+            phone: encryptedPhone,
+            email: encryptedEmail,
           })
           .then(() => {
             swal
@@ -95,6 +125,9 @@ export default defineComponent({
                 showConfirmButton: false,
               })
               .then(() => {
+                this.contact.name = '';
+                this.contact.email = '';
+                this.contact.phone = '';
                 store.fetchContacts();
               });
           });

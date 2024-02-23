@@ -15,7 +15,7 @@
             </p>
             <form class="form-data">
               <div class="key-field">
-                <input type="text" :placeholder="placeholder" readonly />
+                <input type="password" :placeholder="placeholder" readonly />
                 <span class="btn copyBtn" @click.prevent="copyPrivateKey()">Copy Digital Key</span>
               </div>
             </form>
@@ -24,7 +24,7 @@
             <p>Please copy your digital key into the input field and click the button below.</p>
             <form class="form-data">
               <div class="key-field">
-                <input v-model="userKey" type="text" placeholder="Enter Digital Key" />
+                <input v-model="userKey" type="password" placeholder="Enter Digital Key" />
               </div>
             </form>
             <TheAuthButton @click.prevent="toAccount()" />

@@ -1,5 +1,6 @@
 <template>
   <input
+    data-mdb-input-init
     type="search"
     v-model="searchValue"
     @input="pushSearchValue"

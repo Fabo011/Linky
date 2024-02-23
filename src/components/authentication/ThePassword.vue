@@ -29,7 +29,7 @@ export default defineComponent({
 
   methods: {
     validatePass() {
-      if (this.password.length <= 7) {
+      if (this.password.length <= 9) {
         this.passwordError = 'Password may have between 10 and 50 characters';
       } else {
         this.passwordError = '';

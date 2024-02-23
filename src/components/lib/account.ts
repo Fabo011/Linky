@@ -53,4 +53,60 @@ export const tariffCheck = async () => {
   } else if (account === 'gold') {
     return '1000';
   }
- }
+}
+ 
+export const checkPaymentNumber = async (number: string) => {
+  const username = store.getUsername()
+  const { data, error }: any = await supabase.from('paymentnumber').select('number');
+  
+  if (error) { 
+    console.error('paymentnumber error: ' + error);
+    return false;
+  }
+  
+  const setData = {
+    username: username,
+    number: number,
+  }
+
+  try {
+    if (data[0].number === number || data[1].number === number || data[2].number === number) {
+    const { error } = await supabase.from('paymentused').insert(setData);
+    if (error) return false;  
+    // #TODO If error send email to us  
+    return true;
+  } else {
+    console.error('Number not equal');
+    return false;
+  }
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}
+
+export const upgradeUser = async (number: string) => {
+  let tariff = ''
+  const { data } = await supabase.auth.getUser();
+
+  if (number.startsWith('Bronze-')) {
+    tariff = 'bronze';
+  } else if (number.startsWith('Silver-')) {
+    tariff = 'silver';
+  } else if (number.startsWith('Golden-')) {
+    tariff = 'gold';
+  }
+           
+  if (data) {
+    const { error } = await supabase.auth.updateUser({
+      data: { ...(data as any).user_metadata, tariff: tariff }
+    })
+
+    if (error) {
+      console.log(error);
+      return false;
+    } else {
+      return true;
+    }
+  }
+}

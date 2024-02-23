@@ -14,6 +14,7 @@ import { store } from '@/store/store';
 import { errorToast, downloadtoast } from '@/components/toasts/toasts';
 import { decryptFile } from '@/components/crypto/crypto';
 import TheDownloadIcon from '@/assets/svg/TheDownloadIcon.vue';
+import swal from 'sweetalert2';
 
 export default defineComponent({
   name: 'TheDownloadFile.vue',
@@ -33,6 +34,7 @@ export default defineComponent({
 
   methods: {
     async downloadFile() {
+      this.userInformation();
       const item = this.item as any;
 
       try {
@@ -127,6 +129,19 @@ export default defineComponent({
         default:
           return 'application/octet-stream';
       }
+    },
+
+    userInformation() {
+      swal.fire({
+        title: 'Upload!',
+        text: 'Your file is uploading... Depending on the size it could take a while.',
+        imageUrl: '/img/upload.png',
+        imageWidth: 200,
+        imageHeight: 200,
+        imageAlt: 'Custom image',
+        position: 'bottom-end',
+        showConfirmButton: false,
+      });
     },
   },
 });

@@ -21,7 +21,7 @@
             <CloseModalButton />
           </div>
           <form class="modal-body">
-            <label><b>Upgrade Account with Buy Me A Coffee Membership</b></label
+            <label><b>Upgrade Account with Buy Me A Coffee Membership.</b></label
             ><br />
             <a href="https://www.buymeacoffee.com/linkycloudstorage/membership" target="_blank"
               ><img
@@ -30,7 +30,7 @@
                 style="height: 60px !important; width: 217px !important" /></a
             ><br />
 
-            <label class="space-docs"><b>Upgrade Account with Crypto</b></label
+            <label class="space-docs"><b>Upgrade Account with Crypto.</b></label
             ><br />
             <a href="https://plisio.net/donate/BLH2GdX5" target="_blank"
               ><img
@@ -52,6 +52,8 @@
             </a>
             <hr />
             <TheAccountMetric />
+            <hr />
+            <TheAccountUpgrade />
           </form>
         </div>
       </div>
@@ -67,9 +69,10 @@ import LoadingButton from '../../buttons/TheLoadingButton.vue';
 import CloseModalButton from '../../buttons/TheCloseModalBtn.vue';
 import TheDocuIcon from '@/assets/svg/TheDocuIcon.vue';
 import TheAccountMetric from '@/components/userprofile/account/TheAccountMetric.vue';
+import TheAccountUpgrade from './TheAccountUpgrade.vue';
 
 export default defineComponent({
-  name: 'TheSettings.vue',
+  name: 'TheAccount.vue',
   components: {
     TheAccountIcon,
     AddBtn,
@@ -77,6 +80,7 @@ export default defineComponent({
     CloseModalButton,
     TheDocuIcon,
     TheAccountMetric,
+    TheAccountUpgrade,
   },
 
   data() {
@@ -84,8 +88,6 @@ export default defineComponent({
       key: 1,
     };
   },
-
-  methods: {},
 });
 </script>
 
