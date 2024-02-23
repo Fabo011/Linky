@@ -21,15 +21,15 @@
           <form class="modal-body">
             <div class="mb-3">
               <label for="contactName" class="form-label">Name</label>
-              <input type="text" class="form-control" id="contactName" v-model="contact.name" />
+              <input type="text" placeholder="John Doe" class="form-control" id="contactName" v-model="contact.name" minlength="3" maxlength="40" />
             </div>
             <div class="mb-3">
               <label for="contactPhone" class="form-label">Phone</label>
-              <input type="text" class="form-control" id="contactPhone" v-model="contact.phone" />
+              <input type="text" placeholder="+43 660 989898989" class="form-control" id="phone" name="phone" v-model="contact.phone" minlength="5" maxlength="30" />
             </div>
             <div class="mb-3">
-              <label for="contactEmail" class="form-label">Email</label>
-              <input type="email" class="form-control" id="contactEmail" v-model="contact.email" />
+              <label for="email" class="form-label">Email</label>
+              <input type="email" placeholder="example@skiff.com" class="form-control" id="email" v-model="contact.email" minlength="5" maxlength="50" pattern=".+@example\.com" />
             </div>
           </form>
           <div class="modal-footer d-flex justify-content-start">
@@ -99,6 +99,9 @@ export default defineComponent({
                 showConfirmButton: false,
               })
               .then(() => {
+                this.contact.name = '';
+                this.contact.email = '';
+                this.contact.phone = '';
                 store.fetchContacts();
               });
           });

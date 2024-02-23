@@ -36,7 +36,6 @@
           </form>
           <div class="modal-footer d-flex justify-content-start">
             <TheAddBtn v-if="nBtn" @click.prevent="upload()"> Upload </TheAddBtn>
-            <TheLoadingButton v-if="loading" />
           </div>
         </div>
       </div>
@@ -48,7 +47,6 @@
 import { defineComponent } from 'vue';
 import { store } from '@/store/store';
 import TheAddBtn from '@/components/buttons/TheAddBtn.vue';
-import TheLoadingButton from '@/components/buttons/TheLoadingButton.vue';
 import TheEncryFileIcon from '@/assets/svg/TheEncryFileIcon.vue';
 import TheCloseModalBtn from '@/components/buttons/TheCloseModalBtn.vue';
 import { supabase } from '@/components/lib/supabaseClient';
@@ -57,12 +55,12 @@ import { errorToast, errorToastFileUploadNoMembership } from '@/components/toast
 import TheCategory from '@/components/userprofile/link/TheCategory.vue';
 import { encryptFile } from '@/components/crypto/crypto';
 import { checkStorageLimit } from '@/components/lib/account';
+import swal from 'sweetalert2';
 
 export default defineComponent({
   name: 'TheUploadEncryFiles.vue',
   components: {
     TheAddBtn,
-    TheLoadingButton,
     TheEncryFileIcon,
     TheCloseModalBtn,
     TheCategory,
@@ -85,6 +83,8 @@ export default defineComponent({
     },
 
     async upload() {
+      this.userInformation()
+
       try {
         const account = await checkStorageLimit();
 
@@ -92,6 +92,7 @@ export default defineComponent({
           await this.uploadFiles();
         } else {
           errorToastFileUploadNoMembership();
+
         }
       } catch (error) {
         errorToast();
@@ -104,9 +105,9 @@ export default defineComponent({
         for (const file of this.files) {
           const encryptedFile = await encryptFile(file);
           await supabase.storage.from('linky').upload(`${this.uuid}/${file.name}`, encryptedFile);
-          this.executeCleanUp();
           await this.saveNewFile(file.name);
           store.retieveAllLinks();
+          this.executeCleanUp();
           addedtoast();
         }
       } catch (error) {
@@ -136,13 +137,24 @@ export default defineComponent({
     },
 
     executeCleanUp() {
-      this.nBtn = true;
-      this.loading = false;
       this.key = this.key + 1;
       store.linkname = this.updateString;
       store.linkdescription = this.updateString;
       store.category = this.updateString;
     },
+
+    userInformation() {
+      swal.fire({
+        title: "Upload!",
+        text: "Your file is uploading... Depending on the size it could take a while.",
+        imageUrl: "/img/upload.png",
+        imageWidth: 200,
+        imageHeight: 200,
+        imageAlt: "Custom image",
+        position: "bottom-end",
+        showConfirmButton: false
+      });
+    }
   },
 });
 </script>

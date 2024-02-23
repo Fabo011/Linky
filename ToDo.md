@@ -3,18 +3,14 @@
 - Contacts backup - vCard
 - Like bio, but for privacy, where users with their ideas have their own webpage with all the links and a photos
 - Kanban Board ToDo
-- !!!! Payment, Upgrade Account
-- https://bootstrap-vue.org
+
 - https://bootstrap-vue.org/docs/components/overlay
-- https://bootstrap-vue.org/docs/components/modal
-- https://bootstrap-vue.org/docs/components/sidebar
-- https://bootstrap-vue.org/docs/components/toast
 
 ## Bugs
 
-- !!! Loading Spinner file upload, download
 - 1. !!!! Contacts to another page and not a overlay to add edit and searchbar for contacts
 - 2. Error messages at register or login when password too short. Add script to check length and format at send button level
+- 3. Implement fill digital key check in key page
 - Close dropdown in links and file archive when service is choosen
 - Convert filename is case of spaces in the filename
 - Chat bug????
