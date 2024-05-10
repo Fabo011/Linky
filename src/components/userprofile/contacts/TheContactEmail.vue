@@ -1,18 +1,16 @@
 <template>
   <div class="container">
     <div class="forms-inputs mb-4">
-      <label for="link-username-email" class="d-block">
-        Optional: <b>Your Username or Email on this link</b>
+      <label for="link-contact-email" class="d-block">
+        <b>Contact Email</b>
       </label>
       <input
-        v-model="linkUsername"
+        v-model="contactEmail"
         @input="set"
-        placeholder="Bob"
+        placeholder="example@skiff.com"
         autocomplete="off"
-        minlength="6"
-        maxlength="200"
+        maxlength="35"
         class="w-100"
-        id="link-username-email"
       />
     </div>
   </div>
@@ -25,13 +23,13 @@ import { store } from '@/store/store';
 export default defineComponent({
   data() {
     return {
-      linkUsername: '',
+      contactEmail: '',
     };
   },
 
   methods: {
     set() {
-      store.setLinkUsername(this.linkUsername);
+      store.contactEmail = this.contactEmail;
     },
   },
 });

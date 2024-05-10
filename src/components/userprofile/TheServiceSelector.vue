@@ -12,8 +12,6 @@
       <li><TheCreateAndSaveNewLink class="dropdown-item" /></li>
       <li><TheCreateChatRoom class="dropdown-item" /></li>
       <li><TheUploadFiles class="dropdown-item" /></li>
-      <li><TheAddContacts class="dropdown-item" /></li>
-      <li><TheContacts class="dropdown-item" /></li>
       <li><TheKanbanBoard class="dropdown-item" /></li>
       <li><TheAccount class="dropdown-item" /></li>
     </ul>
@@ -27,8 +25,6 @@ import TheCreateChatRoom from './chat/TheCreateChatRoom.vue';
 import TheArchiveIcon from '@/assets/svg/TheArchiveIcon.vue';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import TheUploadFiles from './filearchive/TheUploadFiles.vue';
-import TheContacts from './contacts/TheContacts.vue';
-import TheAddContacts from './contacts/TheAddContacts.vue';
 import TheAccount from '@/components/userprofile/account/TheAccount.vue';
 import TheKanbanBoard from '@/components/userprofile/kanban/TheKanbanBoard.vue';
 
@@ -38,8 +34,6 @@ export default defineComponent({
     TheCreateChatRoom,
     TheArchiveIcon,
     TheUploadFiles,
-    TheContacts,
-    TheAddContacts,
     TheAccount,
     TheKanbanBoard,
   },

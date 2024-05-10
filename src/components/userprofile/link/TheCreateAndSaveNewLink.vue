@@ -19,12 +19,16 @@
             <CloseModalButton />
           </div>
           <form class="modal-body">
-            <LinkName :key="key"></LinkName>
-            <LinkDescription :key="key"></LinkDescription>
-            <TheCategory :key="key"></TheCategory>
-            <TheLink :key="key"></TheLink>
+            <LinkName :key="key" />
+            <LinkDescription :key="key" />
+            <TheCategory :key="key" />
+            <TheLink :key="key" />
             <TheLinkUsername :key="key" />
             <TheLinkPassword :key="key" />
+            <TheContactName :key="key" />
+            <TheContactPhoneNumber :key="key" />
+            <TheContactEmail :key="key" />
+            <TheLinkNotes :key="key" />
           </form>
           <div class="modal-footer d-flex justify-content-start">
             <AddBtn v-if="nBtn" @click.prevent="addNewLinkBtn"> Add </AddBtn>
@@ -52,6 +56,10 @@ import LoadingButton from '../../buttons/TheLoadingButton.vue';
 import TheLinkUsername from './TheLinkUsername.vue';
 import TheLinkPassword from './TheLinkPassword.vue';
 import { encryptString } from '@/components/crypto/crypto';
+import TheContactName from '../contacts/TheContactName.vue';
+import TheContactPhoneNumber from '../contacts/TheContactPhoneNumber.vue';
+import TheContactEmail from '../contacts/TheContactEmail.vue';
+import TheLinkNotes from './TheLinkNotes.vue';
 
 export default defineComponent({
   name: 'CreateAndSaveNewLink.vue',
@@ -66,6 +74,10 @@ export default defineComponent({
     AddBtn,
     CloseModalButton,
     LoadingButton,
+    TheContactName,
+    TheContactPhoneNumber,
+    TheContactEmail,
+    TheLinkNotes,
   },
 
   data() {
@@ -73,8 +85,12 @@ export default defineComponent({
       nBtn: true,
       loading: false,
       key: 1,
+      encryptedLinkUsername: '',
       encryptedLinkPassword: '',
       updateString: '',
+      encryptedContactPhoneNumber: '',
+      encryptedContactEmail: '',
+      encryptedNotes: '',
     };
   },
   methods: {
@@ -89,10 +105,34 @@ export default defineComponent({
       const linkusername = store?.linkUsername;
       const linkpassword = store?.linkPassword;
       const email = username.toLowerCase() + '@linky.com';
+      const contactName = store?.contactName;
+      const contactPhoneNumber = store?.contactPhoneNumber;
+      const contactEmail = store?.contactEmail;
+      const notes = store?.linkNotes;
+
+      if (linkusername) {
+        const encryptedLinkUsername = encryptString(linkusername);
+        this.encryptedLinkUsername = encryptedLinkUsername;
+      }
 
       if (linkpassword) {
         const encryptedPass = encryptString(linkpassword);
         this.encryptedLinkPassword = encryptedPass;
+      }
+
+      if (contactPhoneNumber) {
+        const encryptedContactPhoneNumber = encryptString(contactPhoneNumber);
+        this.encryptedContactPhoneNumber = encryptedContactPhoneNumber;
+      }
+
+      if (contactEmail) {
+        const encryptedContactEmail = encryptString(contactEmail);
+        this.encryptedContactEmail = encryptedContactEmail;
+      }
+
+      if (notes) {
+        const encryptedNotes = encryptString(notes);
+        this.encryptedNotes = encryptedNotes;
       }
 
       try {
@@ -105,8 +145,12 @@ export default defineComponent({
             linkdescription: linkdescription,
             link: link,
             category: category,
-            linkusername: linkusername,
+            linkusername: this.encryptedLinkUsername,
             linkpassword: this.encryptedLinkPassword,
+            contactname: contactName,
+            contactphonenumber: this.encryptedContactPhoneNumber,
+            contactemail: this.encryptedContactEmail,
+            notes: this.encryptedNotes,
           })
           .then(() => {
             swal
@@ -137,6 +181,10 @@ export default defineComponent({
       store.category = this.updateString;
       store.linkUsername = this.updateString;
       store.linkPassword = this.updateString;
+      store.contactName = this.updateString;
+      store.contactPhoneNumber = this.updateString;
+      store.contactEmail = this.updateString;
+      store.linkNotes = this.updateString;
     },
   },
 });

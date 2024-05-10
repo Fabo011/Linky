@@ -14,6 +14,10 @@
           <p class="card-text"><i class="bi bi-tags icons"></i>{{ item.linkdescription }}</p>
         </div>
 
+        <TheRetrieveContacts :item="item" />
+
+        <TheRetrieveNotes :item="item" />
+
         <TheRetrieveAllLinksLinksOnly :item="item" />
 
         <TheRetrieveAllLinksChatOnly :item="item" />
@@ -37,6 +41,8 @@ import TheDownloadFile from '../filearchive/TheDownloadFile.vue';
 import TheRetrieveAllLinksHeader from './linkchildcomponents/TheRetrieveAllLinksHeader.vue';
 import TheRetrieveAllLinksChatOnly from './linkchildcomponents/TheRetrieveAllLinksChatOnly.vue';
 import TheRetrieveAllLinksLinksOnly from './linkchildcomponents/TheRetrieveAllLinksLinksOnly.vue';
+import TheRetrieveContacts from './linkchildcomponents/TheRetrieveContacts.vue';
+import TheRetrieveNotes from './linkchildcomponents/TheRetrieveNotes.vue';
 
 export default defineComponent({
   name: 'TheRetrieveAllLinks',
@@ -51,6 +57,8 @@ export default defineComponent({
     TheRetrieveAllLinksHeader,
     TheRetrieveAllLinksChatOnly,
     TheRetrieveAllLinksLinksOnly,
+    TheRetrieveContacts,
+    TheRetrieveNotes,
   },
 
   data() {
@@ -66,12 +74,15 @@ export default defineComponent({
 
   computed: {
     filteredLinks: function () {
-      return this.store.items.filter((item) => {
+      return this.store.items?.filter((item) => {
         return (
-          item.linkname.match(store.searchValue) ||
-          item.linkdescription.match(store.searchValue) ||
-          item.category.match(store.searchValue) ||
-          item.link.match(store.searchValue)
+          item.linkname?.match(store.searchValue) ||
+          item.linkdescription?.match(store.searchValue) ||
+          item.category?.match(store.searchValue) ||
+          item.link?.match(store.searchValue) ||
+          item.contactname?.match(store.searchValue) ||
+          item.contactphonenumber?.match(store.searchValue) ||
+          item.contactemail?.match(store.searchValue)
         );
       });
     },

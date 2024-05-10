@@ -22,6 +22,10 @@ export const store = reactive({
     link: '',
     linkPassword: '',
     linkUsername: '',
+    contactName: '',
+    contactPhoneNumber: '',
+    contactEmail: '',
+    linkNotes: '',
 
     // link data
     item: {} as any,
@@ -29,9 +33,6 @@ export const store = reactive({
 
     // categories
     categories: [],
-
-    // contacts
-    contacts: [],
 
     // chat
     text: '',
@@ -164,13 +165,20 @@ export const store = reactive({
         const username = this.username
       
            try {
-            const { data, error } = await supabase.from('link').select('*').eq(`username`, username)
+            const { data, error }: any = await supabase.from('link').select('*').eq(`username`, username)
                if (error) {
                    console.log(error);
                    throw new Error('Error retrieving data.')
                }
         
-               this.items = data as any 
+
+               this.items =  data.map((item: any) => ({
+                   ...item,
+                linkusername: decryptString(item.linkusername),
+                contactemail: decryptString(item.contactemail),
+                contactphonenumber: decryptString(item.contactphonenumber),
+                notes: decryptString(item.notes)
+               }));
                
 
             this.categories = data as any
@@ -188,24 +196,5 @@ export const store = reactive({
            } catch (error) {
                console.error('retrieveAllLinks Error: ' + error);
            }   
-    },     
-    
-    async fetchContacts() {
-        try {
-           const username = this.getUsername();
-            const { data, error }: any = await supabase.from('contacts').select('*').eq(`username`, username);
-
-            if (error) {
-                console.error('Error fetching contacts:', error.message);
-            } else {
-                this.contacts = data.map((contact: any) => ({
-                ...contact,
-                email: decryptString(contact.email),
-                phone: decryptString(contact.phone)
-            }));
-            } 
-        } catch (error) {
-            throw new Error('fetchContacts Error: ' + error);
-        }
-    },
+    }
 });
