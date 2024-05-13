@@ -173,8 +173,9 @@ export const store = reactive({
         
 
                this.items =  data.map((item: any) => ({
-                   ...item,
+                ...item,
                 linkusername: decryptString(item.linkusername),
+                contactname: decryptString(item.contactname),
                 contactemail: decryptString(item.contactemail),
                 contactphonenumber: decryptString(item.contactphonenumber),
                 notes: decryptString(item.notes)

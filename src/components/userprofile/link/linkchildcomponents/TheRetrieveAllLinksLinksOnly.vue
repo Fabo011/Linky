@@ -132,6 +132,10 @@ export default defineComponent({
       <input id="input5" class="swal2-input" placeholder="Link Username" minlength="6" maxlength="200"><br>
       <button id="generatePasswordBtn" style="margin-top: 15px; margin-bottom: 2px; background-color: #5F7FFF;" class="btn btn-primary">Generate Password</button>
       <input id="input6" class="swal2-input" style="margin-top: 0;" placeholder="LinkPassword" minlength="6" maxlength="3000">
+      <input id="input7" class="swal2-input" style="max-height=2px;" placeholder="Contact Name" minlength="2" maxlength="200">
+      <input id="input8" class="swal2-input" style="max-height=2px;" placeholder="Contact Phone Number" minlength="2" maxlength="35">
+      <input id="input9" class="swal2-input" style="max-height=2px;" placeholder="Contact Email" minlength="2" maxlength="50">
+      <input id="input10" class="swal2-input" style="max-height=2px;" placeholder="Notes" minlength="2" maxlength="1000">
     </div>
         `,
         confirmButtonText: 'Send Update',
@@ -144,6 +148,10 @@ export default defineComponent({
           const newlink = document.getElementById('input4').value;
           const newlinkUsername = document.getElementById('input5').value;
           const newlinkPassword = document.getElementById('input6').value;
+          const newContactName = document.getElementById('input7').value;
+          const newContactPhoneNumber = document.getElementById('input8').value;
+          const newContactEmail = document.getElementById('input9').value;
+          const newLinkNote = document.getElementById('input10').value;
           const email = username.toLowerCase() + '@linky.com';
           const id = item.id;
 
@@ -172,16 +180,49 @@ export default defineComponent({
           }
 
           if (newlinkUsername !== item.linkUsername && newlinkUsername !== '') {
-            this.linkusername = newlinkUsername;
+            const encryptedLinkUsername = encryptString(newlinkUsername);
+            this.linkusername = encryptedLinkUsername;
           } else {
             this.linkusername = item.linkUsername;
           }
 
           if (newlinkPassword !== item.linkPassword && newlinkPassword !== '') {
-            const excryptedLinkPass = encryptString(newlinkPassword);
-            this.linkpassword = excryptedLinkPass;
+            const encryptedLinkPass = encryptString(newlinkPassword);
+            this.linkpassword = encryptedLinkPass;
           } else {
             this.linkpassword = item.linkPassword;
+          }
+
+          if (newContactName !== item.contactname && newContactName !== '') {
+            const encryptedContactName = encryptString(newContactName);
+            this.contactname = encryptedContactName;
+          } else {
+            const encryptedContactName = encryptString(item.contactname);
+            this.contactname = encryptedContactName;
+          }
+
+          if (newContactPhoneNumber !== item.contactphonenumber && newContactPhoneNumber !== '') {
+            const encryptedContactPhoneNumber = encryptString(newContactPhoneNumber);
+            this.contactphonenumber = encryptedContactPhoneNumber;
+          } else {
+            const encryptedContactPhoneNumber = encryptString(item.contactphonenumber);
+            this.contactphonenumber = encryptedContactPhoneNumber;
+          }
+
+          if (newContactEmail !== item.contactemail && newContactEmail !== '') {
+            const encryptedContactEmail = encryptString(newContactEmail);
+            this.contactemail = encryptedContactEmail;
+          } else {
+            const encryptedContactEmail = encryptString(item.contactemail);
+            this.contactemail = encryptedContactEmail;
+          }
+
+          if (newLinkNote !== item.notes && newLinkNote !== '') {
+            const encryptedNewLinkNote = encryptString(newLinkNote);
+            this.notes = encryptedNewLinkNote;
+          } else {
+            const encryptedNewLinkNote = encryptString(item.notes);
+            this.notes = encryptedNewLinkNote;
           }
 
           const data = {
@@ -191,6 +232,10 @@ export default defineComponent({
             category: this.category,
             linkusername: this.linkusername,
             linkpassword: this.linkpassword,
+            contactname: this.contactname,
+            contactphonenumber: this.contactphonenumber,
+            contactemail: this.contactemail,
+            notes: this.notes,
           };
 
           const updateData = {
@@ -202,6 +247,10 @@ export default defineComponent({
             category: this.category,
             linkusername: this.linkusername,
             linkpassword: this.linkpassword,
+            contactname: this.contactname,
+            contactphonenumber: this.contactphonenumber,
+            contactemail: this.contactemail,
+            notes: this.notes,
           };
 
           for (const key in updateData) {

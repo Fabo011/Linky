@@ -88,6 +88,7 @@ export default defineComponent({
       encryptedLinkUsername: '',
       encryptedLinkPassword: '',
       updateString: '',
+      encryptedContactName: '',
       encryptedContactPhoneNumber: '',
       encryptedContactEmail: '',
       encryptedNotes: '',
@@ -120,6 +121,11 @@ export default defineComponent({
         this.encryptedLinkPassword = encryptedPass;
       }
 
+      if (contactName) {
+        const encryptedContactName = encryptString(contactName);
+        this.encryptedContactName = encryptedContactName;
+      }
+
       if (contactPhoneNumber) {
         const encryptedContactPhoneNumber = encryptString(contactPhoneNumber);
         this.encryptedContactPhoneNumber = encryptedContactPhoneNumber;
@@ -147,7 +153,7 @@ export default defineComponent({
             category: category,
             linkusername: this.encryptedLinkUsername,
             linkpassword: this.encryptedLinkPassword,
-            contactname: contactName,
+            contactname: this.encryptedContactName,
             contactphonenumber: this.encryptedContactPhoneNumber,
             contactemail: this.encryptedContactEmail,
             notes: this.encryptedNotes,

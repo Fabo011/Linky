@@ -9,7 +9,7 @@
         @input="set"
         placeholder="example@skiff.com"
         autocomplete="off"
-        maxlength="35"
+        maxlength="50"
         class="w-100"
       />
     </div>
