@@ -9,7 +9,7 @@
         @input="set"
         placeholder="This is where I purchase my classes"
         autocomplete="off"
-        maxlength="1000"
+        maxlength="4000"
         class="w-100"
       />
     </div>

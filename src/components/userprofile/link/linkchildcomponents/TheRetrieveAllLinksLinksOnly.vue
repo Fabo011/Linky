@@ -135,7 +135,7 @@ export default defineComponent({
       <input id="input7" class="swal2-input" style="max-height=2px;" placeholder="Contact Name" minlength="2" maxlength="200">
       <input id="input8" class="swal2-input" style="max-height=2px;" placeholder="Contact Phone Number" minlength="2" maxlength="35">
       <input id="input9" class="swal2-input" style="max-height=2px;" placeholder="Contact Email" minlength="2" maxlength="50">
-      <input id="input10" class="swal2-input" style="max-height=2px;" placeholder="Notes" minlength="2" maxlength="1000">
+      <input id="input10" class="swal2-input" style="max-height=2px;" placeholder="Notes" minlength="2" maxlength="4000">
     </div>
         `,
         confirmButtonText: 'Send Update',
