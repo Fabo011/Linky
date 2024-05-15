@@ -34,7 +34,7 @@ export default defineComponent({
   },
 });
 </script>
-<style>
+<style scoped>
 #mark-counter {
   background-color: #ffff;
   font-size: 10px;
