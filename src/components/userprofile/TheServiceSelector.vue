@@ -10,7 +10,6 @@
     </button>
     <ul class="dropdown-menu">
       <li><TheCreateAndSaveNewLink class="dropdown-item" /></li>
-      <li><TheCreateChatRoom class="dropdown-item" /></li>
       <li><TheUploadFiles class="dropdown-item" /></li>
       <li><TheKanbanBoard class="dropdown-item" /></li>
       <li><TheAccount class="dropdown-item" /></li>
@@ -21,7 +20,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import TheCreateAndSaveNewLink from './link/TheCreateAndSaveNewLink.vue';
-import TheCreateChatRoom from './chat/TheCreateChatRoom.vue';
 import TheArchiveIcon from '@/assets/svg/TheArchiveIcon.vue';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import TheUploadFiles from './filearchive/TheUploadFiles.vue';
@@ -31,7 +29,6 @@ import TheKanbanBoard from '@/components/userprofile/kanban/TheKanbanBoard.vue';
 export default defineComponent({
   components: {
     TheCreateAndSaveNewLink,
-    TheCreateChatRoom,
     TheArchiveIcon,
     TheUploadFiles,
     TheAccount,

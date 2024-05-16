@@ -8,23 +8,24 @@
             <img src="../assets//key.png" alt="cat waiting for key" id="image" />
           </h3>
           <hr />
-          <div v-if="key?.length > 20">
+          <div>
             <p>
-              Store your digital key in a password manager or encrypted on a usb drive. It's the
+              <h1 id="signup">Only After Sign up</h1>Copy and store your digital key savely. It's the
               only way to decrypt your data in the cloud. Never lose the key or show to anyone.
             </p>
             <form class="form-data">
               <div class="key-field">
                 <input type="password" :placeholder="placeholder" readonly />
-                <span class="btn copyBtn" @click.prevent="copyPrivateKey()">Copy Digital Key</span>
+                <span class="btn copyBtn" @click.prevent="copyPrivateKey()">Copy Key</span>
               </div>
             </form>
           </div>
-          <div v-if="key == null">
-            <p>Please copy your digital key into the input field and click the button below.</p>
+          <hr />
+          <div>
+            <p><h1 id="signin">After Sign in</h1>Please copy your digital key into the input field to decrypt your data and click the "Go To Account" button.</p>
             <form class="form-data">
               <div class="key-field">
-                <input v-model="userKey" type="password" placeholder="Enter Digital Key" />
+                <input v-model="userKey" type="password" placeholder="Paste Digital Key" />
               </div>
             </form>
             <TheAuthButton @click.prevent="toAccount()" />
@@ -57,8 +58,6 @@ export default defineComponent({
   },
 
   beforeMount() {
-    store.authStatusRefresh();
-    store.checkUser();
     const key = sessionStorage.getItem('key') as string;
     this.key = key;
   },
@@ -76,7 +75,6 @@ export default defineComponent({
     },
 
     toAccount() {
-      // #TODO: Validate the key a bit
       sessionStorage.setItem('key', this.userKey);
       this.$router.push(`/profile`);
     },
@@ -110,12 +108,25 @@ export default defineComponent({
 
 .copyBtn {
   max-width: 30%;
-  background-color: var(--chat-delete-btn);
+  height: 35px;
+  background-color: var(--primary-blue-color) !important;
 }
 
 #image {
   width: 50px;
   height: 50px;
   border-radius: 50%;
+}
+
+#signup {
+  color: var(--chat-delete-btn)
+}
+
+#signin {
+  color: green;
+}
+
+.container {
+  margin-bottom: 10%;
 }
 </style>

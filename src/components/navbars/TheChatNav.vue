@@ -26,7 +26,6 @@ import { defineComponent } from 'vue';
 import { store } from '@/store/store';
 import CreateAndSaveNewLinkVue from '../userprofile/link/TheCreateAndSaveNewLink.vue';
 import SearchBar from '../lib/TheSearchBar.vue';
-import CreateChatRoom from '../userprofile/chat/TheCreateChatRoom.vue';
 import TheServiceSelector from '../userprofile/TheServiceSelector.vue';
 import ChatSendBtn from '../userprofile/chat/TheChatSendBtn.vue';
 import TheTextarea from '@/components/userprofile/chat/TheTextarea.vue';
@@ -37,14 +36,13 @@ export default defineComponent({
   components: {
     CreateAndSaveNewLinkVue,
     SearchBar,
-    CreateChatRoom,
     TheServiceSelector,
     TheTextarea,
     ChatSendBtn,
   },
 
   beforeRouteEnter() {
-    store.authStatusRefresh();
+    store.checkUser();
   },
 
   data() {

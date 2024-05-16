@@ -98,14 +98,13 @@ export default defineComponent({
     async addNewLinkBtn() {
       this.nBtn = false;
       this.loading = true;
-      const username = store.username;
+      const username = store.getUsername();
       const linkname = store.linkname;
       const linkdescription = store.linkdescription;
       const link = store.link;
       const category = store.category;
       const linkusername = store?.linkUsername;
       const linkpassword = store?.linkPassword;
-      const email = username.toLowerCase() + '@linky.com';
       const contactName = store?.contactName;
       const contactPhoneNumber = store?.contactPhoneNumber;
       const contactEmail = store?.contactEmail;
@@ -146,7 +145,6 @@ export default defineComponent({
           .from('link')
           .insert({
             username: username,
-            email: email,
             linkname: linkname,
             linkdescription: linkdescription,
             link: link,

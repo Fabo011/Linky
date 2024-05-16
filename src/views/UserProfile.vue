@@ -31,7 +31,6 @@ export default defineComponent({
   },
 
   async beforeRouteEnter() {
-    store.authStatusRefresh();
     await store.checkUser();
   },
 });

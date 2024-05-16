@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="forms-inputs mb-4">
-      <label for="link-username-email" class="d-block">
+      <label for="link-username-name" class="d-block">
         <b>Contact Name</b>
       </label>
       <input
@@ -11,7 +11,7 @@
         autocomplete="off"
         maxlength="200"
         class="w-100"
-        id="link-username-email"
+        id="link-username-name"
       />
     </div>
   </div>

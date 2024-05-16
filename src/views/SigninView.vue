@@ -12,13 +12,8 @@
           </div>
           <hr />
           <form class="form-data">
-            <TheUsername></TheUsername>
-            <ThePassword></ThePassword>
-            <TheLoginButton></TheLoginButton>
+            <TheSignInButton />
           </form>
-          <router-link to="/signup"
-            ><a class="nav-link" href="#">Don´t have an account? Register here</a></router-link
-          >
         </div>
       </div>
     </div>
@@ -28,15 +23,13 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import TheUsername from '@/components/authentication/TheUsername.vue';
-import ThePassword from '@/components/authentication/ThePassword.vue';
-import TheLoginButton from '@/components/authentication/TheLoginButton.vue';
+import TheSignInButton from '@/components/authentication/TheSignInButton.vue';
 import TheFooter from '@/components/lib/TheFooter.vue';
 import PageNav from '@/components/navbars/ThePageNav.vue';
 
 export default defineComponent({
   name: 'SigninView.vue',
-  components: { TheUsername, ThePassword, TheLoginButton, PageNav, TheFooter },
+  components: { TheSignInButton, PageNav, TheFooter },
 });
 </script>
 

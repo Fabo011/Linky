@@ -8,9 +8,10 @@ export const store = reactive({
     //auth
     authStatus: '',
     username: '',
+    email: '',
     password: '',
     
-    friendUsername: '',
+    friendID: '',
 
     //searchbar
     searchValue: '',
@@ -45,12 +46,6 @@ export const store = reactive({
         return fullKey;
     },
 
-    //auth
-    action(authStatus: string) {
-        this.authStatus = authStatus;
-        const authStatusHex = convertStringToHex(authStatus);
-        sessionStorage.setItem('authStatus', authStatusHex);
-    },
     setUsername(username: string) {
         this.username = username;
         const usernameHex = convertStringToHex(username);
@@ -58,14 +53,6 @@ export const store = reactive({
     },
     setPassword(password: string) {
         this.password = password
-    },
-    authStatusRefresh(){
-        const authStatusHex = sessionStorage.getItem('authStatus') as string;
-        const authStatus = convertHexToString(authStatusHex); 
-        const userHex = sessionStorage.getItem('user') as string;
-        const user = convertHexToString(userHex);
-        if(authStatus) this.authStatus = authStatus
-        if (user) this.username = user 
     },
 
     getUsername() {
@@ -80,11 +67,7 @@ export const store = reactive({
         return uuid;
     },
 
-    async checkUser() {
-       if (this.authStatus !== 'loggedIn') {
-          router.push('signin');
-        };
-        
+    async checkUser() {  
         const storedToken = localStorage.getItem('sb-ycsymeeovppvwzcfdddr-auth-token');
         const token = storedToken ? JSON.parse(storedToken) : null;
         if (token) {
@@ -101,6 +84,8 @@ export const store = reactive({
             if (!data || !data.user || !data.user.email || data.user.email !== token.user.email) {
                 router.push('signin');
             } else {
+                this.setUsername(data.user?.user_metadata.name)
+                sessionStorage.setItem('email', data.user?.user_metadata.email as any)
                 sessionStorage.setItem('tariff', data.user?.user_metadata.tariff as any)
                 const userUUIDHex = convertStringToHex(data.user.id);
                 sessionStorage.setItem('uuid', userUUIDHex);
@@ -110,8 +95,8 @@ export const store = reactive({
         }
     },
 
-    setFriendUsername(friendUsername: string) {
-        this.friendUsername = friendUsername   
+    setFriendID(friendID: string) {
+        this.friendID = friendID
     },
 
     //searchbar
@@ -162,10 +147,10 @@ export const store = reactive({
 
     //retrieveAllLinks and Categories
     async retieveAllLinks() {
-        const username = this.username
+        const uuid = this.getUUID();
       
            try {
-            const { data, error }: any = await supabase.from('link').select('*').eq(`username`, username)
+            const { data, error }: any = await supabase.from('link').select('*').eq(`user_id`, uuid)
                if (error) {
                    console.log(error);
                    throw new Error('Error retrieving data.')

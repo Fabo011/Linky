@@ -20,8 +20,6 @@
 
         <TheRetrieveAllLinksLinksOnly :item="item" />
 
-        <TheRetrieveAllLinksChatOnly :item="item" />
-
         <TheDownloadFile v-if="item.type === 'file'" :item="item" />
       </div>
     </div>
@@ -35,11 +33,9 @@ import TheTrashIcon from '@/assets/svg/TheTrashIcon.vue';
 import TheClipboardIcon from '@/assets/svg/TheClipboardIcon.vue';
 import TheCopyPasswordIcon from '@/assets/svg/TheCopyPasswordIcon.vue';
 import TheChatBtnIcon from '@/assets/svg/TheChatBtnIcon.vue';
-import TheShareChat from '../chat/TheShareChat.vue';
 import TheUsernameIcon from '@/assets/svg/TheUsernameIcon.vue';
 import TheDownloadFile from '../filearchive/TheDownloadFile.vue';
 import TheRetrieveAllLinksHeader from './linkchildcomponents/TheRetrieveAllLinksHeader.vue';
-import TheRetrieveAllLinksChatOnly from './linkchildcomponents/TheRetrieveAllLinksChatOnly.vue';
 import TheRetrieveAllLinksLinksOnly from './linkchildcomponents/TheRetrieveAllLinksLinksOnly.vue';
 import TheRetrieveContacts from './linkchildcomponents/TheRetrieveContacts.vue';
 import TheRetrieveNotes from './linkchildcomponents/TheRetrieveNotes.vue';
@@ -51,11 +47,9 @@ export default defineComponent({
     TheClipboardIcon,
     TheCopyPasswordIcon,
     TheChatBtnIcon,
-    TheShareChat,
     TheUsernameIcon,
     TheDownloadFile,
     TheRetrieveAllLinksHeader,
-    TheRetrieveAllLinksChatOnly,
     TheRetrieveAllLinksLinksOnly,
     TheRetrieveContacts,
     TheRetrieveNotes,
