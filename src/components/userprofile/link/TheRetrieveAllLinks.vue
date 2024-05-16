@@ -40,6 +40,7 @@ import TheRetrieveAllLinksLinksOnly from './linkchildcomponents/TheRetrieveAllLi
 import TheRetrieveContacts from './linkchildcomponents/TheRetrieveContacts.vue';
 import TheRetrieveNotes from './linkchildcomponents/TheRetrieveNotes.vue';
 
+
 export default defineComponent({
   name: 'TheRetrieveAllLinks',
   components: {
@@ -57,7 +58,6 @@ export default defineComponent({
 
   data() {
     return {
-      store,
       toast: true,
     };
   },
@@ -68,7 +68,7 @@ export default defineComponent({
 
   computed: {
     filteredLinks: function () {
-      return this.store.items?.filter((item) => {
+      return store.items?.filter((item) => {
         return (
           item.linkname?.match(store.searchValue) ||
           item.linkdescription?.match(store.searchValue) ||
@@ -84,7 +84,6 @@ export default defineComponent({
 
   methods: {
     setItem(item) {
-      store.editButtonActive = false;
       store.item = item;
     },
   }, //methods
