@@ -8,21 +8,21 @@
             <img src="../assets//key.png" alt="cat waiting for key" id="image" />
           </h3>
           <hr />
-          <div>
+          <div v-if="state !== 'authenticatedUser'">
             <p>
-              <h1 id="signup">Only After Sign up</h1>Copy and store your digital key savely. It's the
-              only way to decrypt your data in the cloud. Never lose the key or show to anyone.
+              Copy and store your digital key savely. It's the
+              only way to decrypt your data in the cloud. Never lose the key or show to anyone. Save your key secure on a usb drive as backup.
             </p>
             <form class="form-data">
               <div class="key-field">
                 <input type="password" :placeholder="placeholder" readonly />
                 <span class="btn copyBtn" @click.prevent="copyPrivateKey()">Copy Key</span>
               </div>
+               <TheAuthButton @click.prevent="toAccountAfterSignUp()" />
             </form>
           </div>
-          <hr />
-          <div>
-            <p><h1 id="signin">After Sign in</h1>Please copy your digital key into the input field to decrypt your data and click the "Go To Account" button.</p>
+          <div v-if="state === 'authenticatedUser'">
+            <p>Please paste your digital key into the input field to decrypt your data and click the "Go To Account" button.</p>
             <form class="form-data">
               <div class="key-field">
                 <input v-model="userKey" type="password" placeholder="Paste Digital Key" />
@@ -44,6 +44,7 @@ import Clipboard from 'clipboard';
 import TheFooter from '../components/lib/TheFooter.vue';
 import TheAuthButton from '@/components/buttons/TheAuthButton.vue';
 import { savedigitalkeytoast } from '@/components/toasts/toasts';
+import { getUserTariff, setUserTariffAfterSignUp } from '@/components/lib/account';
 
 export default defineComponent({
   components: { TheFooter, TheAuthButton },
@@ -54,12 +55,18 @@ export default defineComponent({
       placeholder: '*******************************',
       key: '',
       userKey: '',
+      state: '',
     };
   },
 
   beforeMount() {
     const key = sessionStorage.getItem('key') as string;
     this.key = key;
+  },
+
+  async created() {
+    const state = await getUserTariff();
+    this.state = state;
   },
 
   methods: {
@@ -76,6 +83,11 @@ export default defineComponent({
 
     toAccount() {
       sessionStorage.setItem('key', this.userKey);
+      this.$router.push(`/profile`);
+    },
+
+    async toAccountAfterSignUp() {
+      await setUserTariffAfterSignUp()
       this.$router.push(`/profile`);
     },
   },

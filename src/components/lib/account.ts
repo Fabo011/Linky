@@ -110,3 +110,26 @@ export const upgradeUser = async (number: string) => {
     }
   }
 }
+
+export const getUserTariff = async () => {
+  const { data } = await supabase.auth.getUser();  
+  if (!data) return;
+
+  const tariffState = data.user?.user_metadata.tariff;
+  sessionStorage.setItem('tariff', tariffState);
+  
+  if (tariffState === 'bronze' || tariffState === 'free') return 'authenticatedUser' as any;
+}
+
+export const setUserTariffAfterSignUp = async () => {
+  let tariff = 'free'
+  const { data } = await supabase.auth.getUser(); 
+
+  const { error } = await supabase.auth.updateUser({
+    data: { ...(data as any).user_metadata, tariff: tariff }
+  })
+
+  if (error) {
+    console.log(error);
+  }
+}

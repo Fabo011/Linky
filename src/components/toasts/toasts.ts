@@ -5,13 +5,10 @@ export const savedigitalkeytoast = () => {
     swal
         .fire({
             icon: 'success',
-            text: `You´ve copied your digital key. Please save him secure you will need them at the next login.`,
-            showConfirmButton: true,
-            confirmButtonText: 'Got to your cloud'
-        }).then(() => {
-           router.push('/profile');
-        });
-};
+            text: `You´ve copied your digital key.`,
+            timer: 1500,
+        })
+}
 
 export const addedtoast = () => {
     swal

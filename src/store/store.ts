@@ -105,11 +105,6 @@ export const store = reactive({
        this.searchValue = searchValue
     },
 
-    // chat
-    setChatTextValue(text: string) {
-       this.text = text
-    },
-
     //createAndSaveNewLink
     setLink(link: string){
         this.link = link
