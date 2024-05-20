@@ -27,6 +27,7 @@ export const store = reactive({
     contactPhoneNumber: '',
     contactEmail: '',
     linkNotes: '',
+    files: [] as any,
 
     // link data
     item: {} as any,
@@ -155,8 +156,7 @@ export const store = reactive({
                    console.log(error);
                    throw new Error('Error retrieving data.')
                }
-        
-
+             
                this.items =  data.map((item: any) => ({
                 ...item,
                 linkusername: decryptString(item.linkusername),

@@ -29,6 +29,7 @@
             <TheContactPhoneNumber :key="key" />
             <TheContactEmail :key="key" />
             <TheLinkNotes :key="key" />
+            <TheUploadEncryptedFiles :key="key" />
           </form>
           <div class="modal-footer d-flex justify-content-start">
             <AddBtn v-if="nBtn" @click.prevent="addNewLinkBtn"> Add </AddBtn>
@@ -60,6 +61,8 @@ import TheContactName from '../contacts/TheContactName.vue';
 import TheContactPhoneNumber from '../contacts/TheContactPhoneNumber.vue';
 import TheContactEmail from '../contacts/TheContactEmail.vue';
 import TheLinkNotes from './TheLinkNotes.vue';
+import TheUploadEncryptedFiles from '../filearchive/TheUploadEncryptedFiles.vue';
+import { uploadFile } from '../filearchive/upload';
 
 export default defineComponent({
   name: 'CreateAndSaveNewLink.vue',
@@ -78,6 +81,7 @@ export default defineComponent({
     TheContactPhoneNumber,
     TheContactEmail,
     TheLinkNotes,
+    TheUploadEncryptedFiles,
   },
 
   data() {
@@ -92,6 +96,7 @@ export default defineComponent({
       encryptedContactPhoneNumber: '',
       encryptedContactEmail: '',
       encryptedNotes: '',
+      filename: '',
     };
   },
   methods: {
@@ -109,6 +114,7 @@ export default defineComponent({
       const contactPhoneNumber = store?.contactPhoneNumber;
       const contactEmail = store?.contactEmail;
       const notes = store?.linkNotes;
+      const files = store?.files;
 
       if (linkusername) {
         const encryptedLinkUsername = encryptString(linkusername);
@@ -140,6 +146,11 @@ export default defineComponent({
         this.encryptedNotes = encryptedNotes;
       }
 
+      if (files) {
+        const filename = await uploadFile();
+        this.filename = filename;
+      }
+
       try {
         await supabase
           .from('link')
@@ -155,6 +166,7 @@ export default defineComponent({
             contactphonenumber: this.encryptedContactPhoneNumber,
             contactemail: this.encryptedContactEmail,
             notes: this.encryptedNotes,
+            filename: this?.filename,
           })
           .then(() => {
             swal
@@ -189,6 +201,7 @@ export default defineComponent({
       store.contactPhoneNumber = this.updateString;
       store.contactEmail = this.updateString;
       store.linkNotes = this.updateString;
+      store.files = [];
     },
   },
 });

@@ -14,20 +14,6 @@
         </button>
       </div>
     </div>
-    <div v-if="item.type === 'file'" class="header-container">
-      <div class="header-left">
-        <img height="18" width="18" src="../../../../assets/file.png" :alt="item.linkname" />
-        {{ item.linkname }}
-        <mark class="category text-primary mt-2">
-          <span id="cat">{{ item.category }}</span>
-        </mark>
-      </div>
-      <div class="header-right">
-        <button class="btn btn-danger btn-sm btn-space" @click.prevent="deleteLink()">
-          <TheTrashIcon />
-        </button>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -87,11 +73,11 @@ export default defineComponent({
               });
 
             if (
-              item.linkname.match(
+              item.filename.match(
                 /\.(png|jpg|jpeg|gif|bmp|svg|pdf|doc|docx|xls|xlsx|ppt|pptx|odt|mp3|wav|mp4|avi|zip|rar|tar|txt|html|xml)$/,
               )
             ) {
-              await supabase.storage.from('linky').remove([`${uuid}/${item.linkname}`]);
+              await supabase.storage.from('linky').remove([`${uuid}/${item.filename}`]);
             }
           } catch (error) {
             console.error('deleteLink Error: ' + error);

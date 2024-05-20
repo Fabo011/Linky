@@ -4,13 +4,13 @@
       <TheRetrieveAllLinksHeader :item="item" />
 
       <div class="card-body">
-        <div v-if="item.type !== 'file'">
+        <div>
           <h6 class="card-title card-title text-truncate">
             <i class="bi bi-link-45deg icons"></i>{{ item.link }}
           </h6>
         </div>
 
-        <div v-if="item.type !== 'file'">
+        <div>
           <p class="card-text"><i class="bi bi-tags icons"></i>{{ item.linkdescription }}</p>
         </div>
 
@@ -20,7 +20,7 @@
 
         <TheRetrieveAllLinksLinksOnly :item="item" />
 
-        <TheDownloadFile v-if="item.type === 'file'" :item="item" />
+        <TheDownloadFile v-if="item.filename" :item="item" />
       </div>
     </div>
   </section>

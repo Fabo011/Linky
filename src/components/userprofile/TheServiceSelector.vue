@@ -10,7 +10,6 @@
     </button>
     <ul class="dropdown-menu">
       <li><TheCreateAndSaveNewLink class="dropdown-item" /></li>
-      <li><TheUploadFiles class="dropdown-item" /></li>
       <li><TheKanbanBoard class="dropdown-item" /></li>
       <li><TheAccount class="dropdown-item" /></li>
     </ul>
@@ -22,7 +21,6 @@ import { defineComponent } from 'vue';
 import TheCreateAndSaveNewLink from './link/TheCreateAndSaveNewLink.vue';
 import TheArchiveIcon from '@/assets/svg/TheArchiveIcon.vue';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import TheUploadFiles from './filearchive/TheUploadFiles.vue';
 import TheAccount from '@/components/userprofile/account/TheAccount.vue';
 import TheKanbanBoard from '@/components/userprofile/kanban/TheKanbanBoard.vue';
 
@@ -30,7 +28,6 @@ export default defineComponent({
   components: {
     TheCreateAndSaveNewLink,
     TheArchiveIcon,
-    TheUploadFiles,
     TheAccount,
     TheKanbanBoard,
   },

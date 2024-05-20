@@ -31,11 +31,11 @@ const { data } = await supabase.auth.getUser();
 const account = data.user?.user_metadata.tariff as string | undefined;
 
 const { mb, gb } = await getAccountSize();
-if (account === 'bronze' && gb < '200') {
+if (account === 'bronze' && gb < '3') {
 return true;
-} else if (account === 'silver' && gb < '500') {
+} else if (account === 'silver' && gb < '5') {
 return true;
-} else if (account === 'gold' && gb < '1000') {
+} else if (account === 'gold' && gb < '10') {
 return true;
 } else {
 return false;
@@ -44,14 +44,14 @@ return false;
 
 export const tariffCheck = async () => {
   const account = sessionStorage.getItem('tariff');
-  if (account === 'free') {
+  if (account === 'free' || account == undefined || account == null) {
     return '0';
   } else if (account === 'bronze') {
-    return '200';
+    return '3';
   } else if (account === 'silver') {
-    return '500';
+    return '5';
   } else if (account === 'gold') {
-    return '1000';
+    return '10';
   }
 }
  
