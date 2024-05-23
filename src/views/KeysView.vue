@@ -10,19 +10,23 @@
           <hr />
           <div v-if="state !== 'authenticatedUser'">
             <p>
-              Copy and store your digital key savely. It's the
-              only way to decrypt your data in the cloud. Never lose the key or show to anyone. Save your key secure on a usb drive as backup.
+              Copy and store your digital key savely. It's the only way to decrypt your data in the
+              cloud. Never lose the key or show to anyone. Save your key secure on a usb drive as
+              backup.
             </p>
             <form class="form-data">
               <div class="key-field">
                 <input type="password" :placeholder="placeholder" readonly />
                 <span class="btn copyBtn" @click.prevent="copyPrivateKey()">Copy Key</span>
               </div>
-               <TheAuthButton @click.prevent="toAccountAfterSignUp()" />
+              <TheAuthButton @click.prevent="toAccountAfterSignUp()" />
             </form>
           </div>
           <div v-if="state === 'authenticatedUser'">
-            <p>Please paste your digital key into the input field to decrypt your data and click the "Go To Account" button.</p>
+            <p>
+              Please paste your digital key into the input field to decrypt your data and click the
+              "Go To Account" button.
+            </p>
             <form class="form-data">
               <div class="key-field">
                 <input v-model="userKey" type="password" placeholder="Paste Digital Key" />
@@ -87,7 +91,7 @@ export default defineComponent({
     },
 
     async toAccountAfterSignUp() {
-      await setUserTariffAfterSignUp()
+      await setUserTariffAfterSignUp();
       this.$router.push(`/profile`);
     },
   },
@@ -131,7 +135,7 @@ export default defineComponent({
 }
 
 #signup {
-  color: var(--chat-delete-btn)
+  color: var(--chat-delete-btn);
 }
 
 #signin {

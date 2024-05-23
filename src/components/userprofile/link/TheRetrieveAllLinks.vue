@@ -1,5 +1,5 @@
 <template>
-  <section v-for="item in filteredLinks" :key="item.id" ref="dataComponent">
+  <section v-for="item in filteredLinks" :key="item.id">
     <div class="card" id="theCard">
       <TheRetrieveAllLinksHeader :item="item" />
 
@@ -14,13 +14,34 @@
           <p class="card-text"><i class="bi bi-tags icons"></i>{{ item.linkdescription }}</p>
         </div>
 
-        <TheRetrieveContacts :item="item" />
-
-        <TheRetrieveNotes :item="item" />
-
-        <TheRetrieveAllLinksLinksOnly :item="item" />
-
-        <TheDownloadFile v-if="item.filename" :item="item" />
+        <div class="accordion">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button
+                class="accordion-button"
+                :class="{ collapsed: !isAccordionOpen(item.id) }"
+                type="button"
+                @click="toggleAccordion(item.id)"
+                :aria-expanded="isAccordionOpen(item.id)"
+              >
+                More
+              </button>
+            </h2>
+            <div
+              :id="'collapse' + item.id"
+              class="accordion-collapse collapse"
+              :class="{ show: isAccordionOpen(item.id) }"
+              :aria-labelledby="'heading' + item.id"
+            >
+              <div class="accordion-body">
+                <TheRetrieveNotes :item="item" />
+                <TheRetrieveContacts :item="item" />
+                <TheRetrieveAllLinksLinksOnly :item="item" />
+                <TheDownloadFile v-if="item.filename" :item="item" />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -40,7 +61,6 @@ import TheRetrieveAllLinksLinksOnly from './linkchildcomponents/TheRetrieveAllLi
 import TheRetrieveContacts from './linkchildcomponents/TheRetrieveContacts.vue';
 import TheRetrieveNotes from './linkchildcomponents/TheRetrieveNotes.vue';
 
-
 export default defineComponent({
   name: 'TheRetrieveAllLinks',
   components: {
@@ -59,6 +79,7 @@ export default defineComponent({
   data() {
     return {
       toast: true,
+      openAccordionId: null,
     };
   },
 
@@ -85,6 +106,13 @@ export default defineComponent({
   methods: {
     setItem(item) {
       store.item = item;
+    },
+
+    toggleAccordion(id) {
+      this.openAccordionId = this.openAccordionId === id ? null : id;
+    },
+    isAccordionOpen(id) {
+      return this.openAccordionId === id;
     },
   }, //methods
 });
@@ -125,5 +153,26 @@ export default defineComponent({
 }
 .icons {
   margin-right: 3px;
+}
+
+.accordion {
+  margin-top: 10px;
+}
+.accordion-button {
+  transition: background-color 0.3s ease;
+}
+
+.accordion-button:focus {
+  background-color: var(--primary-blue-color);
+  color: var(--primary-white-color);
+}
+
+.accordion-button:not(.collapsed)::after {
+  background-color: var(--primary-white-color);
+  border-radius: 25%;
+}
+
+.accordion-button:visited {
+  background-color: var(--primary-white-color);
 }
 </style>

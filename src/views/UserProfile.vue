@@ -1,7 +1,7 @@
 <template>
   <ProfileNav />
+  <RetrieveCategories />
   <div class="linkchain">
-    <RetrieveCategories />
     <RetrieveAllLinks />
   </div>
   <TheFooter />

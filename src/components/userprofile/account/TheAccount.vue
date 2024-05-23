@@ -21,24 +21,16 @@
             <CloseModalButton />
           </div>
           <form class="modal-body">
-            <label><b>Upgrade Account with Buy Me A Coffee Membership.</b></label
-            ><br />
+            <label><b>Get Secure File Upload for €34 Annually</b></label>
+            <br />
             <a href="https://www.buymeacoffee.com/linkycloudstorage/membership" target="_blank"
               ><img
                 src="https://cdn.buymeacoffee.com/buttons/v2/arial-blue.png"
                 alt="Buy Me A Coffee"
-                style="height: 60px !important; width: 217px !important" /></a
-            ><br />
-
-            <label class="space-docs"><b>Upgrade Account with Crypto.</b></label
-            ><br />
-            <a href="https://plisio.net/donate/BLH2GdX5" target="_blank"
-              ><img
-                src="https://plisio.net/img/donate/donate_light_icons_color.png"
-                alt="Donate Crypto on Plisio"
-                width="180"
-                height="60"
+                style="height: 60px !important; width: 217px !important"
             /></a>
+            <hr />
+            <TheAccountUpgrade />
             <hr />
 
             <label class="space-docs"><b>Docs</b></label
@@ -53,7 +45,6 @@
             <hr />
             <TheAccountMetric />
             <hr />
-            <TheAccountUpgrade />
           </form>
         </div>
       </div>

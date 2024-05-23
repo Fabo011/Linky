@@ -1,5 +1,6 @@
 import { supabase } from "@/components/lib/supabaseClient";
 import { store } from "@/store/store";
+import router from '@/router/index';
 
 
 export const getAccountSize = async() => {
@@ -113,7 +114,9 @@ export const upgradeUser = async (number: string) => {
 
 export const getUserTariff = async () => {
   const { data } = await supabase.auth.getUser();  
-  if (!data) return;
+  if (!data) {
+    router.push('signin');
+  }
 
   const tariffState = data.user?.user_metadata.tariff;
   sessionStorage.setItem('tariff', tariffState);

@@ -4,7 +4,6 @@
     <div>
       <p class="card-text"><i class="bi bi-card-text icons"></i>{{ item.notes }}</p>
     </div>
-    <hr />
   </div>
 </template>
 
