@@ -14,8 +14,6 @@
     </nav>
 
     <div class="scrollableCategories">
-      <div class="row">
-        <div class="col-1 d-flex justify-content-center">
           <div :style="{ width: sidenavWidth }" class="sidenav">
             <div class="text-secondary child" @click.prevent="resetCategories">
               <div class="d-flex justify-content-center align-items-center">
@@ -24,7 +22,9 @@
               </div>
             </div>
 
-            <div class="space">Categories</div>
+            <div class="scroll">
+            <div class="space">
+            <span>Categories</span>
             <div
               v-for="item in store.categories"
               :key="item.category"
@@ -37,9 +37,10 @@
               </div>
             </div>
           </div>
+          </div>
         </div>
       </div>
-    </div>
+   
   </div>
 </template>
 
@@ -86,19 +87,23 @@ export default defineComponent({
 <style scoped>
 .scrollableCategories {
   max-width: 100%;
-  display: block;
-  flex-wrap: nowrap;
+  margin: 10px;
+  position: relative;
+  z-index: 1;
+  max-height: 30px;
+  margin-left: 10px;
+}
+
+.scroll {
   overflow-y: auto;
   overflow-x: hidden;
-  margin: 10px;
-  opacity: 0.8;
+  max-height: 80%;
 }
 .child {
   cursor: pointer;
   white-space: wrap;
   border-radius: 5%;
   margin-left: 3px;
-  max-height: 20%;
 }
 
 .children {
@@ -107,6 +112,7 @@ export default defineComponent({
 .cat {
   color: var(--primary-background-color);
   font-size: 13px;
+  padding-top: 10px;
 }
 
 .font {
@@ -115,9 +121,8 @@ export default defineComponent({
 
 .sidenav {
   height: 100%;
-  max-width: 12%;
+  max-width: 15%;
   position: fixed;
-  z-index: 1;
   top: 0;
   left: 0;
   background-color: var(--primary-white-color);
@@ -125,6 +130,18 @@ export default defineComponent({
   transition: 0.5s;
   padding-top: 60px;
   margin-top: 40px;
+   z-index: 1000;
+
+
+}
+
+@media (max-width: 768px) {
+    .sidenav {
+       max-width: 50%;
+    }
+    .hamburger-button {
+      margin-bottom: 250px;
+    }
 }
 
 .sidenav::-webkit-scrollbar {
@@ -136,10 +153,13 @@ export default defineComponent({
   color: var(--primary-white-color);
   border: none;
   margin-left: 10px;
-  display: fixed;
+  position: fixed;
+  top: 70px;
+  left: 10px;
 }
 
 .space {
   margin-top: 10px;
+  padding-left: 10px;
 }
 </style>

@@ -2,7 +2,6 @@
   <div class="container">
     <label for="link-description" class="d-flex align-items-center">
       <b>Tags</b>
-      <mark id="mark-counter" class="ms-auto">{{ linkdescription.length }}/60</mark>
     </label>
     <input
       type="text"
@@ -48,9 +47,3 @@ export default defineComponent({
   },
 });
 </script>
-<style scoped>
-#mark-counter {
-  background-color: #ffff;
-  font-size: 10px;
-}
-</style>

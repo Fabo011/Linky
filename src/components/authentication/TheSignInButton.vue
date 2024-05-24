@@ -80,7 +80,7 @@ export default defineComponent({
           queryParams: {
             tariff: 'free',
           },
-          redirectTo: 'http://localhost:8080/key',
+          redirectTo: process.env.VUE_APP_AUTH_REDIRECT_URL,
         };
         const { error } = await supabase.auth.signInWithOAuth({ provider: provider, options });
         if (!error) {

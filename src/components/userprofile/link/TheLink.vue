@@ -3,7 +3,6 @@
     <div class="forms-inputs mb-3" id="space-top">
       <label class="d-flex align-items-center">
         <b>Link</b>
-        <mark id="mark-counter" class="ms-auto">{{ link.length }}/800</mark>
       </label>
       <input
         type="text"

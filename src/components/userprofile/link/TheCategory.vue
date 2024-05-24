@@ -2,7 +2,6 @@
   <div class="container">
     <label for="link-category" class="d-flex align-items-center">
       <b>Category</b>
-      <mark id="mark-counter" class="ms-auto">{{ category.length }}/15</mark>
     </label>
     <input
       type="text"
@@ -69,10 +68,6 @@ export default defineComponent({
 });
 </script>
 <style scoped>
-#mark-counter {
-  background-color: #ffff;
-  font-size: 10px;
-}
 .options {
   cursor: pointer;
   position: absolute;

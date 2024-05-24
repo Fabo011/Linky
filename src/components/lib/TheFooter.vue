@@ -37,6 +37,7 @@ export default defineComponent({
   text-align: center;
   padding: 8px;
   font-size: 12px;
+  z-index: 1000;
 }
 
 @media (max-width: 768px) {

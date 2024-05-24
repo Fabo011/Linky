@@ -166,13 +166,4 @@ export default defineComponent({
   background-color: var(--primary-blue-color);
   color: var(--primary-white-color);
 }
-
-.accordion-button:not(.collapsed)::after {
-  background-color: var(--primary-white-color);
-  border-radius: 25%;
-}
-
-.accordion-button:visited {
-  background-color: var(--primary-white-color);
-}
 </style>
