@@ -14,16 +14,16 @@
     </nav>
 
     <div class="scrollableCategories">
-          <div :style="{ width: sidenavWidth }" class="sidenav">
-            <div class="text-secondary child" @click.prevent="resetCategories">
-              <div class="d-flex justify-content-center align-items-center">
-                <TheReloadIcon />
-                <span class="cat">Reset Filter</span>
-              </div>
-            </div>
+      <div :style="{ width: sidenavWidth }" class="sidenav">
+        <div class="text-secondary child" @click.prevent="resetCategories">
+          <div class="d-flex justify-content-center align-items-center">
+            <TheReloadIcon />
+            <span class="cat">Reset Filter</span>
+          </div>
+        </div>
 
-            <div class="scroll">
-            <div class="space">
+        <div class="scroll">
+          <div class="space">
             <span>Categories</span>
             <div
               v-for="item in store.categories"
@@ -37,10 +37,9 @@
               </div>
             </div>
           </div>
-          </div>
         </div>
       </div>
-   
+    </div>
   </div>
 </template>
 
@@ -130,18 +129,16 @@ export default defineComponent({
   transition: 0.5s;
   padding-top: 60px;
   margin-top: 40px;
-   z-index: 1000;
-
-
+  z-index: 1000;
 }
 
 @media (max-width: 768px) {
-    .sidenav {
-       max-width: 50%;
-    }
-    .hamburger-button {
-      margin-bottom: 250px;
-    }
+  .sidenav {
+    max-width: 50%;
+  }
+  .hamburger-button {
+    margin-bottom: 250px;
+  }
 }
 
 .sidenav::-webkit-scrollbar {
