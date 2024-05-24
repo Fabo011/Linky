@@ -103,7 +103,6 @@ export default defineComponent({
     async addNewLinkBtn() {
       this.nBtn = false;
       this.loading = true;
-      const username = store.getUsername();
       const linkname = store.linkname;
       const linkdescription = store.linkdescription;
       const link = store.link;
@@ -155,7 +154,6 @@ export default defineComponent({
         await supabase
           .from('link')
           .insert({
-            username: username,
             linkname: linkname,
             linkdescription: linkdescription,
             link: link,

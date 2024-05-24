@@ -4,8 +4,8 @@ import router from '@/router/index';
 
 
 export const getAccountSize = async() => {
-  const username = store.getUsername()
-  const { data, error } = await supabase.storage.from('linky').list(username);
+  const uuID = store.getUUID()
+  const { data, error } = await supabase.storage.from('linky').list(uuID);
 
   if (error) {
     console.error('Error fetching files for account size:', error);
@@ -57,7 +57,7 @@ export const tariffCheck = async () => {
 }
  
 export const checkPaymentNumber = async (number: string) => {
-  const username = store.getUsername()
+  const uuID = store.getUUID()
   const { data, error }: any = await supabase.from('paymentnumber').select('number');
   
   if (error) { 
@@ -66,7 +66,7 @@ export const checkPaymentNumber = async (number: string) => {
   }
   
   const setData = {
-    username: username,
+    uuid: uuID,
     number: number,
   }
 

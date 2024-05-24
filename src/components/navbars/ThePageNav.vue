@@ -57,7 +57,6 @@ export default defineComponent({
 
   methods: {
     home() {
-      store.setUsername(this.refresh);
       this.$router.push(`/`);
     },
   },

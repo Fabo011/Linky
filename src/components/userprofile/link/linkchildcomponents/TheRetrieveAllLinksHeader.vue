@@ -59,14 +59,13 @@ export default defineComponent({
         confirmButtonColor: '#B30000',
       }).then(async (result: any) => {
         if (result.value == true) {
-          const username = item.username;
-          const uuid = store.getUUID();
+          const uuID= store.getUUID();
           const link = item.link;
           try {
             await supabase
               .from('link')
               .delete()
-              .eq(`username`, username)
+              .eq(`user_id`, uuID)
               .eq(`link`, link)
               .then(() => {
                 store.retieveAllLinks();
@@ -77,7 +76,7 @@ export default defineComponent({
                 /\.(png|jpg|jpeg|gif|bmp|svg|pdf|doc|docx|xls|xlsx|ppt|pptx|odt|mp3|wav|mp4|avi|zip|rar|tar|txt|html|xml)$/,
               )
             ) {
-              await supabase.storage.from('linky').remove([`${uuid}/${item.filename}`]);
+              await supabase.storage.from('linky').remove([`${uuID}/${item.filename}`]);
             }
           } catch (error) {
             console.error('deleteLink Error: ' + error);

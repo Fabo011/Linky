@@ -7,7 +7,7 @@
       <input
         type="text"
         class="w-100"
-        placeholder="https://www.linky.io"
+        placeholder="https://www.linkycloud.com"
         minlength="5"
         maxlength="800"
         v-model="link"

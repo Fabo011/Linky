@@ -141,7 +141,6 @@ export default defineComponent({
         confirmButtonText: 'Send Update',
         confirmButtonColor: '#5F7FFF',
         preConfirm: async () => {
-          const username = store.username;
           const newlinkname = document.getElementById('input1').value;
           const newlinkdescription = document.getElementById('input2').value;
           const newcategory = document.getElementById('input3').value;
@@ -152,7 +151,6 @@ export default defineComponent({
           const newContactPhoneNumber = document.getElementById('input8').value;
           const newContactEmail = document.getElementById('input9').value;
           const newLinkNote = document.getElementById('input10').value;
-          const email = username.toLowerCase() + '@linky.com';
           const id = item.id;
 
           if (newlinkname !== item.linkname && newlinkname !== '') {
@@ -260,11 +258,12 @@ export default defineComponent({
           }
 
           try {
+            const uuID = store.getUUID();
             await supabase
               .from('link')
               .update(data)
               .eq(`id`, id)
-              .eq(`username`, username)
+              .eq(`user_id`, uuID)
               .then(() => {
                 swal
                   .fire({

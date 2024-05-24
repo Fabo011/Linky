@@ -7,11 +7,7 @@ export const store = reactive({
 
     //auth
     authStatus: '',
-    username: '',
     email: '',
-    password: '',
-    
-    friendID: '',
 
     //searchbar
     searchValue: '',
@@ -36,30 +32,12 @@ export const store = reactive({
     // categories
     categories: [],
 
-    // chat
-    text: '',
-
     // crypto
     key: '',
 
     getKey() {
         const fullKey = sessionStorage.getItem('key') as string;
         return fullKey;
-    },
-
-    setUsername(username: string) {
-        this.username = username;
-        const usernameHex = convertStringToHex(username);
-        sessionStorage.setItem('user', usernameHex);
-    },
-    setPassword(password: string) {
-        this.password = password
-    },
-
-    getUsername() {
-        const userHex = sessionStorage.getItem('user') as string;
-        const username = convertHexToString(userHex);
-        return username;
     },
 
     getUUID() {
@@ -85,7 +63,6 @@ export const store = reactive({
             if (!data || !data.user || !data.user.email || data.user.email !== token.user.email) {
                 router.push('signin');
             } else {
-                this.setUsername(data.user?.user_metadata.name)
                 sessionStorage.setItem('email', data.user?.user_metadata.email as any)
                 sessionStorage.setItem('tariff', data.user?.user_metadata.tariff as any)
                 const userUUIDHex = convertStringToHex(data.user.id);
@@ -94,10 +71,6 @@ export const store = reactive({
         } catch (error) {
             router.push('signin');
         }
-    },
-
-    setFriendID(friendID: string) {
-        this.friendID = friendID
     },
 
     //searchbar
@@ -133,15 +106,12 @@ export const store = reactive({
     logout() {
         sessionStorage.removeItem('user');
         sessionStorage.removeItem('cat');
-        sessionStorage.removeItem('chatKey');
-        sessionStorage.removeItem('authStatus');
         sessionStorage.removeItem('key');
         sessionStorage.removeItem('iv');
         sessionStorage.removeItem('tariff');
         sessionStorage.removeItem('uuid');
     },
 
-    //retrieveAllLinks and Categories
     async retieveAllLinks() {
         const uuid = this.getUUID();
       

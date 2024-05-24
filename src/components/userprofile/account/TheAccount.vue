@@ -21,7 +21,7 @@
             <CloseModalButton />
           </div>
           <form class="modal-body">
-            <label><b>Get Secure File Upload for €34 Annually</b></label>
+            <label><b>Get Secure File Upload | €20 Annually</b></label>
             <br />
             <a href="https://www.buymeacoffee.com/linkycloudstorage/membership" target="_blank"
               ><img

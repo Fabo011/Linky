@@ -148,12 +148,12 @@ export default defineComponent({
     },
 
     async addNewTodo() {
-      const username = store.getUsername();
+      const uuID = store.getUUID();
       try {
         await supabase
           .from('kanban')
           .insert({
-            username: username,
+            uuid: uuID,
             task: this.newTodo,
             status: 'todo',
           })
@@ -167,8 +167,8 @@ export default defineComponent({
     },
 
     async fetchTodos() {
-      const username = store.getUsername();
-      const { data, error } = await supabase.from('kanban').select('*').eq('username', username);
+      const uuID = store.getUUID()
+      const { data, error } = await supabase.from('kanban').select('*').eq('uuid', uuID);
       if (error) {
         console.error('Error fetching todos:', error.message);
         return;
@@ -194,13 +194,13 @@ export default defineComponent({
     },
 
     async updateTaskStatus(taskId, status) {
-      const username = store.getUsername();
+      const uuid = store.getUUID();
       try {
         const { error } = await supabase
           .from('kanban')
           .update({ status: status })
           .eq(`id`, taskId)
-          .eq(`username`, username);
+          .eq(`uuid`, uuID);
 
         if (error) console.log(error);
       } catch (error) {
