@@ -18,10 +18,10 @@
 </template>
 
 <script lang="ts">
-import { store } from '../../../../store/store';
-import { defineComponent } from 'vue';
-import { supabase } from '../../../lib/supabaseClient';
 import TheTrashIcon from '@/assets/svg/TheTrashIcon.vue';
+import { defineComponent } from 'vue';
+import { store } from '../../../../store/store';
+import { supabase } from '../../../lib/supabaseClient';
 
 export default defineComponent({
   name: 'TheRetrieveAllLinksHeader',
@@ -60,13 +60,13 @@ export default defineComponent({
       }).then(async (result: any) => {
         if (result.value == true) {
           const uuID= store.getUUID();
-          const link = item.link;
+          const id = item.id;
           try {
             await supabase
               .from('link')
               .delete()
               .eq(`user_id`, uuID)
-              .eq(`link`, link)
+              .eq(`id`, id)
               .then(() => {
                 store.retieveAllLinks();
               });

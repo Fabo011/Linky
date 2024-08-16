@@ -1,7 +1,7 @@
+import { convertHexToString, convertStringToHex, decryptString } from '@/components/crypto/crypto';
+import router from '@/router/index';
 import { reactive } from 'vue';
 import { supabase } from '../components/lib/supabaseClient';
-import { convertStringToHex, convertHexToString, decryptString } from '@/components/crypto/crypto';
-import router from '@/router/index';
 
 export const store = reactive({
 
@@ -124,6 +124,10 @@ export const store = reactive({
              
                this.items =  data.map((item: any) => ({
                 ...item,
+                linkname: decryptString(item.linkname),
+                linkdescription: decryptString(item.linkdescription),
+                category: decryptString(item.category),
+                link: decryptString(item.link),
                 linkusername: decryptString(item.linkusername),
                 contactname: decryptString(item.contactname),
                 contactemail: decryptString(item.contactemail),
@@ -138,7 +142,8 @@ export const store = reactive({
              this.categories.forEach(item => {
              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
              // @ts-ignore: Unreachable code error  
-             uniqueCategories.add(item.category)
+             const category = decryptString(item.category)
+             uniqueCategories.add(category)
            })
              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
              // @ts-ignore: Unreachable code error

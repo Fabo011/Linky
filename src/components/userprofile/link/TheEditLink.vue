@@ -137,15 +137,18 @@ import TheLinkUsername from './TheLinkUsername.vue';
         const notes = store?.linkNotes;
         const files = store?.files;
         const uuID = store.getUUID();
-        const id = this.item.id;  
+        const id = this.item.id;
+
 
         if (linkname) {  
+          const encryptedLinkName = encryptString(linkname);
+          this.encryptedLinkName = encryptedLinkName;
+
           await supabase
             .from('link')
             .update({
-              linkname: linkname,
+              linkname: encryptedLinkName,
             })
-            .eq('linkname', this.item.linkname)
             .eq(`user_id`, uuID).eq(`id`, id).then(() => {
               this.executeCleanUp();
               updatedtoast();
@@ -160,9 +163,9 @@ import TheLinkUsername from './TheLinkUsername.vue';
           await supabase
             .from('link')
             .update({
-              linkdescription: linkdescription,
+              linkdescription: encryptedLinkDescription,
             })
-            .eq('linkdescription', this.item.linkdescription).eq(`user_id`, uuID).eq(`id`, id).then(() => {
+            .eq(`user_id`, uuID).eq(`id`, id).then(() => {
               this.executeCleanUp();
               updatedtoast();
               this.hideModal();
@@ -176,9 +179,9 @@ import TheLinkUsername from './TheLinkUsername.vue';
           await supabase
             .from('link')
             .update({
-              link: link,
+              link: encryptedLink,
             })
-            .eq('link', this.item.link).eq(`user_id`, uuID).eq(`id`, id).then(() => {
+            .eq(`user_id`, uuID).eq(`id`, id).then(() => {
               this.executeCleanUp();
               updatedtoast();
               this.hideModal();
@@ -192,9 +195,9 @@ import TheLinkUsername from './TheLinkUsername.vue';
           await supabase
             .from('link')
             .update({
-              category: category,
+              category: encryptedCategory,
             })
-            .eq('category', this.item.category).eq(`id`, id).eq(`user_id`, uuID).then(() => {
+            .eq(`id`, id).eq(`user_id`, uuID).then(() => {
               this.executeCleanUp();
               updatedtoast();
               this.hideModal();

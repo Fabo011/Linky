@@ -42,27 +42,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { store } from '../../../store/store';
-import TheLink from './TheLink.vue';
-import LinkName from './TheLinkName.vue';
-import LinkDescription from './TheLinkDescription.vue';
-import TheCategory from './TheCategory.vue';
+import { encryptString } from '@/components/crypto/crypto';
 import swal from 'sweetalert2';
-import { supabase } from '../../lib/supabaseClient';
+import { defineComponent } from 'vue';
 import LinkIcon from '../../../assets/svg/TheLinkIcon.vue';
+import { store } from '../../../store/store';
 import AddBtn from '../../buttons/TheAddBtn.vue';
 import CloseModalButton from '../../buttons/TheCloseModalBtn.vue';
 import LoadingButton from '../../buttons/TheLoadingButton.vue';
-import TheLinkUsername from './TheLinkUsername.vue';
-import TheLinkPassword from './TheLinkPassword.vue';
-import { encryptString } from '@/components/crypto/crypto';
+import { supabase } from '../../lib/supabaseClient';
+import TheContactEmail from '../contacts/TheContactEmail.vue';
 import TheContactName from '../contacts/TheContactName.vue';
 import TheContactPhoneNumber from '../contacts/TheContactPhoneNumber.vue';
-import TheContactEmail from '../contacts/TheContactEmail.vue';
-import TheLinkNotes from './TheLinkNotes.vue';
 import TheUploadEncryptedFiles from '../filearchive/TheUploadEncryptedFiles.vue';
 import { uploadFile } from '../filearchive/upload';
+import TheCategory from './TheCategory.vue';
+import TheLink from './TheLink.vue';
+import LinkDescription from './TheLinkDescription.vue';
+import LinkName from './TheLinkName.vue';
+import TheLinkNotes from './TheLinkNotes.vue';
+import TheLinkPassword from './TheLinkPassword.vue';
+import TheLinkUsername from './TheLinkUsername.vue';
 
 export default defineComponent({
   name: 'CreateAndSaveNewLink.vue',
@@ -89,6 +89,10 @@ export default defineComponent({
       nBtn: true,
       loading: false,
       key: 1,
+      encryptedLinkName: '',
+      encrypredLinkDescription: '',
+      encryptedCategory: '',
+      encryptedLink: '',
       encryptedLinkUsername: '',
       encryptedLinkPassword: '',
       updateString: '',
@@ -114,6 +118,26 @@ export default defineComponent({
       const contactEmail = store?.contactEmail;
       const notes = store?.linkNotes;
       const files = store?.files;
+
+      if (linkname) {
+        const encryptedLinkName = encryptString(linkname);
+        this.encryptedLinkName = encryptedLinkName;
+      }
+
+      if (linkdescription) {
+        const encryptedLinkDescription = encryptString(linkdescription);
+        this.encrypredLinkDescription = encryptedLinkDescription;
+      }
+
+      if (category) {
+        const encryptedCategory = encryptString(category);
+        this.encryptedCategory = encryptedCategory;
+      }
+
+      if (link) {
+        const encryptedLink = encryptString(link);
+        this.encryptedLink = encryptedLink;
+      }
 
       if (linkusername) {
         const encryptedLinkUsername = encryptString(linkusername);
@@ -154,10 +178,10 @@ export default defineComponent({
         await supabase
           .from('link')
           .insert({
-            linkname: linkname,
-            linkdescription: linkdescription,
-            link: link,
-            category: category,
+            linkname: this.encryptedLinkName,
+            linkdescription: this.encrypredLinkDescription,
+            link: this.encryptedLink,
+            category: this.encryptedCategory,
             linkusername: this.encryptedLinkUsername,
             linkpassword: this.encryptedLinkPassword,
             contactname: this.encryptedContactName,
