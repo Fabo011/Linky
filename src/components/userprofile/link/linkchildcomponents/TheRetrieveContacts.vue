@@ -27,9 +27,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
 import { copiedtoast } from '@/components/toasts/toasts';
 import Clipboard from 'clipboard';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'TheRetrieveContacts.vue',
@@ -44,6 +44,7 @@ export default defineComponent({
   methods: {
     copyContactName(item: any) {
       const contactName = item.contactname;
+      
       // @ts-ignore
       new Clipboard('.copycontact', {
         text: () => {
