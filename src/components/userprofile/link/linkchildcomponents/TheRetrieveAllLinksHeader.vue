@@ -59,7 +59,7 @@ export default defineComponent({
         confirmButtonColor: '#B30000',
       }).then(async (result: any) => {
         if (result.value == true) {
-          const uuID= store.getUUID();
+          const uuID = store.getUUID();
           const id = item.id;
           try {
             await supabase

@@ -1,5 +1,18 @@
 <template>
-  <TheCreateAndSaveNewLink />
+  <div class="btn-group dropstart">
+    <button
+      type="button"
+      class="btn btn-primary dropdown-toggle mt-1"
+      data-bs-toggle="dropdown"
+      data-bs-auto-close="outside"
+    >
+      +
+    </button>
+    <ul class="dropdown-menu">
+      <li><TheCreateAndSaveNewLink class="dropdown-item" /></li>
+      <li><TheAccount class="dropdown-item" /></li>
+    </ul>
+  </div>
 </template>
 
 <script lang="ts">

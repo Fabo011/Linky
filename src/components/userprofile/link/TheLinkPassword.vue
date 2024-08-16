@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <div class="forms-inputs mb-4">
-      <label for="link-password" class="d-block"> Optional: <b>Link Password</b> </label>
+      <label for="link-password" class="d-block d-flex align-items-center"
+        ><b>Link Password</b>
+      </label>
       <input
         v-model="linkPassword"
         @input="set"
@@ -9,10 +11,13 @@
         autocomplete="off"
         minlength="6"
         maxlength="3000"
-        class="w-90"
+        class="w-90 d-flex align-items-center"
         id="link-password"
       />
-      <button @click.prevent="generatePassword()" class="btn btn-secondary btn-sm ms-1">
+      <button
+        @click.prevent="generatePassword()"
+        class="btn btn-secondary btn-sm ms-1 d-flex align-items-center"
+      >
         Generate Password
       </button>
     </div>
@@ -58,5 +63,8 @@ export default defineComponent({
 input:focus {
   outline: none;
   box-shadow: none;
+}
+.btn {
+  margin-top: 2px;
 }
 </style>

@@ -44,7 +44,7 @@ export default defineComponent({
   methods: {
     copyContactName(item: any) {
       const contactName = item.contactname;
-      
+
       // @ts-ignore
       new Clipboard('.copycontact', {
         text: () => {

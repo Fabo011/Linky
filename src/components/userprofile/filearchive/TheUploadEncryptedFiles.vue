@@ -1,18 +1,19 @@
 <template>
   <div class="container">
-    <label for="fileInput" class="form-label"><b>Choose File</b></label>
+    <label for="fileInput" class="form-label d-flex align-items-center"><b>Choose File</b></label>
     <input
       type="file"
       id="fileInput"
       ref="fileInput"
       @change="handleFileChange"
       class="form-control"
+      accept=".txt"
     />
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
 import { store } from '@/store/store';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'TheUploadEncryptedFiles.vue',

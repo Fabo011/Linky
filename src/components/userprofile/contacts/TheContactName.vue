@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="forms-inputs mb-4">
-      <label for="link-username-name" class="d-block">
+      <label for="link-username-name" class="d-block d-flex align-items-center">
         <b>Contact Name</b>
       </label>
       <input
@@ -18,8 +18,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
 import { store } from '@/store/store';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   data() {

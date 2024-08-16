@@ -167,7 +167,7 @@ export default defineComponent({
     },
 
     async fetchTodos() {
-      const uuID = store.getUUID()
+      const uuID = store.getUUID();
       const { data, error } = await supabase.from('kanban').select('*').eq('uuid', uuID);
       if (error) {
         console.error('Error fetching todos:', error.message);

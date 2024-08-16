@@ -1,9 +1,8 @@
 <template>
   <section>
-    <LinkIcon data-bs-target="#createAndSaveNewLink" data-bs-toggle="modal" class="text" />
-    <i class="text" data-bs-target="#createAndSaveNewLink" data-bs-toggle="modal"
-      >Create New Link</i
-    >
+    <div class="addLinkBtn" data-bs-target="#createAndSaveNewLink" data-bs-toggle="modal">
+      <i class="text" data-bs-target="#createAndSaveNewLink" data-bs-toggle="modal">+</i>
+    </div>
     <div
       class="modal fade"
       id="createAndSaveNewLink"
@@ -247,5 +246,20 @@ export default defineComponent({
 }
 .text {
   cursor: pointer;
+  color: var(--primary-white-color);
+}
+.addLinkBtn {
+  cursor: pointer;
+  height: 37px;
+  margin-top: 4px;
+  margin-left: 3px;
+  margin-right: 3px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--primary-blue-color);
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

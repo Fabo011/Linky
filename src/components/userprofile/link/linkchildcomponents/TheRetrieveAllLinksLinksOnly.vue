@@ -33,10 +33,7 @@
     <span class="clipboard">Copy Password</span>
   </button>
 
-  <button
-    v-if="item.category !== 'chat' && item.type !== 'file'"
-    class="btn share"
-  >
+  <button v-if="item.category !== 'chat' && item.type !== 'file'" class="btn share">
     <TheEditLink :item="item" /><br />
   </button>
 </template>
@@ -115,8 +112,8 @@ export default defineComponent({
       });
       copiedtoast();
     },
-  }
-  });
+  },
+});
 </script>
 <style scoped>
 .btn {
