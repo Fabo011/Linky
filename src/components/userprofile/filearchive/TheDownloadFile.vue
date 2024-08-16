@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-center align-items-center">
       <TheDownloadIcon />
     </div>
-    <span class="clipboard">Download</span>
+    <span class="clipboard">Download File</span>
   </button>
 </template>
 
@@ -40,7 +40,7 @@ export default defineComponent({
       try {
         const { error, data } = await supabase.storage
           .from('linky')
-          .download(`${this.uuid}/${item.linkname}`);
+          .download(`${this.uuid}/${item.filename}`);
 
         if (error) {
           console.log(error);
@@ -48,12 +48,12 @@ export default defineComponent({
         }
 
         const decryptedData = await decryptFile(data);
-        const fileType = this.determineFileType(item.linkname);
+        const fileType = this.determineFileType(item.filename);
         const decryptedBlob = new Blob([decryptedData], { type: fileType });
 
         const link = document.createElement('a');
         link.href = window.URL.createObjectURL(decryptedBlob);
-        link.download = item.linkname;
+        link.download = item.filename;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -150,9 +150,10 @@ export default defineComponent({
 .btn {
   color: var(--primary-background-color);
   color: var(--primary-white-color);
+  height: 50px;
 }
 .clipboard {
   margin: 0;
-  font-size: 10px;
+  font-size: 8px;
 }
 </style>

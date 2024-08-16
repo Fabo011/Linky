@@ -6,10 +6,10 @@
     maxlength="17"
     class="w-100"
     v-model="number"
-    placeholder="Payment Number"
+    placeholder="Payment Code what you get after payment"
   /><br />
   <button type="button" class="btn w-100" @click.prevent="upgradeAccount">
-    Finalize Upgrade with Payment Code
+    Redeem Payment Code
   </button>
 </template>
 

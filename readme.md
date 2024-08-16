@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-Linky-Cloud offers a premium and secure cloud storage solution for privacy entousiasts. Save encrypted links, passwords, files, images, videos, music and chat content. We do not collect personalized data, you and your data remains anonymously.
+Introducing Linky Cloud, the ultimate solution for secure, cloud-based management of your links, contacts, and passwords. Our platform ensures that your data remains safe and accessible with state-of-the-art encryption technology. Linky Cloud offers a comprehensive suite of features, including encrypted file uploads for digital and private key backups, making it the perfect choice for individuals and businesses prioritizing security. Trust Linky Cloud to protect your most valuable information with unmatched reliability and convenience.
 </p>
 
 <p align="center"><a href="https://linkycloud.com">https://linkycloud.com</a></p>

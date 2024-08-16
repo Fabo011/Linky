@@ -1,43 +1,18 @@
 <template>
-  <div class="btn-group dropstart">
-    <button
-      type="button"
-      class="btn btn-primary dropdown-toggle mt-1"
-      data-bs-toggle="dropdown"
-      data-bs-auto-close="outside"
-    >
-      +
-    </button>
-    <ul class="dropdown-menu">
-      <li><TheCreateAndSaveNewLink class="dropdown-item" /></li>
-      <li><TheCreateChatRoom class="dropdown-item" /></li>
-      <li><TheUploadFiles class="dropdown-item" /></li>
-      <li><TheAddContacts class="dropdown-item" /></li>
-      <li><TheContacts class="dropdown-item" /></li>
-      <li><TheAccount class="dropdown-item" /></li>
-    </ul>
-  </div>
+  <TheCreateAndSaveNewLink />
 </template>
 
 <script lang="ts">
+import TheArchiveIcon from '@/assets/svg/TheArchiveIcon.vue';
+import TheAccount from '@/components/userprofile/account/TheAccount.vue';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import { defineComponent } from 'vue';
 import TheCreateAndSaveNewLink from './link/TheCreateAndSaveNewLink.vue';
-import TheCreateChatRoom from './chat/TheCreateChatRoom.vue';
-import TheArchiveIcon from '@/assets/svg/TheArchiveIcon.vue';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import TheUploadFiles from './filearchive/TheUploadFiles.vue';
-import TheContacts from './contacts/TheContacts.vue';
-import TheAddContacts from './contacts/TheAddContacts.vue';
-import TheAccount from '@/components/userprofile/account/TheAccount.vue';
 
 export default defineComponent({
   components: {
     TheCreateAndSaveNewLink,
-    TheCreateChatRoom,
     TheArchiveIcon,
-    TheUploadFiles,
-    TheContacts,
-    TheAddContacts,
     TheAccount,
   },
 

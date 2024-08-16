@@ -3,12 +3,11 @@
     <div class="forms-inputs mb-3" id="space-top">
       <label class="d-flex align-items-center">
         <b>Link</b>
-        <mark id="mark-counter" class="ms-auto">{{ link.length }}/800</mark>
       </label>
       <input
         type="text"
         class="w-100"
-        placeholder="https://www.linky.io"
+        placeholder="https://www.linkycloud.com"
         minlength="5"
         maxlength="800"
         v-model="link"

@@ -1,9 +1,8 @@
 <template>
   <section>
-    <LinkIcon data-bs-target="#createAndSaveNewLink" data-bs-toggle="modal" class="text" />
-    <i class="text" data-bs-target="#createAndSaveNewLink" data-bs-toggle="modal"
-      >Create New Link</i
-    >
+    <div class="addLinkBtn" data-bs-target="#createAndSaveNewLink" data-bs-toggle="modal">
+      <i class="text" data-bs-target="#createAndSaveNewLink" data-bs-toggle="modal">+</i>
+    </div>
     <div
       class="modal fade"
       id="createAndSaveNewLink"
@@ -19,12 +18,17 @@
             <CloseModalButton />
           </div>
           <form class="modal-body">
-            <LinkName :key="key"></LinkName>
-            <LinkDescription :key="key"></LinkDescription>
-            <TheCategory :key="key"></TheCategory>
-            <TheLink :key="key"></TheLink>
+            <LinkName :key="key" />
+            <LinkDescription :key="key" />
+            <TheCategory :key="key" />
+            <TheLink :key="key" />
             <TheLinkUsername :key="key" />
             <TheLinkPassword :key="key" />
+            <TheContactName :key="key" />
+            <TheContactPhoneNumber :key="key" />
+            <TheContactEmail :key="key" />
+            <TheLinkNotes :key="key" />
+            <TheUploadEncryptedFiles :key="key" />
           </form>
           <div class="modal-footer d-flex justify-content-start">
             <AddBtn v-if="nBtn" @click.prevent="addNewLinkBtn"> Add </AddBtn>
@@ -37,21 +41,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { store } from '../../../store/store';
-import TheLink from './TheLink.vue';
-import LinkName from './TheLinkName.vue';
-import LinkDescription from './TheLinkDescription.vue';
-import TheCategory from './TheCategory.vue';
+import { encryptString } from '@/components/crypto/crypto';
 import swal from 'sweetalert2';
-import { supabase } from '../../lib/supabaseClient';
+import { defineComponent } from 'vue';
 import LinkIcon from '../../../assets/svg/TheLinkIcon.vue';
+import { store } from '../../../store/store';
 import AddBtn from '../../buttons/TheAddBtn.vue';
 import CloseModalButton from '../../buttons/TheCloseModalBtn.vue';
 import LoadingButton from '../../buttons/TheLoadingButton.vue';
-import TheLinkUsername from './TheLinkUsername.vue';
+import { supabase } from '../../lib/supabaseClient';
+import TheContactEmail from '../contacts/TheContactEmail.vue';
+import TheContactName from '../contacts/TheContactName.vue';
+import TheContactPhoneNumber from '../contacts/TheContactPhoneNumber.vue';
+import TheUploadEncryptedFiles from '../filearchive/TheUploadEncryptedFiles.vue';
+import { uploadFile } from '../filearchive/upload';
+import TheCategory from './TheCategory.vue';
+import TheLink from './TheLink.vue';
+import LinkDescription from './TheLinkDescription.vue';
+import LinkName from './TheLinkName.vue';
+import TheLinkNotes from './TheLinkNotes.vue';
 import TheLinkPassword from './TheLinkPassword.vue';
-import { encryptString } from '@/components/crypto/crypto';
+import TheLinkUsername from './TheLinkUsername.vue';
 
 export default defineComponent({
   name: 'CreateAndSaveNewLink.vue',
@@ -66,6 +76,11 @@ export default defineComponent({
     AddBtn,
     CloseModalButton,
     LoadingButton,
+    TheContactName,
+    TheContactPhoneNumber,
+    TheContactEmail,
+    TheLinkNotes,
+    TheUploadEncryptedFiles,
   },
 
   data() {
@@ -73,40 +88,106 @@ export default defineComponent({
       nBtn: true,
       loading: false,
       key: 1,
+      encryptedLinkName: '',
+      encrypredLinkDescription: '',
+      encryptedCategory: '',
+      encryptedLink: '',
+      encryptedLinkUsername: '',
       encryptedLinkPassword: '',
       updateString: '',
+      encryptedContactName: '',
+      encryptedContactPhoneNumber: '',
+      encryptedContactEmail: '',
+      encryptedNotes: '',
+      filename: '',
     };
   },
   methods: {
     async addNewLinkBtn() {
       this.nBtn = false;
       this.loading = true;
-      const username = store.username;
       const linkname = store.linkname;
       const linkdescription = store.linkdescription;
       const link = store.link;
       const category = store.category;
       const linkusername = store?.linkUsername;
       const linkpassword = store?.linkPassword;
-      const email = username.toLowerCase() + '@linky.com';
+      const contactName = store?.contactName;
+      const contactPhoneNumber = store?.contactPhoneNumber;
+      const contactEmail = store?.contactEmail;
+      const notes = store?.linkNotes;
+      const files = store?.files;
+
+      if (linkname) {
+        const encryptedLinkName = encryptString(linkname);
+        this.encryptedLinkName = encryptedLinkName;
+      }
+
+      if (linkdescription) {
+        const encryptedLinkDescription = encryptString(linkdescription);
+        this.encrypredLinkDescription = encryptedLinkDescription;
+      }
+
+      if (category) {
+        const encryptedCategory = encryptString(category);
+        this.encryptedCategory = encryptedCategory;
+      }
+
+      if (link) {
+        const encryptedLink = encryptString(link);
+        this.encryptedLink = encryptedLink;
+      }
+
+      if (linkusername) {
+        const encryptedLinkUsername = encryptString(linkusername);
+        this.encryptedLinkUsername = encryptedLinkUsername;
+      }
 
       if (linkpassword) {
         const encryptedPass = encryptString(linkpassword);
         this.encryptedLinkPassword = encryptedPass;
       }
 
+      if (contactName) {
+        const encryptedContactName = encryptString(contactName);
+        this.encryptedContactName = encryptedContactName;
+      }
+
+      if (contactPhoneNumber) {
+        const encryptedContactPhoneNumber = encryptString(contactPhoneNumber);
+        this.encryptedContactPhoneNumber = encryptedContactPhoneNumber;
+      }
+
+      if (contactEmail) {
+        const encryptedContactEmail = encryptString(contactEmail);
+        this.encryptedContactEmail = encryptedContactEmail;
+      }
+
+      if (notes) {
+        const encryptedNotes = encryptString(notes);
+        this.encryptedNotes = encryptedNotes;
+      }
+
+      if (files) {
+        const filename = await uploadFile();
+        this.filename = filename;
+      }
+
       try {
         await supabase
           .from('link')
           .insert({
-            username: username,
-            email: email,
-            linkname: linkname,
-            linkdescription: linkdescription,
-            link: link,
-            category: category,
-            linkusername: linkusername,
+            linkname: this.encryptedLinkName,
+            linkdescription: this.encrypredLinkDescription,
+            link: this.encryptedLink,
+            category: this.encryptedCategory,
+            linkusername: this.encryptedLinkUsername,
             linkpassword: this.encryptedLinkPassword,
+            contactname: this.encryptedContactName,
+            contactphonenumber: this.encryptedContactPhoneNumber,
+            contactemail: this.encryptedContactEmail,
+            notes: this.encryptedNotes,
+            filename: this?.filename,
           })
           .then(() => {
             swal
@@ -137,6 +218,11 @@ export default defineComponent({
       store.category = this.updateString;
       store.linkUsername = this.updateString;
       store.linkPassword = this.updateString;
+      store.contactName = this.updateString;
+      store.contactPhoneNumber = this.updateString;
+      store.contactEmail = this.updateString;
+      store.linkNotes = this.updateString;
+      store.files = [];
     },
   },
 });
@@ -160,5 +246,20 @@ export default defineComponent({
 }
 .text {
   cursor: pointer;
+  color: var(--primary-white-color);
+}
+.addLinkBtn {
+  cursor: pointer;
+  height: 37px;
+  margin-top: 4px;
+  margin-left: 3px;
+  margin-right: 3px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--primary-blue-color);
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

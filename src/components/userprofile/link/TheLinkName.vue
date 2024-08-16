@@ -2,14 +2,13 @@
   <div class="container">
     <label for="link-name" class="d-flex align-items-center">
       <b>Name</b>
-      <mark id="mark-counter" class="ms-auto">{{ linkname.length }}/20</mark>
     </label>
     <input
       type="text"
       v-model="linkname"
       placeholder="linky"
       minlength="3"
-      maxlength="20"
+      maxlength="30"
       class="w-100"
       @input="validate"
       @click.prevent="resetInput"
@@ -48,9 +47,3 @@ export default defineComponent({
   },
 });
 </script>
-<style scoped>
-#mark-counter {
-  background-color: #ffff;
-  font-size: 10px;
-}
-</style>

@@ -1,7 +1,7 @@
 <template>
   <ProfileNav />
+  <RetrieveCategories />
   <div class="linkchain">
-    <RetrieveCategories />
     <RetrieveAllLinks />
   </div>
   <TheFooter />
@@ -31,14 +31,13 @@ export default defineComponent({
   },
 
   async beforeRouteEnter() {
-    store.authStatusRefresh();
     await store.checkUser();
   },
 });
 </script>
 <style scoped>
 .linkchain {
-  margin-bottom: 25%;
+  margin-bottom: 35%;
 }
 
 @media (max-width: 767px) {
@@ -46,6 +45,7 @@ export default defineComponent({
     width: 95%;
     margin: 0 auto;
     margin-bottom: 25%;
+    margin-top: 10%;
   }
 }
 

@@ -1,23 +1,45 @@
 <template>
-  <div class="scrollableCategories">
-    <div class="text-secondary child" @click.prevent="resetCategories">
-      <div class="d-flex justify-content-center align-items-center">
-        <TheReloadIcon />
-      </div>
-      <span class="cat">All</span>
-    </div>
+  <div>
+    <nav class="navbar navbar-light">
+      <button
+        class="navbar-toggler hamburger-button"
+        type="button"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+        @click.prevent="toggleNav"
+        style="z-index: 2"
+      >
+        <div class="animated-icon" :class="{ open: sidenavWidth !== '0px' }">=</div>
+      </button>
+    </nav>
 
-    <mark
-      v-for="item in store.categories"
-      :key="item.category"
-      @click.prevent="setCategory(item)"
-      class="bg-white text-decoration-none child children position-relative text-center"
-    >
-      <div class="d-flex justify-content-center align-items-center">
-        <TheFolderIcon />
+    <div class="scrollableCategories">
+      <div :style="{ width: sidenavWidth }" class="sidenav">
+        <div class="text-secondary child" @click.prevent="resetCategories">
+          <div class="d-flex justify-content-center align-items-center">
+            <TheReloadIcon />
+            <span class="cat">Reset Filter</span>
+          </div>
+        </div>
+
+        <div class="scroll">
+          <div class="space">
+            <span>Categories</span>
+            <div
+              v-for="item in store.categories"
+              :key="item.category"
+              @click.prevent="setCategory(item)"
+              class="bg-white text-decoration-none child children position-relative text-left"
+            >
+              <div class="justify-content-left align-items-left">
+                <TheFolderIcon />
+                <span class="font">{{ item }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <span class="font">{{ item }}</span>
-    </mark>
+    </div>
   </div>
 </template>
 
@@ -38,6 +60,7 @@ export default defineComponent({
     return {
       store,
       resetValue: '',
+      sidenavWidth: '0px',
     };
   },
 
@@ -53,22 +76,31 @@ export default defineComponent({
     resetCategories() {
       store.setSearchValue(this.resetValue);
     },
+
+    toggleNav() {
+      this.sidenavWidth = this.sidenavWidth === '0px' ? '250px' : '0px';
+    },
   },
 });
 </script>
 <style scoped>
 .scrollableCategories {
   max-width: 100%;
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  overflow-y: hidden;
   margin: 10px;
-  opacity: 0.6;
+  position: relative;
+  z-index: 1;
+  max-height: 30px;
+  margin-left: 10px;
+}
+
+.scroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 80%;
 }
 .child {
   cursor: pointer;
-  white-space: nowrap;
+  white-space: wrap;
   border-radius: 5%;
   margin-left: 3px;
 }
@@ -79,8 +111,52 @@ export default defineComponent({
 .cat {
   color: var(--primary-background-color);
   font-size: 13px;
+  padding-top: 10px;
 }
+
 .font {
-  font-size: 13px;
+  margin-left: 3px;
+}
+
+.sidenav {
+  height: 100%;
+  max-width: 15%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--primary-white-color);
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  margin-top: 40px;
+  z-index: 1000;
+}
+
+@media (max-width: 768px) {
+  .sidenav {
+    max-width: 50%;
+  }
+  .hamburger-button {
+    margin-bottom: 250px;
+  }
+}
+
+.sidenav::-webkit-scrollbar {
+  display: none;
+}
+
+.hamburger-button {
+  background-color: var(--primary-blue-color);
+  color: var(--primary-white-color);
+  border: none;
+  margin-left: 10px;
+  position: fixed;
+  top: 70px;
+  left: 10px;
+}
+
+.space {
+  margin-top: 10px;
+  padding-left: 10px;
 }
 </style>

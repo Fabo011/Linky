@@ -1,10 +1,11 @@
 import { supabase } from "@/components/lib/supabaseClient";
 import { store } from "@/store/store";
+import router from '@/router/index';
 
 
 export const getAccountSize = async() => {
-  const username = store.getUsername()
-  const { data, error } = await supabase.storage.from('linky').list(username);
+  const uuID = store.getUUID()
+  const { data, error } = await supabase.storage.from('linky').list(uuID);
 
   if (error) {
     console.error('Error fetching files for account size:', error);
@@ -31,11 +32,11 @@ const { data } = await supabase.auth.getUser();
 const account = data.user?.user_metadata.tariff as string | undefined;
 
 const { mb, gb } = await getAccountSize();
-if (account === 'bronze' && gb < '200') {
+if (account === 'bronze' && gb < '3') {
 return true;
-} else if (account === 'silver' && gb < '500') {
+} else if (account === 'silver' && gb < '5') {
 return true;
-} else if (account === 'gold' && gb < '1000') {
+} else if (account === 'gold' && gb < '10') {
 return true;
 } else {
 return false;
@@ -44,19 +45,19 @@ return false;
 
 export const tariffCheck = async () => {
   const account = sessionStorage.getItem('tariff');
-  if (account === 'free') {
+  if (account === 'free' || account == undefined || account == null) {
     return '0';
   } else if (account === 'bronze') {
-    return '200';
+    return '3';
   } else if (account === 'silver') {
-    return '500';
+    return '5';
   } else if (account === 'gold') {
-    return '1000';
+    return '10';
   }
 }
  
 export const checkPaymentNumber = async (number: string) => {
-  const username = store.getUsername()
+  const uuID = store.getUUID()
   const { data, error }: any = await supabase.from('paymentnumber').select('number');
   
   if (error) { 
@@ -65,7 +66,7 @@ export const checkPaymentNumber = async (number: string) => {
   }
   
   const setData = {
-    username: username,
+    uuid: uuID,
     number: number,
   }
 
@@ -108,5 +109,30 @@ export const upgradeUser = async (number: string) => {
     } else {
       return true;
     }
+  }
+}
+
+export const getUserTariff = async () => {
+  const { data } = await supabase.auth.getUser();  
+  if (!data) {
+    router.push('signin');
+  }
+
+  const tariffState = data.user?.user_metadata.tariff;
+  sessionStorage.setItem('tariff', tariffState);
+  
+  if (tariffState === 'bronze' || tariffState === 'free') return 'authenticatedUser' as any;
+}
+
+export const setUserTariffAfterSignUp = async () => {
+  let tariff = 'free'
+  const { data } = await supabase.auth.getUser(); 
+
+  const { error } = await supabase.auth.updateUser({
+    data: { ...(data as any).user_metadata, tariff: tariff }
+  })
+
+  if (error) {
+    console.log(error);
   }
 }

@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div class="forms-inputs mb-4">
-      <label for="link-username-email" class="d-block">
-        Optional: <b>Link Username or Email</b>
+      <label for="link-username-email" class="d-block d-flex align-items-center">
+        <b>Your Username or Email on this link</b>
       </label>
       <input
         v-model="linkUsername"
@@ -19,8 +19,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
 import { store } from '@/store/store';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   data() {

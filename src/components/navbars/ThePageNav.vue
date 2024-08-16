@@ -17,13 +17,8 @@
                 <span class="text-decoration-underline text-white">Login</span>
               </a>
             </router-link>
-            <router-link to="/signup">
-              <a class="nav-link text-white" href="#">
-                <span class="text-decoration-underline text-white">Register</span>
-              </a>
-            </router-link>
             <a
-              class="nav-link text-white space"
+              class="nav-link text-white"
               href="https://github.com/Fabo011/Linky/wiki"
               target="_blank"
             >
@@ -42,7 +37,6 @@
 import { defineComponent } from 'vue';
 import { store } from '../../store/store';
 import CreateAndSaveNewLinkVue from '../userprofile/link/TheCreateAndSaveNewLink.vue';
-import CreateChatRoom from '../userprofile/chat/TheCreateChatRoom.vue';
 import TheServiceSelector from '../userprofile/TheServiceSelector.vue';
 
 export default defineComponent({
@@ -50,7 +44,6 @@ export default defineComponent({
 
   components: {
     CreateAndSaveNewLinkVue,
-    CreateChatRoom,
     TheServiceSelector,
   },
 
@@ -64,8 +57,6 @@ export default defineComponent({
 
   methods: {
     home() {
-      store.setUsername(this.refresh);
-      store.action(this.refresh);
       this.$router.push(`/`);
     },
   },

@@ -26,7 +26,6 @@ import { defineComponent } from 'vue';
 import { store } from '../../store/store';
 import CreateAndSaveNewLinkVue from '../userprofile/link/TheCreateAndSaveNewLink.vue';
 import SearchBar from '../lib/TheSearchBar.vue';
-import CreateChatRoom from '../userprofile/chat/TheCreateChatRoom.vue';
 import TheServiceSelector from '../userprofile/TheServiceSelector.vue';
 
 export default defineComponent({
@@ -35,7 +34,6 @@ export default defineComponent({
   components: {
     CreateAndSaveNewLinkVue,
     SearchBar,
-    CreateChatRoom,
     TheServiceSelector,
   },
 
@@ -49,8 +47,6 @@ export default defineComponent({
 
   methods: {
     home() {
-      store.setUsername(this.refresh);
-      store.action(this.refresh);
       store.logout();
       this.$router.push(`/`);
     },

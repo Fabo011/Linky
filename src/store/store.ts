@@ -1,16 +1,13 @@
+import { convertHexToString, convertStringToHex, decryptString } from '@/components/crypto/crypto';
+import router from '@/router/index';
 import { reactive } from 'vue';
 import { supabase } from '../components/lib/supabaseClient';
-import { convertStringToHex, convertHexToString, decryptString } from '@/components/crypto/crypto';
-import router from '@/router/index';
 
 export const store = reactive({
 
     //auth
     authStatus: '',
-    username: '',
-    password: '',
-    
-    friendUsername: '',
+    email: '',
 
     //searchbar
     searchValue: '',
@@ -22,6 +19,11 @@ export const store = reactive({
     link: '',
     linkPassword: '',
     linkUsername: '',
+    contactName: '',
+    contactPhoneNumber: '',
+    contactEmail: '',
+    linkNotes: '',
+    files: [] as any,
 
     // link data
     item: {} as any,
@@ -29,12 +31,6 @@ export const store = reactive({
 
     // categories
     categories: [],
-
-    // contacts
-    contacts: [],
-
-    // chat
-    text: '',
 
     // crypto
     key: '',
@@ -44,46 +40,13 @@ export const store = reactive({
         return fullKey;
     },
 
-    //auth
-    action(authStatus: string) {
-        this.authStatus = authStatus;
-        const authStatusHex = convertStringToHex(authStatus);
-        sessionStorage.setItem('authStatus', authStatusHex);
-    },
-    setUsername(username: string) {
-        this.username = username;
-        const usernameHex = convertStringToHex(username);
-        sessionStorage.setItem('user', usernameHex);
-    },
-    setPassword(password: string) {
-        this.password = password
-    },
-    authStatusRefresh(){
-        const authStatusHex = sessionStorage.getItem('authStatus') as string;
-        const authStatus = convertHexToString(authStatusHex); 
-        const userHex = sessionStorage.getItem('user') as string;
-        const user = convertHexToString(userHex);
-        if(authStatus) this.authStatus = authStatus
-        if (user) this.username = user 
-    },
-
-    getUsername() {
-        const userHex = sessionStorage.getItem('user') as string;
-        const username = convertHexToString(userHex);
-        return username;
-    },
-
     getUUID() {
         const hexUUID = sessionStorage.getItem('uuid') as string;
         const uuid = convertHexToString(hexUUID);
         return uuid;
     },
 
-    async checkUser() {
-       if (this.authStatus !== 'loggedIn') {
-          router.push('signin');
-        };
-        
+    async checkUser() {  
         const storedToken = localStorage.getItem('sb-ycsymeeovppvwzcfdddr-auth-token');
         const token = storedToken ? JSON.parse(storedToken) : null;
         if (token) {
@@ -100,6 +63,7 @@ export const store = reactive({
             if (!data || !data.user || !data.user.email || data.user.email !== token.user.email) {
                 router.push('signin');
             } else {
+                sessionStorage.setItem('email', data.user?.user_metadata.email as any)
                 sessionStorage.setItem('tariff', data.user?.user_metadata.tariff as any)
                 const userUUIDHex = convertStringToHex(data.user.id);
                 sessionStorage.setItem('uuid', userUUIDHex);
@@ -109,18 +73,9 @@ export const store = reactive({
         }
     },
 
-    setFriendUsername(friendUsername: string) {
-        this.friendUsername = friendUsername   
-    },
-
     //searchbar
     setSearchValue(searchValue: string) {
        this.searchValue = searchValue
-    },
-
-    // chat
-    setChatTextValue(text: string) {
-       this.text = text
     },
 
     //createAndSaveNewLink
@@ -151,26 +106,34 @@ export const store = reactive({
     logout() {
         sessionStorage.removeItem('user');
         sessionStorage.removeItem('cat');
-        sessionStorage.removeItem('chatKey');
-        sessionStorage.removeItem('authStatus');
         sessionStorage.removeItem('key');
         sessionStorage.removeItem('iv');
         sessionStorage.removeItem('tariff');
         sessionStorage.removeItem('uuid');
     },
 
-    //retrieveAllLinks and Categories
     async retieveAllLinks() {
-        const username = this.username
+        const uuid = this.getUUID();
       
            try {
-            const { data, error } = await supabase.from('link').select('*').eq(`username`, username)
+            const { data, error }: any = await supabase.from('link').select('*').eq(`user_id`, uuid)
                if (error) {
                    console.log(error);
                    throw new Error('Error retrieving data.')
                }
-        
-               this.items = data as any 
+             
+               this.items =  data.map((item: any) => ({
+                ...item,
+                linkname: decryptString(item.linkname),
+                linkdescription: decryptString(item.linkdescription),
+                category: decryptString(item.category),
+                link: decryptString(item.link),
+                linkusername: decryptString(item.linkusername),
+                contactname: decryptString(item.contactname),
+                contactemail: decryptString(item.contactemail),
+                contactphonenumber: decryptString(item.contactphonenumber),
+                notes: decryptString(item.notes)
+               }));
                
 
             this.categories = data as any
@@ -179,7 +142,8 @@ export const store = reactive({
              this.categories.forEach(item => {
              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
              // @ts-ignore: Unreachable code error  
-             uniqueCategories.add(item.category)
+             const category = decryptString(item.category)
+             uniqueCategories.add(category)
            })
              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
              // @ts-ignore: Unreachable code error
@@ -188,24 +152,5 @@ export const store = reactive({
            } catch (error) {
                console.error('retrieveAllLinks Error: ' + error);
            }   
-    },     
-    
-    async fetchContacts() {
-        try {
-           const username = this.getUsername();
-            const { data, error }: any = await supabase.from('contacts').select('*').eq(`username`, username);
-
-            if (error) {
-                console.error('Error fetching contacts:', error.message);
-            } else {
-                this.contacts = data.map((contact: any) => ({
-                ...contact,
-                email: decryptString(contact.email),
-                phone: decryptString(contact.phone)
-            }));
-            } 
-        } catch (error) {
-            throw new Error('fetchContacts Error: ' + error);
-        }
-    },
+    }
 });

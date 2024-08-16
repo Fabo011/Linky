@@ -14,28 +14,14 @@
         </button>
       </div>
     </div>
-    <div v-if="item.type === 'file'" class="header-container">
-      <div class="header-left">
-        <img height="18" width="18" src="../../../../assets/file.png" :alt="item.linkname" />
-        {{ item.linkname }}
-        <mark class="category text-primary mt-2">
-          <span id="cat">{{ item.category }}</span>
-        </mark>
-      </div>
-      <div class="header-right">
-        <button class="btn btn-danger btn-sm btn-space" @click.prevent="deleteLink()">
-          <TheTrashIcon />
-        </button>
-      </div>
-    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { store } from '../../../../store/store';
-import { defineComponent } from 'vue';
-import { supabase } from '../../../lib/supabaseClient';
 import TheTrashIcon from '@/assets/svg/TheTrashIcon.vue';
+import { defineComponent } from 'vue';
+import { store } from '../../../../store/store';
+import { supabase } from '../../../lib/supabaseClient';
 
 export default defineComponent({
   name: 'TheRetrieveAllLinksHeader',
@@ -73,25 +59,24 @@ export default defineComponent({
         confirmButtonColor: '#B30000',
       }).then(async (result: any) => {
         if (result.value == true) {
-          const username = item.username;
-          const uuid = store.getUUID();
-          const link = item.link;
+          const uuID = store.getUUID();
+          const id = item.id;
           try {
             await supabase
               .from('link')
               .delete()
-              .eq(`username`, username)
-              .eq(`link`, link)
+              .eq(`user_id`, uuID)
+              .eq(`id`, id)
               .then(() => {
                 store.retieveAllLinks();
               });
 
             if (
-              item.linkname.match(
+              item.filename.match(
                 /\.(png|jpg|jpeg|gif|bmp|svg|pdf|doc|docx|xls|xlsx|ppt|pptx|odt|mp3|wav|mp4|avi|zip|rar|tar|txt|html|xml)$/,
               )
             ) {
-              await supabase.storage.from('linky').remove([`${uuid}/${item.linkname}`]);
+              await supabase.storage.from('linky').remove([`${uuID}/${item.filename}`]);
             }
           } catch (error) {
             console.error('deleteLink Error: ' + error);
