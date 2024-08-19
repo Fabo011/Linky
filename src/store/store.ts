@@ -8,6 +8,8 @@ export const store = reactive({
     //auth
     authStatus: '',
     email: '',
+    password: '',
+    state: '',
 
     //searchbar
     searchValue: '',
@@ -133,8 +135,8 @@ export const store = reactive({
                 contactemail: decryptString(item.contactemail),
                 contactphonenumber: decryptString(item.contactphonenumber),
                 notes: decryptString(item.notes)
-               }));
-               
+               }));               
+        
 
             this.categories = data as any
              // eslint-disable-next-line prefer-const

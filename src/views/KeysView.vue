@@ -8,7 +8,7 @@
             <img src="../assets//key.png" alt="cat waiting for key" id="image" />
           </h3>
           <hr />
-          <div v-if="state !== 'authenticatedUser'">
+          <div v-if="store.state !== 'authenticatedUser'">
             <p>
               Copy and store your digital key savely. It's the only way to decrypt your data in the
               cloud. Never lose the key or show to anyone. Save your key secure on a usb drive as
@@ -22,7 +22,7 @@
               <TheAuthButton @click.prevent="toAccountAfterSignUp()" />
             </form>
           </div>
-          <div v-if="state === 'authenticatedUser'">
+          <div v-if="state === 'authenticatedUser' && store.state === 'authenticatedUser'">
             <p>
               Please paste your digital key into the input field to decrypt your data and click the
               "Go To Account" button.
@@ -42,13 +42,13 @@
 </template>
 
 <script lang="ts">
-import { store } from '../store/store';
-import { defineComponent } from 'vue';
-import Clipboard from 'clipboard';
-import TheFooter from '../components/lib/TheFooter.vue';
 import TheAuthButton from '@/components/buttons/TheAuthButton.vue';
-import { savedigitalkeytoast } from '@/components/toasts/toasts';
 import { getUserTariff, setUserTariffAfterSignUp } from '@/components/lib/account';
+import { savedigitalkeytoast } from '@/components/toasts/toasts';
+import Clipboard from 'clipboard';
+import { defineComponent } from 'vue';
+import TheFooter from '../components/lib/TheFooter.vue';
+import { store } from '../store/store';
 
 export default defineComponent({
   components: { TheFooter, TheAuthButton },
@@ -76,7 +76,7 @@ export default defineComponent({
   methods: {
     copyPrivateKey() {
       const key = this.key;
-
+      
       new Clipboard('.btn', {
         text: (): any => {
           return key;

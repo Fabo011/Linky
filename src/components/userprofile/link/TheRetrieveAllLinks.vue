@@ -48,13 +48,13 @@
 </template>
 
 <script>
-import { store } from '../../../store/store';
-import { defineComponent } from 'vue';
-import TheTrashIcon from '@/assets/svg/TheTrashIcon.vue';
+import TheChatBtnIcon from '@/assets/svg/TheChatBtnIcon.vue';
 import TheClipboardIcon from '@/assets/svg/TheClipboardIcon.vue';
 import TheCopyPasswordIcon from '@/assets/svg/TheCopyPasswordIcon.vue';
-import TheChatBtnIcon from '@/assets/svg/TheChatBtnIcon.vue';
+import TheTrashIcon from '@/assets/svg/TheTrashIcon.vue';
 import TheUsernameIcon from '@/assets/svg/TheUsernameIcon.vue';
+import { defineComponent } from 'vue';
+import { store } from '../../../store/store';
 import TheDownloadFile from '../filearchive/TheDownloadFile.vue';
 import TheRetrieveAllLinksHeader from './linkchildcomponents/TheRetrieveAllLinksHeader.vue';
 import TheRetrieveAllLinksLinksOnly from './linkchildcomponents/TheRetrieveAllLinksLinksOnly.vue';
@@ -89,7 +89,7 @@ export default defineComponent({
 
   computed: {
     filteredLinks: function () {
-      return store.items?.filter((item) => {
+      return store.items?.filter((item) => { 
         return (
           item.linkname?.match(store.searchValue) ||
           item.linkdescription?.match(store.searchValue) ||

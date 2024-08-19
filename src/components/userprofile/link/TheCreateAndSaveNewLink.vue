@@ -190,6 +190,7 @@ export default defineComponent({
             filename: this?.filename,
           })
           .then(() => {
+            store.retieveAllLinks();
             swal
               .fire({
                 icon: 'success',
@@ -199,7 +200,6 @@ export default defineComponent({
               })
               .then(() => {
                 this.executeCleanUp();
-                store.retieveAllLinks();
               });
           });
       } catch (error) {

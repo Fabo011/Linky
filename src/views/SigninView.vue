@@ -12,6 +12,8 @@
           </div>
           <hr />
           <form class="form-data">
+            <TheUsername />
+            <ThePassword />
             <TheSignInButton />
           </form>
         </div>
@@ -22,14 +24,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import ThePassword from '@/components/authentication/ThePassword.vue';
 import TheSignInButton from '@/components/authentication/TheSignInButton.vue';
+import TheUsername from '@/components/authentication/TheUsername.vue';
 import TheFooter from '@/components/lib/TheFooter.vue';
 import PageNav from '@/components/navbars/ThePageNav.vue';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'SigninView.vue',
-  components: { TheSignInButton, PageNav, TheFooter },
+  components: { TheSignInButton, PageNav, TheFooter, TheUsername, ThePassword },
 });
 </script>
 
