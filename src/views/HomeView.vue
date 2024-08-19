@@ -18,32 +18,24 @@
           enthusiasts. Our services ensure the encryption of all sensitive data, with exclusive
           access granted only through your digital key for decryption. Emphasizing a commitment to
           privacy, we refrain from collecting personalized data, maintaining both you and your
-          information in an anonymous and decentralized manner.
+          information in an anonymous and decentralized manner. All your data are encrypted.
         </p>
         <div class="features">
           <div class="feature">
             <i class="bi bi-cloud"></i>
-            <p>Encrypted Files</p>
+            <p>Save Account Recovery Files</p>
           </div>
           <div class="feature">
             <i class="bi bi-link"></i>
-            <p>Organize Web Links</p>
+            <p>Save Encrypted Web Links</p>
           </div>
           <div class="feature">
             <i class="bi bi-person-lines-fill"></i>
-            <p>Save Contacts</p>
-          </div>
-          <div class="feature">
-            <i class="bi bi-lock"></i>
-            <p>Secure File Sharing</p>
+            <p>Save Encrypted Contacts</p>
           </div>
           <div class="feature">
             <i class="bi bi-pass"></i>
-            <p>Encrypted Password Manager</p>
-          </div>
-          <div class="feature">
-            <i class="bi bi-chat"></i>
-            <p>Encrypted Chat</p>
+            <p>Encrypted Password</p>
           </div>
         </div>
         <a
@@ -59,11 +51,11 @@
 </template>
 
 <script lang="ts">
+import PageNav from '@/components/navbars/ThePageNav.vue';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import { defineComponent } from 'vue';
 import TheFooter from '../components/lib/TheFooter.vue';
-import PageNav from '@/components/navbars/ThePageNav.vue';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export default defineComponent({
   name: 'HomeView',
@@ -71,7 +63,7 @@ export default defineComponent({
 
   methods: {
     openRegister() {
-      this.$router.push('signup');
+      this.$router.push('signin');
     },
   },
 });
