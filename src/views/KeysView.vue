@@ -76,7 +76,7 @@ export default defineComponent({
   methods: {
     copyPrivateKey() {
       const key = this.key;
-      
+
       new Clipboard('.btn', {
         text: (): any => {
           return key;

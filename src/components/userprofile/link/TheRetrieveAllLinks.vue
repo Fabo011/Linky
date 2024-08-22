@@ -89,7 +89,7 @@ export default defineComponent({
 
   computed: {
     filteredLinks: function () {
-      return store.items?.filter((item) => { 
+      return store.items?.filter((item) => {
         return (
           item.linkname?.match(store.searchValue) ||
           item.linkdescription?.match(store.searchValue) ||

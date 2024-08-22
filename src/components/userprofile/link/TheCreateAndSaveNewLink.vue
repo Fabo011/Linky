@@ -89,7 +89,7 @@ export default defineComponent({
       loading: false,
       key: 1,
       encryptedLinkName: '',
-      encrypredLinkDescription: '',
+      encryptedLinkDescription: '',
       encryptedCategory: '',
       encryptedLink: '',
       encryptedLinkUsername: '',
@@ -106,69 +106,58 @@ export default defineComponent({
     async addNewLinkBtn() {
       this.nBtn = false;
       this.loading = true;
-      const linkname = store.linkname;
-      const linkdescription = store.linkdescription;
-      const link = store.link;
-      const category = store.category;
-      const linkusername = store?.linkUsername;
-      const linkpassword = store?.linkPassword;
-      const contactName = store?.contactName;
-      const contactPhoneNumber = store?.contactPhoneNumber;
-      const contactEmail = store?.contactEmail;
-      const notes = store?.linkNotes;
-      const files = store?.files;
 
-      if (linkname) {
-        const encryptedLinkName = encryptString(linkname);
+      if (store.linkname) {
+        const encryptedLinkName = encryptString(store.linkname);
         this.encryptedLinkName = encryptedLinkName;
       }
 
-      if (linkdescription) {
-        const encryptedLinkDescription = encryptString(linkdescription);
-        this.encrypredLinkDescription = encryptedLinkDescription;
+      if (store.linkdescription) {
+        const encryptedLinkDescription = encryptString(store.linkdescription);
+        this.encryptedLinkDescription = encryptedLinkDescription;
       }
 
-      if (category) {
-        const encryptedCategory = encryptString(category);
+      if (store.category) {
+        const encryptedCategory = encryptString(store.category);
         this.encryptedCategory = encryptedCategory;
       }
 
-      if (link) {
-        const encryptedLink = encryptString(link);
+      if (store.link) {
+        const encryptedLink = encryptString(store.link);
         this.encryptedLink = encryptedLink;
       }
 
-      if (linkusername) {
-        const encryptedLinkUsername = encryptString(linkusername);
+      if (store.linkUsername) {
+        const encryptedLinkUsername = encryptString(store.linkUsername);
         this.encryptedLinkUsername = encryptedLinkUsername;
       }
 
-      if (linkpassword) {
-        const encryptedPass = encryptString(linkpassword);
+      if (store.linkPassword) {
+        const encryptedPass = encryptString(store.linkPassword);
         this.encryptedLinkPassword = encryptedPass;
       }
 
-      if (contactName) {
-        const encryptedContactName = encryptString(contactName);
+      if (store.contactName) {
+        const encryptedContactName = encryptString(store.contactName);
         this.encryptedContactName = encryptedContactName;
       }
 
-      if (contactPhoneNumber) {
-        const encryptedContactPhoneNumber = encryptString(contactPhoneNumber);
+      if (store.contactPhoneNumber) {
+        const encryptedContactPhoneNumber = encryptString(store.contactPhoneNumber);
         this.encryptedContactPhoneNumber = encryptedContactPhoneNumber;
       }
 
-      if (contactEmail) {
-        const encryptedContactEmail = encryptString(contactEmail);
+      if (store.contactEmail) {
+        const encryptedContactEmail = encryptString(store.contactEmail);
         this.encryptedContactEmail = encryptedContactEmail;
       }
 
-      if (notes) {
-        const encryptedNotes = encryptString(notes);
+      if (store.linkNotes) {
+        const encryptedNotes = encryptString(store.linkNotes);
         this.encryptedNotes = encryptedNotes;
       }
 
-      if (files) {
+      if (store.files) {
         const filename = await uploadFile();
         this.filename = filename;
       }
@@ -178,7 +167,7 @@ export default defineComponent({
           .from('link')
           .insert({
             linkname: this.encryptedLinkName,
-            linkdescription: this.encrypredLinkDescription,
+            linkdescription: this.encryptedLinkDescription,
             link: this.encryptedLink,
             category: this.encryptedCategory,
             linkusername: this.encryptedLinkUsername,
@@ -194,7 +183,7 @@ export default defineComponent({
             swal
               .fire({
                 icon: 'success',
-                text: `You´ve successfully saved the link ${linkname}.`,
+                text: `You´ve successfully saved the link ${store.linkname}.`,
                 timer: 1500,
                 showConfirmButton: false,
               })
@@ -223,6 +212,18 @@ export default defineComponent({
       store.contactEmail = this.updateString;
       store.linkNotes = this.updateString;
       store.files = [];
+
+      this.encryptedLinkName = '';
+      this.encryptedLinkDescription = '';
+      this.encryptedCategory = '';
+      this.encryptedLink = '';
+      this.encryptedLinkUsername = '';
+      this.encryptedLinkPassword = '';
+      this.encryptedContactName = '';
+      this.encryptedContactPhoneNumber = '';
+      this.encryptedContactEmail = '';
+      this.encryptedNotes = '';
+      this.filename = '';
     },
   },
 });
