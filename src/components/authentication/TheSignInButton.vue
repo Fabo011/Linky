@@ -38,21 +38,22 @@ export default defineComponent({
       const password = store.password;
 
       const options = {
-          data: {
-            tariff: 'free',
-          },
-        };
-     
+        data: {
+          tariff: 'free',
+        },
+      };
+
       try {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (!error) {
           this.clearFucnction();
           store.state = 'authenticatedUser';
-            this.$router.push(`/key`);
+          this.$router.push(`/key`);
         } else {
           const { error } = await supabase.auth.signUp({ email, password, options });
           if (error) {
-            this.errorText = 'If you try to login: Check username or password. If you try to login first time: Username already in use. Try another one.';
+            this.errorText =
+              'If you try to login: Check username or password. If you try to login first time: Username already in use. Try another one.';
             this.clearFucnction();
           } else {
             this.clearFucnction();
@@ -73,7 +74,7 @@ export default defineComponent({
       store.password = '';
       this.nBtn = true;
       this.loading = false;
-   },
+    },
   },
 });
 </script>

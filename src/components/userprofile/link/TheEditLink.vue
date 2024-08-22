@@ -123,22 +123,11 @@ export default defineComponent({
     async editLinkBtn() {
       this.nBtn = false;
       this.loading = true;
-      const linkname = store.linkname;
-      const linkdescription = store.linkdescription;
-      const link = store.link;
-      const category = store.category;
-      const linkusername = store?.linkUsername;
-      const linkpassword = store?.linkPassword;
-      const contactName = store?.contactName;
-      const contactPhoneNumber = store?.contactPhoneNumber;
-      const contactEmail = store?.contactEmail;
-      const notes = store?.linkNotes;
-      const files = store?.files;
       const uuID = store.getUUID();
       const id = this.item.id;
 
-      if (linkname) {
-        const encryptedLinkName = encryptString(linkname);
+      if (store.linkname) {
+        const encryptedLinkName = encryptString(store.linkname);
         this.encryptedLinkName = encryptedLinkName;
 
         await supabase
@@ -155,8 +144,8 @@ export default defineComponent({
           });
       }
 
-      if (linkdescription) {
-        const encryptedLinkDescription = encryptString(linkdescription);
+      if (store.linkdescription) {
+        const encryptedLinkDescription = encryptString(store.linkdescription);
         this.encryptedLinkDescription = encryptedLinkDescription;
 
         await supabase
@@ -173,8 +162,8 @@ export default defineComponent({
           });
       }
 
-      if (link) {
-        const encryptedLink = encryptString(link);
+      if (store.link) {
+        const encryptedLink = encryptString(store.link);
         this.encryptedLink = encryptedLink;
 
         await supabase
@@ -191,8 +180,8 @@ export default defineComponent({
           });
       }
 
-      if (category) {
-        const encryptedCategory = encryptString(category);
+      if (store.category) {
+        const encryptedCategory = encryptString(store.category);
         this.encryptedCategory = encryptedCategory;
 
         await supabase
@@ -209,8 +198,8 @@ export default defineComponent({
           });
       }
 
-      if (linkusername) {
-        const encryptedLinkUsername = encryptString(linkusername);
+      if (store.linkUsername) {
+        const encryptedLinkUsername = encryptString(store.linkUsername);
         this.encryptedLinkUsername = encryptedLinkUsername;
 
         await supabase
@@ -227,8 +216,8 @@ export default defineComponent({
           });
       }
 
-      if (linkpassword) {
-        const encryptedPass = encryptString(linkpassword);
+      if (store.linkPassword) {
+        const encryptedPass = encryptString(store.linkPassword);
         this.encryptedLinkPassword = encryptedPass;
 
         await supabase
@@ -245,8 +234,8 @@ export default defineComponent({
           });
       }
 
-      if (contactName) {
-        const encryptedContactName = encryptString(contactName);
+      if (store.contactName) {
+        const encryptedContactName = encryptString(store.contactName);
         this.encryptedContactName = encryptedContactName;
 
         await supabase
@@ -263,8 +252,8 @@ export default defineComponent({
           });
       }
 
-      if (contactPhoneNumber) {
-        const encryptedContactPhoneNumber = encryptString(contactPhoneNumber);
+      if (store.contactPhoneNumber) {
+        const encryptedContactPhoneNumber = encryptString(store.contactPhoneNumber);
         this.encryptedContactPhoneNumber = encryptedContactPhoneNumber;
 
         await supabase
@@ -281,8 +270,8 @@ export default defineComponent({
           });
       }
 
-      if (contactEmail) {
-        const encryptedContactEmail = encryptString(contactEmail);
+      if (store.contactEmail) {
+        const encryptedContactEmail = encryptString(store.contactEmail);
         this.encryptedContactEmail = encryptedContactEmail;
 
         await supabase
@@ -299,8 +288,8 @@ export default defineComponent({
           });
       }
 
-      if (notes) {
-        const encryptedNotes = encryptString(notes);
+      if (store.linkNotes) {
+        const encryptedNotes = encryptString(store.linkNotes);
         this.encryptedNotes = encryptedNotes;
 
         await supabase
@@ -317,7 +306,7 @@ export default defineComponent({
           });
       }
 
-      if (files) {
+      if (store.files) {
         const filename = await uploadFile();
         this.filename = filename;
       }
@@ -337,6 +326,18 @@ export default defineComponent({
       store.contactEmail = this.updateString;
       store.linkNotes = this.updateString;
       store.files = [];
+
+      this.encryptedLinkName = '';
+      this.encryptedLinkDescription = '';
+      this.encryptedCategory = '';
+      this.encryptedLink = '';
+      this.encryptedLinkUsername = '';
+      this.encryptedLinkPassword = '';
+      this.encryptedContactName = '';
+      this.encryptedContactPhoneNumber = '';
+      this.encryptedContactEmail = '';
+      this.encryptedNotes = '';
+      this.filename = '';
     },
   },
 });
