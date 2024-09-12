@@ -16,8 +16,7 @@
           :aria-valuenow="accountMB"
           aria-valuemin="0"
           aria-valuemax="100"
-        >
-        </div>
+        ></div>
       </div>
     </div>
   </section>
