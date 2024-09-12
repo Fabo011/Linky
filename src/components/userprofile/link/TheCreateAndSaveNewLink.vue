@@ -162,10 +162,10 @@ export default defineComponent({
       if (store.files) {
         const maxSize = 150;
         const { mb, gb, totalSizeInMB } = await getAccountSize();
- 
+
         let uploadSize = store.files[0].size / (1024 * 1024);
 
-        const totalSizeAfterUpload = totalSizeInMB + uploadSize; 
+        const totalSizeAfterUpload = totalSizeInMB + uploadSize;
 
         if (totalSizeAfterUpload < maxSize) {
           const filename = await uploadFile();
@@ -176,7 +176,6 @@ export default defineComponent({
           errorToastFileUpload();
           return;
         }
-        
       }
 
       try {
