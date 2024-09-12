@@ -1,6 +1,6 @@
 import { supabase } from "@/components/lib/supabaseClient";
-import { store } from "@/store/store";
 import router from '@/router/index';
+import { store } from "@/store/store";
 
 
 export const getAccountSize = async() => {
@@ -24,7 +24,7 @@ export const getAccountSize = async() => {
   const totalSizeInGB = totalSize / (1024 * 1024 * 1024);
   const gb = totalSizeInGB.toFixed(2);
 
-  return { mb, gb };
+  return { mb, gb, totalSizeInMB };
 }
 
 export const checkStorageLimit = async (): Promise<boolean> => {
@@ -46,7 +46,7 @@ return false;
 export const tariffCheck = async () => {
   const account = sessionStorage.getItem('tariff');
   if (account === 'free' || account == undefined || account == null) {
-    return '0';
+    return '0.150';
   } else if (account === 'bronze') {
     return '3';
   } else if (account === 'silver') {

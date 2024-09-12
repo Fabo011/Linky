@@ -64,7 +64,7 @@ export const errorToastFileUpload = () => {
         .fire({
             icon: 'error',
             html: `
-            File size exceeds the limit of 200MB.
+            File size exceeds the limit of 150MB.
             `,
             showConfirmButton: true,
             confirmButtonText: 'Ok'

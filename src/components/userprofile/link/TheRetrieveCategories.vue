@@ -36,6 +36,7 @@
                 <span class="font">{{ item }}</span>
               </div>
             </div>
+            <TheAccountMetric />
           </div>
         </div>
       </div>
@@ -44,16 +45,18 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
-import { store } from '../../../store/store';
 import TheFolderIcon from '@/assets/svg/TheFolderIcon.vue';
 import TheReloadIcon from '@/assets/svg/TheReloadIcon.vue';
+import TheAccountMetric from '@/components/userprofile/account/TheAccountMetric.vue';
+import { defineComponent } from 'vue';
+import { store } from '../../../store/store';
 
 export default defineComponent({
   name: 'TheRetrieveCategories',
   components: {
     TheFolderIcon,
     TheReloadIcon,
+    TheAccountMetric,
   },
 
   data() {

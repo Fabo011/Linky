@@ -3,11 +3,14 @@
     <div class="forms-inputs mb-4">
       <label for="link-username-email" class="d-block d-flex align-items-center">
         <div v-if="state !== 'create'">
-        <mark class="updateText">Update contact phone number <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark>
-      </div>
-      <div v-if="state == 'create'">
-        <b>Contact Phone Number</b>
-      </div>
+          <mark class="updateText"
+            >Update contact phone number
+            <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark
+          >
+        </div>
+        <div v-if="state == 'create'">
+          <b>Contact Phone Number</b>
+        </div>
       </label>
       <input
         v-model="contactPhoneNumber"
@@ -26,7 +29,6 @@ import { store } from '@/store/store';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-
   props: {
     state: {
       type: String,
@@ -45,8 +47,8 @@ export default defineComponent({
     },
 
     takeText() {
-      this.contactPhoneNumber = this.state as string
-    }
+      this.contactPhoneNumber = this.state as string;
+    },
   },
 });
 </script>

@@ -1,14 +1,13 @@
 <template>
   <div class="container">
     <div class="forms-inputs mb-4">
-      <label for="link-password" class="d-block d-flex align-items-center"
-        >
+      <label for="link-password" class="d-block d-flex align-items-center">
         <div v-if="state !== 'create'">
-        <mark class="updateText">Update password with:</mark>
-      </div>
-      <div v-if="state == 'create'">
-        <b>Link Password</b>
-      </div>
+          <mark class="updateText">Update password with:</mark>
+        </div>
+        <div v-if="state == 'create'">
+          <b>Link Password</b>
+        </div>
       </label>
       <input
         v-model="linkPassword"
@@ -35,7 +34,6 @@ import { defineComponent } from 'vue';
 import { store } from '../../../store/store';
 
 export default defineComponent({
-
   props: {
     state: {
       type: String,

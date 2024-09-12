@@ -19,15 +19,15 @@
           <form class="modal-body">
             <LinkName :key="key" :state="currentLinkName" />
             <LinkDescription :key="key" :state="currentLinkDescription" />
-            <TheCategory :key="key" :state = "currentCategory"/>
-            <TheLink :key="key" :state = "currentLink" />
-            <TheLinkUsername :key="key" :state = "currentLinkUsername" />
-            <TheLinkPassword :key="key" :state = "currentLinkPassword" />
-            <TheContactName :key="key" :state = "currentContactName"/>
-            <TheContactPhoneNumber :key="key" :state = "currentContactPhoneNumber" />
-            <TheContactEmail :key="key" :state = "currentContactEmail" />
-            <TheLinkNotes :key="key" :state = "currentNotes" />
-            <TheUploadEncryptedFiles :key="key" :state = "currentFilename" />
+            <TheCategory :key="key" :state="currentCategory" />
+            <TheLink :key="key" :state="currentLink" />
+            <TheLinkUsername :key="key" :state="currentLinkUsername" />
+            <TheLinkPassword :key="key" :state="currentLinkPassword" />
+            <TheContactName :key="key" :state="currentContactName" />
+            <TheContactPhoneNumber :key="key" :state="currentContactPhoneNumber" />
+            <TheContactEmail :key="key" :state="currentContactEmail" />
+            <TheLinkNotes :key="key" :state="currentNotes" />
+            <TheUploadEncryptedFiles :key="key" :state="currentFilename" />
           </form>
           <div class="modal-footer d-flex justify-content-start">
             <AddBtn v-if="nBtn" @click.prevent="editLinkBtn"> Add </AddBtn>
@@ -322,7 +322,7 @@ export default defineComponent({
 
         const encryptedFilename = encryptString(filename);
         this.filename = encryptedFilename;
-        
+
         await supabase
           .from('link')
           .update({

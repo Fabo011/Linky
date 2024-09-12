@@ -2,7 +2,9 @@
   <div class="container">
     <label for="link-name" class="d-flex align-items-center">
       <div v-if="state !== 'create'">
-        <mark class="updateText">Update name <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark>
+        <mark class="updateText"
+          >Update name <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark
+        >
       </div>
       <div v-if="state == 'create'">
         <b>Name</b>
@@ -57,8 +59,8 @@ export default defineComponent({
     },
 
     takeText() {
-      this.linkname = this.state as string
-    }
+      this.linkname = this.state as string;
+    },
   },
 });
 </script>

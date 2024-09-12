@@ -2,7 +2,9 @@
   <div class="container">
     <label for="link-description" class="d-flex align-items-center">
       <div v-if="state !== 'create'">
-        <mark class="updateText">Update tags <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark>
+        <mark class="updateText"
+          >Update tags <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark
+        >
       </div>
       <div v-if="state == 'create'">
         <b>Tags</b>
@@ -57,8 +59,8 @@ export default defineComponent({
     },
 
     takeText() {
-      this.linkdescription = this.state as string
-    }
+      this.linkdescription = this.state as string;
+    },
   },
 });
 </script>

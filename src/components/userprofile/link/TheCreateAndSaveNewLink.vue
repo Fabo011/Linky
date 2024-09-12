@@ -49,7 +49,9 @@ import { store } from '../../../store/store';
 import AddBtn from '../../buttons/TheAddBtn.vue';
 import CloseModalButton from '../../buttons/TheCloseModalBtn.vue';
 import LoadingButton from '../../buttons/TheLoadingButton.vue';
+import { getAccountSize } from '../../lib/account';
 import { supabase } from '../../lib/supabaseClient';
+import { errorToastFileUpload } from '../../toasts/toasts';
 import TheContactEmail from '../contacts/TheContactEmail.vue';
 import TheContactName from '../contacts/TheContactName.vue';
 import TheContactPhoneNumber from '../contacts/TheContactPhoneNumber.vue';
@@ -158,10 +160,23 @@ export default defineComponent({
       }
 
       if (store.files) {
-        const filename = await uploadFile();
+        const maxSize = 150;
+        const { mb, gb, totalSizeInMB } = await getAccountSize();
+ 
+        let uploadSize = store.files[0].size / (1024 * 1024);
 
-        const encryptedFilename = encryptString(filename);
-        this.filename = encryptedFilename;
+        const totalSizeAfterUpload = totalSizeInMB + uploadSize; 
+
+        if (totalSizeAfterUpload < maxSize) {
+          const filename = await uploadFile();
+          const encryptedFilename = encryptString(filename);
+          this.filename = encryptedFilename;
+        } else {
+          this.executeCleanUp();
+          errorToastFileUpload();
+          return;
+        }
+        
       }
 
       try {

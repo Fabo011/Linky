@@ -1,15 +1,13 @@
 <template>
   <section>
+    <hr class="container" />
     <label class="space-docs"><b>Account & Utilization</b></label
     ><br />
-    <p>
-      Account Tariff: <b>{{ tariff }}</b>
-    </p>
-    <p>
-      {{ accountMB }}MB / {{ accountGB }}GB of <b>{{ size }}GB</b>
-    </p>
-    <div>
-      <h6>MB in %</h6>
+    <i class="text">
+      Account Tariff: <b>{{ tariff }}</b> </i
+    ><br />
+    <i class="text"> {{ accountMB }}MB of <b>150Mb</b> </i><br />
+    <div class="progress-container">
       <div class="progress">
         <div
           class="progress-bar"
@@ -19,23 +17,6 @@
           aria-valuemin="0"
           aria-valuemax="100"
         >
-          {{ accountMB }}%
-        </div>
-      </div>
-    </div>
-    <br />
-    <div>
-      <h6>GB in %</h6>
-      <div class="progress">
-        <div
-          class="progress-bar"
-          role="progressbar"
-          :style="{ width: `${accountGB}%` }"
-          :aria-valuenow="accountGB"
-          aria-valuemin="0"
-          aria-valuemax="100"
-        >
-          {{ accountGB }}%
         </div>
       </div>
     </div>
@@ -43,8 +24,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
 import { getAccountSize, tariffCheck } from '@/components/lib/account';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'TheAccountMetric.vue',
@@ -86,5 +67,22 @@ export default defineComponent({
 
 .space-docs {
   margin-top: 12px;
+}
+
+.text {
+  font-size: 12px;
+}
+
+.progress-container {
+  margin-top: 5px;
+}
+
+.progress {
+  width: 90%;
+  height: 8px;
+}
+
+.container {
+  margin-bottom: -5px;
 }
 </style>

@@ -1,8 +1,10 @@
 <template>
   <div class="container">
     <label for="fileInput" class="form-label d-flex align-items-center">
-        <div v-if="state !== 'create'">
-        <mark class="updateText">Update file <i class="currentText">{{ state }}</i> with:</mark>
+      <div v-if="state !== 'create'">
+        <mark class="updateText"
+          >Update file <i class="currentText">{{ state }}</i> with:</mark
+        >
       </div>
       <div v-if="state == 'create'">
         <b>Choose File</b>
@@ -15,6 +17,7 @@
       @change="handleFileChange"
       class="form-control"
       accept=".txt, .pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .odt, .odp, .ods, .odf, .png, .jpg, .jpeg"
+      multiple="false"
     />
   </div>
 </template>
@@ -42,11 +45,11 @@ export default defineComponent({
 
   methods: {
     async handleFileChange() {
-      const maxSize = 200 * 1024 * 1024; // 200MB in bytes
+      const maxSize = 150 * 1024 * 1024; // 150MB in bytes
       // @ts-ignore
       const files = this.$refs.fileInput.files;
 
-        if (files > maxSize) {
+      if (files > maxSize) {
         errorToastFileUpload();
       } else {
         store.files = files;

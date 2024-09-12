@@ -2,7 +2,10 @@
   <div class="container">
     <label for="link-category" class="d-flex align-items-center">
       <div v-if="state !== 'create'">
-        <mark class="updateText">Update category <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark>
+        <mark class="updateText"
+          >Update category
+          <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark
+        >
       </div>
       <div v-if="state == 'create'">
         <b>Category</b>
@@ -77,8 +80,8 @@ export default defineComponent({
     },
 
     takeText() {
-      this.category = this.state as string
-    }
+      this.category = this.state as string;
+    },
   },
 });
 </script>
