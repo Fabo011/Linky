@@ -1,6 +1,6 @@
 <template>
   <button class="btn share" @click.prevent="downloadFile()">
-    <div class="d-flex justify-content-center align-items-center">
+    <div class="d-flex justify-content-center align-items-center space">
       <TheDownloadIcon />
     </div>
     <span class="clipboard">Download File</span>
@@ -8,13 +8,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { supabase } from '@/components/lib/supabaseClient';
-import { store } from '@/store/store';
-import { errorToast, downloadtoast } from '@/components/toasts/toasts';
-import { decryptFile } from '@/components/crypto/crypto';
 import TheDownloadIcon from '@/assets/svg/TheDownloadIcon.vue';
+import { decryptFile } from '@/components/crypto/crypto';
+import { supabase } from '@/components/lib/supabaseClient';
+import { downloadtoast, errorToast } from '@/components/toasts/toasts';
+import { store } from '@/store/store';
 import swal from 'sweetalert2';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'TheDownloadFile.vue',
@@ -133,8 +133,8 @@ export default defineComponent({
 
     userInformation() {
       swal.fire({
-        title: 'Upload!',
-        text: 'Your file is uploading... Depending on the size it could take a while.',
+        title: 'Download!',
+        text: 'Your file is downloading... Depending on the size it could take a while.',
         imageUrl: '/img/upload.png',
         imageWidth: 200,
         imageHeight: 200,
@@ -155,5 +155,9 @@ export default defineComponent({
 .clipboard {
   margin: 0;
   font-size: 8px;
+}
+
+.space {
+  margin-top: 4px;
 }
 </style>

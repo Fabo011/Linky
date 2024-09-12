@@ -134,7 +134,8 @@ export const store = reactive({
                 contactname: decryptString(item.contactname),
                 contactemail: decryptString(item.contactemail),
                 contactphonenumber: decryptString(item.contactphonenumber),
-                notes: decryptString(item.notes)
+                notes: decryptString(item.notes),
+                filename: decryptString(item.filename)
                }));               
         
 

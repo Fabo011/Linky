@@ -2,7 +2,15 @@
   <div class="container">
     <div class="forms-inputs mb-4">
       <label for="link-username-email" class="d-block d-flex align-items-center">
-        <b>Contact Phone Number</b>
+        <div v-if="state !== 'create'">
+          <mark class="updateText"
+            >Update contact phone number
+            <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark
+          >
+        </div>
+        <div v-if="state == 'create'">
+          <b>Contact Phone Number</b>
+        </div>
       </label>
       <input
         v-model="contactPhoneNumber"
@@ -21,6 +29,12 @@ import { store } from '@/store/store';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
+  props: {
+    state: {
+      type: String,
+      required: false,
+    },
+  },
   data() {
     return {
       contactPhoneNumber: '',
@@ -30,6 +44,10 @@ export default defineComponent({
   methods: {
     set() {
       store.contactPhoneNumber = this.contactPhoneNumber;
+    },
+
+    takeText() {
+      this.contactPhoneNumber = this.state as string;
     },
   },
 });

@@ -1,7 +1,14 @@
 <template>
   <div class="container">
     <label for="link-description" class="d-flex align-items-center">
-      <b>Tags</b>
+      <div v-if="state !== 'create'">
+        <mark class="updateText"
+          >Update tags <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark
+        >
+      </div>
+      <div v-if="state == 'create'">
+        <b>Tags</b>
+      </div>
     </label>
     <input
       type="text"
@@ -24,6 +31,12 @@ import { store } from '../../../store/store';
 export default defineComponent({
   name: 'LinkDescription.vue',
 
+  props: {
+    state: {
+      type: String,
+      required: false,
+    },
+  },
   data() {
     return {
       linkdescription: '',
@@ -43,6 +56,10 @@ export default defineComponent({
 
     resetInput() {
       this.linkdescriptionError = '';
+    },
+
+    takeText() {
+      this.linkdescription = this.state as string;
     },
   },
 });

@@ -33,3 +33,13 @@ body {
 ::-webkit-scrollbar-track {
     background: #f0f0f0;
 }
+
+.updateText {
+    background-color: transparent;
+  }
+  
+.currentText {
+    color: var(--primary-blue-color);
+    text-decoration: underline;
+    cursor: pointer;
+}

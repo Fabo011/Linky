@@ -18,17 +18,17 @@
             <CloseModalButton />
           </div>
           <form class="modal-body">
-            <LinkName :key="key" />
-            <LinkDescription :key="key" />
-            <TheCategory :key="key" />
-            <TheLink :key="key" />
-            <TheLinkUsername :key="key" />
-            <TheLinkPassword :key="key" />
-            <TheContactName :key="key" />
-            <TheContactPhoneNumber :key="key" />
-            <TheContactEmail :key="key" />
-            <TheLinkNotes :key="key" />
-            <TheUploadEncryptedFiles :key="key" />
+            <LinkName :key="key" state="create" />
+            <LinkDescription :key="key" state="create" />
+            <TheCategory :key="key" state="create" />
+            <TheLink :key="key" state="create" />
+            <TheLinkUsername :key="key" state="create" />
+            <TheLinkPassword :key="key" state="create" />
+            <TheContactName :key="key" state="create" />
+            <TheContactPhoneNumber :key="key" state="create" />
+            <TheContactEmail :key="key" state="create" />
+            <TheLinkNotes :key="key" state="create" />
+            <TheUploadEncryptedFiles :key="key" state="create" />
           </form>
           <div class="modal-footer d-flex justify-content-start">
             <AddBtn v-if="nBtn" @click.prevent="addNewLinkBtn"> Add </AddBtn>
@@ -49,7 +49,9 @@ import { store } from '../../../store/store';
 import AddBtn from '../../buttons/TheAddBtn.vue';
 import CloseModalButton from '../../buttons/TheCloseModalBtn.vue';
 import LoadingButton from '../../buttons/TheLoadingButton.vue';
+import { getAccountSize } from '../../lib/account';
 import { supabase } from '../../lib/supabaseClient';
+import { errorToastFileUpload } from '../../toasts/toasts';
 import TheContactEmail from '../contacts/TheContactEmail.vue';
 import TheContactName from '../contacts/TheContactName.vue';
 import TheContactPhoneNumber from '../contacts/TheContactPhoneNumber.vue';
@@ -158,8 +160,23 @@ export default defineComponent({
       }
 
       if (store.files) {
-        const filename = await uploadFile();
-        this.filename = filename;
+        const maxSize = 150;
+        const { mb, gb, totalSizeInMB } = await getAccountSize();
+ 
+        let uploadSize = store.files[0].size / (1024 * 1024);
+
+        const totalSizeAfterUpload = totalSizeInMB + uploadSize; 
+
+        if (totalSizeAfterUpload < maxSize) {
+          const filename = await uploadFile();
+          const encryptedFilename = encryptString(filename);
+          this.filename = encryptedFilename;
+        } else {
+          this.executeCleanUp();
+          errorToastFileUpload();
+          return;
+        }
+        
       }
 
       try {
