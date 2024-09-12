@@ -2,7 +2,12 @@
   <div class="container">
     <div class="forms-inputs mb-4">
       <label for="link-username-name" class="d-block d-flex align-items-center">
+        <div v-if="state !== 'create'">
+        <mark class="updateText">Update contact name <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark>
+      </div>
+      <div v-if="state == 'create'">
         <b>Contact Name</b>
+      </div>
       </label>
       <input
         v-model="contactUsername"
@@ -22,6 +27,13 @@ import { store } from '@/store/store';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
+
+  props: {
+    state: {
+      type: String,
+      required: false,
+    },
+  },
   data() {
     return {
       contactUsername: '',
@@ -32,6 +44,10 @@ export default defineComponent({
     set() {
       store.contactName = this.contactUsername;
     },
+
+    takeText() {
+      this.contactUsername = this.state as string
+    }
   },
 });
 </script>

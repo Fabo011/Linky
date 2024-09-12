@@ -1,7 +1,12 @@
 <template>
   <div class="container">
     <label for="link-category" class="d-flex align-items-center">
-      <b>Category</b>
+      <div v-if="state !== 'create'">
+        <mark class="updateText">Update category <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark>
+      </div>
+      <div v-if="state == 'create'">
+        <b>Category</b>
+      </div>
     </label>
     <input
       type="text"
@@ -30,6 +35,12 @@ import { store } from '../../../store/store';
 export default defineComponent({
   name: 'TheCategory.vue',
 
+  props: {
+    state: {
+      type: String,
+      required: false,
+    },
+  },
   data() {
     return {
       category: '',
@@ -64,6 +75,10 @@ export default defineComponent({
     resetInput() {
       this.categoryError = '';
     },
+
+    takeText() {
+      this.category = this.state as string
+    }
   },
 });
 </script>

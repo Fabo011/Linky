@@ -18,17 +18,17 @@
             <CloseModalButton />
           </div>
           <form class="modal-body">
-            <LinkName :key="key" />
-            <LinkDescription :key="key" />
-            <TheCategory :key="key" />
-            <TheLink :key="key" />
-            <TheLinkUsername :key="key" />
-            <TheLinkPassword :key="key" />
-            <TheContactName :key="key" />
-            <TheContactPhoneNumber :key="key" />
-            <TheContactEmail :key="key" />
-            <TheLinkNotes :key="key" />
-            <TheUploadEncryptedFiles :key="key" />
+            <LinkName :key="key" state="create" />
+            <LinkDescription :key="key" state="create" />
+            <TheCategory :key="key" state="create" />
+            <TheLink :key="key" state="create" />
+            <TheLinkUsername :key="key" state="create" />
+            <TheLinkPassword :key="key" state="create" />
+            <TheContactName :key="key" state="create" />
+            <TheContactPhoneNumber :key="key" state="create" />
+            <TheContactEmail :key="key" state="create" />
+            <TheLinkNotes :key="key" state="create" />
+            <TheUploadEncryptedFiles :key="key" state="create" />
           </form>
           <div class="modal-footer d-flex justify-content-start">
             <AddBtn v-if="nBtn" @click.prevent="addNewLinkBtn"> Add </AddBtn>
@@ -159,7 +159,9 @@ export default defineComponent({
 
       if (store.files) {
         const filename = await uploadFile();
-        this.filename = filename;
+
+        const encryptedFilename = encryptString(filename);
+        this.filename = encryptedFilename;
       }
 
       try {

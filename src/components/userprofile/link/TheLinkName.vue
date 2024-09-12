@@ -1,7 +1,12 @@
 <template>
   <div class="container">
     <label for="link-name" class="d-flex align-items-center">
-      <b>Name</b>
+      <div v-if="state !== 'create'">
+        <mark class="updateText">Update name <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark>
+      </div>
+      <div v-if="state == 'create'">
+        <b>Name</b>
+      </div>
     </label>
     <input
       type="text"
@@ -24,6 +29,12 @@ import { store } from '../../../store/store';
 export default defineComponent({
   name: 'LinkName.vue',
 
+  props: {
+    state: {
+      type: String,
+      required: false,
+    },
+  },
   data() {
     return {
       linkname: '',
@@ -44,6 +55,10 @@ export default defineComponent({
     resetInput() {
       this.linknameError = '';
     },
+
+    takeText() {
+      this.linkname = this.state as string
+    }
   },
 });
 </script>

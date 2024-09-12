@@ -17,17 +17,17 @@
             <CloseModalButton @click="hideModal" />
           </div>
           <form class="modal-body">
-            <LinkName :key="key" />
-            <LinkDescription :key="key" />
-            <TheCategory :key="key" />
-            <TheLink :key="key" />
-            <TheLinkUsername :key="key" />
-            <TheLinkPassword :key="key" />
-            <TheContactName :key="key" />
-            <TheContactPhoneNumber :key="key" />
-            <TheContactEmail :key="key" />
-            <TheLinkNotes :key="key" />
-            <TheUploadEncryptedFiles :key="key" />
+            <LinkName :key="key" :state="currentLinkName" />
+            <LinkDescription :key="key" :state="currentLinkDescription" />
+            <TheCategory :key="key" :state = "currentCategory"/>
+            <TheLink :key="key" :state = "currentLink" />
+            <TheLinkUsername :key="key" :state = "currentLinkUsername" />
+            <TheLinkPassword :key="key" :state = "currentLinkPassword" />
+            <TheContactName :key="key" :state = "currentContactName"/>
+            <TheContactPhoneNumber :key="key" :state = "currentContactPhoneNumber" />
+            <TheContactEmail :key="key" :state = "currentContactEmail" />
+            <TheLinkNotes :key="key" :state = "currentNotes" />
+            <TheUploadEncryptedFiles :key="key" :state = "currentFilename" />
           </form>
           <div class="modal-footer d-flex justify-content-start">
             <AddBtn v-if="nBtn" @click.prevent="editLinkBtn"> Add </AddBtn>
@@ -91,6 +91,17 @@ export default defineComponent({
 
   data() {
     return {
+      currentLinkName: this.$props.item.linkname,
+      currentLinkDescription: this.$props.item.linkdescription,
+      currentCategory: this.$props.item.category,
+      currentLink: this.$props.item.link,
+      currentLinkUsername: this.$props.item.username,
+      currentLinkPassword: this.$props.item.password,
+      currentContactName: this.$props.item.contactname,
+      currentContactPhoneNumber: this.$props.item.contactphonenumber,
+      currentContactEmail: this.$props.item.contactemail,
+      currentNotes: this.$props.item.notes,
+      currentFilename: this.$props.item.filename,
       nBtn: true,
       loading: false,
       key: 1,
@@ -308,7 +319,22 @@ export default defineComponent({
 
       if (store.files) {
         const filename = await uploadFile();
-        this.filename = filename;
+
+        const encryptedFilename = encryptString(filename);
+        this.filename = encryptedFilename;
+        
+        await supabase
+          .from('link')
+          .update({
+            filename: encryptedFilename,
+          })
+          .eq(`user_id`, uuID)
+          .eq(`id`, id)
+          .then(() => {
+            this.executeCleanUp();
+            updatedtoast();
+            this.hideModal();
+          });
       }
     },
     executeCleanUp() {

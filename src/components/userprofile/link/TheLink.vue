@@ -2,7 +2,12 @@
   <div class="container">
     <div class="forms-inputs mb-3" id="space-top">
       <label class="d-flex align-items-center">
+        <div v-if="state !== 'create'">
+        <mark class="updateText">Update link <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark>
+      </div>
+      <div v-if="state == 'create'">
         <b>Link</b>
+      </div>
       </label>
       <input
         type="text"
@@ -25,6 +30,12 @@ import { store } from '../../../store/store';
 export default defineComponent({
   name: 'TheLink.vue',
 
+  props: {
+    state: {
+      type: String,
+      required: false,
+    },
+  },
   data() {
     return {
       link: '',
@@ -44,6 +55,10 @@ export default defineComponent({
       }
       store.setLink(this.link);
     },
+    
+    takeText() {
+      this.link = this.state as string
+    }
   },
 });
 </script>

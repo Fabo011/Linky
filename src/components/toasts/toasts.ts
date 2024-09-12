@@ -1,5 +1,4 @@
 import swal from 'sweetalert2';
-import router from '@/router/index';
 
 export const savedigitalkeytoast = () => {
     swal
@@ -60,14 +59,12 @@ export const errorToast = () => {
         });
 };
 
-export const errorToastFileUploadNoMembership = () => {
+export const errorToastFileUpload = () => {
     swal
         .fire({
             icon: 'error',
             html: `
-            You have to be a member to upload files. Thanks for understanding. <br>
-            <a href="https://www.buymeacoffee.com/linkycloudstorage/membership" target="_blank">Upgrade Account</a><br>
-            <a href="https://plisio.net/donate/BLH2GdX5" target="_blank">Upgrade Account with Crypto</a>
+            File size exceeds the limit of 200MB.
             `,
             showConfirmButton: true,
             confirmButtonText: 'Ok'

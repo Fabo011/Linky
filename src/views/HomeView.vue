@@ -14,8 +14,9 @@
           Linky Cloud
         </h1>
         <p>
-          Linky Cloud provides a premium and secure cloud storage solution tailored for privacy
-          enthusiasts. Our services ensure the encryption of all sensitive data, with exclusive
+          Linky Cloud provides a totally free open source premium and secure url, 
+          contact and password manager solution tailored for privacy
+          enthusiasts. Our services ensure the encryption of all data, with exclusive
           access granted only through your digital key for decryption. Emphasizing a commitment to
           privacy, we refrain from collecting personalized data, maintaining both you and your
           information in an anonymous and decentralized manner. All your data are encrypted.
