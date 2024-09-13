@@ -41,6 +41,7 @@
 
 <script lang="ts">
 import { encryptString } from '@/components/crypto/crypto';
+import { getAccountSize } from '@/components/lib/account';
 import { defineComponent } from 'vue';
 import LinkIcon from '../../../assets/svg/TheLinkIcon.vue';
 import { store } from '../../../store/store';
@@ -48,7 +49,7 @@ import AddBtn from '../../buttons/TheAddBtn.vue';
 import CloseModalButton from '../../buttons/TheCloseModalBtn.vue';
 import LoadingButton from '../../buttons/TheLoadingButton.vue';
 import { supabase } from '../../lib/supabaseClient';
-import { updatedtoast } from '../../toasts/toasts';
+import { errorToastFileUpload, updatedtoast } from '../../toasts/toasts';
 import TheContactEmail from '../contacts/TheContactEmail.vue';
 import TheContactName from '../contacts/TheContactName.vue';
 import TheContactPhoneNumber from '../contacts/TheContactPhoneNumber.vue';
@@ -317,24 +318,36 @@ export default defineComponent({
           });
       }
 
-      if (store.files) {
-        const filename = await uploadFile();
+      if (store.files && store.files.length > 0) {
+        const maxSize = 150;
+        const { mb, gb, totalSizeInMB } = await getAccountSize();
 
-        const encryptedFilename = encryptString(filename);
-        this.filename = encryptedFilename;
+        let uploadSize = store.files[0].size / (1024 * 1024);
 
-        await supabase
-          .from('link')
-          .update({
-            filename: encryptedFilename,
-          })
-          .eq(`user_id`, uuID)
-          .eq(`id`, id)
-          .then(() => {
-            this.executeCleanUp();
-            updatedtoast();
-            this.hideModal();
-          });
+        const totalSizeAfterUpload = totalSizeInMB + uploadSize;
+
+        if (totalSizeAfterUpload < maxSize) {
+          const filename = await uploadFile();
+          const encryptedFilename = encryptString(filename);
+          this.filename = encryptedFilename;
+
+          await supabase
+            .from('link')
+            .update({
+              filename: encryptedFilename,
+            })
+            .eq(`user_id`, uuID)
+            .eq(`id`, id)
+            .then(() => {
+              this.executeCleanUp();
+              updatedtoast();
+              this.hideModal();
+            });
+        } else {
+          this.executeCleanUp();
+          errorToastFileUpload();
+          return;
+        }
       }
     },
     executeCleanUp() {
