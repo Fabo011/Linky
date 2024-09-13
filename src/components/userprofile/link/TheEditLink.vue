@@ -49,7 +49,7 @@ import AddBtn from '../../buttons/TheAddBtn.vue';
 import CloseModalButton from '../../buttons/TheCloseModalBtn.vue';
 import LoadingButton from '../../buttons/TheLoadingButton.vue';
 import { supabase } from '../../lib/supabaseClient';
-import { errorToastFileUpload, updatedtoast } from '../../toasts/toasts';
+import { updatedtoast } from '../../toasts/toasts';
 import TheContactEmail from '../contacts/TheContactEmail.vue';
 import TheContactName from '../contacts/TheContactName.vue';
 import TheContactPhoneNumber from '../contacts/TheContactPhoneNumber.vue';
@@ -148,12 +148,7 @@ export default defineComponent({
             linkname: encryptedLinkName,
           })
           .eq(`user_id`, uuID)
-          .eq(`id`, id)
-          .then(() => {
-            this.executeCleanUp();
-            updatedtoast();
-            this.hideModal();
-          });
+          .eq(`id`, id);
       }
 
       if (store.linkdescription) {
@@ -166,12 +161,7 @@ export default defineComponent({
             linkdescription: encryptedLinkDescription,
           })
           .eq(`user_id`, uuID)
-          .eq(`id`, id)
-          .then(() => {
-            this.executeCleanUp();
-            updatedtoast();
-            this.hideModal();
-          });
+          .eq(`id`, id);
       }
 
       if (store.link) {
@@ -184,12 +174,7 @@ export default defineComponent({
             link: encryptedLink,
           })
           .eq(`user_id`, uuID)
-          .eq(`id`, id)
-          .then(() => {
-            this.executeCleanUp();
-            updatedtoast();
-            this.hideModal();
-          });
+          .eq(`id`, id);
       }
 
       if (store.category) {
@@ -202,12 +187,7 @@ export default defineComponent({
             category: encryptedCategory,
           })
           .eq(`id`, id)
-          .eq(`user_id`, uuID)
-          .then(() => {
-            this.executeCleanUp();
-            updatedtoast();
-            this.hideModal();
-          });
+          .eq(`user_id`, uuID);
       }
 
       if (store.linkUsername) {
@@ -220,12 +200,7 @@ export default defineComponent({
             linkusername: encryptedLinkUsername,
           })
           .eq(`user_id`, uuID)
-          .eq(`id`, id)
-          .then(() => {
-            this.executeCleanUp();
-            updatedtoast();
-            this.hideModal();
-          });
+          .eq(`id`, id);
       }
 
       if (store.linkPassword) {
@@ -238,12 +213,7 @@ export default defineComponent({
             linkpassword: encryptedPass,
           })
           .eq(`user_id`, uuID)
-          .eq(`id`, id)
-          .then(() => {
-            this.executeCleanUp();
-            updatedtoast();
-            this.hideModal();
-          });
+          .eq(`id`, id);
       }
 
       if (store.contactName) {
@@ -256,12 +226,7 @@ export default defineComponent({
             contactname: encryptedContactName,
           })
           .eq(`user_id`, uuID)
-          .eq(`id`, id)
-          .then(() => {
-            this.executeCleanUp();
-            updatedtoast();
-            this.hideModal();
-          });
+          .eq(`id`, id);
       }
 
       if (store.contactPhoneNumber) {
@@ -274,12 +239,7 @@ export default defineComponent({
             contactphonenumber: encryptedContactPhoneNumber,
           })
           .eq(`user_id`, uuID)
-          .eq(`id`, id)
-          .then(() => {
-            this.executeCleanUp();
-            updatedtoast();
-            this.hideModal();
-          });
+          .eq(`id`, id);
       }
 
       if (store.contactEmail) {
@@ -292,12 +252,7 @@ export default defineComponent({
             contactemail: encryptedContactEmail,
           })
           .eq(`user_id`, uuID)
-          .eq(`id`, id)
-          .then(() => {
-            this.executeCleanUp();
-            updatedtoast();
-            this.hideModal();
-          });
+          .eq(`id`, id);
       }
 
       if (store.linkNotes) {
@@ -310,12 +265,7 @@ export default defineComponent({
             notes: encryptedNotes,
           })
           .eq(`user_id`, uuID)
-          .eq(`id`, id)
-          .then(() => {
-            this.executeCleanUp();
-            updatedtoast();
-            this.hideModal();
-          });
+          .eq(`id`, id);
       }
 
       if (store.files && store.files.length > 0) {
@@ -337,18 +287,12 @@ export default defineComponent({
               filename: encryptedFilename,
             })
             .eq(`user_id`, uuID)
-            .eq(`id`, id)
-            .then(() => {
-              this.executeCleanUp();
-              updatedtoast();
-              this.hideModal();
-            });
-        } else {
-          this.executeCleanUp();
-          errorToastFileUpload();
-          return;
+            .eq(`id`, id);
         }
       }
+      this.executeCleanUp();
+      updatedtoast();
+      this.hideModal();
     },
     executeCleanUp() {
       this.nBtn = true;
