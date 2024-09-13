@@ -159,7 +159,9 @@ export default defineComponent({
         this.encryptedNotes = encryptedNotes;
       }
 
-      if (store.files) {
+      if (store.files && store.files.length > 0) {
+        console.log(store.files);
+
         const maxSize = 150;
         const { mb, gb, totalSizeInMB } = await getAccountSize();
 
