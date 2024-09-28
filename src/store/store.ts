@@ -1,4 +1,5 @@
 import { convertHexToString, convertStringToHex, decryptString } from '@/components/crypto/crypto';
+import { getAccountSize } from '@/components/lib/account';
 import router from '@/router/index';
 import { reactive } from 'vue';
 import { supabase } from '../components/lib/supabaseClient';
@@ -36,6 +37,13 @@ export const store = reactive({
 
     // crypto
     key: '',
+
+    // account
+    accountSizeInMB: '',
+    async updateAccountSize() {
+     const { mb, gb, totalSizeInMB } = await getAccountSize();
+     this.accountSizeInMB = mb;
+    },
 
     getKey() {
         const fullKey = sessionStorage.getItem('key') as string;
@@ -152,6 +160,8 @@ export const store = reactive({
              // @ts-ignore: Unreachable code error
              this.categories = Array.from(uniqueCategories)
              
+
+             await this.updateAccountSize();
            } catch (error) {
                console.error('retrieveAllLinks Error: ' + error);
            }   
