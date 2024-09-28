@@ -43,6 +43,7 @@ export default defineComponent({
 
   methods: {
     set() {
+      this.linkNotes = store.transformUmlauts(this.linkNotes);
       store.linkNotes = this.linkNotes;
     },
 

@@ -43,6 +43,7 @@ export default defineComponent({
 
   methods: {
     set() {
+      this.contactPhoneNumber = store.transformUmlauts(this.contactPhoneNumber);
       store.contactPhoneNumber = this.contactPhoneNumber;
     },
 

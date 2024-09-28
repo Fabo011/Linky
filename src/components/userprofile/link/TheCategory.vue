@@ -69,7 +69,7 @@ export default defineComponent({
       } else {
         this.categoryError = '';
       }
-
+      this.category = store.transformUmlauts(this.category);
       store.setCategory(this.category);
     },
 

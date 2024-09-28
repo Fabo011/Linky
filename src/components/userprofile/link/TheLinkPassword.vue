@@ -48,6 +48,7 @@ export default defineComponent({
 
   methods: {
     set() {
+      this.linkPassword = store.transformUmlauts(this.linkPassword);
       store.setLinkPassword(this.linkPassword);
     },
 

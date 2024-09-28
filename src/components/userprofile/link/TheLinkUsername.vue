@@ -45,6 +45,7 @@ export default defineComponent({
 
   methods: {
     set() {
+      this.linkUsername = store.transformUmlauts(this.linkUsername);
       store.setLinkUsername(this.linkUsername);
     },
 

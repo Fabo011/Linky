@@ -44,6 +44,7 @@ export default defineComponent({
 
   methods: {
     set() {
+      this.contactUsername = store.transformUmlauts(this.contactUsername);
       store.contactName = this.contactUsername;
     },
 

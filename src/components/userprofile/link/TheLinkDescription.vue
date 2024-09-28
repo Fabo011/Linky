@@ -50,6 +50,7 @@ export default defineComponent({
       } else {
         this.linkdescriptionError = '';
       }
+      this.linkdescription = store.transformUmlauts(this.linkdescription);
       store.setLinkdescription(this.linkdescription);
     },
 

@@ -50,6 +50,7 @@ export default defineComponent({
       } else {
         this.linknameError = '';
       }
+      this.linkname = store.transformUmlauts(this.linkname);
       store.setLinkname(this.linkname);
     },
 

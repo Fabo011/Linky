@@ -43,6 +43,7 @@ export default defineComponent({
 
   methods: {
     set() {
+      this.contactEmail = store.transformUmlauts(this.contactEmail);
       store.contactEmail = this.contactEmail;
     },
 

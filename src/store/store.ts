@@ -45,6 +45,21 @@ export const store = reactive({
      this.accountSizeInMB = mb;
     },
 
+    transformUmlauts(text: string) {
+        // Replace German Umlaut characters with the respective "ae", "ue", etc.
+        const umlautMap: { [key: string]: string } = {
+          'Ä': 'Ae',
+          'Ö': 'Oe',
+          'Ü': 'Ue',
+          'ä': 'ae',
+          'ö': 'oe',
+          'ü': 'ue',
+          'ß': 'ss',
+        };
+  
+        return text.replace(/[ÄÖÜäöüß]/g, (match) => umlautMap[match]);
+      },
+
     getKey() {
         const fullKey = sessionStorage.getItem('key') as string;
         return fullKey;
