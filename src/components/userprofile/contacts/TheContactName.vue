@@ -4,7 +4,7 @@
       <label for="link-username-name" class="d-block d-flex align-items-center">
         <div v-if="state !== 'create'">
           <mark class="updateText"
-            >Update contact name
+            ><b>Update contact name</b>
             <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark
           >
         </div>

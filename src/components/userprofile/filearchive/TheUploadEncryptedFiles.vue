@@ -3,7 +3,7 @@
     <label for="fileInput" class="form-label d-flex align-items-center">
       <div v-if="state !== 'create'">
         <mark class="updateText"
-          >Update file <i class="currentText">{{ state }}</i> with:</mark
+          ><b>Update file</b> <i class="currentText">{{ state }}</i> with:</mark
         >
       </div>
       <div v-if="state == 'create'">

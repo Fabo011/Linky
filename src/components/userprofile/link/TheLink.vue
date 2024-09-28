@@ -4,13 +4,11 @@
       <label class="d-flex align-items-center">
         <div v-if="state !== 'create'">
           <mark class="updateText"
-            >Update link
+            ><b>Update link </b>
             <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark
           >
         </div>
-        <div v-if="state == 'create'">
-          <b>Link</b>
-        </div>
+        <div v-if="state == 'create'"><b>Link</b><b class="text-primary">*</b></div>
       </label>
       <input
         type="text"

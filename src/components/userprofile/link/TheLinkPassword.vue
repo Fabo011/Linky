@@ -3,7 +3,7 @@
     <div class="forms-inputs mb-4">
       <label for="link-password" class="d-block d-flex align-items-center">
         <div v-if="state !== 'create'">
-          <mark class="updateText">Update password with:</mark>
+          <mark class="updateText"><b>Update password with:</b></mark>
         </div>
         <div v-if="state == 'create'">
           <b>Link Password</b>
