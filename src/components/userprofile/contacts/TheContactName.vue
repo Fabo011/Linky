@@ -17,7 +17,7 @@
         @input="set"
         placeholder="Lawyer"
         autocomplete="off"
-        maxlength="200"
+        maxlength="100"
         class="w-100"
         id="link-username-name"
       />

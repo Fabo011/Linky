@@ -98,36 +98,6 @@ export const store = reactive({
         }
     },
 
-    //searchbar
-    setSearchValue(searchValue: string) {
-       this.searchValue = searchValue
-    },
-
-    //createAndSaveNewLink
-    setLink(link: string){
-        this.link = link
-     },
-    setLinkname(linkname: string) {
-        this.linkname = linkname
-    },
-    setLinkdescription(linkdescription: string) {
-        this.linkdescription = linkdescription
-    },
-    setCategory(category: string) {
-        this.category = category
-        sessionStorage.setItem('cat', category);        
-    },
-    getCategory() {
-        return sessionStorage.getItem('cat');
-    },
-
-    setLinkPassword(linkPassword: string) {
-        this.linkPassword = linkPassword
-    },
-    setLinkUsername(linkUsername: string) {
-       this.linkUsername = linkUsername
-    },
-
     logout() {
         sessionStorage.removeItem('user');
         sessionStorage.removeItem('cat');

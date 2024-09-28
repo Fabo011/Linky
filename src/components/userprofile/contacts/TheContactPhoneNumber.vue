@@ -17,7 +17,7 @@
         @input="set"
         placeholder="+43 660 989898989"
         autocomplete="off"
-        maxlength="35"
+        maxlength="40"
         class="w-100"
       />
     </div>

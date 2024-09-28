@@ -73,11 +73,11 @@ export default defineComponent({
 
   methods: {
     setCategory(item) {
-      store.setSearchValue(item);
+      store.searchValue = item;
     },
 
     resetCategories() {
-      store.setSearchValue(this.resetValue);
+      store.searchValue = this.resetValue;
     },
 
     toggleNav() {

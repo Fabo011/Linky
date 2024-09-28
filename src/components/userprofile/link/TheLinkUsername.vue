@@ -17,11 +17,11 @@
         @input="set"
         placeholder="Bob"
         autocomplete="off"
-        minlength="6"
-        maxlength="200"
+        maxlength="100"
         class="w-100"
         id="link-username-email"
       />
+      <p class="text-danger">{{ error }}</p>
     </div>
   </div>
 </template>
@@ -40,13 +40,14 @@ export default defineComponent({
   data() {
     return {
       linkUsername: '',
+      error: '',
     };
   },
 
   methods: {
     set() {
       this.linkUsername = store.transformUmlauts(this.linkUsername);
-      store.setLinkUsername(this.linkUsername);
+      store.linkUsername = this.linkUsername;
     },
 
     takeText() {

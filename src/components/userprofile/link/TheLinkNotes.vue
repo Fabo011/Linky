@@ -17,7 +17,7 @@
         @input="set"
         placeholder="This is where I purchase my classes"
         autocomplete="off"
-        maxlength="4000"
+        maxlength="1000"
         class="w-100"
       />
     </div>

@@ -51,7 +51,7 @@ export default defineComponent({
         this.linkdescriptionError = '';
       }
       this.linkdescription = store.transformUmlauts(this.linkdescription);
-      store.setLinkdescription(this.linkdescription);
+      store.linkdescription = this.linkdescription;
     },
 
     resetInput() {

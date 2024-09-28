@@ -59,7 +59,7 @@ export default defineComponent({
     selectOption(item: string) {
       this.category = item;
       this.showOptions = false;
-      store.setCategory(this.category);
+      store.category = this.category;
     },
 
     validate() {
@@ -70,7 +70,7 @@ export default defineComponent({
         this.categoryError = '';
       }
       this.category = store.transformUmlauts(this.category);
-      store.setCategory(this.category);
+      store.category = this.category;
     },
 
     resetInput() {

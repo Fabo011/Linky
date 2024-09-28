@@ -14,7 +14,7 @@
       v-model="linkname"
       placeholder="linky"
       minlength="3"
-      maxlength="30"
+      maxlength="40"
       class="w-100"
       @input="validate"
       @click.prevent="resetInput"
@@ -45,13 +45,13 @@ export default defineComponent({
 
   methods: {
     validate() {
-      if (this.linkname.length < 3 || this.linkname.length > 20) {
-        this.linknameError = 'Linkname may have between 3 and 20 characters.';
+      if (this.linkname.length < 3 || this.linkname.length > 40) {
+        this.linknameError = 'Linkname may have between 3 and 40 characters.';
       } else {
         this.linknameError = '';
       }
       this.linkname = store.transformUmlauts(this.linkname);
-      store.setLinkname(this.linkname);
+      store.linkname = this.linkname;
     },
 
     resetInput() {

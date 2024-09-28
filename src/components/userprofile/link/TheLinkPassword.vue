@@ -14,8 +14,7 @@
         @input="set"
         placeholder="jsdho@hihiweifw!?"
         autocomplete="off"
-        minlength="6"
-        maxlength="3000"
+        maxlength="500"
         class="w-90 d-flex align-items-center"
         id="link-password"
       />
@@ -25,6 +24,7 @@
       >
         Generate Password
       </button>
+      <p class="text-danger">{{ error }}</p>
     </div>
   </div>
 </template>
@@ -43,13 +43,14 @@ export default defineComponent({
   data() {
     return {
       linkPassword: '',
+      error: '',
     };
   },
 
   methods: {
     set() {
       this.linkPassword = store.transformUmlauts(this.linkPassword);
-      store.setLinkPassword(this.linkPassword);
+      store.linkPassword = this.linkPassword;
     },
 
     async generatePassword() {
@@ -59,6 +60,7 @@ export default defineComponent({
         const randomIndex = Math.floor(Math.random() * characters.length);
         generatedPassword += characters[randomIndex];
       }
+
       this.linkPassword = generatedPassword;
 
       this.set();
