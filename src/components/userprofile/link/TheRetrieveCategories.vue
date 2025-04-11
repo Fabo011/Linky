@@ -24,7 +24,7 @@
 
         <div class="scroll">
           <div class="space">
-            <span>Categories</span>
+            <h6>Categories</h6>
             <div
               v-for="item in store.categories"
               :key="item.category"
@@ -37,6 +37,9 @@
               </div>
             </div>
             <TheAccountMetric />
+            <hr />
+            <h6>Backup</h6>
+            <TheExport />
           </div>
         </div>
       </div>
@@ -48,6 +51,7 @@
 import TheFolderIcon from '@/assets/svg/TheFolderIcon.vue';
 import TheReloadIcon from '@/assets/svg/TheReloadIcon.vue';
 import TheAccountMetric from '@/components/userprofile/account/TheAccountMetric.vue';
+import TheExport from '@/components/userprofile/export-import/TheExport.vue';
 import { defineComponent } from 'vue';
 import { store } from '../../../store/store';
 
@@ -57,6 +61,7 @@ export default defineComponent({
     TheFolderIcon,
     TheReloadIcon,
     TheAccountMetric,
+    TheExport,
   },
 
   data() {

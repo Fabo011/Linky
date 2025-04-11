@@ -1,8 +1,7 @@
 <template>
   <section>
     <hr class="container" />
-    <label class="space-docs"><b>Account & Utilization</b></label
-    ><br />
+    <h6 class="space-docs">Account Metric</h6>
     <i class="text">
       Account Tariff: <b>{{ tariff }}</b> </i
     ><br />
