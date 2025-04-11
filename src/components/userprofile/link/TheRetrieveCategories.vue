@@ -41,7 +41,7 @@
             <h6>Backup</h6>
             <TheExport />
             <hr />
-            <h6>Import</h6>
+            <h6>Import Data from CSV</h6>
             <TheImport />
           </div>
         </div>
