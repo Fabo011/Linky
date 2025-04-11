@@ -40,6 +40,9 @@
             <hr />
             <h6>Backup</h6>
             <TheExport />
+            <hr />
+            <h6>Import</h6>
+            <TheImport />
           </div>
         </div>
       </div>
@@ -52,6 +55,7 @@ import TheFolderIcon from '@/assets/svg/TheFolderIcon.vue';
 import TheReloadIcon from '@/assets/svg/TheReloadIcon.vue';
 import TheAccountMetric from '@/components/userprofile/account/TheAccountMetric.vue';
 import TheExport from '@/components/userprofile/export-import/TheExport.vue';
+import TheImport from '@/components/userprofile/export-import/TheImport.vue';
 import { defineComponent } from 'vue';
 import { store } from '../../../store/store';
 
@@ -62,6 +66,7 @@ export default defineComponent({
     TheReloadIcon,
     TheAccountMetric,
     TheExport,
+    TheImport,
   },
 
   data() {

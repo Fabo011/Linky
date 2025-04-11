@@ -1,0 +1,3 @@
+linkname,linkdescription,link,category,linkusername,linkpassword,contactname,contactphonenumber,contactemail,notes,filename
+GitHub Repo,My main project repository,https://github.com/user/project,Development,user123,pass123,John Doe,1234567890,john@example.com,Remember to update README,file123.pdf
+Company Wiki,Internal documentation portal,https://wiki.company.com,Work,userWiki,wikiPass,Jane Smith,0987654321,jane@company.com,Add SSO login link,wiki_docs.pdf
