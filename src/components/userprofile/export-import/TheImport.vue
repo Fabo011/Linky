@@ -93,12 +93,13 @@ input[type='file'] {
 
 .upload-label {
   background-color: var(--primary-blue-color);
-  color: white;
-  padding: 0.6rem 1.2rem;
+  color: var(--primary-white-color);
   border-radius: 5px;
   cursor: pointer;
-  font-weight: 500;
+  padding: 8px;
+  font-size: small;
   user-select: none;
   display: inline-block;
+  margin-top: -8px;
 }
 </style>

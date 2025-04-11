@@ -1,5 +1,5 @@
 <template>
-  <button @click.prevent="downloadFile">Download CSV</button>
+  <button @click.prevent="downloadFile">Export CSV</button>
 </template>
 
 <script lang="ts">
@@ -42,7 +42,7 @@ export default defineComponent({
       // Trigger download
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'export.csv';
+      a.download = 'linkycloud.csv';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -54,7 +54,8 @@ export default defineComponent({
 
 <style scoped>
 button {
-  padding: 0.5rem 1rem;
+  padding: 8px;
+  font-size: small;
   background-color: var(--primary-blue-color);
   color: var(--primary-white-color);
   border: none;

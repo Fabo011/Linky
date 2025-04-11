@@ -38,8 +38,9 @@
             </div>
             <TheAccountMetric />
             <hr />
-            <h6>Backup</h6>
+            <h6>Export - Backup</h6>
             <TheExport />
+            <TheFirefoxExport />
             <hr />
             <h6>Import Data from CSV</h6>
             <TheImport />
@@ -55,6 +56,7 @@ import TheFolderIcon from '@/assets/svg/TheFolderIcon.vue';
 import TheReloadIcon from '@/assets/svg/TheReloadIcon.vue';
 import TheAccountMetric from '@/components/userprofile/account/TheAccountMetric.vue';
 import TheExport from '@/components/userprofile/export-import/TheExport.vue';
+import TheFirefoxExport from '@/components/userprofile/export-import/TheFirefoxExport.vue';
 import TheImport from '@/components/userprofile/export-import/TheImport.vue';
 import { defineComponent } from 'vue';
 import { store } from '../../../store/store';
@@ -67,6 +69,7 @@ export default defineComponent({
     TheAccountMetric,
     TheExport,
     TheImport,
+    TheFirefoxExport,
   },
 
   data() {
