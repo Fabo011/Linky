@@ -44,6 +44,10 @@
             <hr />
             <h6>Import Data from CSV</h6>
             <TheImport />
+            <hr />
+            <h6>Documentation</h6>
+            <a href="https://github.com/Fabo011/Linky/wiki/Linky-Cloud-User-Documentation" target="_blank">Docs</a><br>
+            <a href="https://github.com/Fabo011/Linky/discussions" target="_blank">Discussions</a>
           </div>
         </div>
       </div>
