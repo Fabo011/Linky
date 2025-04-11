@@ -3,12 +3,11 @@
     <label for="link-description" class="d-flex align-items-center">
       <div v-if="state !== 'create'">
         <mark class="updateText"
-          >Update tags <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark
+          ><b>Update tags </b>
+          <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark
         >
       </div>
-      <div v-if="state == 'create'">
-        <b>Tags</b>
-      </div>
+      <div v-if="state == 'create'"><b>Tags</b><b class="text-primary">*</b></div>
     </label>
     <input
       type="text"
@@ -51,7 +50,8 @@ export default defineComponent({
       } else {
         this.linkdescriptionError = '';
       }
-      store.setLinkdescription(this.linkdescription);
+      this.linkdescription = store.transformUmlauts(this.linkdescription);
+      store.linkdescription = this.linkdescription;
     },
 
     resetInput() {

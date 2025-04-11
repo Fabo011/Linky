@@ -40,8 +40,8 @@
         </li>
         <li>
           <strong>Data Security:</strong> Your security is essential to us. We take every reasonable
-          precaution to protect your data and ensure the security of our project. All your sensible
-          data like files, passwords, chat messages etc. are encrypted with your digital key.
+          precaution to protect your data and ensure the security of our project. All your
+          data like links,files, passwords, notes etc. are encrypted with your digital key.
         </li>
       </ul>
     </section>
@@ -68,9 +68,9 @@
     <section class="questions-concerns">
       <h2>Questions or Concerns</h2>
       <p>
-        If you have any questions, concerns, or would like to request the deletion of any data
-        (although we don't collect any personal data), please feel free to reach out to us through
-        the contact information provided email above.
+        If you have any questions or concerns, please feel free to reach out to us through
+        the contact information provided email above.<br>
+        If you want to delete your account with all data, just hit the delete account button in your dashboard.
       </p>
     </section>
   </div>

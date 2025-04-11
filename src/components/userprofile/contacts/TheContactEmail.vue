@@ -4,7 +4,7 @@
       <label for="link-contact-email" class="d-block d-flex align-items-center">
         <div v-if="state !== 'create'">
           <mark class="updateText"
-            >Update contact email
+            ><b>Update contact email</b>
             <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark
           >
         </div>
@@ -43,6 +43,7 @@ export default defineComponent({
 
   methods: {
     set() {
+      this.contactEmail = store.transformUmlauts(this.contactEmail);
       store.contactEmail = this.contactEmail;
     },
 

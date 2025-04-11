@@ -3,13 +3,11 @@
     <label for="link-category" class="d-flex align-items-center">
       <div v-if="state !== 'create'">
         <mark class="updateText"
-          >Update category
+          ><b>Update category </b>
           <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark
         >
       </div>
-      <div v-if="state == 'create'">
-        <b>Category</b>
-      </div>
+      <div v-if="state == 'create'"><b>Category</b><b class="text-primary">*</b></div>
     </label>
     <input
       type="text"
@@ -61,7 +59,7 @@ export default defineComponent({
     selectOption(item: string) {
       this.category = item;
       this.showOptions = false;
-      store.setCategory(this.category);
+      store.category = this.category;
     },
 
     validate() {
@@ -71,8 +69,8 @@ export default defineComponent({
       } else {
         this.categoryError = '';
       }
-
-      store.setCategory(this.category);
+      this.category = store.transformUmlauts(this.category);
+      store.category = this.category;
     },
 
     resetInput() {

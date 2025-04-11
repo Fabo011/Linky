@@ -1,12 +1,11 @@
 <template>
   <section>
     <hr class="container" />
-    <label class="space-docs"><b>Account & Utilization</b></label
-    ><br />
+    <h6 class="space-docs">Account Metric</h6>
     <i class="text">
       Account Tariff: <b>{{ tariff }}</b> </i
     ><br />
-    <i class="text"> {{ accountMB }}MB of <b>150Mb</b> </i><br />
+    <i class="text"> {{ store.accountSizeInMB }}MB of <b>150Mb</b> </i><br />
     <div class="progress-container">
       <div class="progress">
         <div
@@ -23,8 +22,9 @@
 </template>
 
 <script lang="ts">
-import { getAccountSize, tariffCheck } from '@/components/lib/account';
+import { tariffCheck } from '@/components/lib/account';
 import { defineComponent } from 'vue';
+import { store } from '../../../store/store';
 
 export default defineComponent({
   name: 'TheAccountMetric.vue',
@@ -36,14 +36,11 @@ export default defineComponent({
       accountGB: 0,
       tariff: '',
       size: '',
+      store,
     };
   },
 
   async beforeMount() {
-    const { mb, gb }: any = await getAccountSize();
-    this.accountMB = mb;
-    this.accountGB = gb;
-
     const tariff = sessionStorage.getItem('tariff') as string;
     this.tariff = tariff;
 

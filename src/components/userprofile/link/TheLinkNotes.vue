@@ -4,7 +4,7 @@
       <label for="link-contact-email" class="d-block d-flex align-items-center">
         <div v-if="state !== 'create'">
           <mark class="updateText"
-            >Update notes
+            ><b>Update notes </b>
             <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark
           >
         </div>
@@ -17,7 +17,7 @@
         @input="set"
         placeholder="This is where I purchase my classes"
         autocomplete="off"
-        maxlength="4000"
+        maxlength="1000"
         class="w-100"
       />
     </div>
@@ -43,6 +43,7 @@ export default defineComponent({
 
   methods: {
     set() {
+      this.linkNotes = store.transformUmlauts(this.linkNotes);
       store.linkNotes = this.linkNotes;
     },
 

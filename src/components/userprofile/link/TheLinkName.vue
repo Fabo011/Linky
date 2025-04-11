@@ -3,19 +3,18 @@
     <label for="link-name" class="d-flex align-items-center">
       <div v-if="state !== 'create'">
         <mark class="updateText"
-          >Update name <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark
+          ><b>Update name </b>
+          <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark
         >
       </div>
-      <div v-if="state == 'create'">
-        <b>Name</b>
-      </div>
+      <div v-if="state == 'create'"><b>Name</b><b class="text-primary">*</b></div>
     </label>
     <input
       type="text"
       v-model="linkname"
       placeholder="linky"
       minlength="3"
-      maxlength="30"
+      maxlength="40"
       class="w-100"
       @input="validate"
       @click.prevent="resetInput"
@@ -46,12 +45,13 @@ export default defineComponent({
 
   methods: {
     validate() {
-      if (this.linkname.length < 3 || this.linkname.length > 20) {
-        this.linknameError = 'Linkname may have between 3 and 20 characters.';
+      if (this.linkname.length < 3 || this.linkname.length > 40) {
+        this.linknameError = 'Linkname may have between 3 and 40 characters.';
       } else {
         this.linknameError = '';
       }
-      store.setLinkname(this.linkname);
+      this.linkname = store.transformUmlauts(this.linkname);
+      store.linkname = this.linkname;
     },
 
     resetInput() {

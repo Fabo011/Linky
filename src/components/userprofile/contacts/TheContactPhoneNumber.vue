@@ -4,7 +4,7 @@
       <label for="link-username-email" class="d-block d-flex align-items-center">
         <div v-if="state !== 'create'">
           <mark class="updateText"
-            >Update contact phone number
+            ><b>Update contact phone number</b>
             <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark
           >
         </div>
@@ -17,7 +17,7 @@
         @input="set"
         placeholder="+43 660 989898989"
         autocomplete="off"
-        maxlength="35"
+        maxlength="40"
         class="w-100"
       />
     </div>
@@ -43,6 +43,7 @@ export default defineComponent({
 
   methods: {
     set() {
+      this.contactPhoneNumber = store.transformUmlauts(this.contactPhoneNumber);
       store.contactPhoneNumber = this.contactPhoneNumber;
     },
 

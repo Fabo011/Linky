@@ -1,4 +1,5 @@
 import { convertHexToString, convertStringToHex, decryptString } from '@/components/crypto/crypto';
+import { getAccountSize } from '@/components/lib/account';
 import router from '@/router/index';
 import { reactive } from 'vue';
 import { supabase } from '../components/lib/supabaseClient';
@@ -37,6 +38,28 @@ export const store = reactive({
     // crypto
     key: '',
 
+    // account
+    accountSizeInMB: '',
+    async updateAccountSize() {
+     const { mb, gb, totalSizeInMB } = await getAccountSize();
+     this.accountSizeInMB = mb;
+    },
+
+    transformUmlauts(text: string) {
+        // Replace German Umlaut characters with the respective "ae", "ue", etc.
+        const umlautMap: { [key: string]: string } = {
+          'Ä': 'Ae',
+          'Ö': 'Oe',
+          'Ü': 'Ue',
+          'ä': 'ae',
+          'ö': 'oe',
+          'ü': 'ue',
+          'ß': 'ss',
+        };
+  
+        return text.replace(/[ÄÖÜäöüß]/g, (match) => umlautMap[match]);
+      },
+
     getKey() {
         const fullKey = sessionStorage.getItem('key') as string;
         return fullKey;
@@ -73,36 +96,6 @@ export const store = reactive({
         } catch (error) {
             router.push('signin');
         }
-    },
-
-    //searchbar
-    setSearchValue(searchValue: string) {
-       this.searchValue = searchValue
-    },
-
-    //createAndSaveNewLink
-    setLink(link: string){
-        this.link = link
-     },
-    setLinkname(linkname: string) {
-        this.linkname = linkname
-    },
-    setLinkdescription(linkdescription: string) {
-        this.linkdescription = linkdescription
-    },
-    setCategory(category: string) {
-        this.category = category
-        sessionStorage.setItem('cat', category);        
-    },
-    getCategory() {
-        return sessionStorage.getItem('cat');
-    },
-
-    setLinkPassword(linkPassword: string) {
-        this.linkPassword = linkPassword
-    },
-    setLinkUsername(linkUsername: string) {
-       this.linkUsername = linkUsername
     },
 
     logout() {
@@ -152,6 +145,8 @@ export const store = reactive({
              // @ts-ignore: Unreachable code error
              this.categories = Array.from(uniqueCategories)
              
+
+             await this.updateAccountSize();
            } catch (error) {
                console.error('retrieveAllLinks Error: ' + error);
            }   

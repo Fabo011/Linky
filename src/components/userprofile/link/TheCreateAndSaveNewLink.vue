@@ -22,12 +22,20 @@
             <LinkDescription :key="key" state="create" />
             <TheCategory :key="key" state="create" />
             <TheLink :key="key" state="create" />
+            <hr />
+            <h6>Optional</h6>
             <TheLinkUsername :key="key" state="create" />
             <TheLinkPassword :key="key" state="create" />
+            <hr />
+            <h6>Optional</h6>
             <TheContactName :key="key" state="create" />
             <TheContactPhoneNumber :key="key" state="create" />
             <TheContactEmail :key="key" state="create" />
+            <hr />
+            <h6>Optional</h6>
             <TheLinkNotes :key="key" state="create" />
+            <hr />
+            <h6>Optional</h6>
             <TheUploadEncryptedFiles :key="key" state="create" />
           </form>
           <div class="modal-footer d-flex justify-content-start">

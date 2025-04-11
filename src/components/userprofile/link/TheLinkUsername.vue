@@ -4,7 +4,7 @@
       <label for="link-username-email" class="d-block d-flex align-items-center">
         <div v-if="state !== 'create'">
           <mark class="updateText"
-            >Update username or email
+            ><b>Update username or email</b>
             <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark
           >
         </div>
@@ -17,11 +17,11 @@
         @input="set"
         placeholder="Bob"
         autocomplete="off"
-        minlength="6"
-        maxlength="200"
+        maxlength="100"
         class="w-100"
         id="link-username-email"
       />
+      <p class="text-danger">{{ error }}</p>
     </div>
   </div>
 </template>
@@ -40,12 +40,14 @@ export default defineComponent({
   data() {
     return {
       linkUsername: '',
+      error: '',
     };
   },
 
   methods: {
     set() {
-      store.setLinkUsername(this.linkUsername);
+      this.linkUsername = store.transformUmlauts(this.linkUsername);
+      store.linkUsername = this.linkUsername;
     },
 
     takeText() {

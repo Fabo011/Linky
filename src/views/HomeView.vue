@@ -1,6 +1,6 @@
 <template>
   <PageNav />
-  <article>
+  <article class="container">
     <section
       class="position-absolute top-50 start-50 translate-middle w-70 p-3 section-con"
       style="color: #333"
@@ -19,7 +19,6 @@
           encryption of all data, with exclusive access granted only through your digital key for
           decryption. Emphasizing a commitment to privacy, we refrain from collecting personalized
           data, maintaining both you and your information in an anonymous and decentralized manner.
-          All your data are encrypted.
         </p>
         <div class="features">
           <div class="feature">
@@ -134,8 +133,11 @@ body {
   .section-con {
     margin-top: 15%;
     height: 100%;
-    margin-bottom: 5%;
+    margin-bottom: 15%;
     width: 98%;
+  }
+  .container {
+    margin-bottom: 1100px;
   }
 }
 </style>

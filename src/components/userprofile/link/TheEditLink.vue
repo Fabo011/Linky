@@ -16,17 +16,25 @@
             <h5 class="modal-title" id="linkyModalLabel"><b>Edit Link</b></h5>
             <CloseModalButton @click="hideModal" />
           </div>
-          <form class="modal-body">
+          <form class="modal-body" style="text-align: left">
             <LinkName :key="key" :state="currentLinkName" />
             <LinkDescription :key="key" :state="currentLinkDescription" />
             <TheCategory :key="key" :state="currentCategory" />
             <TheLink :key="key" :state="currentLink" />
+            <hr />
+            <pre>Optional</pre>
             <TheLinkUsername :key="key" :state="currentLinkUsername" />
             <TheLinkPassword :key="key" :state="currentLinkPassword" />
+            <hr />
+            <pre>Optional</pre>
             <TheContactName :key="key" :state="currentContactName" />
             <TheContactPhoneNumber :key="key" :state="currentContactPhoneNumber" />
             <TheContactEmail :key="key" :state="currentContactEmail" />
+            <hr />
+            <pre>Optional</pre>
             <TheLinkNotes :key="key" :state="currentNotes" />
+            <hr />
+            <pre>Optional</pre>
             <TheUploadEncryptedFiles :key="key" :state="currentFilename" />
           </form>
           <div class="modal-footer d-flex justify-content-start">

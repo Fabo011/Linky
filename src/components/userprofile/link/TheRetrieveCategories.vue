@@ -24,7 +24,7 @@
 
         <div class="scroll">
           <div class="space">
-            <span>Categories</span>
+            <h6>Categories</h6>
             <div
               v-for="item in store.categories"
               :key="item.category"
@@ -37,6 +37,17 @@
               </div>
             </div>
             <TheAccountMetric />
+            <hr />
+            <h6>Export - Backup</h6>
+            <TheExport />
+            <TheFirefoxExport />
+            <hr />
+            <h6>Import Data from CSV</h6>
+            <TheImport />
+            <hr />
+            <h6>Documentation</h6>
+            <a href="https://github.com/Fabo011/Linky/wiki/Linky-Cloud-User-Documentation" target="_blank">Docs</a><br>
+            <a href="https://github.com/Fabo011/Linky/discussions" target="_blank">Discussions</a>
           </div>
         </div>
       </div>
@@ -48,6 +59,9 @@
 import TheFolderIcon from '@/assets/svg/TheFolderIcon.vue';
 import TheReloadIcon from '@/assets/svg/TheReloadIcon.vue';
 import TheAccountMetric from '@/components/userprofile/account/TheAccountMetric.vue';
+import TheExport from '@/components/userprofile/export-import/TheExport.vue';
+import TheFirefoxExport from '@/components/userprofile/export-import/TheFirefoxExport.vue';
+import TheImport from '@/components/userprofile/export-import/TheImport.vue';
 import { defineComponent } from 'vue';
 import { store } from '../../../store/store';
 
@@ -57,6 +71,9 @@ export default defineComponent({
     TheFolderIcon,
     TheReloadIcon,
     TheAccountMetric,
+    TheExport,
+    TheImport,
+    TheFirefoxExport,
   },
 
   data() {
@@ -73,11 +90,11 @@ export default defineComponent({
 
   methods: {
     setCategory(item) {
-      store.setSearchValue(item);
+      store.searchValue = item;
     },
 
     resetCategories() {
-      store.setSearchValue(this.resetValue);
+      store.searchValue = this.resetValue;
     },
 
     toggleNav() {
