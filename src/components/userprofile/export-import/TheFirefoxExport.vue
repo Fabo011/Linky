@@ -55,7 +55,9 @@ export default defineComponent({
       for (const [category, items] of Object.entries(bookmarksByCategory)) {
         htmlContent += `    <DT><H3 ADD_DATE="${now}">${escapeHtml(category)}</H3>\n    <DL><p>\n`;
         for (const item of items) {
-          htmlContent += `      <DT><A HREF="${escapeHtml(item.link)}" ADD_DATE="${now}">${escapeHtml(item.link)}</A>\n`;
+          htmlContent += `      <DT><A HREF="${escapeHtml(
+            item.link,
+          )}" ADD_DATE="${now}">${escapeHtml(item.link)}</A>\n`;
         }
         htmlContent += `    </DL><p>\n`;
       }
