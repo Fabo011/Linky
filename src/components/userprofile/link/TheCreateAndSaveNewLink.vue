@@ -35,7 +35,7 @@
             <h6>Optional</h6>
             <TheLinkNotes :key="key" state="create" />
             <hr />
-            <h6>Optional</h6>
+            <h6>Optional - Upload Recovery Keys and other Secrets</h6>
             <TheUploadEncryptedFiles :key="key" state="create" />
           </form>
           <div class="modal-footer d-flex justify-content-start">
