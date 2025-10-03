@@ -35,11 +35,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.PIPE_TOKEN }}
 
-      - name: Build and Push Docker image
-        run: |
-          IMAGE_ID=ghcr.io/${{ github.repository }}
-          VERSION=${{ steps.version.outputs.version }}
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[:upper:]' '[:lower:]')
-          docker build -t $IMAGE_ID:$VERSION -t $IMAGE_ID:latest .
-          docker push $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:latest
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          platforms: linux/arm64
+          tags: |
+             ghcr.io/${{ github.repository }}:${{ steps.version.outputs.version }}
+             ghcr.io/${{ github.repository }}:latest
