@@ -2,7 +2,7 @@ name: Build Linky-Cloud
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "pipeline" ]
 
 jobs:
   build:
@@ -35,18 +35,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.PIPE_TOKEN }}
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Build and Push Multi-Arch Docker image
+      - name: Build and Push Docker image
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository }}
           VERSION=${{ steps.version.outputs.version }}
           IMAGE_ID=$(echo $IMAGE_ID | tr '[:upper:]' '[:lower:]')
-
-          docker buildx build \
-            --platform linux/amd64,linux/arm64 \
-            -t $IMAGE_ID:$VERSION \
-            -t $IMAGE_ID:latest \
-            --push .
-
+          docker build -t $IMAGE_ID:$VERSION -t $IMAGE_ID:latest .
+          docker push $IMAGE_ID:$VERSION
+          docker push $IMAGE_ID:latest
