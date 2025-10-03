@@ -1,6 +1,6 @@
 {
   "name": "linky",
-  "version": "4.0.8-kube",
+  "version": "4.0.9-kube",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
