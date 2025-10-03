@@ -35,12 +35,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.PIPE_TOKEN }}
 
-      - name: Build and Push Docker Image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          platforms: linux/arm64
-          tags: |
-             ghcr.io/${{ github.repository }}:${{ steps.version.outputs.version }}
-             ghcr.io/${{ github.repository }}:latest
+      - name: Build and Push Multi-Arch Docker image
+        run: |
+          IMAGE_ID=ghcr.io/${{ github.repository }}
+          VERSION=${{ steps.version.outputs.version }}
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[:upper:]' '[:lower:]')
+
+          docker buildx build \
+            --platform linux/arm64 \
+            -t $IMAGE_ID:$VERSION \
+            -t $IMAGE_ID:latest \
+            --push .
