@@ -2,11 +2,10 @@ name: Build Linky-Cloud
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "pipeline" ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -14,27 +13,35 @@ jobs:
         node-version: [18.x]
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build
-      
-    - name: Get package version
-      id: version
-      run: echo ::set-output name=version::$(node -pe "require('./package.json').version") 
+      - uses: actions/checkout@v3
 
-    - name: Create Tag
-      run: |
-        git config --global user.email "linky-cloud@proton.me"
-        git config --global user.name "Fabo011"
-        git tag -a v${{ steps.version.outputs.version }} -m "v${{ steps.version.outputs.version }}"
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
-    - name: Push Tag
-      run: |
-        git config --global user.email "linky-cloud@proton.me"
-        git config --global user.name "Fabo011"
-        git push origin --tags
+      - run: npm ci
+      - run: npm run build
+
+      - name: Get package version
+        id: version
+        run: echo "version=$(node -pe \"require('./package.json').version\")" >> $GITHUB_OUTPUT
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.PIPE_TOKEN }}
+
+      - name: Build and Push Docker image
+        run: |
+          IMAGE_ID=ghcr.io/${{ github.repository }}
+          VERSION=${{ steps.version.outputs.version }}
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[:upper:]' '[:lower:]')
+
+          docker build -t $IMAGE_ID:$VERSION -t $IMAGE_ID:latest .
+          docker push $IMAGE_ID:$VERSION
+          docker push $IMAGE_ID:latest
+
