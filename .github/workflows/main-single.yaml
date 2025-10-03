@@ -21,6 +21,14 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
+      # QEMU for multi-arch builds - REQUIRED for arm64 on x86 runners
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      # Docker Buildx for multi-platform support
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - run: npm ci
       - run: npm run build
 
@@ -35,6 +43,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.PIPE_TOKEN }}
 
+      # Multi-arch build and push
       - name: Build and Push Multi-Arch Docker image
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository }}
