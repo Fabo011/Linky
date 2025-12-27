@@ -1,3 +1,5 @@
+# It´s possible to run this on microK8s (https://github.com/Fabo011/microk8s-cluster) and docker compose
+
 # Stage 1: Build Vue app
 FROM node:18 as build-stage
 WORKDIR /app

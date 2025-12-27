@@ -2,7 +2,7 @@ name: Build Linky-Cloud
 
 on:
   push:
-    branches: [ "pipeline" ]
+    branches: [ "master" ]
 
 jobs:
   build:
@@ -43,7 +43,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.PIPE_TOKEN }}
 
-      # Multi-arch build and push
+      # Single-arch build and push
       - name: Build and Push Multi-Arch Docker image
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository }}
