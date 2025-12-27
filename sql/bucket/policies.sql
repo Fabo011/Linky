@@ -1,6 +1,8 @@
 /*Give users access to own folder*/
 bucket_id = 'linky' AND auth.uid()::text = (storage.foldername(name))[1]
 
+((bucket_id = 'linky'::text) AND ((auth.uid())::text = (storage.foldername(name))[1]))
+
 CREATE POLICY "Give users access to own folder 1pb5xb_0" ON storage.objects FOR SELECT TO public USING (bucket_id = 'linky' AND auth.uid()::text = (storage.foldername(name))[1]);
 
 CREATE POLICY "Give users access to own folder 1pb5xb_1" ON storage.objects FOR INSERT TO public WITH CHECK (bucket_id = 'linky' AND auth.uid()::text = (storage.foldername(name))[1]);

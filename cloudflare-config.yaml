@@ -1,0 +1,5 @@
+# See Cloudflare Tunnel settings
+ingress:
+  - hostname: linky.fabo011-cloud.de
+    service: http://linkycloud:80
+  - service: http_status:404

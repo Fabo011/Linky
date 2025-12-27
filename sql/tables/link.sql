@@ -1,15 +1,16 @@
-create table
-  public.link (
-    id uuid not null default gen_random_uuid (),
-    user_id uuid not null default auth.uid (),
-    linkname text null,
-    linkdescription text null,
-    category text null,
-    link text null ,
-    linkusername text null,
-    linkpassword text null,
-    contactname text null,
-    contactphonenumber text null,
-    contactemail text null,
-    linknotes text null,
-  ) tablespace pg_default;
+CREATE TABLE public.link (
+  linkname text NOT NULL,
+  linkdescription text,
+  category text NOT NULL,
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  link text DEFAULT ''::text,
+  user_id uuid NOT NULL DEFAULT auth.uid(),
+  linkusername text DEFAULT ''::text,
+  linkpassword text DEFAULT ''::text,
+  contactname text,
+  contactphonenumber text,
+  contactemail text,
+  notes text,
+  filename text,
+  CONSTRAINT link_pkey PRIMARY KEY (id)
+);

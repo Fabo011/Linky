@@ -1,0 +1,33 @@
+services:
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "8090:8080"
+    environment:
+      WATCHTOWER_POLL_INTERVAL: 86400  # 86400 check every 24 hours
+      WATCHTOWER_CLEANUP: "true"
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TOKEN}
+
+  linky:
+    container_name: linkycloud
+    image: ghcr.io/fabo011/linky:4.0.14-kube
+    platform: linux/arm64
+    ports:
+      - "80:80"
+    environment:
+      - VUE_APP_SUPABASE_URL=${VUE_APP_SUPABASE_URL}
+      - VUE_APP_API_KEY=${VUE_APP_API_KEY}
+    restart: unless-stopped
+    depends_on:
+      - cloudflared
+      

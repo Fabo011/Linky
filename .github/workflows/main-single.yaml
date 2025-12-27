@@ -2,7 +2,7 @@ name: Build Linky-Cloud
 
 on:
   push:
-    branches: [ "none" ]
+    branches: [ "master" ]
 
 jobs:
   build:
@@ -21,6 +21,14 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
+      # QEMU for multi-arch builds - REQUIRED for arm64 on x86 runners
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      # Docker Buildx for multi-platform support
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - run: npm ci
       - run: npm run build
 
@@ -35,9 +43,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.PIPE_TOKEN }}
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
+      # Single-arch build and push
       - name: Build and Push Multi-Arch Docker image
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository }}
@@ -45,8 +51,7 @@ jobs:
           IMAGE_ID=$(echo $IMAGE_ID | tr '[:upper:]' '[:lower:]')
 
           docker buildx build \
-            --platform linux/amd64,linux/arm64 \
+            --platform linux/arm64 \
             -t $IMAGE_ID:$VERSION \
             -t $IMAGE_ID:latest \
             --push .
-

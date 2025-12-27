@@ -40,3 +40,9 @@ npm run format
 npx snyk auth
 npx snyk test
 ```
+
+### Docker Images built in Pipeline
+linux/amd64 → works on standard Intel/AMD servers
+linux/arm64 → works on Apple Silicon Macs and Raspberry Pi Kubernetes nodes
+
+

@@ -1,1 +1,1 @@
-export const appVersion = 'v4.0.6';
+export const appVersion = 'v4.0.13-kube';
