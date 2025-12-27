@@ -41,7 +41,7 @@
         <li>
           <strong>Data Security:</strong> Your security is essential to us. We take every reasonable
           precaution to protect your data and ensure the security of our project. All your
-          data like links,files, passwords, notes etc. are encrypted with your digital key.
+          data like links, files, passwords, notes etc. are client-side encrypted with your digital key and/or private certificate.
         </li>
       </ul>
     </section>
@@ -89,9 +89,9 @@ export default defineComponent({
   data() {
     return {
       projectName: 'Linky Cloud',
-      projectUrl: 'https://linkycloud.com',
+      projectUrl: 'https://linky.fabo011-cloud.de',
       contactEmail: 'linky-cloud@proton.me',
-      socialHandle: 'in/fabian-waismayer-5a4931287',
+      socialHandle: 'https://www.linkedin.com/in/fabian-w-5a4931287',
       githubRepository: 'https://github.com/Fabo011/Linky',
     };
   },
