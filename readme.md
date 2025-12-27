@@ -43,4 +43,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Questions
 
-Feel free to reach out to me with any questions or feedback: [linky-cloud@proton.me](mailto:linky-cloud@proton.me).
+Feel free to reach out to me with any questions or feedback: [linky-cloud@proton.me](mailto:linky-cloud@proton.me) or Github-Discussions https://github.com/Fabo011/Linky/discussions.
