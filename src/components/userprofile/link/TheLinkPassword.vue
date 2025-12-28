@@ -6,7 +6,7 @@
           <mark class="updateText"><b>Update password with:</b></mark>
         </div>
         <div v-if="state == 'create'">
-          <b>Link Password</b>
+          <b>Password</b>
         </div>
       </label>
       <input

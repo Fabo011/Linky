@@ -39,7 +39,7 @@
             <TheUploadEncryptedFiles :key="key" state="create" />
           </form>
           <div class="modal-footer d-flex justify-content-start">
-            <AddBtn v-if="nBtn" @click.prevent="addNewLinkBtn"> Add </AddBtn>
+            <AddBtn v-if="nBtn" @click.prevent="addNewLinkBtn"> Save </AddBtn>
             <LoadingButton v-if="loading" />
           </div>
         </div>

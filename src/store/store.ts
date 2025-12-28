@@ -132,7 +132,7 @@ export const store = reactive({
                }));               
         
 
-            this.categories = data as any
+             this.categories = data as any
              // eslint-disable-next-line prefer-const
              let uniqueCategories = new Set()
              this.categories.forEach(item => {

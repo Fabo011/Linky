@@ -9,7 +9,7 @@
           >
         </div>
         <div v-if="state == 'create'">
-          <b>Your Username or Email on this link</b>
+          <b>Username or Email</b>
         </div>
       </label>
       <input

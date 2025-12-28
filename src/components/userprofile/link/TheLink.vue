@@ -8,12 +8,12 @@
             <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark
           >
         </div>
-        <div v-if="state == 'create'"><b>Link</b><b class="text-primary">*</b></div>
+        <div v-if="state == 'create'"><b>Link</b></div>
       </label>
       <input
         type="text"
         class="w-100"
-        placeholder="https://www.linkycloud.com"
+        placeholder="https://linky.fabo011-cloud.de"
         minlength="5"
         maxlength="1999"
         v-model="link"

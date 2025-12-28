@@ -2,21 +2,21 @@
   <div v-if="item.contactname || item.contactemail || item.contactphonenumber">
     <hr />
     <h6>Contact Informations</h6>
-    <div v-if="item.contactname">
+    <div v-if="item.contactname && item.contactemail !== '*'">
       <p class="card-text">
         <i class="bi bi-person icons"></i>{{ item.contactname }}
         <i class="bi bi-clipboard copycontact" @click.prevent="copyContactName(item)"></i>
       </p>
     </div>
 
-    <div v-if="item.contactemail">
+    <div v-if="item.contactemail && item.contactemail !== '*'">
       <p class="card-text">
         <i class="bi bi-envelope-at icons"></i>{{ item.contactemail }}
         <i class="bi bi-clipboard copycontact" @click.prevent="copyContactEmail(item)"></i>
       </p>
     </div>
 
-    <div v-if="item.contactphonenumber">
+    <div v-if="item.contactphonenumber && item.contactphonenumber !== '*'">
       <p class="card-text">
         <i class="bi bi-telephone icons"></i>{{ item.contactphonenumber }}
         <i class="bi bi-clipboard copycontact" @click.prevent="copyContactPhoneNumber(item)"></i>

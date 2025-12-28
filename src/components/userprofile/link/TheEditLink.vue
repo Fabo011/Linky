@@ -1,7 +1,7 @@
 <template>
   <section>
     <LinkIcon @click="showModal" class="text" /><br />
-    <i class="text" @click="showModal">Edit Link</i>
+    <i class="text" @click="showModal">Edit</i>
     <div
       :class="['modal', { 'show d-block': isModalVisible }]"
       id="editLink"
@@ -13,10 +13,13 @@
         <div class="modal-content shadow p-2 mb-4 bg-body rounded border-0">
           <div class="modal-header">
             <LinkIcon />
-            <h5 class="modal-title" id="linkyModalLabel"><b>Edit Link</b></h5>
-            <CloseModalButton @click="hideModal" />
+            <h5 class="modal-title" id="linkyModalLabel"><b>Edit</b></h5>
+            <CloseModalButton @click="hideModal" /><br />
           </div>
           <form class="modal-body" style="text-align: left">
+            <div class="alert alert-info" role="alert">
+              If you enter an asterisk (*) only, the value will be deleted upon saving.
+            </div>
             <LinkName :key="key" :state="currentLinkName" />
             <LinkDescription :key="key" :state="currentLinkDescription" />
             <TheCategory :key="key" :state="currentCategory" />
@@ -38,7 +41,7 @@
             <TheUploadEncryptedFiles :key="key" :state="currentFilename" />
           </form>
           <div class="modal-footer d-flex justify-content-start">
-            <AddBtn v-if="nBtn" @click.prevent="editLinkBtn"> Add </AddBtn>
+            <AddBtn v-if="nBtn" @click.prevent="editLinkBtn"> Save </AddBtn>
             <LoadingButton v-if="loading" />
           </div>
         </div>

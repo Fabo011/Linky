@@ -2,9 +2,18 @@
   <div class="card-header">
     <div v-if="item.type == null" class="header-container">
       <div class="header-left">
-        <img height="18" width="18" :src="baseUrl + item.link" :alt="item.linkname" />
+        <img
+          v-if="item.link !== '*' && item.link !== ''"
+          height="18"
+          width="18"
+          :src="baseUrl + item.link"
+          :alt="item.linkname"
+        />
         {{ item.linkname }}
-        <mark class="category text-primary mt-2">
+        <mark
+          class="category text-primary mt-2"
+          v-if="item.category !== '' && item.category !== '*'"
+        >
           <span id="cat">{{ item.category }}</span>
         </mark>
       </div>

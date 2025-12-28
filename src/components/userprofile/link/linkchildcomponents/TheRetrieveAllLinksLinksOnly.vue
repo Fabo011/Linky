@@ -1,5 +1,8 @@
 <template>
-  <button v-if="item.category !== 'chat' && item.type !== 'file'" class="btn share">
+  <button
+    v-if="item.category !== 'chat' && item.type !== 'file' && item.link !== '*' && item.link !== ''"
+    class="btn share"
+  >
     <a :href="item.link" target="_blank" class="btn btn-sm openlink">
       <TheChatBtnIcon /><br />
       <span class="clipboard">Link</span>
@@ -7,7 +10,7 @@
   </button>
 
   <button
-    v-if="item.category !== 'chat' && item.type !== 'file'"
+    v-if="item.category !== 'chat' && item.type !== 'file' && item.link !== '*' && item.link !== ''"
     class="btn share"
     @click.prevent="copyLink(item)"
   >

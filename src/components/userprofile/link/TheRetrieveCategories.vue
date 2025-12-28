@@ -31,7 +31,10 @@
               @click.prevent="setCategory(item)"
               class="bg-white text-decoration-none child children position-relative text-left"
             >
-              <div class="justify-content-left align-items-left">
+              <div
+                class="justify-content-left align-items-left"
+                v-if="item.categories !== '' && item.categories !== '*'"
+              >
                 <TheFolderIcon />
                 <span class="font">{{ item }}</span>
               </div>
@@ -46,7 +49,11 @@
             <TheImport />
             <hr />
             <h6>Documentation</h6>
-            <a href="https://github.com/Fabo011/Linky/wiki/Linky-Cloud-User-Documentation" target="_blank">Docs</a><br>
+            <a
+              href="https://github.com/Fabo011/Linky/wiki/Linky-Cloud-User-Documentation"
+              target="_blank"
+              >Docs</a
+            ><br />
             <a href="https://github.com/Fabo011/Linky/discussions" target="_blank">Discussions</a>
           </div>
         </div>
