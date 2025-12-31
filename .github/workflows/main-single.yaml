@@ -52,6 +52,8 @@ jobs:
 
           docker buildx build \
             --platform linux/arm64 \
+            --build-arg VUE_APP_SUPABASE_URL="${{ secrets.VUE_APP_SUPABASE_URL }}" \
+            --build-arg VUE_APP_API_KEY="${{ secrets.VUE_APP_API_KEY }}" \
             -t $IMAGE_ID:$VERSION \
             -t $IMAGE_ID:latest \
             --push .
