@@ -4,13 +4,13 @@
       <TheRetrieveAllLinksHeader :item="item" />
 
       <div class="card-body">
-        <div>
+        <div v-if="item.link !== '*' && item.link !== ''">
           <h6 class="card-title card-title text-truncate">
             <i class="bi bi-link-45deg icons"></i>{{ item.link }}
           </h6>
         </div>
 
-        <div>
+        <div v-if="item.linkdescription !== '' && item.linkdescription !== '*'">
           <p class="card-text"><i class="bi bi-tags icons"></i>{{ item.linkdescription }}</p>
         </div>
 
@@ -88,18 +88,20 @@ export default defineComponent({
   },
 
   computed: {
-    filteredLinks: function () {
-      return store.items?.filter((item) => {
-        return (
-          item.linkname?.match(store.searchValue) ||
-          item.linkdescription?.match(store.searchValue) ||
-          item.category?.match(store.searchValue) ||
-          item.link?.match(store.searchValue) ||
-          item.contactname?.match(store.searchValue) ||
-          item.contactphonenumber?.match(store.searchValue) ||
-          item.contactemail?.match(store.searchValue)
-        );
-      });
+    filteredLinks() {
+      const search = store.searchValue?.toLowerCase() || '';
+
+      return store.items?.filter(
+        (item) =>
+          item.linkname?.toLowerCase().includes(search) ||
+          item.linkdescription?.toLowerCase().includes(search) ||
+          item.category?.toLowerCase().includes(search) ||
+          item.link?.toLowerCase().includes(search) ||
+          item.contactname?.toLowerCase().includes(search) ||
+          item.contactphonenumber?.toLowerCase().includes(search) ||
+          item.contactemail?.toLowerCase().includes(search) ||
+          item.linkusername?.toLowerCase().includes(search),
+      );
     },
   },
 

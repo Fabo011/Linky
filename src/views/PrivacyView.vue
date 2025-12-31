@@ -40,8 +40,9 @@
         </li>
         <li>
           <strong>Data Security:</strong> Your security is essential to us. We take every reasonable
-          precaution to protect your data and ensure the security of our project. All your
-          data like links, files, passwords, notes etc. are client-side encrypted with your digital key and/or private certificate.
+          precaution to protect your data and ensure the security of our project. All your data like
+          links, files, passwords, notes etc. are client-side encrypted with your digital key and/or
+          private certificate.
         </li>
       </ul>
     </section>
@@ -68,9 +69,10 @@
     <section class="questions-concerns">
       <h2>Questions or Concerns</h2>
       <p>
-        If you have any questions or concerns, please feel free to reach out to us through
-        the contact information provided email above.<br>
-        If you want to delete your account with all data, just hit the delete account button in your dashboard.
+        If you have any questions or concerns, please feel free to reach out to us through the
+        contact information provided email above.<br />
+        If you want to delete your account with all data, just hit the delete account button in your
+        dashboard.
       </p>
     </section>
   </div>

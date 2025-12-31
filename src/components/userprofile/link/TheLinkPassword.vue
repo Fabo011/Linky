@@ -6,7 +6,7 @@
           <mark class="updateText"><b>Update password with:</b></mark>
         </div>
         <div v-if="state == 'create'">
-          <b>Link Password</b>
+          <b>Password</b>
         </div>
       </label>
       <input
@@ -56,7 +56,7 @@ export default defineComponent({
     async generatePassword() {
       const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@?!';
       let generatedPassword = '';
-      for (let i = 0; i < 15; i++) {
+      for (let i = 0; i < 20; i++) {
         const randomIndex = Math.floor(Math.random() * characters.length);
         generatedPassword += characters[randomIndex];
       }

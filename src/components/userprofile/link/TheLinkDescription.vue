@@ -7,7 +7,7 @@
           <i class="currentText" @click.prevent="takeText">{{ state }}</i> with:</mark
         >
       </div>
-      <div v-if="state == 'create'"><b>Tags</b><b class="text-primary">*</b></div>
+      <div v-if="state == 'create'"><b>Tags</b></div>
     </label>
     <input
       type="text"

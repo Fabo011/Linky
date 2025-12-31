@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Add</button>
+  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
 </template>
 
 <script lang="ts">

@@ -20,7 +20,7 @@ services:
 
   linky:
     container_name: linkycloud
-    image: ghcr.io/fabo011/linky:4.0.14-kube
+    image: ghcr.io/fabo011/linky:latest
     platform: linux/arm64
     ports:
       - "80:80"

@@ -46,14 +46,12 @@
         >
       </div>
     </section>
-    <TheFooter />
   </article>
+  <TheFooter />
 </template>
 
 <script lang="ts">
 import PageNav from '@/components/navbars/ThePageNav.vue';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import 'bootstrap/dist/css/bootstrap.css';
 import { defineComponent } from 'vue';
 import TheFooter from '../components/lib/TheFooter.vue';
 
