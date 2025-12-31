@@ -33,7 +33,6 @@
             >
               <div
                 class="justify-content-left align-items-left"
-                v-if="item.categories !== '' && item.categories !== '*'"
               >
                 <TheFolderIcon />
                 <span class="font">{{ item }}</span>

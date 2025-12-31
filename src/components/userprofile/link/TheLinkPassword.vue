@@ -56,7 +56,7 @@ export default defineComponent({
     async generatePassword() {
       const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@?!';
       let generatedPassword = '';
-      for (let i = 0; i < 15; i++) {
+      for (let i = 0; i < 20; i++) {
         const randomIndex = Math.floor(Math.random() * characters.length);
         generatedPassword += characters[randomIndex];
       }
