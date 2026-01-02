@@ -1,6 +1,6 @@
 {
   "name": "linky",
-  "version": "4.0.16",
+  "version": "4.0.17",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -26,7 +26,6 @@
     "snyk": "^1.1276.0",
     "vcf": "^2.1.2",
     "vue": "^3.3.13",
-    "vue-axios": "^3.5.1",
     "vue-router": "^4.0.3",
     "vue-sweetalert2": "^5.0.5",
     "vuex": "^4.0.0"
@@ -35,10 +34,10 @@
     "@types/chai": "^4.3.4",
     "@types/jest": "^27.0.1",
     "@types/papaparse": "^5.3.15",
-    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-babel": "^5.0.9",
     "@vue/cli-plugin-router": "~5.0.0",
-    "@vue/cli-plugin-typescript": "~5.0.0",
-    "@vue/cli-plugin-unit-jest": "~5.0.0",
+    "@vue/cli-plugin-typescript": "^5.0.9",
+    "@vue/cli-plugin-unit-jest": "^5.0.9",
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "^5.0.8",
     "@vue/test-utils": "^2.0.0-0",
