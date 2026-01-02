@@ -14,11 +14,12 @@
           Linky Cloud
         </h1>
         <p>
-          Linky Cloud provides a totally free open source premium and secure url, contact and
-          password manager solution tailored for privacy enthusiasts. Our services ensure the
-          encryption of all data, with exclusive access granted only through your digital key for
-          decryption. Emphasizing a commitment to privacy, we refrain from collecting personalized
-          data, maintaining both you and your information in an anonymous and decentralized manner.
+          Linky Cloud is a non-profit free open source premium solution to secure urls, contacts,
+          passwords and critical files like passports, proof of citizenship etc. tailored for
+          privacy enthusiasts. Our services ensure the client-side encryption of all data, with
+          exclusive access granted only through your digital key for decryption. Emphasizing a
+          commitment to privacy, this solution refrain from collecting personalized data,
+          maintaining both you and your information in an anonymous and decentralized manner.
         </p>
         <div class="features">
           <div class="feature">
@@ -27,15 +28,19 @@
           </div>
           <div class="feature">
             <i class="bi bi-link"></i>
-            <p>Save Encrypted Web Links</p>
+            <p>Save Web Links</p>
           </div>
           <div class="feature">
             <i class="bi bi-person-lines-fill"></i>
-            <p>Save Encrypted Contacts</p>
+            <p>Save Contacts</p>
           </div>
           <div class="feature">
             <i class="bi bi-pass"></i>
-            <p>Encrypted Password</p>
+            <p>Save Passwords & Passkeys</p>
+          </div>
+          <div class="feature">
+            <i class="bi bi-file-earmark"></i>
+            <p>Save Critical Files (Passport etc.)</p>
           </div>
         </div>
         <a
@@ -43,6 +48,9 @@
           class="btn btn-primary"
           style="background-color: #5f7fff; border-color: #5f7fff"
           >Get Started</a
+        >
+        <a @click.prevent="openDocs()" class="btn btn-info" style="color: #fff; margin-left: 5px"
+          >Need more Infos</a
         >
       </div>
     </section>
@@ -62,6 +70,10 @@ export default defineComponent({
   methods: {
     openRegister() {
       this.$router.push('signin');
+    },
+
+    openDocs() {
+      this.$router.push('docs');
     },
   },
 });

@@ -31,9 +31,7 @@
               @click.prevent="setCategory(item)"
               class="bg-white text-decoration-none child children position-relative text-left"
             >
-              <div
-                class="justify-content-left align-items-left"
-              >
+              <div class="justify-content-left align-items-left">
                 <TheFolderIcon />
                 <span class="font">{{ item }}</span>
               </div>
