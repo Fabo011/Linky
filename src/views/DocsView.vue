@@ -28,7 +28,6 @@
         <div class="tab-content">
           <!-- User Documentation -->
           <div class="tab-pane fade show active" id="user-docs">
-            <h3>How to Use Linky Cloud</h3>
             <div class="accordion custom-accordion" id="userAccordion">
               <!-- General Informations Accordion -->
               <div class="accordion-item">
@@ -165,6 +164,122 @@
                             features, and user experience.
                           </li>
                         </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- How to Use Linky Cloud Accordion -->
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#how-to-use"
+                  >
+                    How to Use Linky Cloud Securely
+                  </button>
+                </h2>
+                <div
+                  id="how-to-use"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#userAccordion"
+                >
+                  <div class="accordion-body">
+                    <div class="row">
+                      <div class="col-12">
+                        <h5>Recommended Workflow</h5>
+                        <p>
+                          To maximize security, we recommend using
+                          <a href="https://keepass.info" target="_blank">KeePass</a> to store your
+                          Linky Cloud password and digital key. KeePass is an offline password
+                          manager, ensuring your Linky Cloud credentials are never exposed to the
+                          internet.
+                        </p>
+                        <ul>
+                          <li>
+                            <strong>Step 1:</strong> Install KeePass on all devices where you plan
+                            to use Linky Cloud.
+                          </li>
+                          <li>
+                            <strong>Step 2:</strong> Store your Linky Cloud password and digital key
+                            in KeePass.
+                          </li>
+                          <li><strong>Step 3:</strong> You can stay logging in the whole day.</li>
+                        </ul>
+
+                        <hr />
+                        <h5>Alternative: USB Backup</h5>
+                        <p>
+                          If you prefer not to use KeePass, you can store your Linky Cloud password
+                          and digital key in a text file on a USB drive.
+                        </p>
+                        <ul>
+                          <li>
+                            <strong>Step 1:</strong> Save your Linky Cloud password and digital key
+                            in a text file on a USB drive.
+                          </li>
+                          <li>
+                            <strong>Step 2:</strong> Connect the USB drive to your device when
+                            logging in to Linky Cloud.
+                          </li>
+                          <li>
+                            <strong>Step 3:</strong> Copy and paste your credentials from the USB
+                            drive.
+                          </li>
+                        </ul>
+
+                        <hr />
+                        <h5>Important Security Notes</h5>
+                        <ul>
+                          <li>
+                            <strong>No Password Recovery:</strong> Due to our maximum security
+                            requirements, there is no password recovery functionality. If you lose
+                            your password or digital key, you will permanently lose access to your
+                            data.
+                          </li>
+                          <li>
+                            <strong>Backup Your Credentials:</strong> Always keep a secure backup of
+                            your Linky Cloud password and digital key. Store Linky Cloud backups on
+                            USB drives, never on internet-connected devices.
+                          </li>
+                          <li>
+                            <strong>Backup Your Data:</strong> Regularly export your Linky Cloud
+                            data by clicking the "Export CSV" button in the dashboard. Store this
+                            backup on a USB drive, never on the internet.
+                          </li>
+                        </ul>
+
+                        <hr />
+                        <h5>Restore & Recovery</h5>
+                        <p>
+                          If you suspect your password or digital key has been compromised, follow
+                          these steps:
+                        </p>
+                        <ol>
+                          <li>
+                            Export your data via the "Export CSV" button in the Linky Cloud
+                            dashboard.
+                          </li>
+                          <li>
+                            Delete your account via the "Delete Account" button. This will
+                            permanently remove all data from our servers.
+                          </li>
+                          <li>
+                            Create a new account with a new password. A new digital key will be
+                            generated.
+                          </li>
+                          <li>
+                            Restore your data by using the "Import CSV" button and selecting your
+                            previously exported file.
+                          </li>
+                          <li>
+                            Delete the backup files from your computer unless they were copied from
+                            a USB backup.
+                          </li>
+                        </ol>
                       </div>
                     </div>
                   </div>

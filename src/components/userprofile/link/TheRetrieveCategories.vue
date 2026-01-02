@@ -46,10 +46,7 @@
             <TheImport />
             <hr />
             <h6>Documentation</h6>
-            <a
-              href="https://linky.fabo011-cloud.de/#/docs"
-              target="_blank"
-              >Docs</a>
+            <a href="https://linky.fabo011-cloud.de/#/docs" target="_blank">Docs</a>
             <br />
             <a href="https://github.com/Fabo011/Linky/discussions" target="_blank">Discussions</a>
           </div>
