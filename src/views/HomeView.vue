@@ -14,7 +14,7 @@
           Linky Cloud
         </h1>
         <p>
-          Linky Cloud is a non-profit free open source premium solution to secure urls, contacts,
+          Linky Cloud is a non-profit free open source zero trust solution to secure urls, contacts,
           passwords and critical files like passports, proof of citizenship etc. tailored for
           privacy enthusiasts. Our services ensure the client-side encryption of all data, with
           exclusive access granted only through your digital key for decryption. Emphasizing a
