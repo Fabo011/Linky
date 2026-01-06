@@ -17,13 +17,11 @@
                 <span class="text-decoration-underline text-white">Login</span>
               </a>
             </router-link>
-            <a
-              class="nav-link text-white"
-              href="https://github.com/Fabo011/Linky/wiki"
-              target="_blank"
-            >
-              <span class="text-decoration-underline text-white">Docs</span>
-            </a>
+            <router-link to="/docs">
+              <a id="docs" class="nav-link text-white" href="#" target="_blank">
+                <span class="text-decoration-underline text-white">Docs</span>
+              </a>
+            </router-link>
           </li>
         </ul>
       </nav>

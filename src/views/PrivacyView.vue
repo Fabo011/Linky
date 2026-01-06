@@ -75,6 +75,22 @@
         dashboard.
       </p>
     </section>
+
+    <section class="questions-concerns">
+      <h2>Hosting</h2>
+      <p><b>Frontend:</b> Austria, Vienna</p>
+      <p><b>Backend + File Storage:</b> Germany, Frankfurt</p>
+    </section>
+
+    <section class="questions-concerns">
+      <h2>Project Financing</h2>
+      <p>
+        This project is financed by donations and is not supported by any company or organization.
+        If you use this service regularily and if you store critical files, please consider donating
+        to support the existence and development of this project. What we need to finance: Servers,
+        Domain and DNS.
+      </p>
+    </section>
   </div>
   <TheFooter />
 </template>

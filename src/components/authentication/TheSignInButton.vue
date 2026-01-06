@@ -1,13 +1,22 @@
 <template>
-  <div class="mb-3">
-    <AuthBtn v-if="nBtn" @click.prevent="push" />
-    <LoadingButton v-if="loading" />
+  <div>
+    <vue-turnstile
+      v-model="token"
+      site-key="0x4AAAAAACK4lrx4USom-L1c"
+    />
+    <div class="mb-3">
+      <AuthBtn v-if="nBtn" @click.prevent="push" />
+      <LoadingButton v-if="loading" />
+    </div>
+    <p class="text-danger">{{ errorText }}</p>
   </div>
-  <p class="text-danger">{{ errorText }}</p>
 </template>
+
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+//@ ts-ignore next-line
+import VueTurnstile from 'vue-turnstile';
 import { store } from '../../store/store';
 import AuthBtn from '../buttons/TheAuthButton.vue';
 import LoadingButton from '../buttons/TheLoadingButton.vue';
@@ -15,8 +24,8 @@ import { generateRandomKey } from '../crypto/crypto';
 import { supabase } from '../lib/supabaseClient';
 
 export default defineComponent({
-  name: 'TheLoginButton.vue',
-  components: { LoadingButton, AuthBtn },
+  name: 'TheLoginButton',
+  components: { LoadingButton, AuthBtn, VueTurnstile },
 
   data() {
     return {
@@ -24,14 +33,18 @@ export default defineComponent({
       store,
       errorText: '',
       nBtn: true,
-
-      // loading
       loading: false,
+      token: '',
     };
   },
 
   methods: {
     async push() {
+      if (!this.token) {
+        this.errorText = 'Please complete the CAPTCHA.';
+        return;
+      }
+
       this.nBtn = false;
       this.loading = true;
       const email = store.email;
@@ -41,22 +54,34 @@ export default defineComponent({
         data: {
           tariff: 'free',
         },
+        captchaToken: this.token, // Pass Turnstile token to Supabase
       };
 
       try {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (!error) {
-          this.clearFucnction();
+        // Try to sign in
+        const { error: signInError } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+        if (!signInError) {
+          this.clearFunction();
           store.state = 'authenticatedUser';
           this.$router.push(`/key`);
         } else {
-          const { error } = await supabase.auth.signUp({ email, password, options });
-          if (error) {
+          // If sign-in fails, try to sign up
+          const { error: signUpError } = await supabase.auth.signUp({
+            email,
+            password,
+            options,
+          });
+
+          if (signUpError) {
             this.errorText =
-              'If you try to login: Check username or password. If you try to login first time: Username already in use. Try another one.';
-            this.clearFucnction();
+              'If you tried to login: Check username or password. If you tried to sign up: Username already in use. Try another one.';
+            this.clearFunction();
           } else {
-            this.clearFucnction();
+            this.clearFunction();
             const { key, iv } = generateRandomKey();
             const digitalKey = `${key}.${iv}`;
             sessionStorage.setItem('key', digitalKey);
@@ -65,15 +90,16 @@ export default defineComponent({
           }
         }
       } catch (error) {
-        this.clearFucnction();
+        this.clearFunction();
         this.errorText = 'Internal Error. Try again or contact support.';
       }
     },
 
-    clearFucnction() {
+    clearFunction() {
       store.password = '';
       this.nBtn = true;
       this.loading = false;
+      this.token = '';
     },
   },
 });
