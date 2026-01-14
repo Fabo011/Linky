@@ -26,7 +26,6 @@ export const store = reactive({
     contactPhoneNumber: '',
     contactEmail: '',
     linkNotes: '',
-    files: [] as any,
 
     // link data
     item: {} as any,
@@ -89,7 +88,6 @@ export const store = reactive({
                 router.push('signin');
             } else {
                 sessionStorage.setItem('email', data.user?.user_metadata.email as any)
-                sessionStorage.setItem('tariff', data.user?.user_metadata.tariff as any)
                 const userUUIDHex = convertStringToHex(data.user.id);
                 sessionStorage.setItem('uuid', userUUIDHex);
             }
@@ -102,8 +100,6 @@ export const store = reactive({
         sessionStorage.removeItem('user');
         sessionStorage.removeItem('cat');
         sessionStorage.removeItem('key');
-        sessionStorage.removeItem('iv');
-        sessionStorage.removeItem('tariff');
         sessionStorage.removeItem('uuid');
     },
 
@@ -128,7 +124,6 @@ export const store = reactive({
                 contactemail: decryptString(item.contactemail),
                 contactphonenumber: decryptString(item.contactphonenumber),
                 notes: decryptString(item.notes),
-                filename: decryptString(item.filename)
                }));               
         
 

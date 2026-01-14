@@ -26,16 +26,6 @@
     <TheUsernameIcon /><br />
     <span class="clipboard">Copy Username</span>
   </button>
-
-  <button
-    v-if="item.linkpassword !== '' && item.category !== 'chat'"
-    class="btn share"
-    @click.prevent="copyPassword(item)"
-  >
-    <TheCopyPasswordIcon /><br />
-    <span class="clipboard">Copy Password</span>
-  </button>
-
   <button v-if="item.category !== 'chat' && item.type !== 'file'" class="btn share">
     <TheEditLink :item="item" /><br />
   </button>
@@ -43,10 +33,8 @@
 <script>
 import TheChatBtnIcon from '@/assets/svg/TheChatBtnIcon.vue';
 import TheClipboardIcon from '@/assets/svg/TheClipboardIcon.vue';
-import TheCopyPasswordIcon from '@/assets/svg/TheCopyPasswordIcon.vue';
 import TheLinkIcon from '@/assets/svg/TheLinkIcon.vue';
 import TheUsernameIcon from '@/assets/svg/TheUsernameIcon.vue';
-import { decryptString } from '@/components/crypto/crypto';
 import { copiedtoast } from '@/components/toasts/toasts';
 import Clipboard from 'clipboard';
 import { defineComponent } from 'vue';
@@ -59,7 +47,6 @@ export default defineComponent({
   components: {
     TheClipboardIcon,
     TheUsernameIcon,
-    TheCopyPasswordIcon,
     TheChatBtnIcon,
     TheLinkName,
     TheLinkIcon,
@@ -100,17 +87,6 @@ export default defineComponent({
       new Clipboard('.btn', {
         text: () => {
           return linkUsername;
-        },
-      });
-      copiedtoast();
-    },
-
-    copyPassword(item) {
-      const linkPassword = item.linkpassword;
-      const decryptedPassword = decryptString(linkPassword);
-      new Clipboard('.btn', {
-        text: () => {
-          return decryptedPassword;
         },
       });
       copiedtoast();

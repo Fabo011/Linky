@@ -27,7 +27,6 @@
             <hr />
             <pre>Optional</pre>
             <TheLinkUsername :key="key" :state="currentLinkUsername" />
-            <TheLinkPassword :key="key" :state="currentLinkPassword" />
             <hr />
             <pre>Optional</pre>
             <TheContactName :key="key" :state="currentContactName" />
@@ -35,10 +34,7 @@
             <TheContactEmail :key="key" :state="currentContactEmail" />
             <hr />
             <pre>Optional</pre>
-            <TheLinkNotes :key="key" :state="currentNotes" />
-            <hr />
-            <pre>Optional</pre>
-            <TheUploadEncryptedFiles :key="key" :state="currentFilename" />
+            <TheLinkNotes :key="key" :state="currentNotes" />  
           </form>
           <div class="modal-footer d-flex justify-content-start">
             <AddBtn v-if="nBtn" @click.prevent="editLinkBtn"> Save </AddBtn>
@@ -52,7 +48,6 @@
 
 <script lang="ts">
 import { encryptString } from '@/components/crypto/crypto';
-import { getAccountSize } from '@/components/lib/account';
 import { defineComponent } from 'vue';
 import LinkIcon from '../../../assets/svg/TheLinkIcon.vue';
 import { store } from '../../../store/store';
@@ -64,14 +59,11 @@ import { updatedtoast } from '../../toasts/toasts';
 import TheContactEmail from '../contacts/TheContactEmail.vue';
 import TheContactName from '../contacts/TheContactName.vue';
 import TheContactPhoneNumber from '../contacts/TheContactPhoneNumber.vue';
-import TheUploadEncryptedFiles from '../filearchive/TheUploadEncryptedFiles.vue';
-import { uploadFile } from '../filearchive/upload';
 import TheCategory from './TheCategory.vue';
 import TheLink from './TheLink.vue';
 import LinkDescription from './TheLinkDescription.vue';
 import LinkName from './TheLinkName.vue';
 import TheLinkNotes from './TheLinkNotes.vue';
-import TheLinkPassword from './TheLinkPassword.vue';
 import TheLinkUsername from './TheLinkUsername.vue';
 
 export default defineComponent({
@@ -82,7 +74,6 @@ export default defineComponent({
     LinkDescription,
     TheCategory,
     TheLinkUsername,
-    TheLinkPassword,
     LinkIcon,
     AddBtn,
     CloseModalButton,
@@ -91,7 +82,6 @@ export default defineComponent({
     TheContactPhoneNumber,
     TheContactEmail,
     TheLinkNotes,
-    TheUploadEncryptedFiles,
   },
 
   props: {
@@ -108,12 +98,10 @@ export default defineComponent({
       currentCategory: this.$props.item.category,
       currentLink: this.$props.item.link,
       currentLinkUsername: this.$props.item.username,
-      currentLinkPassword: this.$props.item.password,
       currentContactName: this.$props.item.contactname,
       currentContactPhoneNumber: this.$props.item.contactphonenumber,
       currentContactEmail: this.$props.item.contactemail,
       currentNotes: this.$props.item.notes,
-      currentFilename: this.$props.item.filename,
       nBtn: true,
       loading: false,
       key: 1,
@@ -122,13 +110,11 @@ export default defineComponent({
       encryptedLinkUsername: '',
       encryptedLink: '',
       encryptedCategory: '',
-      encryptedLinkPassword: '',
       updateString: '',
       encryptedContactName: '',
       encryptedContactPhoneNumber: '',
       encryptedContactEmail: '',
       encryptedNotes: '',
-      filename: '',
 
       isModalVisible: false,
     };
@@ -214,19 +200,6 @@ export default defineComponent({
           .eq(`id`, id);
       }
 
-      if (store.linkPassword) {
-        const encryptedPass = encryptString(store.linkPassword);
-        this.encryptedLinkPassword = encryptedPass;
-
-        await supabase
-          .from('link')
-          .update({
-            linkpassword: encryptedPass,
-          })
-          .eq(`user_id`, uuID)
-          .eq(`id`, id);
-      }
-
       if (store.contactName) {
         const encryptedContactName = encryptString(store.contactName);
         this.encryptedContactName = encryptedContactName;
@@ -278,29 +251,6 @@ export default defineComponent({
           .eq(`user_id`, uuID)
           .eq(`id`, id);
       }
-
-      if (store.files && store.files.length > 0) {
-        const maxSize = 150;
-        const { mb, gb, totalSizeInMB } = await getAccountSize();
-
-        let uploadSize = store.files[0].size / (1024 * 1024);
-
-        const totalSizeAfterUpload = totalSizeInMB + uploadSize;
-
-        if (totalSizeAfterUpload < maxSize) {
-          const filename = await uploadFile();
-          const encryptedFilename = encryptString(filename);
-          this.filename = encryptedFilename;
-
-          await supabase
-            .from('link')
-            .update({
-              filename: encryptedFilename,
-            })
-            .eq(`user_id`, uuID)
-            .eq(`id`, id);
-        }
-      }
       this.executeCleanUp();
       updatedtoast();
       this.hideModal();
@@ -319,19 +269,15 @@ export default defineComponent({
       store.contactPhoneNumber = this.updateString;
       store.contactEmail = this.updateString;
       store.linkNotes = this.updateString;
-      store.files = [];
-
       this.encryptedLinkName = '';
       this.encryptedLinkDescription = '';
       this.encryptedCategory = '';
       this.encryptedLink = '';
       this.encryptedLinkUsername = '';
-      this.encryptedLinkPassword = '';
       this.encryptedContactName = '';
       this.encryptedContactPhoneNumber = '';
       this.encryptedContactEmail = '';
       this.encryptedNotes = '';
-      this.filename = '';
     },
   },
 });

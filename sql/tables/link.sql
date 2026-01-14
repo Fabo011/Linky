@@ -6,11 +6,9 @@ CREATE TABLE public.link (
   link text DEFAULT ''::text,
   user_id uuid NOT NULL DEFAULT auth.uid(),
   linkusername text DEFAULT ''::text,
-  linkpassword text DEFAULT ''::text,
   contactname text,
   contactphonenumber text,
   contactemail text,
   notes text,
-  filename text,
   CONSTRAINT link_pkey PRIMARY KEY (id)
 );
