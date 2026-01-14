@@ -35,7 +35,6 @@ export default defineComponent({
                 link: encryptString(row.link || ''),
                 category: encryptString(row.category || ''),
                 linkusername: encryptString(row.linkusername || ''),
-                linkpassword: encryptString(row.linkpassword || ''),
                 contactname: encryptString(row.contactname || ''),
                 contactphonenumber: encryptString(row.contactphonenumber || ''),
                 contactemail: encryptString(row.contactemail || ''),

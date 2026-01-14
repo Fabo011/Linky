@@ -14,18 +14,16 @@
           Linky Cloud
         </h1>
         <p>
-          Linky Cloud is a non-profit free open source zero trust solution to secure urls, contacts,
-          passwords and critical files like passports, proof of citizenship etc. tailored for
-          privacy enthusiasts. Our services ensure the client-side encryption of all data, with
-          exclusive access granted only through your digital key for decryption. Emphasizing a
-          commitment to privacy, this solution refrain from collecting personalized data,
-          maintaining both you and your information in an anonymous and decentralized manner.
+          Linky Cloud is a non-profit, free, open-source, zero-trust solution designed to securely
+          store web URLs and related metadata such as tags, categories, notes, and contact
+          information. Built for privacy-focused users, all data is encrypted client-side and can
+          only be decrypted using your personal digital key. The platform enables safe access to
+          your links across all devices and browsers, helping users always open URLs from Linky
+          instead of clicking potentially malicious links. With no tracking, no personal data
+          collection, and a decentralized architecture, Linky Cloud keeps both you and your
+          information private, anonymous, and searchable at all times.
         </p>
         <div class="features">
-          <div class="feature">
-            <i class="bi bi-cloud"></i>
-            <p>Save Account Recovery Files</p>
-          </div>
           <div class="feature">
             <i class="bi bi-link"></i>
             <p>Save Web Links</p>
@@ -35,12 +33,12 @@
             <p>Save Contacts</p>
           </div>
           <div class="feature">
-            <i class="bi bi-pass"></i>
-            <p>Save Passwords & Passkeys</p>
+            <i class="bi bi-card-text"></i>
+            <p>Notes</p>
           </div>
           <div class="feature">
-            <i class="bi bi-file-earmark"></i>
-            <p>Save Critical Files (Passport etc.)</p>
+            <i class="bi bi-file-earmark-bar-graph"></i>
+            <p>Metadata for better search</p>
           </div>
         </div>
         <a

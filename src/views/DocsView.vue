@@ -49,32 +49,8 @@
                   <div class="accordion-body">
                     <div class="row">
                       <div class="col-12">
-                        <p>
-                          Linky Cloud is a <strong>non-profit, client-side encrypted</strong> secure
-                          vault designed to protect your most sensitive information. Consider it as
-                          a <strong>personal, ultra-secure digital vault</strong> in the cloud,
-                          built for privacy-conscious users who want to safeguard their critical
-                          data without compromising security or privacy.
-                        </p>
-                        <hr />
                         <h5>What Can You Store in Linky Cloud?</h5>
                         <ul>
-                          <li>
-                            <i class="bi bi-pass me-2"></i
-                            ><strong>Passwords & Passkeys:</strong> Use Linky Cloud as a password
-                            manager to securely store and manage your credentials.
-                          </li>
-                          <li>
-                            <i class="bi bi-file-earmark-lock me-2"></i
-                            ><strong>Account Recovery Files:</strong> Keep encrypted backups of
-                            recovery codes or keys for your online accounts.
-                          </li>
-                          <li>
-                            <i class="bi bi-file-earmark-text me-2"></i
-                            ><strong>Critical Files:</strong> Store scans of essential documents
-                            like your passport, proof of citizenship, or notification slips safe
-                            from loss or theft.
-                          </li>
                           <li>
                             <i class="bi bi-person-lines-fill me-2"></i
                             ><strong>Contacts:</strong> Save encrypted contact details for your most
@@ -89,26 +65,30 @@
                         <hr />
                         <h5>Why Linky Cloud?</h5>
                         <p>
-                          Linky Cloud is <strong>not</strong> a traditional cloud storage for
-                          vacation photos or large files. Instead, it’s a
-                          <strong>high-security backup</strong> for your most important informations
-                          like passwords, recovery files, critical documents, contacts, and trusted
-                          URLs—all protected by <strong>client-side encryption</strong>. Client-side
-                          means that only you hold the key or/and certificates to decrypt your data,
-                          ensuring <strong>maximum privacy and security</strong>.
+                          Linky Cloud is <strong>not</strong> a traditional browser-based bookmark
+                          manager tied to a single browser or device. Instead, it is a
+                          <strong>secure, browser-independent vault</strong> for your most important
+                          web URLs and related information such as tags, notes, categories, and
+                          contact details. Unlike local bookmarks, Linky Cloud allows you to access
+                          your encrypted links on <strong>any browser and any device</strong>. All
+                          data is protected using <strong>client-side encryption</strong>, meaning
+                          only you hold the key to decrypt it. This is especially critical for
+                          storing intranet or internal company URLs, ensuring they remain private,
+                          confidential, and never exposed through tracking, synchronization
+                          services, or centralized providers.
                         </p>
 
                         <hr />
                         <h5>
-                          How Linky Cloud Differs from Google, Apple, and Other Big Tech Solutions
+                          How Linky Cloud Differs from Google Chrome, Safari, and Other Bookmark
+                          Solutions
                         </h5>
                         <ul>
                           <li>
-                            <strong>Client-Side Encryption:</strong> Unlike Google Drive, Apple
-                            iCloud, or most password managers, Linky Cloud encrypts your data before
-                            it leaves your device. Only you hold the key to decrypt your data. Not
-                            even Linky Cloud (fabo011-cloud.de) could access your information,
-                            because we never store your keys on our servers.
+                            <strong>Client-Side Encryption:</strong> Linky Cloud encrypts your data
+                            before it leaves your device. Only you hold the key to decrypt your
+                            data. Not even Linky Cloud (fabo011-cloud.de) could access your
+                            information, because we never store your keys on our servers.
                           </li>
                           <li>
                             <strong>Zero-Knowledge Architecture:</strong> Services like WhatsApp or
@@ -175,25 +155,21 @@
                         <h5>Project Financing</h5>
                         <p>
                           Linky Cloud is a non-profit, independent project financed exclusively by
-                          donations. We are not backed by any company, organization, or venture
-                          capital. Our mission is to provide a secure, private, and decentralized
-                          vault for your sensitive data without compromising your privacy for
-                          profit.
+                          donations. The project is not backed by any company, organization, or venture
+                          capital.
                         </p>
 
                         <hr />
                         <h5>Why Donate?</h5>
                         <p>
-                          If you use Linky Cloud regularly, especially to store critical files,
-                          passwords, or recovery data please consider donating. Your contributions
-                          directly fund:
+                          Your contributions directly fund:
                         </p>
                         <ul>
                           <li>
                             <strong>Servers:</strong> To ensure fast, reliable, and secure access.
                           </li>
                           <li>
-                            <strong>Storage Costs:</strong> To store your encrypted files and data.
+                            <strong>Database Costs:</strong> To store your encrypted data.
                           </li>
                           <li>
                             <strong>Domain & DNS:</strong> To maintain a trusted and accessible
@@ -233,44 +209,17 @@
                         <h5>Recommended Workflow</h5>
                         <p>
                           To maximize security, we recommend using
-                          <a href="https://keepass.info" target="_blank">KeePass</a> to store your
-                          Linky Cloud password and digital key <strong>offline</strong>. KeePass is
-                          an offline password manager, ensuring your Linky Cloud credentials are
-                          never exposed to the internet.
+                          <a href="https://vw.fabo011-cloud.de/" target="_blank">Vaultwarden (https://vw.fabo011-cloud.de/)</a> to store your
+                          Linky Cloud password and digital key safely. <strong>Please always enable 2 factor authentication on password managers.</strong>
+                          In vaultwarden also supports passkey and yubikey access.
                         </p>
                         <ul>
                           <li>
-                            <strong>Step 1:</strong> Install KeePass on all devices where you plan
-                            to use Linky Cloud.
+                            <strong>Step 1:</strong> Store your Linky Cloud password and digital key
+                            in Vaultwarden.
                           </li>
-                          <li>
-                            <strong>Step 2:</strong> Store your Linky Cloud password and digital key
-                            in KeePass.
-                          </li>
-                          <li><strong>Step 3:</strong> You can stay logging in the whole day.</li>
+                          <li><strong>Step 2:</strong> You can stay logged in the whole day.</li>
                         </ul>
-
-                        <hr />
-                        <h5>Alternative: USB Backup</h5>
-                        <p>
-                          If you prefer not to use KeePass, you can store your Linky Cloud password
-                          and digital key in a text file on a USB drive.
-                        </p>
-                        <ul>
-                          <li>
-                            <strong>Step 1:</strong> Save your Linky Cloud password and digital key
-                            in a text file on a USB drive.
-                          </li>
-                          <li>
-                            <strong>Step 2:</strong> Connect the USB drive to your device when
-                            logging in to Linky Cloud.
-                          </li>
-                          <li>
-                            <strong>Step 3:</strong> Copy and paste your credentials from the USB
-                            drive.
-                          </li>
-                        </ul>
-
                         <hr />
                         <h5>Important Security Notes</h5>
                         <ul>
@@ -282,13 +231,23 @@
                           </li>
                           <li>
                             <strong>Backup Your Credentials:</strong> Always keep a secure backup of
-                            your Linky Cloud password and digital key. Store Linky Cloud backups on
-                            USB drives, never on internet-connected devices.
+                            your Linky Cloud data. Store Linky Cloud backups on USB drives, never on
+                            internet-connected devices.
                           </li>
                           <li>
                             <strong>Backup Your Data:</strong> Regularly export your Linky Cloud
                             data by clicking the "Export CSV" button in the dashboard. Store this
                             backup on a USB drive, never on the internet.
+                          </li>
+                          <li>
+                            <strong>Data Sharing:</strong> If your stored links are not sensitive or
+                            restricted, you can easily export the vault including their tags,
+                            categories, and notes into a portable file. This file can be safely sent
+                            to anyone you want to share the links with. The recipient does not need
+                            access to your account; they simply import the file into their own Linky
+                            Cloud instance to instantly access the shared URLs. This approach keeps
+                            sharing fully under your control while avoiding public link exposure,
+                            third-party tracking, or centralized sharing services.
                           </li>
                         </ul>
 
@@ -359,13 +318,12 @@
                         </p>
                         <p>
                           Linky Cloud’s mission is simple: We aim to provide the best possible
-                          security at all times, giving you a way to back up your critical data in
-                          case of emergencies—like a broken USB stick, a fire at home, or other
-                          unforeseen events. You remain in full control of your encryption key, and
-                          we provide a non-profit, secure infrastructure to store your data. But
-                          always remember: No system is invulnerable. While we strive for the
-                          highest level of security, it’s important to stay aware of the risks and
-                          trade-offs involved.
+                          security at all times, giving you a way to store your urls and related
+                          informations. You remain in full control of your encryption key, and we
+                          provide a non-profit, secure infrastructure to store your urls. But always
+                          remember: No system is invulnerable. While we strive for the highest level
+                          of security, it’s important to stay aware of the risks and trade-offs
+                          involved.
                         </p>
                       </div>
                     </div>
@@ -393,24 +351,16 @@
                   <div class="accordion-body">
                     <div class="row">
                       <div class="col-md-6">
-                        <h5><i class="bi bi-cloud me-2"></i>Account Recovery Files</h5>
-                        <p>Upload encrypted recovery files for your accounts.</p>
-                      </div>
-                      <div class="col-md-6">
                         <h5><i class="bi bi-link me-2"></i>Web Links</h5>
                         <p>Save and categorize important URLs.</p>
                       </div>
-                      <div class="col-md-6">
-                        <h5><i class="bi bi-person-lines-fill me-2"></i>Contacts</h5>
-                        <p>Store encrypted contact details.</p>
+                      <div class="feature">
+                        <i class="bi bi-card-text"></i>
+                        <p>Notes: Add notes to the links.</p>
                       </div>
-                      <div class="col-md-6">
-                        <h5><i class="bi bi-pass me-2"></i>Passwords & Passkeys</h5>
-                        <p>Manage passwords and passkeys securely.</p>
-                      </div>
-                      <div class="col-md-6">
-                        <h5><i class="bi bi-file-earmark me-2"></i>Critical Files</h5>
-                        <p>Upload and encrypt sensitive documents (e.g., passports).</p>
+                      <div class="feature">
+                        <i class="bi bi-file-earmark-bar-graph"></i>
+                        <p>Metadata for better search experience</p>
                       </div>
                     </div>
                   </div>

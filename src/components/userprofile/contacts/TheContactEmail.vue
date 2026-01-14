@@ -15,7 +15,7 @@
       <input
         v-model="contactEmail"
         @input="set"
-        placeholder="example@skiff.com"
+        placeholder="example@proton.me"
         autocomplete="off"
         maxlength="50"
         class="w-100"
