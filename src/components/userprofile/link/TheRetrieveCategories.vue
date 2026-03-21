@@ -36,6 +36,9 @@
                 <span class="font">{{ item }}</span>
               </div>
             </div>
+            <hr />
+            <h6>Another Apps</h6>
+            <button @click.prevent="navigateToShooters" class="btn btn-primary">🔫 Shooters</button>
             <TheAccountMetric />
             <hr />
             <h6>Export - Backup</h6>
@@ -49,6 +52,7 @@
             <a href="https://linky.fabo011-cloud.de/#/docs" target="_blank">Docs</a>
             <br />
             <a href="https://github.com/Fabo011/Linky/discussions" target="_blank">Discussions</a>
+            <hr />
           </div>
         </div>
       </div>
@@ -101,6 +105,10 @@ export default defineComponent({
     toggleNav() {
       this.sidenavWidth = this.sidenavWidth === '0px' ? '250px' : '0px';
     },
+    navigateToShooters() {
+      const routeData = this.$router.resolve('/shooters');
+      window.open(routeData.href, '_blank');
+    }
   },
 });
 </script>
