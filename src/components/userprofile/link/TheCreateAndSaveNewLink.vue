@@ -3,44 +3,46 @@
     <div class="addLinkBtn" data-bs-target="#createAndSaveNewLink" data-bs-toggle="modal">
       <i class="text" data-bs-target="#createAndSaveNewLink" data-bs-toggle="modal">+</i>
     </div>
-    <div
-      class="modal fade"
-      id="createAndSaveNewLink"
-      tabindex="-1"
-      aria-labelledby="linkyModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content shadow p-2 mb-4 bg-body rounded border-0">
-          <div class="modal-header">
-            <LinkIcon />
-            <h5 class="modal-title" id="linkyModalLabel"><b>Add New Link</b></h5>
-            <CloseModalButton />
-          </div>
-          <form class="modal-body">
-            <LinkName :key="key" state="create" />
-            <LinkDescription :key="key" state="create" />
-            <TheCategory :key="key" state="create" />
-            <TheLink :key="key" state="create" />
-            <hr />
-            <h6>Optional</h6>
-            <TheLinkUsername :key="key" state="create" />
-            <hr />
-            <h6>Optional</h6>
-            <TheContactName :key="key" state="create" />
-            <TheContactPhoneNumber :key="key" state="create" />
-            <TheContactEmail :key="key" state="create" />
-            <hr />
-            <h6>Optional</h6>
-            <TheLinkNotes :key="key" state="create" />
-          </form>
-          <div class="modal-footer d-flex justify-content-start">
-            <AddBtn v-if="nBtn" @click.prevent="addNewLinkBtn"> Save </AddBtn>
-            <LoadingButton v-if="loading" />
+    <Teleport to="body">
+      <div
+        class="modal fade"
+        id="createAndSaveNewLink"
+        tabindex="-1"
+        aria-labelledby="linkyModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content shadow p-2 mb-4 bg-body rounded border-0">
+            <div class="modal-header">
+              <LinkIcon />
+              <h5 class="modal-title" id="linkyModalLabel"><b>Add New Link</b></h5>
+              <CloseModalButton />
+            </div>
+            <form class="modal-body">
+              <LinkName :key="key" state="create" />
+              <LinkDescription :key="key" state="create" />
+              <TheCategory :key="key" state="create" />
+              <TheLink :key="key" state="create" />
+              <hr />
+              <h6>Optional</h6>
+              <TheLinkUsername :key="key" state="create" />
+              <hr />
+              <h6>Optional</h6>
+              <TheContactName :key="key" state="create" />
+              <TheContactPhoneNumber :key="key" state="create" />
+              <TheContactEmail :key="key" state="create" />
+              <hr />
+              <h6>Optional</h6>
+              <TheLinkNotes :key="key" state="create" />
+            </form>
+            <div class="modal-footer d-flex justify-content-start">
+              <AddBtn v-if="nBtn" @click.prevent="addNewLinkBtn"> Save </AddBtn>
+              <LoadingButton v-if="loading" />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Teleport>
   </section>
 </template>
 

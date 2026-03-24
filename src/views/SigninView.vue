@@ -58,5 +58,15 @@ export default defineComponent({
   width: 60px;
   height: 60px;
   border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+#form1 {
+  background: rgba(255, 255, 255, 0.93) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px !important;
+  border: 1px solid rgba(255, 255, 255, 0.7) !important;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.18) !important;
 }
 </style>

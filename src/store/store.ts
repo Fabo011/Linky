@@ -103,6 +103,24 @@ export const store = reactive({
         sessionStorage.removeItem('uuid');
     },
 
+    async deleteAccount() {
+        const uuid = this.getUUID() as string;
+
+        const { error: deleteLinksError } = await supabase
+            .from('link')
+            .delete()
+            .eq('user_id', uuid);
+
+        if (deleteLinksError) throw deleteLinksError;
+
+        const { error: deleteUserError } = await supabase.rpc('delete_user');
+
+        if (deleteUserError) throw deleteUserError;
+
+        this.logout();
+        router.push('/signin');
+    },
+
     async retieveAllLinks() {
         const uuid = this.getUUID();
       

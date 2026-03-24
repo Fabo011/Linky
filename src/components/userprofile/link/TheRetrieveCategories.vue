@@ -9,7 +9,7 @@
         @click.prevent="toggleNav"
         style="z-index: 2"
       >
-        <div class="animated-icon" :class="{ open: sidenavWidth !== '0px' }">=</div>
+        <i class="bi" :class="sidenavWidth !== '0px' ? 'bi-x-lg' : 'bi-list'"></i>
       </button>
     </nav>
 
@@ -53,6 +53,9 @@
             <br />
             <a href="https://github.com/Fabo011/Linky/discussions" target="_blank">Discussions</a>
             <hr />
+            <h6 class="text-danger">Danger Zone</h6>
+            <button @click.prevent="confirmDeleteAccount" class="btn btn-danger btn-sm w-100 mb-2">🗑️ Delete Account</button>
+            <hr />
           </div>
         </div>
       </div>
@@ -63,6 +66,7 @@
 <script>
 import TheFolderIcon from '@/assets/svg/TheFolderIcon.vue';
 import TheReloadIcon from '@/assets/svg/TheReloadIcon.vue';
+import { deleteAccountConfirmToast, errorToast } from '@/components/toasts/toasts';
 import TheAccountMetric from '@/components/userprofile/account/TheAccountMetric.vue';
 import TheExport from '@/components/userprofile/export-import/TheExport.vue';
 import TheFirefoxExport from '@/components/userprofile/export-import/TheFirefoxExport.vue';
@@ -108,7 +112,17 @@ export default defineComponent({
     navigateToShooters() {
       const routeData = this.$router.resolve('/shooters');
       window.open(routeData.href, '_blank');
-    }
+    },
+    async confirmDeleteAccount() {
+      const result = await deleteAccountConfirmToast();
+      if (result.isConfirmed) {
+        try {
+          await store.deleteAccount();
+        } catch {
+          errorToast();
+        }
+      }
+    },
   },
 });
 </script>
@@ -127,24 +141,33 @@ export default defineComponent({
   overflow-x: hidden;
   max-height: 80%;
 }
+
 .child {
   cursor: pointer;
-  white-space: wrap;
-  border-radius: 5%;
-  margin-left: 3px;
+  border-radius: 8px;
+  margin: 2px 0;
+  padding: 5px 6px;
+  transition: background-color 0.18s;
+}
+
+.child:hover {
+  background-color: rgba(95, 127, 255, 0.08);
 }
 
 .children {
-  opacity: 0.8;
+  opacity: 0.85;
 }
+
 .cat {
   color: var(--primary-background-color);
   font-size: 13px;
+  font-weight: 500;
   padding-top: 10px;
 }
 
 .font {
-  margin-left: 3px;
+  margin-left: 4px;
+  font-size: 13px;
 }
 
 .sidenav {
@@ -155,10 +178,11 @@ export default defineComponent({
   left: 0;
   background-color: var(--primary-white-color);
   overflow-x: hidden;
-  transition: 0.5s;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   padding-top: 60px;
   margin-top: 40px;
   z-index: 1000;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 768px) {
@@ -182,10 +206,33 @@ export default defineComponent({
   position: fixed;
   top: 70px;
   left: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 2px 10px rgba(95, 127, 255, 0.35);
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.hamburger-button:hover {
+  background-color: #4a6ef5;
+  transform: scale(1.05);
 }
 
 .space {
   margin-top: 10px;
   padding-left: 10px;
+}
+
+.space h6 {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #999;
+  margin: 14px 0 6px;
 }
 </style>

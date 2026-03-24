@@ -90,3 +90,20 @@ export const downloadtoast = () => {
             showConfirmButton: false,
         });
 };
+
+export const deleteAccountConfirmToast = () => {
+    return swal.fire({
+        icon: 'warning',
+        title: 'Delete Account',
+        html: `
+            <p>Are you sure you want to <strong>permanently delete</strong> your account and all associated data?</p>
+            <p><b>This action cannot be undone.</b></p>
+            <p>You can make a backup first by clicking the <strong>Export CSV</strong> button in the sidebar before deleting.</p>
+        `,
+        showConfirmButton: true,
+        confirmButtonText: 'Yes, delete my account',
+        confirmButtonColor: '#d33',
+        showCancelButton: true,
+        cancelButtonText: 'Cancel',
+    });
+};
