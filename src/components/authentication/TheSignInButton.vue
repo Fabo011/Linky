@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vue-turnstile v-model="token" site-key="0x4AAAAAACK4lrx4USom-L1c" />
+    <vue-turnstile v-model="token" site-key="1x00000000000000000000AA" />
     <div class="mb-3">
       <AuthBtn v-if="nBtn" @click.prevent="push" />
       <LoadingButton v-if="loading" />

@@ -53,6 +53,9 @@
             <br />
             <a href="https://github.com/Fabo011/Linky/discussions" target="_blank">Discussions</a>
             <hr />
+            <h6 class="text-danger">Danger Zone</h6>
+            <button @click.prevent="confirmDeleteAccount" class="btn btn-danger btn-sm w-100 mb-2">🗑️ Delete Account</button>
+            <hr />
           </div>
         </div>
       </div>
@@ -63,6 +66,7 @@
 <script>
 import TheFolderIcon from '@/assets/svg/TheFolderIcon.vue';
 import TheReloadIcon from '@/assets/svg/TheReloadIcon.vue';
+import { deleteAccountConfirmToast, errorToast } from '@/components/toasts/toasts';
 import TheAccountMetric from '@/components/userprofile/account/TheAccountMetric.vue';
 import TheExport from '@/components/userprofile/export-import/TheExport.vue';
 import TheFirefoxExport from '@/components/userprofile/export-import/TheFirefoxExport.vue';
@@ -108,7 +112,17 @@ export default defineComponent({
     navigateToShooters() {
       const routeData = this.$router.resolve('/shooters');
       window.open(routeData.href, '_blank');
-    }
+    },
+    async confirmDeleteAccount() {
+      const result = await deleteAccountConfirmToast();
+      if (result.isConfirmed) {
+        try {
+          await store.deleteAccount();
+        } catch {
+          errorToast();
+        }
+      }
+    },
   },
 });
 </script>
