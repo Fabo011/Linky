@@ -24,8 +24,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { store } from '../../store/store';
-import CreateAndSaveNewLinkVue from '../userprofile/link/TheCreateAndSaveNewLink.vue';
 import SearchBar from '../lib/TheSearchBar.vue';
+import CreateAndSaveNewLinkVue from '../userprofile/link/TheCreateAndSaveNewLink.vue';
 import TheServiceSelector from '../userprofile/TheServiceSelector.vue';
 
 export default defineComponent({
@@ -56,12 +56,16 @@ export default defineComponent({
 
 <style scoped>
 #nav {
-  background-color: #333;
+  background-color: rgba(24, 24, 36, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   height: 60px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .navbar.sticky-top {
-  z-index: 5020;
+  z-index: 1040;
 }
 
 #logo {
@@ -70,5 +74,10 @@ export default defineComponent({
   width: 40px;
   height: 50px;
   cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+#logo:hover {
+  opacity: 0.82;
 }
 </style>

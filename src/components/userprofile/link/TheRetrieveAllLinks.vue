@@ -118,7 +118,7 @@ export default defineComponent({
 </script>
 <style scoped>
 .card {
-  margin-top: 10px;
+  margin-top: 12px;
 }
 .category {
   background-color: var(--primary-white-darker-background);
@@ -128,9 +128,10 @@ export default defineComponent({
   margin-left: 1px;
   background-color: var(--chat-delete-btn);
   border: none;
-  opacity: 0.5;
+  opacity: 0.6;
   float: right;
-  padding: 2px;
+  padding: 4px 6px;
+  border-radius: 6px !important;
 }
 #cat {
   color: var(--primary-pink);
@@ -139,30 +140,20 @@ export default defineComponent({
   background-color: var(--primary-blue-color);
 }
 .btn {
-  color: var(--primary-background-color);
   color: var(--primary-white-color);
 }
 .share {
   color: var(--primary-background-color);
 }
-
 .clipboard {
   margin: 0;
   font-size: 8px;
 }
 .icons {
-  margin-right: 3px;
+  margin-right: 4px;
+  color: var(--primary-blue-color);
 }
-
 .accordion {
-  margin-top: 10px;
-}
-.accordion-button {
-  transition: background-color 0.3s ease;
-}
-
-.accordion-button:focus {
-  background-color: var(--primary-blue-color);
-  color: var(--primary-white-color);
+  margin-top: 12px;
 }
 </style>

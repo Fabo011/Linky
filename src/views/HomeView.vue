@@ -5,10 +5,7 @@
       class="position-absolute top-50 start-50 translate-middle w-70 p-3 section-con"
       style="color: #333"
     >
-      <div
-        class="background-container"
-        style="background-color: #fff; padding: 20px; border-radius: 10px"
-      >
+      <div class="background-container">
         <h1 class="animated-text" style="color: #333">
           <img class="img" src="../assets/startpage.png" />
           Linky Cloud
@@ -85,19 +82,27 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   margin: 0;
-  font-family: 'Arial', sans-serif;
 }
 
 .background-container {
-  perspective: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: 22px;
+  padding: 28px 32px;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 20px 64px rgba(0, 0, 0, 0.18);
 }
 
 .animated-text {
-  font-size: 3em;
+  font-size: 2.8em;
   margin: 0;
   display: inline-block;
   position: relative;
   animation: flyIn 1s ease-out forwards;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #222;
 }
 
 @keyframes flyIn {
@@ -114,17 +119,37 @@ body {
 
 .features {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 20px 0;
 }
 
 .feature {
   text-align: center;
+  background-color: #f8f9ff;
+  border: 1px solid rgba(95, 127, 255, 0.12);
+  border-radius: 12px;
+  padding: 16px 10px;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.feature:hover {
+  background-color: rgba(95, 127, 255, 0.06);
+  transform: translateY(-2px);
 }
 
 .feature i {
-  font-size: 2em;
+  font-size: 1.9em;
   color: #5f7fff;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.feature p {
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  margin: 0;
 }
 
 .btn-primary {
@@ -132,9 +157,10 @@ body {
 }
 
 .img {
-  width: 70px;
-  height: 70px;
+  width: 68px;
+  height: 68px;
   border-radius: 50%;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
 }
 
 @media (max-width: 768px) {
@@ -146,6 +172,9 @@ body {
   }
   .container {
     margin-bottom: 1100px;
+  }
+  .features {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 </style>

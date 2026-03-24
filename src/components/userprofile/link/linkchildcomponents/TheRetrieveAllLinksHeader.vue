@@ -103,20 +103,27 @@ export default defineComponent({
 .card-header {
   background-color: var(--primary-white-darker-background);
   color: var(--primary-background-color);
-  opacity: 0.8;
+  padding: 10px 14px;
+  font-weight: 600;
+  font-size: 14px;
+  border-left: 3px solid var(--primary-blue-color);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 #cat {
   color: var(--primary-pink);
 }
 .btn {
-  color: var(--primary-background-color);
   color: var(--primary-white-color);
 }
 .category {
-  background-color: var(--primary-white-darker-background);
-  font-size: 12px;
+  background-color: rgba(255, 102, 164, 0.12);
+  color: var(--primary-pink);
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 20px !important;
+  padding: 2px 8px;
+  margin-left: 6px;
 }
-
 .header-container {
   display: flex;
   align-items: center;
@@ -124,10 +131,12 @@ export default defineComponent({
 }
 .header-right {
   display: flex;
-  align-items: right;
+  align-items: center;
   margin-left: auto;
 }
 .btn-danger {
-  opacity: 0.7;
+  opacity: 0.75;
+  border-radius: 6px !important;
+  padding: 4px 8px;
 }
 </style>

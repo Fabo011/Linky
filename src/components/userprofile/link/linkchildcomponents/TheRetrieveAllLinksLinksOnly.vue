@@ -1,55 +1,48 @@
 <template>
-  <button
-    v-if="item.category !== 'chat' && item.type !== 'file' && item.link !== '*' && item.link !== ''"
-    class="btn share"
-  >
-    <a :href="item.link" target="_blank" class="btn btn-sm openlink">
-      <TheChatBtnIcon /><br />
-      <span class="clipboard">Link</span>
+  <div class="actions">
+    <a
+      v-if="item.category !== 'chat' && item.type !== 'file' && item.link !== '*' && item.link !== ''"
+      :href="item.link"
+      target="_blank"
+      class="action-pill action-pill--primary"
+    >
+      <i class="bi bi-box-arrow-up-right"></i>
+      <span>Open</span>
     </a>
-  </button>
 
-  <button
-    v-if="item.category !== 'chat' && item.type !== 'file' && item.link !== '*' && item.link !== ''"
-    class="btn share"
-    @click.prevent="copyLink(item)"
-  >
-    <TheClipboardIcon /><br />
-    <span class="clipboard">Copy Link</span>
-  </button>
+    <button
+      v-if="item.category !== 'chat' && item.type !== 'file' && item.link !== '*' && item.link !== ''"
+      class="action-pill"
+      @click.prevent="copyLink(item)"
+    >
+      <i class="bi bi-clipboard"></i>
+      <span>Copy URL</span>
+    </button>
 
-  <button
-    v-if="item.linkusername !== '' && item.category !== 'chat'"
-    class="btn share"
-    @click.prevent="copyUsername(item)"
-  >
-    <TheUsernameIcon /><br />
-    <span class="clipboard">Copy Username</span>
-  </button>
-  <button v-if="item.category !== 'chat' && item.type !== 'file'" class="btn share">
-    <TheEditLink :item="item" /><br />
-  </button>
+    <button
+      v-if="item.linkusername !== '' && item.category !== 'chat'"
+      class="action-pill"
+      @click.prevent="copyUsername(item)"
+    >
+      <i class="bi bi-person-fill"></i>
+      <span>User</span>
+    </button>
+
+    <div v-if="item.category !== 'chat' && item.type !== 'file'" class="action-edit-wrap">
+      <TheEditLink :item="item" />
+    </div>
+  </div>
 </template>
 <script>
-import TheChatBtnIcon from '@/assets/svg/TheChatBtnIcon.vue';
-import TheClipboardIcon from '@/assets/svg/TheClipboardIcon.vue';
-import TheLinkIcon from '@/assets/svg/TheLinkIcon.vue';
-import TheUsernameIcon from '@/assets/svg/TheUsernameIcon.vue';
 import { copiedtoast } from '@/components/toasts/toasts';
 import Clipboard from 'clipboard';
 import { defineComponent } from 'vue';
 import { store } from '../../../../store/store';
 import TheEditLink from '../TheEditLink.vue';
-import TheLinkName from '../TheLinkName.vue';
 
 export default defineComponent({
   name: 'TheRetrieveAllLinksLinksOnly',
   components: {
-    TheClipboardIcon,
-    TheUsernameIcon,
-    TheChatBtnIcon,
-    TheLinkName,
-    TheLinkIcon,
     TheEditLink,
   },
 
@@ -95,19 +88,54 @@ export default defineComponent({
 });
 </script>
 <style scoped>
-.btn {
-  color: var(--primary-background-color);
-  color: var(--primary-white-color);
-  height: 50px;
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
-.share {
-  color: var(--primary-background-color);
+
+.action-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 13px;
+  border: 1.5px solid rgba(95, 127, 255, 0.28);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #5F7FFF;
+  background: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+  height: auto;
+  line-height: 1.4;
 }
-.clipboard {
-  margin: 0;
-  font-size: 8px;
+
+.action-pill:hover {
+  background: rgba(95, 127, 255, 0.08);
+  border-color: #5F7FFF;
+  color: #5F7FFF;
+  text-decoration: none;
 }
-.openlink {
-  background-color: var(--primary-blue-color);
+
+.action-pill--primary {
+  background: #5F7FFF;
+  color: #fff;
+  border-color: #5F7FFF;
+}
+
+.action-pill--primary:hover {
+  background: #4a6ef5;
+  border-color: #4a6ef5;
+  color: #fff;
+}
+
+.action-edit-wrap {
+  display: inline-flex;
+  align-items: center;
 }
 </style>

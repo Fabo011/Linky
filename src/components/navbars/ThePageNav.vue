@@ -63,24 +63,30 @@ export default defineComponent({
 
 <style scoped>
 #nav {
-  background-color: #333;
+  background-color: rgba(40, 40, 40, 0.97);
   height: 60px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.22);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .navbar.sticky-top {
-  z-index: 5020;
+  z-index: 1040;
 }
 
 #signin {
   background-color: #5f7fff;
-  border-radius: 5%;
+  border-radius: 8px;
   margin-right: 10px;
-  padding: 5px;
+  padding: 5px 14px;
   color: #fff;
+  font-weight: 500;
+  transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
 }
 
-.navbar.sticky-top {
-  z-index: 5020;
+#signin:hover {
+  background-color: #4a6ef5;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(95, 127, 255, 0.4);
 }
 
 #logo {

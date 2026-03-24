@@ -12,9 +12,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { appVersion } from '@/globalVariables';
 import TheCopyrightIcon from '@/assets/svg/TheCopyrightIcon.vue';
+import { appVersion } from '@/globalVariables';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   components: { TheCopyrightIcon },
@@ -32,12 +32,14 @@ export default defineComponent({
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: #333;
-  color: white;
+  background: linear-gradient(135deg, #2a2a2a 0%, #333 100%);
+  color: rgba(255, 255, 255, 0.88);
   text-align: center;
-  padding: 8px;
+  padding: 9px;
   font-size: 12px;
   z-index: 1000;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  letter-spacing: 0.01em;
 }
 
 @media (max-width: 768px) {
