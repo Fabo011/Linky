@@ -1,6 +1,5 @@
 <template>
   <div>
-    <vue-turnstile v-model="token" site-key="0x4AAAAAACK4lrx4USom-L1c" />
     <div class="mb-3">
       <AuthBtn v-if="nBtn" @click.prevent="push" />
       <LoadingButton v-if="loading" />
@@ -29,18 +28,12 @@ export default defineComponent({
       store,
       errorText: '',
       nBtn: true,
-      loading: false,
-      token: '',
+      loading: false,  
     };
   },
 
   methods: {
     async push() {
-      if (!this.token) {
-        this.errorText = 'Please complete the CAPTCHA.';
-        return;
-      }
-
       this.nBtn = false;
       this.loading = true;
       const email = store.email;
@@ -50,7 +43,6 @@ export default defineComponent({
         data: {
           tariff: 'free',
         },
-        captchaToken: this.token, // Pass Turnstile token to Supabase
       };
 
       try {
@@ -95,7 +87,6 @@ export default defineComponent({
       store.password = '';
       this.nBtn = true;
       this.loading = false;
-      this.token = '';
     },
   },
 });

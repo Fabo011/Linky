@@ -35,7 +35,6 @@
 </template>
 <script>
 import { copiedtoast } from '@/components/toasts/toasts';
-import Clipboard from 'clipboard';
 import { defineComponent } from 'vue';
 import { store } from '../../../../store/store';
 import TheEditLink from '../TheEditLink.vue';
@@ -60,13 +59,10 @@ export default defineComponent({
   },
 
   methods: {
-    copyLink(item) {
+    async copyLink(item) {
       const link = item.link;
-      new Clipboard('.btn', {
-        text: () => {
-          return link;
-        },
-      });
+
+      await navigator.clipboard.writeText(link);
       this.$swal({
         icon: 'success',
         text: 'You copied the link to your clipboard.',
@@ -75,13 +71,9 @@ export default defineComponent({
       });
     },
 
-    copyUsername(item) {
+    async copyUsername(item) {
       const linkUsername = item.linkusername;
-      new Clipboard('.btn', {
-        text: () => {
-          return linkUsername;
-        },
-      });
+      await navigator.clipboard.writeText(linkUsername);
       copiedtoast();
     },
   },
