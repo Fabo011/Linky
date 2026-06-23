@@ -1,3 +1,12 @@
+
+<mark style="background-color:#ffeb3b; color:#000; padding:2px 4px;">
+⚠️ WARNING: This project has been archived and is no longer maintained or supported.
+Please use <code>Websidian</code> instead:
+<a href="https://github.com/Fabo011/websidian" target="_blank">https://github.com/Fabo011/websidian</a> |
+<a href="https://websidian.fabo011-cloud.de" target="_blank">https://websidian.fabo011-cloud.de</a>
+</mark>
+
+
 <h2 align="center">Linky-Cloud</h2>
 <p align="center">
   <a href="https://linkycloud.com/" target="blank"><img src="./public/img/icons/android-chrome-maskable-192x192.png" width="120" alt="Linky Logo" /></a>
